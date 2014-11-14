@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">   
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Impresiones a Domicilio</title>
+        <!--CSS-->                        
+        <link type="text/css" rel="stylesheet" media="screen" href="css/estilo.layout.css" />
+        <link type="text/css" rel="stylesheet" media="screen" href="css/estilo.ui.css" />        
+        <!--Bloque de scripts de jquery y boostrap-->
+
+        <script src="js/jQuery.js" ></script>
+        <script type="text/javascript" >
+            function cargarPagina(url){
+            $('#divContenido').load(url);
+            }
+        </script>
+        <link type="text/css" rel="stylesheet" media="screen" href="css/formatoLetras.css" />
+    </h:head>
+    <h:body >
+        <h:form id="form">
+            <div id="contenedor">
+                <div id="cabecera">
+                    <img id="logo" src="img/logo.jpg" alt="Impresiones a domicilio" />
+                </div>
+                <div id="menu">
+                    <ul id="opMenu">
+                        <li id="liHome" ><a href="/impresiones/">Home</a></li>
+                        <li id="liServicios"><a id="lnkServicios" href="javascript:;">Servicios</a></li>
+                        <li id="liContactenos"><a id="lnkContactenos" href="javascript:;">Contáctenos</a></li>
+                        <li id="liChat"><a id="lnkChat" href="javascript:;">Iniciar un Chat</a></li>
+                        <li id="liIngresar"><a id="lnkIngresar" href="javascript:;">Ingresar</a></li>
+                    </ul>
+                </div>
+                <div id="divContenido">                    
+                    <h:form id="form">                                                    
+                                <h2 style="margin: 0 auto;"><span class="letraRoja">B</span>ienvenido que <span class="letraRoja">D</span>eseas <span class="letraRoja">I</span>mprimir</h2>
+                                <h:selectOneMenu class="cbxTipoImpresion" value="#{tiposImpresionManaged.tipoImpresion}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="-1" />
+                                    <f:selectItems var="tipoImpresion" 
+                                                   value="#{tiposImpresionManaged.listaTipoImpresion}"
+                                                   itemLabel="#{tipoImpresion.tipoImpresion}"
+                                                   itemValue="#{tipoImpresion.idTipoImpresion}"
+                                                   />                
+                                </h:selectOneMenu>
+                                                        
+                    </h:form>     
+                </div>            
+            </div>
+
+            <div id="cargador">
+                <img src="img/preloader.gif" alt="cargando" />
+                <span>Cargando...</span>
+            </div>
+        </h:form>
+    </h:body>
+</html>

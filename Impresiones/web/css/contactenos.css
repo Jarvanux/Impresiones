@@ -1,0 +1,8 @@
+
+.formularioGrande{
+    width: 70%;
+    margin: 0 auto;
+}
+.formularioGrande input[type='text']{
+    width: 98%;
+}

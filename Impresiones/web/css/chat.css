@@ -1,0 +1,83 @@
+.divChat{
+    width:250px;
+    max-height: 400px;
+    position: fixed;
+    bottom: 0px;
+    right: 10px;
+    background-color: #FFF;
+    border:solid 1px #AAA;
+    display: none;
+}
+
+.divMensajes{
+    min-height: 50px;
+    overflow-y: scroll;
+    display: block;
+    max-height: 300px;
+}
+
+.txtNuevoChat{
+    width: 210px;
+    border:none !important;
+    overflow-y: auto;
+    max-height: 100px;
+    min-height: 10px !important;
+    padding: 0px 10px 2px 4px !important;
+}
+
+.mensaje{
+    padding: 5px;
+    border-radius: 7px;
+}
+
+.mensaje .textoMensaje{
+    color:#333;
+    margin:0px;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.mensaje .fechaMensaje{
+    color:#666;
+    font-size: 9px;
+    margin:0px;       
+}
+
+.mensaje .textoEmisor{
+    margin: 3px 0px 3px 0px;
+}
+
+.msgLocal{
+    margin: 5px 3px 2px 7px;
+    background-color: #bfffc5;
+    border:solid 1px #1fd32e;
+    text-align: right;
+}
+
+.msgHost{
+    margin: 5px 7px 2px 3px;
+    background-color: #f9f9a9;
+    border:solid 1px #ffbd7c;
+    text-align: left;
+}
+
+.divComandosChat{
+    text-align: right;
+    font-size: 11px;
+    background-color: #000;
+}
+
+.divNuevoMensaje{
+    border-top:solid 1px #999;
+}
+
+.tituloChat{
+    width: 170px;
+    font-weight: bold;
+    font-size: 12px;
+    display: inline-block;
+    margin:0px;
+    padding: 0px;
+    color:#FFF;
+    text-align: left;
+}

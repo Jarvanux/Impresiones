@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>SolicitarImpresion</title>
+        <link type="text/css" rel="stylesheet" media="screen" href="css/formatoLetras.css" />
+    </h:head>
+    <h:body>
+        <h2><span class="letraRoja">B</span>ienvenido que <span class="letraRoja">D</span>eseas <span class="letraRoja">I</span>mprimir</h2>
+        <h:form id="form">
+            <h:panelGrid class="panelContentGlobal" columnClasses="label,value" columns="2">
+                <h:selectOneMenu id="cbxTipoImpresion" value="#{tiposImpresionManaged.tipoImpresion}">
+                    <f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                    <f:selectItems var="tipoImpresion" 
+                                   value="#{tiposImpresionManaged.listaTipoImpresion}"
+                                   itemLabel="#{tipoImpresion.tipoImpresion}"
+                                   itemValue="#{tipoImpresion.idTipoImpresion}"
+                                   />                
+                </h:selectOneMenu>
+                <h:outputLabel value="Hola" />
+            </h:panelGrid>
+        </h:form>            
+    </h:body>
+</html>
+

@@ -1,0 +1,50 @@
+*{
+    margin: 0px;
+}
+body{    
+    background-color: #000;
+    font-family: calibri;
+}
+div#contenedor{
+    margin:0 auto;
+    width: 1150px;
+    /*width:  90%;*/
+}
+
+div#divPedido{
+    margin-top: 15px;
+}
+
+div.tab-pane{
+    padding: 10px;
+}
+
+fieldset{
+    width: 98%;
+    margin-top: 3px;
+}
+
+legend{
+    margin-bottom: 10px;
+}
+input[type='button']{
+    border-radius: 7px;
+}
+
+
+div#cargador{
+    position: absolute;
+    top:-1px;
+    left: 45%;
+    border:solid 1px #379C2D;
+    padding: 5px 15px 6px 15px;
+    color:#333;
+    background-color: #FFF;
+    border-radius:0px 0px 15px 15px;
+    box-shadow: 0px 0px 7px #379C2D;
+    display: none;
+}
+
+div#cargador img{
+    width: 30px;
+}
