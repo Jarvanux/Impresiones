@@ -9,7 +9,7 @@
     <h:body>
         <h:form>
             <div>    
-                <h:selectOneRadio>
+                <h:selectOneRadio >
                     <f:selectItem itemValue="1" itemLabel="CD" />
                     <f:selectItem itemValue="2" itemLabel="DVD" />
                 </h:selectOneRadio>
@@ -33,25 +33,25 @@
             </div>
             
             <div>
-                <h:outputText value="Tamaño de papel que necesitas" />
+                <h:outputText value="Tipo de grabación" />
                 <h:selectOneMenu>
-                    <f:selectItem itemValue="-1" itemLabel="Seleccione" />
+                    <f:selectItem itemValue="-1" itemLabel="Seleccione" /> 
+                    <f:selectItem itemValue="Datos" itemLabel="Datos" /> 
+                    <f:selectItem itemValue="Audio" itemLabel="Audio" /> 
+                    <f:selectItem itemValue="MP3" itemLabel="MP3" /> 
+                    <f:selectItem itemValue="Video" itemLabel="Vídeo" /> 
                 </h:selectOneMenu>
             </div>
             
             <div>
-                <h:outputText value="Tipo de papel que necesitas" />
+                <h:outputText value="Tipo de empaque" />
                 <h:selectOneMenu>
                     <f:selectItem itemValue="-1" itemLabel="Seleccione" />
-                </h:selectOneMenu>
-            </div>
-            
-            <div>
-                <h:outputText value="Plastificado protección" />
-                <h:selectOneMenu>
-                    <f:selectItem itemValue="-1" itemLabel="Seleccione" />
-                    <f:selectItem itemValue="-1" itemLabel="Plastificado brillante" />
-                    <f:selectItem itemValue="-1" itemLabel="Plastificado Mate" />
+                    <f:selectItem itemValue="Felpa" itemLabel="Felpa" />
+                    <f:selectItem itemValue="Bolsa" itemLabel="Bolsa" />
+                    <f:selectItem itemValue="Acetato" itemLabel="Acetato" />
+                    <f:selectItem itemValue="Plastico" itemLabel="Plastico" />
+                    <f:selectItem itemValue="Redondo" itemLabel="Redondo" />
                 </h:selectOneMenu>
             </div>
             
@@ -70,6 +70,8 @@
             <div>
                 <h4> Compartenos tu link </h4>
                 <h:inputText  />
+                <h:outputText value="Nota" />
+                <h:inputText />
             </div>
             
             <div>
@@ -80,6 +82,8 @@
             <div>
                 <h4> Compartenos tu link </h4>
                 <h:inputText  />
+                <h:outputText value="Nota" />
+                <h:inputText />
             </div>
             
             <div>
@@ -89,6 +93,7 @@
             
             <div>
                 <h3> Continuar pedido </h3>
+                <h:commandButton value="Guardar" />
             </div>
         </h:form>
     </h:body>

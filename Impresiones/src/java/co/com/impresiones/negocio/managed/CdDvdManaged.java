@@ -1,8 +1,12 @@
 package co.com.impresiones.negocio.managed;
 
+import co.com.impresiones.negocio.utilidades.Utilidades;
 import co.com.impresiones.persistencia.dao.PedidoFacadeLocal;
+import co.com.impresiones.persistencia.entidades.Adjunto;
+import co.com.impresiones.persistencia.entidades.DetallePedido;
+import co.com.impresiones.persistencia.entidades.EstadoPedido;
 import co.com.impresiones.persistencia.entidades.Pedido;
-import java.io.File;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -13,7 +17,7 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class CdDvdManaged {
+public class CdDvdManaged implements Serializable {
 
     
     public CdDvdManaged() {
@@ -25,24 +29,52 @@ public class CdDvdManaged {
     private int totalImpresiones;
     private String tipoGrabacion;
     private String tipoEmpaque;
-    private File diseño;
-    private String linkDiseño;
-    private File archivoGrabacion;
-    private String linkGrabacion;
+    private String detalles;
+    private String diseñoCd;
+    private String linkDiseñoCd;
+    private String archivoGrabacionCd;
+    private String linkGrabacionCd;
+    private String observaciones;
     
     @EJB
     private PedidoFacadeLocal pedidoFLocal;
     
+    Utilidades utilidades = new Utilidades();
+    
     public void guardarPedido() {
         Pedido pedido = null;
+        Adjunto adjunto = null;
+        DetallePedido detallePedido = null;
+        EstadoPedido estadoPedido = null;
+        
         try {
             pedido = new Pedido();
+            adjunto = new Adjunto();
+            detallePedido = new DetallePedido();
+            estadoPedido = new EstadoPedido();
+            
+            pedido.setNumero(utilidades.getCadenaAlfanumAleatoria(numCopias));
+            
+            //ADJUNTO ES EL ARCHIVO O LINK
+            //Ej: Cd-Impresion o DVD-Grabar
+            adjunto.setNombre(tipoDisco+"-"+tipoServicio);
+            //Ruta del archivo
+            adjunto.setNombreArchivo(diseñoCd+linkDiseñoCd+archivoGrabacionCd+linkGrabacionCd);
+            //Nota
+            adjunto.setObservaciones(observaciones);
+            adjunto.setHojasColor(null);
+            adjunto.setHojasNegro(null);
+            //Número de copias o impresiones de diseño
+            adjunto.setNumeroHojas(numCopias);
+            adjunto.setNumeroHojasColor(null);
+            adjunto.setNumeroHojasNegro(null);
+            adjunto.setIdPedido(pedido);
             
         } catch (Exception e) {
         }
     }
     
-    
+
     public String getTipoDisco() {
         return tipoDisco;
     }
@@ -91,37 +123,51 @@ public class CdDvdManaged {
         this.tipoEmpaque = tipoEmpaque;
     }
 
-    public File getDiseño() {
-        return diseño;
+    public String getDetalles() {
+        return detalles;
     }
 
-    public void setDiseño(File diseño) {
-        this.diseño = diseño;
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
     }
 
-    public String getLinkDiseño() {
-        return linkDiseño;
+    public String getDiseñoCd() {
+        return diseñoCd;
     }
 
-    public void setLinkDiseño(String linkDiseño) {
-        this.linkDiseño = linkDiseño;
+    public void setDiseñoCd(String diseñoCd) {
+        this.diseñoCd = diseñoCd;
     }
 
-    public File getArchivoGrabacion() {
-        return archivoGrabacion;
+    public String getLinkDiseñoCd() {
+        return linkDiseñoCd;
     }
 
-    public void setArchivoGrabacion(File archivoGrabacion) {
-        this.archivoGrabacion = archivoGrabacion;
+    public void setLinkDiseñoCd(String linkDiseñoCd) {
+        this.linkDiseñoCd = linkDiseñoCd;
     }
 
-    public String getLinkGrabacion() {
-        return linkGrabacion;
+    public String getArchivoGrabacionCd() {
+        return archivoGrabacionCd;
     }
 
-    public void setLinkGrabacion(String linkGrabacion) {
-        this.linkGrabacion = linkGrabacion;
+    public void setArchivoGrabacionCd(String archivoGrabacionCd) {
+        this.archivoGrabacionCd = archivoGrabacionCd;
     }
-    
-    
+
+    public String getLinkGrabacionCd() {
+        return linkGrabacionCd;
+    }
+
+    public void setLinkGrabacionCd(String linkGrabacionCd) {
+        this.linkGrabacionCd = linkGrabacionCd;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
 }
