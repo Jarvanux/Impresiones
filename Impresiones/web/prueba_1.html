@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>
+        <script src="js/peticiones-globales/jquery.form.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function() {
+                $("#frm").ajaxForm({
+                    type: "POST",                    
+                    target: "#resultados"
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <form action="subirArchivosServlet" enctype="multipart/form-data" id="frm" method="POST"> 
+            Fichero: <input type="file" name="fichero1"/></br> 
+            <input type="submit" value="Subir fichero"/> 
+        </form> 
+        <hr/>        
+        <div id="resultados" ></div>
+    </body>
+</html>

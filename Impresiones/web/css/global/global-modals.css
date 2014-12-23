@@ -1,0 +1,93 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/12/2014, 07:14:02 PM
+    Author     : jhonjaider1000
+Tomado de: Modales tomado de: http://emiliocobos.net/modalbox-una-ventana-modal-propia/
+*/
+.back-modal{
+    position: fixed;
+    font-family: Arial, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 99999;
+    opacity: 1;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: auto;
+}
+.contet-modal{
+    width: 400px;
+    pointer-events: auto;
+    position: relative;    
+    background: #fff;
+    border-radius:3px;
+    -webkit-transition: all 500ms ease-in;
+    -moz-transition: all 500ms ease-in;
+    transition: all 500ms ease-in;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 10px;
+}
+
+.header-modal{
+    border-bottom: 1px solid #ccc;    
+    font-weight: bold;
+    font-size: 16px;
+    height: 50px;    
+}
+.titulo-modal{            
+    width: 93%;
+    float: left;
+    height: 50px;
+}
+.titulo-modal h2{
+    margin-top:10px;
+    margin-left: 20px;
+} 
+
+.close-modal{    
+    width: 7%;
+    float: left;
+    height: 50px;    
+}
+.close-modal img{
+    margin-top: 10px;
+}
+.body-modal{
+    padding: 14px;
+    width: 100%;
+    height: auto;        
+}
+.footer-modal{    
+    width: 100%;
+    height: auto;
+    text-align: right;
+    padding: 2px 10px;    
+}
+
+#contentModal{
+    position: fixed;
+    font-family: Arial, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;    
+    z-index: 99999;
+    opacity: 1;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: auto;    
+}
+
+.contet-modal{
+    box-shadow: 0px 0px 7px black;
+}

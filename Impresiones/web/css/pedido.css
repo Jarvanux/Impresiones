@@ -14,7 +14,7 @@ div#divPedido{
 }
 
 div#divMaestro{
-    width: 170px;
+    width: 150px;
     display: inline-block;
     vertical-align: top;
     min-height: 330px;
@@ -81,3 +81,4 @@ h2{
     width: 95%;
     text-align: center;
 }
+

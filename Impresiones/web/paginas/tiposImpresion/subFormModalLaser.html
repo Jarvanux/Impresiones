@@ -1,0 +1,145 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery UI Tabs - Default functionality</title>  
+        <link rel="stylesheet" href="css/global/global-tabs.css">
+        <script src="js/peticiones-globales/tabs-query.js"></script>
+    </head>
+    <body>
+
+        <div id="tabContent" class="tab-panel">
+            <!--Encabezado del panel de tab's-->
+            <div id="headerPanel" class="header-panel">
+                <div id="tab1" class="tab">
+                    <span>Anillado</span>                
+                </div>
+                <div id="tab2" class="tab">
+                    <span>Plastificado</span>
+                </div>
+                <div id="tab3" class="tab">
+                    <span>Cortado</span>
+                </div>
+                <div id="tab4" class="tab">
+                    <span>Cosido</span>
+                </div>
+            </div>
+            <!--Fin encabezado-->
+            <!--Cuerpo-->            
+            <div id="tabBody" class="tab-body">
+                <div id="infor" class="content-tab">
+                    <h4> 
+                        Desplazate por las pestañas de la parte superior y configura las propiedades
+                        de los servicios adicionales utilizados.
+                        <br/>
+                        <br/>
+                        Una vez hayas terminado, presiona el botón <span class="letraVerde">Finalizar</span>.
+                    </h4>
+                </div>
+                <div id="tab1" class="content-tab">                   
+                    <div id="contentAnillado">
+                        <div class="resumen-global">
+                            <h3>Resumen anillado</h3>
+                            <div class="resumen">
+                                <div id="clrAnillo" class="line">
+                                    <span class="lblR">Color Anillo:</span>
+                                    <span class="valorR">xxxxx</span>                            
+                                </div>
+                                <div id="clrTp1" class="line">
+                                    <span class="lblR">Color tapa 1:</span>
+                                    <span class="valorR">xxxxx</span>                            
+                                </div>
+                                <div id="clrTp2" class="line">
+                                    <span class="lblR">Color tapa 2:</span>
+                                    <span class="valorR">xxxxx</span>                            
+                                </div>
+                            </div>
+                            <h3>Datos importantes</h3>
+                            <div id="iAnillado" class="resumen-doc">
+                                <div class="resumen">
+                                    <div id="tipoImpr" class="line">
+                                        <span class="lblR">Tipo impresión:</span>
+                                        <span class="valorR">xxxxx</span>                            
+                                    </div>
+                                    <div id="numHBn" class="line">
+                                        <span class="lblR">Hojas B/N:</span>
+                                        <span class="valorR">000</span>
+                                    </div>
+                                    <div id="numHClr" class="line">
+                                        <span class="lblR">Hojas Color:</span>
+                                        <span class="valorR">000</span>
+                                    </div>
+                                    <div id="numCpys" class="line">
+                                        <span class="lblR">Número de Copias:</span>
+                                        <span class="valorR">000</span>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="configAnillado" class="config-panel">
+                            <div class="info-config">
+                                <h4>¡Atención!</h4>
+                                <span>Configura como deseas anillar tús paquetes de impresión</span>
+                            </div>
+                            <div class="panel-config">
+                                <div class="line0">
+                                    Si necesitas modificar el número de paquetes que vas a anillar, modifica el valor en la casilla siguiente.
+                                </div>
+                                <div class="line">                                    
+                                    <span class="lbl">Paquetes Anillados:</span><input type="number" id="numAnillado" disabled="disabled"/> <span class='lbl'> de </span><input type="number" id="numPaq" disabled="disabled"/><span class='lbl'> copias.</span>
+                                </div>                                                                                          
+                                <div class="line2">
+                                    <b>Nota:</b> Todos los paquetes seleccionados se anillarán con las propiedades de color establecidas inicialmente, si deceas cambiar la configuración dirigité al enlace inferior (Seleccionar colores distintos).
+                                    <span id="lnkOtrosColores" class="lbl">Seleccionar colores distintos</span>
+                                </div>                                                                                          
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab2" class="content-tab">
+                     <div id="contentPlastificado">
+                        <div class="resumen-global">
+                            <h3>Resumen Plastificado</h3>
+                            <div class="resumen">                               
+                                <div id="tipoPlastificado" class="line">
+                                    <span class="lblR">Tipo:</span>
+                                    <span class="valorR">xxxxx</span>                            
+                                </div>
+                            </div>
+                            <h3>Datos importantes</h3>
+                            <div id="iPlasti" class="resumen-doc">                                
+                            </div>
+                        </div>
+
+                        <div id="configAnillado" class="config-panel">
+                            <div class="info-config">
+                                <h4>¡Atención!</h4>
+                                <span>Configura como deseas plastificar tús paquetes de impresión</span>
+                            </div>
+                            <div class="panel-config">
+                                <div class="line0">
+                                    Si necesitas modificar las hojas que deseas plastificar utiliza el siguiente panel.
+                                </div>
+                                <div class="line">                                    
+                                    <span class="lbl">Paquetes Anillados:</span><input type="number" id="numAnillado" disabled="disabled"/> <span class='lbl'> de </span><input type="number" id="numPaq" disabled="disabled"/><span class='lbl'> copias.</span>
+                                </div>                                                                                                                                                                                                                 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab3" class="content-tab">
+                    <h3>Resumen cortado</h3>
+                </div>
+                <div id="tab4" class="content-tab">                                        
+                    <h3>Resumen cosido</h3>
+                </div>
+            </div>
+            <!--Fin cuerpo-->
+            <!--Pie de página-->
+            <div id="tabFooter" class="tab-footer">
+
+            </div>
+            <!--Pie de página-->
+        </div>
+    </body>
+</html>

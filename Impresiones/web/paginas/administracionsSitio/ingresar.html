@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div id="importExtends">
+    <link href="css/paginas/administracionSitio/ingresar.css" media="screen" type="text/css" rel="stylesheet" />                
+    <link href="css/global/global-modals.css" media="screen" type="text/css" rel="stylesheet" />      
+    <!--Scritps-->    
+    <script type="text/javascript" src="js/paginas/administracionSitio/ingresar/peticiones.ingresar.js" ></script>    
+    <script type="text/javascript" src="js/paginas/administracionSitio/ingresar/contro.ingresar.js" ></script>    
+    <!--fin Scripts-->
+</div>
+<div id="content">
+    <div id="contentPanel">
+        <div id="titlePanel">
+            <span>Iniciar Sesión</span>
+        </div>
+        <div id="body">                    
+            <div id="mensajeL" >
+                <span id="txtMensaje" >Error: Se ha presentado algo.</span>
+            </div>
+            <label id="lblUsuario" for="usuario">Usuario o correo eléctronico.</label>                    
+            <input type="text" id="usuario" placeholder="Usuario o correo eléctronico"/>
+            <label id="lblPass" for="password" >Contraseña.</label>                    
+            <input type="password" id="password" placeholder="Contraseña"/>
+            <a href="#" id="recuperarCuenta" ><span>¿Olvidaste tú contraseña?</span></a>
+        </div>                
+        <div id="footL">
+            <a href="#" id="registrate" onclick="controlIngresar.registrar()"><span>Registrate</span></a>
+            <input type="button" id="btnIngresar" value="Entrar" />
+        </div>
+    </div>
+
+    <div id="info" class="back-modal">
+        <div id="content" class="contet-modal" style="width: 60%; height: 95%; margin-top: 10px;">
+            <div id="titulo" class="header-modal" style="background: #1FC71F; color: #FFF; text-shadow: 0px 0px 4px black; font-size: 14px; font-weight: bold; border-radius: 10px 10px 0px 0px;">
+                <div id="titulo" class="titulo-modal">
+                    <h2>Registro de usuario</h2>                    
+                </div>
+                <div id="cerrar" class="close-modal">
+                    <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCerrar"/>
+                </div>
+            </div>                
+            <div id="cuerpo" class="body-modal">
+                <p>Hola esto es una ventana modal.</p>
+            </div>
+            <div class="footer-modal">                               
+            </div>
+        </div>
+    </div>        
+</div>

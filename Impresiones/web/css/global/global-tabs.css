@@ -1,0 +1,223 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14/12/2014, 05:17:58 AM
+    Author     : jhonjaider1000
+*/
+
+#tab-box {
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 0;
+    margin: 0 auto;
+    position: relative;
+    top: 40px;
+    width: 390px;
+}
+body {
+    background-color: #B9B9B9;
+}
+.tab {
+    display: inline-block;
+    margin-left: 10px;
+    color: #24628b;
+
+}
+.tab:first-of-type {
+    margin-left: 0;
+}
+.tab span:first-of-type a {
+    cursor: pointer;
+    display: inline-block;
+    padding: 15px 20px;
+    color: #c4d0de;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    text-decoration: none;
+    background-color: #883C3C;
+    font-size: 18px;
+    font-weight: bold;
+}
+.tab span:first-of-type a:hover {
+    background: #582929;
+    color: #fff;
+}
+.tab:target span:first-of-type a {
+    background: #fff;
+    padding: 16px 20px 15px 20px;
+    color: #1a2c45;
+}
+.tab:target span {
+    z-index: 1;
+}
+.tab p {
+    padding: 0; 
+    margin: 0;
+    text-align: justify;
+}
+.tab span:nth-of-type(2) {
+    font-size: 14px;
+    padding: 20px;
+    color: #888;
+    line-height: 18px;
+    height: 250px;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+.tab:target span:first-of-type a:hover {
+    background: #fff;
+    color: black;
+}
+.tab span:nth-of-type(2) {
+    top: 52px;
+    width: 252px;
+}
+
+
+
+/** Segunda atualizaciÃƒÂ³n */
+*{
+    margin: 0px;
+}
+.tab-panel{    
+    width:95%;
+    margin: 0 auto;
+    border-radius: 5px 5px 0px 0px;
+}
+.header-panel{    
+    width: 100%;
+    height: 40px;
+    background: #FFF;
+    overflow: auto;
+}
+
+.tab{
+    float: left;    
+    margin-left: 5px;    
+    background: #C45A5A;
+    color: #fff;
+    width: 100px;    
+    height: 38px;
+    padding: 10px;
+    text-align: center;
+    margin-top: 2px;
+    border-radius: 6px 6px 0px 0px;
+    cursor: pointer;
+}
+.tab:hover{
+    background: #954343;
+    font-weight: bold;
+}
+.tab-body{
+    border: 1px solid #ccc;
+    width: 100%;
+    height: 300px;
+    border-radius: 0px 6px 6px 6px;
+    overflow: auto;    
+}
+#tabBody{
+    widows: 100%;
+}
+
+.content-tab{ 
+    width: 100%;
+    height: 100%;
+    padding: 0px 10px;
+}
+
+div.resumen{    
+    width: 100%;
+    padding: 0px 10px;    
+}
+div.resumen div.line span.lblR{
+    font-weight: bold;
+    float: left;    
+}
+div.resumen div.line span.valorR{
+    font-weight: normal;
+    float: right;    
+}
+
+h3{
+    font-size: 22px;    
+    color: #595959;
+}
+.info-config{
+    background: #A3DCCB;
+    border-radius: 10px 10px 0px 0px;
+}
+.line{    
+    display: block;
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid #ccc;
+}
+#contentAnillado{
+    border: 1px solid #FFF;
+    height: 100%;
+}
+
+.resumen-global{    
+    float: left;
+    width: 27%;
+    text-align: center;        
+}
+.config-panel{
+    float: left;
+    margin-top: 10px;
+    margin-left: 50px;    
+    width: 64%;
+    border: 1px solid #CCC;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.info-config{    
+    border-bottom: 1px solid #CCC;    
+    padding: 10px;        
+    margin-bottom: 10px;
+}
+.config-panel div.line{
+    height: 34px;
+    padding: 4px 0px;
+}
+
+.config-panel div.line span.lbl{
+    font-weight: bold;
+    float: left;
+    margin-left: 10px;
+}
+
+.config-panel div.line input[type="number"]{
+    width: 80px;
+    float: left;
+    margin-left: 10px;
+    text-align: center;
+}
+
+#lnkOtrosColores{
+    font-weight: normal;
+    color: blue;
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+
+div.line2{
+    padding: 10px;
+    text-align: justify;
+}
+div.line0{
+    padding: 0px 10px;
+}
+#lnkOtrosColores{
+    cursor: pointer;
+}
+#lnkOtrosColores:hover{
+    color: red;
+}

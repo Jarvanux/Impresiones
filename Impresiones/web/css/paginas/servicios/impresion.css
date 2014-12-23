@@ -1,0 +1,66 @@
+/*
+Creando con fines solo para la página impresion.html
+*/
+/* 
+    Created on : 25/11/2014, 01:34:39 PM
+    Author     : jhonjaider1000
+*/
+
+#selectTipoImpresion{
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+#cmbTipoImpresion{
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+#btnTipoImpresion{
+    width: 120px;
+    height: 40px;
+    background-color: #42BA34;
+    padding: .3em 1em;
+    color: #FFFFFF;
+    font-family: arial,sans-serif;
+    font-size: 20px;
+    border: 0px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+#mensaje{
+    display: block;     
+    width: 320px;     
+    max-height: 100px;                  
+    background-color: #FB978C; 
+    display: none; 
+    border-radius: 10px 10px; 
+    margin: 0 auto; 
+    padding: 3px 6px;
+    overflow: auto;
+}
+
+#mensaje p{
+    margin-top: 2px;
+}
+#cmbTipoImpresion{
+    margin-bottom: 10px;
+    margin-top: 2px;
+    width: 300px;
+}
+#divContenido{
+    padding: 70px;
+}
+#imgLoader{    
+    display: block;
+    margin: 0 auto;
+    margin-top: 2px;
+}
+.subTitulo1{
+    display: block;
+    margin-bottom: 1px;
+}

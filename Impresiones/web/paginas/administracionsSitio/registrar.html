@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+Formulario de registro de usuario externo.
+-->
+
+<div id="importExtends" style="display: none;">
+    <link href="css/paginas/administracionSitio/registrar.css" media="screen" type="text/css" rel="stylesheet" />                
+
+    <!--Scritps-->    
+    <script type="text/javascript" src="js/peticiones-globales/validaciones.globales.js" ></script>        
+    <script type="text/javascript" src="js/peticiones-globales/mascaras-text.js" ></script>        
+    <script type="text/javascript" src="js/peticiones-globales/peticiones-globales.js" ></script>        
+    <script type="text/javascript" src="js/peticiones-globales/enviar-peticiones.js" ></script>        
+    <script type="text/javascript" src="js/paginas/administracionSitio/registrar/peticiones.registrar.js" ></script>        
+    <script type="text/javascript" src="js/paginas/administracionSitio/registrar/control.registrar.js" ></script>        
+    <!--fin Scripts-->
+</div>
+
+<!--<div id="encabezado">
+    <span>Registro de usuario</span>
+</div>-->
+<div id="content">    
+    <div id="contentForm"> 
+        <div id="mensaje">
+            <span id="textMensaje">Error: Ha sucedido algo.</span>
+        </div>
+        <form id="registroUsuario" action="registrarUsuarios" method="POST" class="data">
+            <div id="bodyForm">
+                <div class="duo-campos">
+                    <div class="campo1">
+                        <label for="nombres" >Nombres:</label>
+                        <input type="text" placeholder="Nombres" id="nombres" />
+                    </div>
+                    <div class="campo2">
+                        <label for="apellidos" >Apellidos:</label>
+                        <input type="text" placeholder="Apellidos" id="apellidos"/>
+                    </div>
+                </div>
+                <label for="email" >E-Mail:</label>
+                <input type="text" placeholder="ejemplo@dominio.com" id="email" />
+                <label for="emailconfirm" >Confirmar E-Mail:</label>
+                <input type="text" id="emailconfirm" placeholder="ejemplo@dominio.com"/>            
+                <label for="cedula" >N° de cédula o NIT:</label>
+                <input type="text" id="cedula" placeholder="Documento"/>
+                <div class="duo-campos">
+                    <div class="campo1">
+                        <label for="celular" >Celular:</label>
+                        <input type="text" id="celular" placeholder="Celular" class="mobile" onkeyup="mascara(this,'-',patron3,true)" maxlength="12"/>
+                    </div>
+                    <div class="campo2">
+                        <label for="telefono" >Teléfono:</label>
+                        <input type="text" id="telefono" placeholder="Teléfono"  name = "telefono" onkeyup="mascara(this,'-',patron2,true)" maxlength="17" class="phone"/>                                      
+                    </div>
+                </div>
+                <label for="direccion" >Dirección:</label>
+                <input type="text" id="direccion" placeholder="Dirección"/>
+                <div class="duo-campos">
+                    <div class="campo1">
+                        <label for="contrasena" >Contraseña:</label>
+                        <input type="password" id="contrasena" placeholder="Contraseña" />
+                    </div>
+                    <div class="campo2">
+                        <label for="contrasena" >Confirmar Contraseña:</label>
+                        <input type="password" id="contrasenaConfirm" placeholder="Confirma Contraseña" />
+                    </div>
+                </div>
+                <div class="duo-campos">
+                    <div class="campo1">
+                        <label for="ciudad" >Ciudad:</label>
+                        <select id="ciudad" >
+                            <option value="-1" >Selecciona</option>
+                            <option value="1" >Barranquilla</option>
+                            <option value="2" >Bogotá D.C</option>
+                            <option value="3" >Cali</option>
+                            <option value="4" >Ibagué</option>
+                            <option value="5" >Medellin</option>
+                        </select>
+                    </div>
+                    <div class="campo2">
+                        <label for="zona" >Zona:</label>
+                        <select id="zona">
+                            <option value="-1">Selecciona</option>
+                            <option value="1">Barrios Unidos</option>
+                            <option value="2">Chapinero</option>
+                            <option value="3">Chico</option>
+                            <option value="4">Restrepo</option>
+                            <option value="5">Usaquen</option>
+                        </select>           
+                    </div>
+                </div>
+            </div>       
+        </form>
+        <div id="foot">
+            <input type="button" id="btnRegistrar" value="Registrar"/>
+        </div>
+    </div>
+</div>

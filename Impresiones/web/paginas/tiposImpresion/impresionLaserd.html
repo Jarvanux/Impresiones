@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--
+Impresión Laser.
+Creado por John Jaider Vanegas.
+Fecha 26/11/2014.
+Correo eléctronico: john.vanegas67@gmail.com
+-->
+<html>
+    <head>
+        <title>Impresión Laser</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">        
+        <link href="css/global/global.css" media="screen" type="text/css" rel="stylesheet" />        
+        <link href="css/global/mensajes.css" media="screen" type="text/css" rel="stylesheet" />        
+        <link href="css/paginas/tiposImpresion/impresionLaser.css" media="screen" type="text/css" rel="stylesheet" />        
+        <link href="css/paginas/tiposImpresion/impresionLaser2.css" media="screen" type="text/css" rel="stylesheet" />                
+
+        <!--Scripts - Consultas combobox.-->
+        <script type="text/javascript" src="js/peticiones-globales/imagenes.cursor.js" ></script>
+        <script type="text/javascript" src="js/peticiones-globales/peticiones-globales.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/peticion.impresionLaser.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/validaciones.impresionLaser.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/control.impresionLaser.js" ></script>
+        <!--Fin Scripts - Consultas combobox.-->
+    </head>
+    <body>
+        <div id="tipoImpresionSeleccionado">
+            <span class="titulo2"><span class="letraRoja">I</span>mpresión <span class="letraRoja">L</span>aser</span>            
+            <div id="cambiar" title="Seleccionar otro tipo de impresión."
+                 onclick="inicio.cargar('paginas/servicios/impresion.html')">
+                <img src="img/icons/global/edit.png" id="imgCambiar" />
+                <p>Cambiar</p>
+            </div>          
+        </div>
+        <div id="contentLaser">
+            <div id="contentQ">
+                <div id="carritoImpresiones">
+                    <div id="encabezado">
+                        <span class="tituloEncabezado">Resumen pedido</span>
+                    </div>                    
+                    <div id="cuerpoCarrito">
+                        <div class="pedido" >
+                            <img src="img/icons/global/print.png" id="imgPrint"/>
+                            <span class="numImpresion" >Impresión 1</span>
+                            <span class="valorImpresion" >Valor: $4000</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chatea">
+                    <img src="img/icons/global/chatea.jpg" id="chat" />
+                </div>            
+            </div>
+            <div id="contentD">        
+                <div id="mensaje">
+                    <span class="textMensaje" style="float:left;">Seleccione algo.</span>   
+                    <img src="img/icons/global/close.png" id="imgCloseSMS" title="Cerrar dialogo"/>
+                </div>
+                <div id="infoTipoColor">
+
+                    <div id="contentTipoColor">
+                        <div id="tipoColor">                        
+                            <div id="labels">
+                                <label for="soloBN">Blanco&Negro</label>
+                                <label for="soloColor"><span class="letraRoja">C</span><span class="letraVerde">olor</span></label>
+                                <label for="mixto"><span class="letraRoja">M</span>ix<span class="letraVerde"></span></label>
+                            </div>
+                            <div id="radios">                        
+                                <input type="radio" name="tipoColor" id="soloBN" value="1"/>
+                                <input type="radio" name="tipoColor" id="soloColor" value="2"/>
+                                <input type="radio" name="tipoColor" id="mixto" value="3"/>                    
+                            </div>                        
+                        </div>
+                        <div id="totalesImpre">     
+                            <div id="numCompias">
+                                <label for="numCopys">Copias de la misma impresión</label>
+                                <input type="number" value="1" id="numCopys"/>
+                            </div>
+                            <div id="totalImpre" >
+                                <label for="numTotal">Total impresiones</label>
+                                <input type="number" value="1" disabled="disabled" id="numTotal"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--div mixto - Expecificaciones de impresión-->
+                    <div id="infoMixto">
+                        <table style="margin-top: 10px;">
+                            <tr>
+                                <td style="width: 60px;">
+                                    <span class="textoColor"><span class="letraRoja">C</span><span class="letraVerde">olor</span></span>
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="Pag 1-3,5,9-10" id="txtColorMixto" value=""/>
+                                </td>
+                            </tr>    
+                            <tr>
+                                <td>
+                                    <span class="textoBN">B/N</span>
+                                </td>
+                                <td>
+                                    <input type="text" placeholder="Pag 4,6-9,11-20" id="txtBNMixto" value=""/>
+                                </td>
+                            </tr>                                            
+                        </table>
+                        <table style="width: 250px; margin-top: 10px;">
+                            <tr>
+                                <td>
+                                    <span class="spnCantHColor">Cant. Hojas <span class="letraRoja">C</span><span class="letraVerde">olor</span></span>
+                                    <input type="number" placeholder="0" id="txtCantHColor" value="0"/>
+                                </td>
+                                <td>
+                                    <span class="spnCantHBN">Cant. Hojas B/N</span>
+                                    <input type="number" placeholder="0" id="txtCanHBN" value="0" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="divbtnSiguiente" >
+                        <span class="spanPaso" style="display: block;"><b>1 Paso:</b> Selecciona un tipo de color.</span>
+                        <input type="button" id="btnSiguientePaso" value="Siguiente paso >>" style="background-color: #1fd32e; color: #FFFFFF; font-size: 15px; border: 0px; padding: 10px 10px; font-weight: bold;"/>
+                    </div>
+                    <!--div mixto - Expecificaciones de impresión-->                                       
+                </div>
+                <div id="bloque2">
+                    <div id="modoImpresion">
+                        <div id="content1">
+                            <label>Modo de impresión</label>
+                            <select id="cmbxModoImpresion">                                
+                            </select>
+                        </div>
+                        <div id="content2">
+                            <img src="img/icons/global/printOneFace.png" id="imgUnaCara"/>
+                        </div>
+                    </div>
+
+                    <div id="tamanoImpresion">
+                        <label>Tamaño de papel que necesitas</label>
+                        <select id="cmbxTipoTamano">                            
+                        </select>
+                    </div>
+
+                    <div id="bloque3">
+                        <div id="content1">
+                            <label>Tipo de papel que deseas</label>
+                            <select id="cmbxTipoPapel">                                
+                            </select>
+                        </div>
+                        <div id="content2">
+                            <img src="img/icons/paginas/tiposImpresion/impresionLaser/texturas/texture1.png" />                        
+                        </div>
+                    </div>
+                </div>                
+                <div id="bloqueArchivo">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 60%;">
+                                <div id="contentTd1">
+                                    <div id="dvCargarArchivo">
+                                        <img src="img/icons/global/cargaArchivo.jpg" id="imgCargarArchivo" />
+                                    </div>                                
+                                    <div id="inputCargar">
+                                        <span class="titleArchivos" >adjuntar archivo</span>
+                                        <input type="text" id="archivosCargados" />
+                                        <img src="img/icons/global/btnCargar.jpg" width="20px" height="20px" />
+                                    </div>
+                                    <div id="dvLinkArchivo">
+                                        <img src="img/icons/global/compartirLink.jpg" id="imgCompartirLink" />
+                                        <div id="inputLink">
+                                            <span class="titleArchivos" >Ingresa el link</span>
+                                            <input type="text" id="link" placeholder="Link de la nube: Dropbox, Drive, etc..."/>                                    
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 22%; text-align: center;">
+                                <div id="contentValor">
+                                    <img src="img/icons/global/imgValorImpresion.jpg" />
+                                    <div id="divValorImpresion" >
+                                        <span class="valorImpresion" >$5000</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 18%;">
+                                <img src="img/icons/global/imgContinuarPedido_1.jpg" id="imgContinuarPedido" width="90%" title="Ir al segunto formulario para terminar."/>                                   
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

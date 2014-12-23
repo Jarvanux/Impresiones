@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Impresiones a Domicilio</title>
+        <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>
+        
+        <!--CSS-->        
+        <!--Archivos complementarios para configuración de ventanas modales-->
+        <link type="text/css" rel="stylesheet" media="screen" href="css/help-modal/bootstrap.min_1.css" />         
+        <link type="text/css" rel="stylesheet" media="screen" href="css/help-modal/bootstrap-theme.min_1.css" />        
+        <link type="text/css" rel="stylesheet" media="screen" href="css/help-modal/estilo.layout.css" />        
+        <link type="text/css" rel="stylesheet" media="screen" href="css/help-modal/estilo.ui.css" />                
+        <link type="text/css" rel="stylesheet" media="screen" href="css/global/chat-global.css" />                        
+        <link href="css/global/global-modals.css" media="screen" type="text/css" rel="stylesheet" />             
+        <link href="css/global/global.css" media="screen" type="text/css" rel="stylesheet" />                
+
+        <!--<link href="css/paginas/administracionSitio/ingresar.css" media="screen" type="text/css" rel="stylesheet" />-->                
+        <link href="css/global/global-modals.css" media="screen" type="text/css" rel="stylesheet" />      
+        <!--Scritps-->    
+        <script type="text/javascript" src="js/paginas/administracionSitio/ingresar/peticiones.ingresar.js" ></script>    
+        <script type="text/javascript" src="js/paginas/administracionSitio/ingresar/contro.ingresar.js" ></script>    
+        <!--fin Scripts-->
+
+        <!--Bloque de scripts de jquery y boostrap implementación.-->                  
+        <!--JQuery-->        
+        <script src="js/peticiones-globales/eventos-globales.js" type="text/javascript"></script>        
+        <script type="text/javascript" src="js/peticiones-globales/peticiones-globales.js"></script>        
+        <script type="text/javascript" src="js/paginas/chat/chat-jquery.js"></script>        
+        <script type="text/javascript" src="js/paginas/chat/chat-inicio.js"></script>        
+        <script type="text/javascript" src="js/paginas/chat/eventos-chat.js"></script>        
+        <!--Scritps para los componentes modales.-->                
+        <script src="js/help-modal/bootstrap.min.js"></script>                        
+        <script type="text/javascript" src="js/help-modal/bootbox.js"></script>        
+        <script type="text/javascript" src="js/help-modal/mustache.js"></script>
+        <script type="text/javascript" src="js/help-modal/mustache.js"></script>
+        <!--Fin Scripts para los componentes momdales.-->
+    </head>
+    <body>
+        <script id="tplMensaje" type="text/template">
+            <div class="mensaje">
+            <p class="textoEmisor"><strong>{{emisor}}</strong></p>
+            <p class="textoMensaje">{{{mensaje}}}</p> 
+            <p class="fechaMensaje">{{hora}} {{fecha}}</p>
+            </div>
+        </script>
+
+        <div id="contenedor">
+            <div id="cabecera">
+                <img id="logo" src="img/icons/global/logo.jpg" alt="Impresiones a domicilio"/>
+            </div>
+            <div id="menu">
+                <ul id="opMenu">
+                    <li id="liHome" ><a href="/impresiones/">Home</a></li>
+                    <li id="liServicios"><a id="lnkServicios" href="javascript:;">Servicios</a></li>
+                    <li id="liContactenos"><a id="lnkContactenos" href="javascript:;">Contáctenos</a></li>
+                    <li id="liChat"><a id="lnkChat" href="javascript:;">Iniciar un Chat</a></li>
+                    <li id="liIngresar"><a id="lnkIngresar" href="javascript:;">Ingresar</a></li>
+
+                </ul>
+            </div>
+            <div id="divContenido">
+            </div>            
+        </div>
+
+
+        <div id="cargador">
+            <img src="img/icons/global/preloader.gif" alt="cargando" />
+            <span>Cargando...</span>
+        </div>
+
+
+        <!--Aquí se cargará el chat :D-->
+        <div id="complementChat">
+
+        </div>               
+        <!--Fin carga chat.-->
+
+        <!--Aquí se cargarán las páginas externas del login y registro modalmente.-->
+        <div id="info" class="back-modal">
+            <div id="content" class="contet-modal" style="width: 60%; height: 95%; margin-top: 10px;">
+                <div id="titulo" class="header-modal" style="background: #1FC71F; color: #FFF; text-shadow: 0px 0px 4px black; font-size: 14px; font-weight: bold; border-radius: 10px 10px 0px 0px; height: 50px;">
+                    <div id="titulo" class="titulo-modal" style="width: 90%; float: left;">
+                        <h2>Registro de usuario</h2>                    
+                    </div>
+                    <div id="cerrar" class="close-modal" style="width: 10%; float: left;">
+                        <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCerrar"/>
+                    </div>
+                </div>                
+                <div id="cuerpo" class="body-modal" style="overflow: auto; height: 94%;">
+                    <p>Hola esto es una ventana modal.</p>
+                </div>
+                <div class="footer-modal">                               
+                </div>
+            </div>
+        </div>      
+        <!--Fin carga páginas externas.-->
+        <script type="text/javascript" src="js/paginas/informacionSitio/home/home.js"></script>    
+    </body>
+</html>

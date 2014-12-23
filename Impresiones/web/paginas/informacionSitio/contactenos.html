@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link type="text/css" rel="stylesheet" media="screen" href="css/paginas/informacionSitio/contactenos.css" />        
+        <script type="text/javascript" src="js/peticiones-globales/peticiones-globales.js"></script>       
+        <script type="text/javascript" src="js/paginas/informacionSitio/contactenos/peticiones-contactenos.js"></script>
+    </head>
+    <body>
+        <img id="cargando" src="img/icons/global/preloader.gif" />
+        <div id="contactenos" class="formularioGrande">
+            <fieldset>
+                <legend>Contáctenos</legend>
+                <div id="divMensaje" class="hide alert alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <p id="divResultado"></p>
+                </div>
+                <label for="txtNombre">Nombre:</label>
+                <input type="text" id="txtNombre"/>
+                <label for="txtCorreo">Correo:</label>
+                <input type="text" id="txtCorreo"/>
+                <label for="txtTelefono">Teléfono:</label>
+                <input type="text" id="txtTelefono"/>
+                <label for="txtAsunto">Asunto:</label>
+                <input type="text" id="txtAsunto"/>
+                <label for="txtMensaje">Mensaje:</label>
+                <textarea id="txtMensaje"></textarea>
+                <input id="btnContactenos" type="button" value="Enviar" class="btn" />
+            </fieldset>
+        </div>        
+    </body>
+</html>

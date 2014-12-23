@@ -1,0 +1,571 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>       
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <!--Modales tomado de: http://emiliocobos.net/modalbox-una-ventana-modal-propia/-->
+        <link href="css/global/global-modals.css" media="screen" type="text/css" rel="stylesheet" />      
+
+        <link href="css/global/global.css" media="screen" type="text/css" rel="stylesheet" />        
+        <link href="css/global/mensajes.css" media="screen" type="text/css" rel="stylesheet" />                
+        <!--        <link href="css/paginas/tiposImpresion/impresionLaser2.css" media="screen" type="text/css" rel="stylesheet" />                -->
+        <link href="css/paginas/tiposImpresion/impresionLaser.css" media="screen" type="text/css" rel="stylesheet" />                
+        <!--<link href="css/paginas/tiposImpresion/impresionLaserForm2.css" media="screen" type="text/css" rel="stylesheet" />-->                
+
+        <!--Scripts - Consultas combobox.-->
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/jquery.tancolor.js" ></script>
+        <script type="text/javascript" src="js/peticiones-globales/imagenes.cursor.js" ></script>        
+        <script type="text/javascript" src="js/peticiones-globales/tipo.campos.js" ></script>
+        <script type="text/javascript" src="js/peticiones-globales/peticiones-globales.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/peticion.impresionLaser.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/eventos.impresionLaser.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/validaciones.impresionLaser.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/control.impresionLaser.js" ></script>
+        <!--Fin Scripts - Consultas combobox.-->
+    </head>
+    <body>   
+        <div id="contentLaser">
+            <div id="tipoImpresionSeleccionado">                
+                <div id="cambiar" title="Seleccionar otro tipo de impresión.">
+                    <img src="img/icons/global/imgRegresar.png" id="imgCambiar" />
+                    <p>Atrás</p>
+                </div>   
+
+                <span class="titulo2"><span class="letraRoja">I</span>mpresión <span class="letraRoja">L</span>aser</span>
+                <div id="nums">
+                    <div id="numsCopys">
+                        <span>Núm-copias</span>
+                        <input type="number" id="numCopys2" disabled="disabled"/>
+                    </div>
+                    <div id="numsTotal">
+                        <span>Núm-Páginas</span>
+                        <input type="text" id="totalImpre2" disabled="disabled"/>
+                    </div>
+                </div>
+            </div>            
+
+
+
+            <!--Inicio Content D-->
+            <div id="contentD">   
+                <div id="mensaje" style="display: none;">
+                    <span class="textMensaje" style="float:left;">Seleccione algo.</span>   
+                    <img src="img/icons/global/close.png" id="imgCloseSMS" title="Cerrar dialogo"/>
+                </div>
+                <!--style="display: none;"-->
+                <input type="text" id="numPaginasBN"/>
+                <input type="text" id="numPaginasColor" />
+
+                <div id="contentTemp">
+                    <span class="tituloTemp">¿<span class="letraRoja">C</span>omo <span class="letraRoja">D</span>eseas <span class="letraRoja">I</span>mprimir <span class="letraRoja">T</span>u <span class="letraRoja">A</span>rchivo?</span>
+                    <div id="tipoColorTemp">
+                        <input type="radio" name="tipoColort" id="soloBNt" value="1"/>
+                        <label for="soloBNt">Blanco&Negro</label>
+                        <input type="radio" name="tipoColort" id="soloColort" value="2"/>
+                        <label for="soloColort"><span class="letraRoja">C</span><span class="letraVerde">olor</span></label>
+                        <input type="radio" name="tipoColort" id="mixtot" value="3"/>                    
+                        <label for="mixtot"><span class="letraRoja">M</span>ix<span class="letraVerde">to</span><span class="letraVerde"></span></label>                                        
+                    </div>
+                </div>
+
+                <div id="tipoColor">
+                    <input type="radio" name="tipoColor" id="soloBN" value="1"/>
+                    <label for="soloBN">Blanco&Negro</label>
+                    <input type="radio" name="tipoColor" id="soloColor" value="2"/>
+                    <label for="soloColor"><span class="letraRoja">C</span><span class="letraVerde">olor</span></label>
+                    <input type="radio" name="tipoColor" id="mixto" value="3"/>                    
+                    <label for="mixto"><span class="letraRoja">M</span>ix<span class="letraVerde">to</span><span class="letraVerde"></span></label>                                        
+                </div>
+
+                <!--DIV SOLO BN-->
+                <div id="divSoloBN" class="contentCantHojas">
+                    <div class="ayuda">                        
+                        <ul class="nav">                            
+                            <li><span class="helpText">ayuda</span><img src='img/icons/global/help.png' class="imgAyuda" />
+                                <ul>   
+                                    <div id="pop-Ayuda">
+                                        <div id="tituloAyuda" class=".txtInfoBN">
+                                            Ayuda del sistema.
+                                        </div>
+                                        <div id="cuerpoAyuda">
+                                            <span class="txtInfoBN"></span>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>                                                        
+                        </ul>
+                    </div>
+
+                    <!--Contenido-->
+                    <span id="lblSelecBN">¿Como quieres imprimir el archivo?</span>
+                    <select id="cmbxTipoBN" >
+                        <option value='-1'>Selecciona</option>
+                        <option value='1'>Todo el arhivo</option>
+                        <option value='2'>Algunas hojas del archivo</option>
+                    </select>
+
+                    <label id="lblCantBN">¿Cuantas hojas tiene tu archivo?</label>
+                    <img src="img/icons/global/imgRegresar.png" id="imgRegresarBN" class="imgRegresar" /><label id="txtAtras" class="txtAtras" >Atrás</label>
+                    <input type="number" id="txtCantBN" placeholder="0" />
+
+                    <label id="txtBNVar">Hojas que vas a imprimir</label>
+                    <img src="img/icons/global/imgRegresar.png" id="imgRegresarBN2" class="imgRegresar" /><label id="txtAtras2" class="txtAtras" >Atrás</label>
+                    <input type="text" id="txtCantVarBN" placeholder="Ej: 1,2,5-10" />
+                </div>
+                <!--Fin Div SOLO BN-->
+                <!--DIV SOLO COLOR-->
+                <div id="divSoloColor" class="contentCantHojas">
+                    <div class="ayuda">                        
+                        <ul class="nav">                            
+                            <li><span class="helpText">ayuda</span><img src='img/icons/global/help.png' class="imgAyuda" />
+                                <ul>   
+                                    <div id="pop-Ayuda">
+                                        <div id="tituloAyuda">
+                                            Ayuda del sistema.
+                                        </div>
+                                        <div id="cuerpoAyuda">
+                                            <span class="txtInfoColor"></span>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>                                                        
+                        </ul>
+
+                    </div>
+
+                    <!--Contenido-->
+                    <span id="lblSelecColor">¿Como deseas imprimir el archivo?</span>
+                    <select id="cmbxTipoColor" >
+                        <option value='-1'>Selecciona</option>
+                        <option value='1'>Todo el arhivo</option>
+                        <option value='2'>Algunas hojas del archivo</option>
+                    </select>
+
+                    <label id="lblCantColor">¿Cuantas hojas tiene tu archivo?</label>
+                    <img src="img/icons/global/imgRegresar.png" id="imgRegresarColor" class="imgRegresar" /><label id="txtAtrasColor" class="txtAtras" >Atrás</label>
+                    <input type="number" id="txtCantColor" placeholder="0" />
+
+                    <label id="txtColorVar">Hojas que vas a imprimir</label>
+                    <img src="img/icons/global/imgRegresar.png" id="imgRegresarColor2" class="imgRegresar" /><label id="txtAtrasColor2" class="txtAtras" >Atrás</label>
+                    <input type="text" id="txtCantVarColor" placeholder="Ej: 1,2,5-10" />
+                    <!--Fin contenido-->
+                </div>
+                <!--Fin Div SOLO Color-->
+                <!--DIV MIXTO-->
+                <div id="divMixto" class="contentCantHojas">
+                    <div class="ayuda">                        
+                        <ul class="nav">                            
+                            <li><span class="helpText">ayuda</span><img src='img/icons/global/help.png' class="imgAyuda" />
+                                <ul>   
+                                    <div id="pop-Ayuda">
+                                        <div id="tituloAyuda">
+                                            Ayuda del sistema.
+                                        </div>
+                                        <div id="cuerpoAyuda">
+                                            <span class="txtInfoMixto"></span>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>                                                        
+                        </ul>
+
+                    </div>
+                    <!--Contenido-->
+                    <span class="lablMixBN">Hojas B/N:</span>
+                    <input type="text" id="txtBNMixto" placeholder="Ej: 1,2,5-10" />
+                    <span class="lablMixColor">Hojas <span class="letraRoja">C</span><span class="letraVerde">olor:</span></span>
+                    <input type="text" id="txtColorMixto" placeholder="Ej: 1,2,5-10" />
+                    <!--fin contenido-->
+                </div>
+                <!--Fin Div MIXTO-->
+
+                <!--                DESCRIP PARAMS
+                                <div id="descripParamas">
+                                    <div id="div1"><span class="bnTXT1">BN: </span><span class="txtTolBN">0</span></div>
+                                    <div id="div2"><span class="bnTXT2"><span class="letraRoja">C</span><span class="letraVerde">olor:</span></span>
+                                        <span class="txtTolClr">0</span>
+                                    </div>
+                                </div>
+                                FIN DESCRIP PARAMAS-->
+                <!--TOTAL IMPRE-->
+                <div id="totalesImpre">     
+                    <div id="numCompias">
+                        <label for="numCopys">¿Copias que deseas?</label>
+                        <input type="number" value="1" id="numCopys"/>
+                    </div>
+                    <div id="totalImpre" >
+                        <label id="lblTotalBN" for="numTotalBN">Total impresiones BN</label>
+                        <input type="number" value="1" disabled="disabled" id="numTotalBN"/>
+                        <label id="lblTotalColor" for="numTotalColor">Total impresiones <span class="letraRoja">C</span><span class="letraVerde">olor</span></label>
+                        <input type="number" value="1" disabled="disabled" id="numTotalColor"/>
+                    </div>
+                </div>
+                <!--FIN TOTAL IMPRE-->
+
+                <!--MODO IMPRE-->
+                <div id="modoImpresion">
+                    <label>Modo de impresión</label>
+                    <select id="cmbxModoImpresion">                                
+                    </select>
+                </div>
+                <!--FIN MODO IMPRE-->
+
+                <!--IMG MODO IMPRE-->
+                <div id="imgModoImpre">
+                    <img id="imgModo"/>
+                </div>
+                <!--FIN IMG MODO IMPRE-->
+
+                <!--TAMAÑO IMPRE-->
+                <div id="tamanoImpresion">
+                    <label>Tamaño de papel que necesitas</label>
+                    <select id="cmbxTipoTamano">                            
+                    </select>
+                </div>
+                <!--FIN TAMAÑO IMPRE-->
+
+                <!--TIPO PAPEL-->
+                <div id="tipoPapel">
+                    <label>Tipo de papel que deseas</label>
+                    <select id="cmbxTipoPapel">                                
+                    </select>
+                </div>
+                <!--FIN TIPO PAPEL-->
+
+                <!--CARGAR ARCHIVO-->            
+                <!--                <form enctype="multipart/form-data" id="formFile"> 
+                                    Fichero: <input type="file" name="fichero"/></br>                  
+                                </form> -->
+                <input type="file" id="fileUP"/>                
+                <div id="cargaArchivo">
+                    <span class="txtTipoCarga" >Selecciona un tipo de carga</span>
+                    <select id="cmbxTipoCarga">
+                        <option value="-1">Selecciona</option>
+                        <option value="1">Cargar un archvo desde tú equipo.</option>
+                        <option value="2">Compartir un link desde un repositorio(nube).</option>
+                    </select>
+                    <div id="decor1" ></div>
+                    <div id="tipoCargaSelect">
+                        <img id="imgCargar" src="img/icons/global/cargaArchivo.jpg"/>
+                        <input type="text" id="txtArchivosCargados" />              
+                        <img id="btnCargar" src="img/icons/global/btnCargar.jpg" />
+                        <input type="text" id="txtLinkArchivos" />                                      
+                    </div>
+                </div>
+                <!--FIN CARGAR ARCHIVO-->
+                <!--<input type="button" onclick="peticionesImpresionLaser.subirArchivo()" value="Subir el archivo"/>-->
+
+                <!--VALORES IMPRESIÓN-->
+                <div id="valoresImpre">
+                    <span class="valores">Valor <span class="letraVerde">Unitario</span></span>
+                    <div id="valorFinalUnitario">
+                        <span class="valoresFinales" id="valorUnitario">$0</span>
+                    </div>                    
+                    <span class="valores">Valor <span class="letraVerde">Total</span></span>
+                    <div id="valorFinalTotal">
+                        <span class="valoresFinales" id="valorTotal">$0</span>
+                    </div>                       
+                </div>                
+                <!--FIN VALORES IMPRESIÓN-->
+                <input type="button" value="Pág Siguiente >>" title="Página siguiente." id="btnSiguiente" />                
+                <!--CONTINUAR CON EL FORM-->
+                <div id="continuarForm">
+                    <div id="txtContinuar">
+                        <span class="valores">Continuar <span class="letraVerde">Pedido</span></span>                    
+                    </div>
+                    <div id="imgContinuar">
+                        <img src="img/icons/global/ImgContinuar.png"/>
+                    </div>
+                </div>
+                <!--FIN CONTINUAR CON EL FORM-->
+            </div>
+            <!--Fin Content D-->
+
+            <!--Content D2-->
+            <div id="contentD2">   
+                <div id="mensaje2" style="display: none;">
+                    <span class="textMensaje" style="float:left;">Seleccione algo.</span>   
+                    <img src="img/icons/global/close.png" id="imgCloseSMS2" title="Cerrar dialogo"/>
+                </div>
+                <!--OTROS PARAMETROS-->
+                <div id="otrosParametros">
+                    <table>
+                        <tr>
+                            <td class="td1">
+                                <input type="checkbox" id="anillado" /><label id="lblAnilladoSi" for="anillado">Anillado.</label>
+                            </td>
+                            <td class="td2">
+                                <input type="radio" name="anilladoConfirm" id="anilladoSi" checked="checked"/><label id="lblAnilladoSi" for="anilladoSi">Si</label>
+                            </td>
+                            <td class="td3">
+                                <input type="radio" name="anilladoConfirm" id="anilladoNo" checked="checked"/><label id="lblAnilladoNo" for="anilladoNo">No</label>
+                            </td>
+                            <td class="td4">
+                                <div id="colorAnillo">                                    
+                                    <label id="lblcolorAnillo" >
+                                        Color Anillo
+                                    </label>
+                                    <select id="cmbxColorAnillo">                                    
+                                    </select>
+                                </div>
+                                <div id="colorTapas">                                    
+                                    <span class="txtTapas">Color Tapa 1</span>
+                                    <select id="cmbxColorTapas">
+                                    </select>
+                                </div>
+                                <div id="colorTapas2">                 
+                                    <span class="txtTapas">Color Tapa 2</span>
+                                    <select id="cmbxColorTapas2">
+                                    </select>
+                                </div>
+                            </td>
+                            <td id="td5Anillado" class="td5">
+                                <div class="ayuda">                        
+                                    <ul class="nav">                            
+                                        <li><span class="helpText">ayuda</span><img src='img/icons/global/help.png' class="imgAyuda" />
+                                            <ul>   
+                                                <div id="pop-Ayuda">
+                                                    <div id="tituloAyuda" class=".txtInfo">
+                                                        Ayuda del sistema.
+                                                    </div>
+                                                    <div id="cuperpoAyudaAnill" class="cuerpoHelp">
+                                                        <span class="txtInfo">
+                                                            Selecciona los colores de tu anillado, y una vez hayas terminado si deseas cambiar el número de copias que
+                                                            deseas anillar modifica el valor de la casilla <b># Anillado</b> que se encuentra en la parte inferior de esta ayuda <span style="font-size: 13px;">(generalmente contiene el valor de copias de la misma impresión)</span>.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </ul>
+                                        </li>                                                        
+                                    </ul>
+                                </div>
+                                <span class="txtTapas"># Anillado</span>
+                                <input type="number" id="numAnill" value="0"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td1">                                
+                                <input type="checkbox" id="plasti" /><label id="lblAnilladoSi" for="plasti"><span id="plast">Plastificado</span> <span id="complent">(Protección)</span>.</label>
+                            </td>
+                            <td class="td2">
+                                <input type="radio" name="plastiConfirm" id="plastiSi" checked="checked"/><label id="lblPlastiSi" for="plastiSi">Si</label>
+                            </td>
+                            <td class="td3">
+                                <input type="radio" name="plastiConfirm" id="plastiNo" checked="checked"/><label id="lblPlastiNo" for="plastiNo">No</label>
+                            </td>
+                            <td class="td4" colspan="2">
+                                <select id="cmbxPlastificado">
+                                </select>
+                                <div id="td5Add">
+                                    <div class="ayuda">                       
+                                        <ul class="nav">                            
+                                            <li><span class="helpText">ayuda</span><img src='img/icons/global/help.png' class="imgAyuda" />
+                                                <ul>   
+                                                    <div id="pop-Ayuda">
+                                                        <div id="tituloAyuda" class=".txtInfo">
+                                                            Ayuda del sistema.
+                                                        </div>
+                                                        <div id="cuperpoAyudaAnill" class="cuerpoHelp">
+                                                            <span class="txtInfo">
+                                                                Si deseas especificar las páginas que deseas plastificar por cada bloque ingresalo aquí.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </ul>
+                                            </li>                                                        
+                                        </ul>
+                                    </div>
+                                    <input type="number" id="txtPagPlastificadas" value="0" style="width: 100px; text-align: center;"/>
+                                </div>
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td class="td1">
+                                <input type="checkbox" id="servicoCorte" /><label id="lblServicioCorte" for="servicoCorte">Servicio de corte.</label>
+                            </td>
+                            <td class="td2">
+                                <input type="radio" name="servioConfirm" id="servicoCorteSi" checked="checked"/><label id="lblServicioCorteSi" for="servicoCorteSi" >Si</label>
+                            </td>
+                            <td class="td3">
+                                <input type="radio" name="servioConfirm" id="servicoCorteNo" checked="checked"/><label id="lblServicioCorteNo" for="servicoCorteNo" >No</label>
+                            </td>
+                            <td class="td4" colspan="2">
+                                <select id="cmbxSCorte">
+                                </select>
+                                <div id="contentCorte"> 
+                                    <div class="ayuda">                       
+                                        <ul class="nav">                            
+                                            <li><img src='img/icons/global/help.png' class="imgAyuda" /><span class="helpText">ayuda</span>
+                                                <ul>   
+                                                    <div id="pop-Ayuda">
+                                                        <div id="tituloAyuda" class=".txtInfo">
+                                                            Ayuda del sistema.
+                                                        </div>
+                                                        <div id="cuperpoAyudaAnill" class="cuerpoHelp">
+                                                            <span class="txtInfo">
+                                                                
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </ul>
+                                            </li>                                                        
+                                        </ul>
+                                    </div>
+                                    <span class="txtTapas"># cortados</span>
+                                    <input type="number" id="numCorte" />
+                                </div>
+                            </td>                            
+                        </tr>
+                        <tr>
+                            <td class="td1">
+                                <input type="checkbox" id="cosido" /><label id="lblAnillado" for="cosido" >Cosido tipo revista.</label>
+                            </td>
+                            <td class="td2">
+                                <input type="radio" name="cosidoConfirm" id="cosidoSi" checked="checked"/><label id="lblCosidoSi" for="cosidoSi">Si</label>
+                            </td>
+                            <td class="td3">
+                                <input type="radio" name="cosidoConfirm" id="cosidoNo" checked="checked"/><label id="lblCosidoNo" for="cosidoNo">No</label>
+                            </td>
+                            <td class="td4">
+                                <span id="smsInformativo">La impresión debe ser tipo revista.</span>
+                            </td>
+                            <td class="td5">
+                            </td>
+                        </tr>                        
+                    </table>
+                    <div id="iAdicionales">
+                        <label id="lblIAdicionales"><span class="letraRoja">I</span>nstrucciones o <span class="letraRoja">R</span>equerimientos <span class="letraRoja">E</span>speciales</label>
+                        <textarea id="txtaIAdicionales" placeholder="Describe las instrucciones y/o preferencias adicionales que deseas agregar a tú impresión."></textarea>
+                        <!--<span id="contador" >300/300</span>-->
+                    </div>
+                </div>
+                <!--FIN OTROS PARAMETROS-->
+
+
+                <div id="visualizaParams">
+                    <div id="visualizador">
+                        <div id="controlPlantillas" >
+                            <div id="anilladoImgs">
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-01.png" id="img1"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-01.png" id="img1_2"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-02.png" id="img2"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-02.png" id="img2_2"/>
+                                <!--<img src="img/data/paginas/impresionLaser/anillado desguesado-03.png" id="img3"/>-->
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-04.png" id="img4"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-05.png" id="img5"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-06.png" id="img6"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-07.png" id="img7"/>
+                                <!--<img src="img/data/paginas/impresionLaser/anillado desguesado-08.png" id="img8"/>-->                        
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-09.png" id="img9"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-10.png" id="img10"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-11.png" id="img11"/>
+                                <img src="img/data/paginas/impresionLaser/anillado desguesado-12.png" id="img12"/>
+                            </div>
+                            <div id="corteImgs">
+                                <img id="imgCorte-v"/>
+                            </div>
+                        </div>
+                        <div id="vistas">
+                            <div id="vistaAnillado">
+                                <div id="img1">
+                                    <img src="img/data/paginas/impresionLaser/anillado desguesado-01.png" id="img1-v"/>                                    
+                                </div>
+                                <div id="img1_1">
+                                    <img src="img/data/paginas/impresionLaser/anillado desguesado-01.png" id="img1_2-v"/>                                    
+                                </div>
+                                <div id="img2">                                    
+                                    <img src="img/data/paginas/impresionLaser/anillado desguesado-05.png" id="img5-v"/>
+                                </div>
+                                <div id="img3">
+                                    <img src="img/data/paginas/impresionLaser/anillado desguesado-10.png" id="img10-v"/>
+                                </div>
+                                <!--<img src="img/data/paginas/impresionLaser/conversionesIMG/anillldoVista.png" />-->
+                            </div>
+                            <div id="vistaPlastificado">
+
+                            </div>
+                            <div id="servicioCorte">
+                                <img id="imgCorte"/>
+                            </div>
+                            <div id="cosidoTipoRevista">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="btnAtras" title="Ir al formulario anterior.">
+                        <img src="img/icons/global/btnAtras.jpg" />
+                        <label id="lblAtras" >Atrás</label>
+                    </div>
+                    <!--VALORES IMPRESIÓN-->
+                    <div id="valoresImpre2">
+                        <span class="valores">Valor <span class="letraVerde">Unitario</span></span>
+                        <div id="valorFinalUnitario">
+                            <span class="valoresFinales" id="valorUnitario2">$0</span>
+                        </div>                    
+                        <span class="valores">Valor <span class="letraVerde">Total</span></span>
+                        <div id="valorFinalTotal">
+                            <span class="valoresFinales" id="valorTotal2">$0</span>
+                        </div>                       
+                    </div>                
+                    <!--FIN VALORES IMPRESIÓN-->
+                    <div id="btnFin" title="Finalizar pedido.">
+                        <label id="lblSiguiente">Finalizar Pedido.</label>
+                        <img src="img/icons/global/btnSiguiente.jpg" />
+                    </div>
+                </div>
+            </div>
+
+            <!--Fin Content D2-->
+
+
+            <!--INICIO CONTENT 3-->            
+            <div id="contentD3">                
+
+            </div>
+            <!--FIN CONTENT 3-->
+        </div>
+
+
+        <!--Carrito impresiones-->
+        <div id="contentQ">
+            <div id="carritoImpresiones">
+                <div id="encabezado">
+                    <span class="tituloEncabezado">Resumen pedido</span>
+                </div>                    
+                <div id="cuerpoCarrito">
+                    <div class="pedido" >
+                        <img src="img/icons/global/print.png" id="imgPrint"/>
+                        <span class="numImpresion" id="tituloImpresion1">Impresión 1</span>
+                        <span class id="descripImpre" id="descrip1" ></span>
+                        <span class="valorImpresion" id="valorImpresionPedido1">Valor: $4000</span>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <!--Fin carrito impresiones-->
+
+        <div id="info" class="back-modal" style="display: none;">
+            <div id="contentModal">
+                <div id="content" class="contet-modal">
+                    <div id="titulo" class="header-modal">
+                        <div id="titulo" class="titulo-modal">
+                            <h2>Atención!</h2>                    
+                        </div>
+                        <div id="cerrar" class="close-modal">
+                            <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCerrar"/>
+                        </div>
+                    </div>                
+                    <div id="cuerpo" class="body-modal">
+                        <p>Hola esto es una ventana modal.</p>
+                    </div>
+                    <div class="footer-modal">
+                        <input type="button" id="aceptar" class="btn-aceptar" value="Aceptar"  title="Aceptar e ir al menú"/>
+                        <input type="button" id="aceptar2" class="btn-aceptar" value="Aceptar"  title="Aceptar e ir al menú"/>
+                        <input type="button" id="aceptar3" class="btn-aceptar" value="Aceptar" title="Aceptar"/>
+                        <input type="button" id="cancelar" class="btn-cancelar" value="Cancelar" title="Cancelar la operación"/>
+                    </div>
+                </div>
+            </div>
+        </div>           
+    </body>
+</html>

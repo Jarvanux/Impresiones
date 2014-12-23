@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+        <link href="css/global/global.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="css/paginas/servicios/impresion.css" media="screen" rel="stylesheet" type="text/css" />                
+
+        <!--Scritps para llenar el combox-->
+        <script src="js/paginas/servicios/impresion/peticion.impresion.js" ></script>
+        <script src="js/paginas/servicios/impresion/control.impresion.js" ></script>
+        <!--fin scritps para llenar el combox-->
+        <div id="content">
+            <div id="selectTipoImpresion">
+                <span class="titulo2"><span class="letraRoja">B</span>ienvenido ¿<span class="letraRoja">Q</span>ue deseas <span class="letraRoja">I</span>mprimir?</span>
+                <span class="subTitulo1">Selecciona el tipo de impresión que deseas realizar</span>
+                <p id="smsLoader">Se está cargando la lista despegable con los datos de selección, el proceso no debe tardar más de 5 segundos.</p>
+                <img src="img/icons/global/loader.gif" title="Se está cargando la lista despegable con los datos de selección." id="imgLoader"/>
+                <select id="cmbTipoImpresion">                
+                </select>                                    
+                <div id="mensaje">
+                    <p>Selecciona un tipo de impresión</p>
+                    <!--<img src="img/icons/global/close.png" id="imgCloseSMS" title="Cerrar dialogo"/>-->
+                </div>                
+                <input type="button" id="btnTipoImpresion" value="Aceptar" class="btn" onclick="controlTipoImpresion.evaluarCarga()"/>  
+            </div>
+        </div>    

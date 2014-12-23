@@ -1,0 +1,45 @@
+/*
+Estilos para los mensajes del sistema.
+*/
+/* 
+    Created on : 27/11/2014, 11:07:55 AM
+    Author     : jhonjaider1000
+*/
+
+div#mensaje{
+    border-radius: 10px;    
+    width: 98%;
+    height: 50px;
+    margin: 0px 20px 10px;
+    display: block;
+    padding: 14px;
+    font-weight: bold;    
+    background: #F46868;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 3px #000;    
+}
+div#mensaje img{
+    margin-top: 7px;
+    float: right;
+    cursor: pointer;
+} 
+  
+
+div#mensaje2{
+    border-radius: 10px;    
+    width: 98%;
+    height: 50px;
+    margin: 0px 20px 10px;
+    display: block;
+    padding: 14px;
+    font-weight: bold;    
+    background: #F46868;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 3px #000;    
+}
+div#mensaje2 img{
+    margin-top: 7px;
+    float: right;
+    cursor: pointer;
+} 
+  

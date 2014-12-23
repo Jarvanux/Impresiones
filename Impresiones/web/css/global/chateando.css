@@ -1,0 +1,85 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17/12/2014, 05:50:23 PM
+    Author     : jhonjaider1000
+*/
+
+
+/* Chateando */
+#contenedorChat{
+    height: 320px;    
+}
+#contentChat{
+    width: 100px;
+    height: 300px;
+    float: right;
+}
+
+#cuerpoChat{
+    background: #F6F6F6;
+    width: 270px;
+    float: right;
+    height: 230px;   
+    overflow: auto;
+    box-shadow: 0px 0px 4px black;    
+}
+div.sms-emisor{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;
+    background: #DEF5DE;    
+    float: right;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #DEF5DE);    
+    border-radius: 5px 5px 0px 5px;
+    box-shadow: 0px 0px 2px black;
+    margin-right: 10px;    
+    padding: 3px 6px;
+}
+
+div.sms-reseptor{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;    
+    float: left;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #ECECEC);    
+    border-radius: 5px 5px 5px 0px;
+    box-shadow: 0px 0px 2px black;
+    margin-left: 10px;    
+    padding: 3px 6px;
+}
+#footChat{
+    background: #FFF;
+    width: 270px;
+    float: right;
+    height: 50px;     
+}
+
+textarea{
+    border-radius: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 50px;
+    max-height: 50px;
+    overflow: auto;
+    margin: 0 auto;
+    resize: none;        
+}
+div.fecha{    
+    text-align: right;
+    color: #AAA;
+    font-size: 9px;
+}

@@ -1,0 +1,225 @@
+<html>
+    <head>
+        <title>Pedido</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="css/pedido.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="js/mustache.js"></script>
+    </head>
+    <body>
+        <script type="text/template" id="templateItemMaster">
+            <div class="itemImpresion" id="impresion_{{id}}" data-id="{{id}}" data-tipo="{{tipo}}">
+                <span class="glyphicon glyphicon-{{icon}}"></span>
+                <p>{{id}}. [{{nombre}}]</p>
+            </div>
+        </script>
+        <h2><span class="letraRoja">B</span>ienvenido <span class="letraRoja">Q</span>ue <span class="letraRoja">D</span>eseas <span class="letraRoja">P</span>edir</h2>
+        <div id="divBotonesAgregar">
+            <button class="btn btnAgregarItem" id="btnAgregarImpresion" data-tipo="impresion">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                Agregar Impresión
+            </button>
+            <button class="btn btnAgregarItem" id="btnAgregarProducto" data-tipo="producto">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+                Agregar Producto
+            </button>
+        </div> 
+        <div id="divPedido">
+            <div id="divMaestro">
+            </div>
+            <div id="divDetalles">
+                <div id="divImpresion" style="width: 970px;" >
+                    <table style="width: 98%"  >
+                        <tr style="vertical-align: top;" >
+                            <td>
+                                <div class="campo" style="vertical-align:top" >
+                                    <label for="cmbTipoImpresion">Tipo de Impresión:</label>
+                                    <select id="cmbTipoImpresion">
+                                        <option value="-1">Seleccione</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="campoTipoColor">
+                                    <div class="centrarDivision" >    
+                                        <label><input type="radio" name="rbTipo" checked="checked" style="margin-right: 5px;margin-bottom: 3px;" />Solo Blanco y Negro</label>
+                                    </div>
+                                    Cantidad de hojas:
+                                    <div class="campoCopias">
+                                        <input type="text" id="txtCopiasColor" style="width: 50px;" value="0" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="campoTipoColor">
+                                    <div class="centrarDivision">
+                                        <label><input type="radio" name="rbTipo" style="margin-right: 5px;margin-bottom: 3px;" />Color</label>
+                                    </div>
+                                    <div class="campoCopias" style="width: 210px;">
+                                        Cantidad de hojas:
+                                        <input type="text" id="txtCopiasColor" style="width: 50px;" value="0" />
+                                    </div>
+                                </div>
+                            </td>
+                            <td rowspan="2" >
+
+                                <div  class="campoTipoColor">
+                                    <div class="centrarDivision">
+                                        <label><input type="radio" style="margin-right: 3px;" name="rbTipo"/>Mixta (B/N y Color) </label>
+                                    </div>
+                                    <span style="font-size: 9px;margin-right: 20px; ">(Hojas B/N)</span><input type="text" name="txtBlancoYNegro" placeholder="p. ej. 1-5, 8, 11-13" style="width: 70%;" />
+                                    <span style="font-size: 9px;margin-right: 15px;">(Hojas Color)</span><input type="text" name="txtColor" placeholder="p. ej. 1-5, 8, 11-13" style="width: 70%;" />
+                                    <span style="width: 100%; text-align: right;">
+                                        <span style="color: #DDD">Cantidad de hojas:</span>
+                                        <input type="text" id="txtCopiasColor" class="deshabilitado" style="width: 50px;margin-top:5px;border: none; " disabled="disabled" value="0" />
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td align="center">
+                                <div class="campoCorto">
+                                    <label for="txtTotalPaginas"  >Número de copias</label>
+                                    <input type="text" id="txtTotalPaginas" class="deshabilitado" disabled="disabled" style="width: 80px;" />
+                                </div>
+                            </td>
+                            <td align="center" >
+                                <div class="campoCorto">
+                                    <label for="txtTotalPaginas" style="color: #DDD;" >Total de impresiones</label>
+                                    <input type="text" id="txtTotalPaginas" class="deshabilitado" style="border: none;width: 80px;" disabled="disabled" />
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                    </div>
+                    <fieldset>
+                        <div class="campo">
+                            <label for="cmbModoImpresión">Modo de impresión:</label>
+                            <select id="cmbTipoPapel">
+                                <option value="-1">Seleccione</option>
+                                <option value="1">Una cara</option>
+                                <option value="1">Dos caras</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="cmbTipoPapel">Tipo de papel:</label>
+                            <select id="cmbTipoPapel">
+                                <option value="-1">Seleccione</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="cmbTamanoImpresion">Tamaño de Impresión:</label>
+                            <select id="cmbTamanoImpresion">
+                                <option value="-1">Seleccione</option>
+                            </select>
+                        </div>
+
+                        <div style="float: right;width: 40%;">
+                            <label for="txtInstrucciones">Instrucciones adicionales</label>
+                            <textarea id="txtInstrucciones"></textarea>
+                        </div>
+                    </fieldset>
+                    <fieldset style="vertical-align: central;"  >
+
+
+
+                        <table style="width: 100%;" >
+                            <tr>
+                                <td style="vertical-align: top;">
+                                    <div class="campo" style="width: 200px;" >
+                                        <label for="cmbTamanoImpresion">Plastificado <span style="font-size: 9px;">(Protección)</span></label>
+                                        <select id="cmbTamanoImpresion">
+                                            <option value="-1">Ninguno</option>
+                                            <option value="1">Mate</option>
+                                            <option value="2">Brillante</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="vertical-align: top;" >
+                                    <div style="width: 200px;text-align: center;">
+                                        <div class="campoTipoColor" style="min-height: 100px;">
+                                            <div >
+                                                <label for="chkCorte" >Corte</label>
+                                                <input type="radio" name="chkCorte"/>
+                                            </div>
+                                            <div>
+                                                <label for="chkRevista" >Cosido Tipo revista</label>
+                                                <input type="radio" name="chkRevista"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width: 270px;border: solid;border-radius: 10px;text-align: right;padding: 5px;" >
+                                        <table align="center" >
+                                            <tr>
+                                                <td rowspan="2" style="text-align: center;">
+                                                    <div>
+                                                        <label for="rbAnillado">
+                                                            Anillado tipo doble "O"
+                                                        </label>
+                                                        <input type="radio" id="rbAnillado"/>
+                                                    </div>
+                                                </td>
+                                                <td style="width: 150px;" >
+                                                    <div  style="text-align: left;">
+                                                        <label for="chkCorte" >Color Anillo</label>
+                                                        <select id="cmbTamanoImpresion" style="width: 100px;">
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div  style="text-align: left">
+                                                        <label for="chkCorte" >Color tapas</label>
+                                                        <select id="cmbTamanoImpresion"style="width: 100px;" >
+                                                        </select>
+                                                    </div>            
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </div>
+                                </td>
+                                <td style="width: 400px;" > </td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend></legend>
+                        <div class="campo">
+                            <label for="cmbTipoAdjunto">Tipo de  archivo:</label>
+                            <select id="cmbTipoAdjunto" class="selectpicker">
+                                <option value="0">Archivo adjunto</option>
+                                <option value="1" title="Recuerda revisar que el vínculo sea accesible desde otros equipos">link o Dirección de internet</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label for="txtAdjunto">Archivo Adjunto:</label>
+                            <input type="file" id="txtAdjunto" />
+                        </div>
+                        <div style="float: right;width: 45%;text-align: center;">
+                            <label for="txtTotalImpresion1">Costo de esta impresión:</label>
+                            <input type="text" id="txtTotalImpresion1" class="deshabilitado" disabled="disabled" />
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="divProducto">
+                    <h2>Información de productos</h2>
+                </div>
+                <button type="button" class="btn btnAgregarItem">
+                    <span class="glyphicon glyphicon-ok-sign"></span> Continuar con el pedido
+                </button>
+                <button type="button" id="btnRemoverItem" class="btn btnAgregarItem">
+                    <span class="glyphicon glyphicon-minus-sign"></span> Eliminar del pedido
+                </button>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/impresionLaser/pedido.modelo.js"></script>
+        <script type="text/javascript" src="js/impresionLaser/pedido.control.js"></script>
+        <script type="text/javascript" src="js/impresionLaser/pedido.vista.js"></script>
+    </body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mensajes recibidos en el formulario de contacto</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        
+        <link type="text/css" rel="stylesheet" media="screen" href="css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" media="screen" href="css/bootstrap-theme.min.css" />
+        <link type="text/css" rel="stylesheet" media="screen" href="css/estilo.layout.css" />
+        <link type="text/css" rel="stylesheet" media="screen" href="css/estilo.ui.css" />
+        
+        <!--Bloque de scripts de jquery y boostrap-->
+        <script src="js/jquery-1.11.1.min.js" type="text/javascript"></script>
+        <script src="js/mustache.js" type="text/javascript"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootbox.js"></script>
+
+        <style type="text/css">
+
+            .itemBandeja{
+                border-bottom: solid 1px #333;
+                padding: 7px 5px 3px 10px;
+            }
+
+                .itemBandeja:hover{
+                    cursor: pointer;
+                    background-color: #c5ffbf;   
+                }
+
+            .spanAsunto{
+                font-weight: bold;
+            }
+            .spanRemitente{
+                
+            }
+
+            .spanFechaMensaje{
+                font-size: 9px;
+                color:#666;
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+
+            #maestroMensajes{
+                display: inline-block;
+                width: 25%;
+            }
+
+            #detallesMensaje{
+                display: inline-block;
+                width: 70%;
+                margin-left: 10px;
+                vertical-align: top;
+                border-left: solid 1px #AAA;
+                padding: 10px 15px 20px 20px;
+            }
+            
+            #divMensaje{
+                display: none;
+            }
+            
+            #imagenMensajes{
+                background-image: url('css/img/email-icon-png.png');
+                min-height: 400px;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 60%;
+            }
+           
+
+        </style>
+
+
+    </head>
+    <body>
+        
+        <script type="text/template" id="itemMensaje">
+            <div id="mensaje_{{id}}" data-id="{{id}}" class="itemBandeja">
+                <div>
+                    <span class="glyphicon glyphicon-envelope"></span>
+                    <span class="spanAsunto">{{asunto}}</span>
+                </div>
+                <span class="spanRemitente">{{nombre}}</span>
+                <span class="spanFechaMensaje">{{fecha}}</span>
+            </div>
+        </script>
+
+        
+        <div id="contenedor">
+            
+            <div id="divContenido">
+                <h2>Mensajes sin Leer</h2>
+                <div id="maestroMensajes"></div>
+                
+                <div id="detallesMensaje">
+                    <div id="imagenMensajes"></div>
+                    <div id='divMensaje'>
+                        <h3 class="tituloMensaje"></h3>
+                        <div>
+                            <p>Remitente: <span id="sRemitente"></span></p>
+                            <p>Correo: <span id="sCorreo"></span></p>
+                            <p>Teléfono: <span id="sTelefono"></span></p>
+                        </div>
+                        <p class="pMensaje"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <script type="text/javascript" src="js/mensajes/mensajes.vista.js"></script>
+        
+    </body>
+</html>
