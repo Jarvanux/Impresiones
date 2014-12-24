@@ -224,7 +224,7 @@ public class ImpresionLaserServlet extends HttpServlet {
     }
     private Respuesta consultaValorCorte(HttpServletRequest request) throws IOException{
         int numero = Integer.parseInt(request.getParameter("numero"));
-        return impresionLaserDelegado.consultarValorServicio(3, numero);
+        return impresionLaserDelegado.consultarValorServicio(5, numero);
     }
     
 }

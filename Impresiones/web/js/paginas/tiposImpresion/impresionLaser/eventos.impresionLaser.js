@@ -1,7 +1,6 @@
 /* 
  * Eventos...
  */
-
 valorImprePosible = false;
 tipoColorSeleccionado = 0;
 
@@ -191,16 +190,30 @@ var eventosImpresionLaer = {
     },
     eventos: function() {
         //Evento finalizar formulario. - guardará los datos ingresados en la BD.               
+//          $('#' + data.id).css({"border": "1px solid #999999"});
+        
+        $('select').change(function(event){                                    
+            if($('#'+event.currentTarget.id).val() > 0){
+               $('#'+event.currentTarget.id).css({"border": "1px solid #999999"});
+            }
+        });
         $('#btnFin').click(function() {
-            $('#contentD2').hide();
-            $('#contentD3').show();
-            eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');
+            if (validacionesImpresionLaser.validarSegundoForm()) {
+                $('#contentD2').hide();
+                $('#contentD3').show();                
+                eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');                
+            } else {
+//                alert('Sucedió algo.');
+            }
         });
         $('#btnFinModal').click(function() {
-//           controlImpresionLaser.insertarImpresion();
-            $('#contentD2').hide();
-            $('#contentD3').show();
-            eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');
+            if (validacionesImpresionLaser.validarSegundoForm()) {
+                $('#contentD2').hide();
+                $('#contentD3').show();
+                eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');
+            } else {
+                alert('Sucedió algo.');
+            }
         });
 
         $('#cambiar').css({"cursor": "pointer"});
@@ -1120,7 +1133,6 @@ var eventosImpresionLaer = {
         //Inicialmente debemos enviamos el modo de impresión, ya que se restará el valor de la hoja.               
         validacionesImpresionLaser.calculoImpresion();
     },
-         
 };
 
 

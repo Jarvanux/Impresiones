@@ -6,6 +6,7 @@ num1 = 0;
 num2 = 0;
 tempCont = 0;
 resultado = 0;
+
 ListaColores = {"colores": [
         {"nombre": "Negro", "idColor": 1, "urlImg": "img/data/paginas/impresionLaser/conversionesIMG/imgNegra"},
         {"nombre": "Azul", "idColor": 2, "urlImg": "img/data/paginas/impresionLaser/conversionesIMG/imgAzul"},
@@ -347,48 +348,54 @@ var peticionesImpresionLaser = {
     },
     consultarValorAnillado: function(numBloques) {
         $.ajax({
-            'url': 'consultaValorAnillado',
+            'url': 'consultarValorAnillado',
             type: 'POST',
             'data': {'numero': numBloques},
             success: function(data) {
                 var respuesta = JSON.parse(data);
                 console.log(respuesta);
-                if(respuesta.codigo > 0){
-                    
-                }else{
-                    
+                if (respuesta.codigo > 0) {    
+                    console.log(respuesta.datos.valor);
+                    var valor= respuesta.datos.valor;                    
+                    $('#valorAnillado').val(valor *= $('input[type="number"]#numAnill').val());
+//                    $('#valorTotal2').html('$'+parseInt(valor) + parseInt(($('#valorTotal2').html()).replace('$', '')));
+                } else {                    
                 }
             }
         });
     },
     consultarValorPlastificado: function(numPaginas, tipo) {
         $.ajax({
-            'url': 'consultaValorPlastificado',
+            'url': 'consultarValorPlastificado',
             type: 'POST',
             'data': {'numero': numPaginas},
             success: function(data) {
                 var respuesta = JSON.parse(data);
                 console.log(respuesta);
-                if(respuesta.codigo > 0){
-                    
-                }else{
-                    
+                if (respuesta.codigo > 0) {
+                    console.log(respuesta.datos.valor);
+                    var valor= respuesta.datos.valor;
+                    $('#valorPlastificado').val(valor *= $('input[type="number"]#txtPagPlastificadas').val());
+//                    $('#valorTotal2').html('$'+parseInt(valor) + parseInt(($('#valorTotal2').html()).replace('$', '')));
+                } else {
                 }
             }
         });
     },
     consultarValorCorte: function(numPaginas) {
         $.ajax({
-            'url': 'consultaValorCorte',
+            'url': 'consultarValorCorte',
             type: 'POST',
             'data': {'numero': numPaginas},
             success: function(data) {
                 var respuesta = JSON.parse(data);
                 console.log(respuesta);
-                if(respuesta.codigo > 0){
-                    
-                }else{
-                    
+                if (respuesta.codigo > 0) {                    
+                    console.log(respuesta.datos.valor);
+                    var valor= respuesta.datos.valor;
+                    $('#valorCorte').val(valor *= $('input[type="number"]#numCorte').val());
+//                    $('#valorTotal2').html('$'+parseInt(valor) + parseInt(($('#valorTotal2').html()).replace('$', '')));
+                } else {                    
                 }
             }
         });

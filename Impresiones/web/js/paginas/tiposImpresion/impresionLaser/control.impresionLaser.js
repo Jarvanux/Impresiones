@@ -39,7 +39,7 @@ ObjetoElementos = {"elementos": [
         {"nombre": "tipoCargaSelect"},
         {"nombre": "numPaginasBN"},
         {"nombre": "numPaginasColor"},
-        {"nombre": "contentD"},
+        {"nombre": "contentD2"},
         {"nombre": "contentD3"},
         {"nombre": "colorAnillo"},
         {"nombre": "colorTapas"},

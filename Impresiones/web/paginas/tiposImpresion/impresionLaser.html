@@ -18,12 +18,18 @@
         <script type="text/javascript" src="js/peticiones-globales/tipo.campos.js" ></script>
         <script type="text/javascript" src="js/peticiones-globales/peticiones-globales.js" ></script>
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/peticion.impresionLaser.js" ></script>
-        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/eventos.impresionLaser.js" ></script>
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/validaciones.impresionLaser.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/eventos.impresionLaser.js" ></script>
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/control.impresionLaser.js" ></script>
         <!--Fin Scripts - Consultas combobox.-->
     </head>
     <body>   
+        <input type="number" id="valorAnillado" style="display: none;" value="0"/>
+        <input type="number" id="valorPlastificado" style="display: none;" value="0"/>
+        <input type="number" id="valorCorte" style="display: none;" value="0"/>
+        <input type="number" id="valorCosido" style="display: none;" value="0"/>
+        <input type="number" id="valorTotalConServicios" style="display: none;" value="0" />        
+        
         <div id="contentLaser">
             <div id="tipoImpresionSeleccionado">                
                 <div id="cambiar" title="Seleccionar otro tipo de impresión.">
@@ -537,6 +543,7 @@
                         <img src="img/icons/global/print.png" id="imgPrint"/>
                         <span class="numImpresion" id="tituloImpresion1">Impresión 1</span>
                         <span class id="descripImpre" id="descrip1" ></span>
+                        <!--<span class="codigo-Impresion" id="codigoImpresion">000000</span>-->
                         <span class="valorImpresion" id="valorImpresionPedido1">Valor: $4000</span>
                     </div>
                 </div>

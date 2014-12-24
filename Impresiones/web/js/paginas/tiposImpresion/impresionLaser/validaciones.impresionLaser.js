@@ -143,47 +143,88 @@ var validacionesImpresionLaser = {
             $('#cmbxTipoPapel').focus();
         }
     },
-    
-    
     //Validaremos el segundo formulario de servicios adicionales.
     validarSegundoForm: function() {
+//        alert('Se inicia la validación del segundo formulario.');
         //Validando campos anillado.
+        var contador = 0;
         if ($('input[type="checkbox"]#anillado').is(':checked')) {
+            var contadorAnillado = 0;
             if ($('select#cmbxColorAnillo').val() < 0) {
                 //Ejecutá el error estimado.
-                validacionesImpresionLaser.informe('Debes seleccionar un color de anillado');
+                validacionesImpresionLaser.informe('Se han encontrado listas despegables sin seleccionar.');
                 $('select#cmbxColorAnillo').css({'border': '1px solid red'});
-            }            
-            if ($('select#cmbxColorTapas').val() < 0) {
-                validacionesImpresionLaser.informe('Debes seleccionar un color de tapas del anillado');
-                $('select#cmbxColorTapas').css({'border': '1px solid red'});
-            }            
-            if ($('select#cmbxColorTapas2').val() < 0) {
-                validacionesImpresionLaser.informe('Debes seleccionar un color de tapas del anillado');
-                $('select#cmbxColorTapas2').css({'border': '1px solid red'});
+            } else {
+                contadorAnillado++;
             }
-        }else{
-            peticionesImpresionLaser.consultarValorAnillado($('input[type="number"]#numAnill').val());
+            if ($('select#cmbxColorTapas').val() < 0) {
+                validacionesImpresionLaser.informe('Se han encontrado listas despegables sin seleccionar.');
+                $('select#cmbxColorTapas').css({'border': '1px solid red'});
+            } else {
+                contadorAnillado++;
+            }
+            if ($('select#cmbxColorTapas2').val() < 0) {
+                validacionesImpresionLaser.informe('Se han encontrado listas despegables sin seleccionar.');
+                $('select#cmbxColorTapas2').css({'border': '1px solid red'});
+            } else {
+                contadorAnillado++;
+            }
+
+            if (contadorAnillado == 3) {
+                contador++;
+                peticionesImpresionLaser.consultarValorAnillado($('input[type="number"]#numAnill').val());
+                /**
+                 * Una vez consultado el valor del anillado en la bd de datos.
+                 * se multiplicará por el número de copias de anillado ingresadas. :D
+                 */                                                
+            }
+        } else {
+            contador++;
         }
 
         //Validando campos plastificado
         if ($('input[type="checkbox"]#plasti').is(':checked')) {
+            var contadorPlastificado = 0;
             if ($('select#cmbxPlastificado').val() < 0) {
                 validacionesImpresionLaser.informe('Debes seleccionar un tipo de plastificado.');
-                $('select#cmbxColorTapas2').css({'border': '1px solid red'});
+                $('select#cmbxPlastificado').css({'border': '1px solid red'});
+            } else {
+                contadorPlastificado++;
             }
-        }else{
-            peticionesImpresionLaser.consultarValorPlastificado($('input[type="number"]#txtPagPlastificadas').val());
+
+            if (contadorPlastificado == 1) {                
+                contador++;                
+                
+                peticionesImpresionLaser.consultarValorPlastificado($('input[type="number"]#txtPagPlastificadas').val());                                
+            }
+        } else {
+            contador++;
         }
         //validando campos corte
         if ($('input[type="checkbox"]#servicoCorte').is(':checked')) {
+//         Inicio...
+            var contadorCorte = 0;
             if ($('select#cmbxSCorte').val() < 0) {
-                validacionesImpresionLaser.informe('Debes seleccionar unt tipo de corte.');
+                validacionesImpresionLaser.informe('Debes seleccionar un tipo de plastificado.');
                 $('select#cmbxSCorte').css({'border': '1px solid red'});
+            } else {
+                contadorCorte++;
             }
-        }else{
-            peticionesImpresionLaser.consultarValorCorte(('input[type="number"]#numCorte').val());
-        }    
+
+            if (contadorCorte == 1) {
+                contador++;
+                peticionesImpresionLaser.consultarValorCorte($('input[type="number"]#numCorte').val());                
+            }
+
+        } else {
+            contador++;
+        }
+//        alert('Valor contador: ' + contador);
+        if (contador == 3) {
+            return true;
+        } else {
+            return false;
+        }
     },
     informe: function(mensaje) {
         $('div#titulo h2').html('!Atención!');
@@ -193,10 +234,9 @@ var validacionesImpresionLaser = {
         $('#aceptar3').show();
         $('#info').slideDown(500);
         $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-        $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});        
+        $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
     },
-    
-     ocultarElementos: function(codigo) {
+    ocultarElementos: function(codigo) {
         var oculta = {
             anillado: function() {
                 $('select#cmbxColorAnillo').hide();
@@ -204,54 +244,60 @@ var validacionesImpresionLaser = {
                 $('select#cmbxColorTapas2').hide();
                 $('#td5Anillado span').hide();
                 $('#td5Anillado img').hide();
-                $('#td5Anillado input').hide();   
+                $('#td5Anillado input').hide();
                 $('.txtTapas').hide();
                 $('#lblcolorAnillo').hide();
             },
             plastificado: function() {
                 $('select#cmbxPlastificado').hide();
-                $('#td5Add').hide();                
+                $('#td5Add').hide();
             },
-            corte: function(){
+            corte: function() {
                 $('select#cmbxSCorte').hide();
-                $('#contentCorte').hide();                
+                $('#contentCorte').hide();
             },
             cosido: function() {
             }
         }
-        
+
         var muestra = {
             anillado: function() {
                 $('select#cmbxColorAnillo').show();
-                $('#td5Add').show();                
+                $('select#cmbxColorTapas').show();
+                $('select#cmbxColorTapas2').show();
+                $('#td5Anillado span').show();
+                $('#td5Anillado img').show();
+                $('#td5Anillado input').show();
+                $('.txtTapas').show();
+                $('#lblcolorAnillo').show();
             },
             plastificado: function() {
                 $('select#cmbxPlastificado').show();
-                $('#td5Add').show();                
+                $('#td5Add').show();
             },
-            corte: function(){
+            corte: function() {
                 $('select#cmbxSCorte').show();
-                $('#contentCorte').show();                
+                $('#contentCorte').show();
             },
             cosido: function() {
 
             }
         }
-        
+
         //Código: Anillado = 1, Plastificado = 2, Corte = 3; cosido = 4;
         //Determina por el código recibido que función debe mostrar.
-        if(codigo == 1){
+        if (codigo == 1) {
             muestra.anillado();
             oculta.plastificado();
             oculta.corte();
-        }else if(codigo == 2){
+        } else if (codigo == 2) {
             muestra.plastificado();
             oculta.anillado();
             oculta.corte();
-        }else if(codigo == 3){
+        } else if (codigo == 3) {
             muestra.corte();
             oculta.anillado();
-            oculta.plastificado();  
+            oculta.plastificado();
         }
 //Servicio Corte...
 
