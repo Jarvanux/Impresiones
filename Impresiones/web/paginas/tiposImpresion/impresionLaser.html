@@ -23,13 +23,7 @@
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/control.impresionLaser.js" ></script>
         <!--Fin Scripts - Consultas combobox.-->
     </head>
-    <body>   
-        <input type="number" id="valorAnillado" style="display: none;" value="0"/>
-        <input type="number" id="valorPlastificado" style="display: none;" value="0"/>
-        <input type="number" id="valorCorte" style="display: none;" value="0"/>
-        <input type="number" id="valorCosido" style="display: none;" value="0"/>
-        <input type="number" id="valorTotalConServicios" style="display: none;" value="0" />        
-        
+    <body>        
         <div id="contentLaser">
             <div id="tipoImpresionSeleccionado">                
                 <div id="cambiar" title="Seleccionar otro tipo de impresión.">
@@ -103,7 +97,7 @@
                     </div>
 
                     <!--Contenido-->
-                    <span id="lblSelecBN">¿Como quieres imprimir el archivo?</span>
+                    <span id="lblSelecBN">¿Imprimiras todo o parte del archivo?</span>
                     <select id="cmbxTipoBN" >
                         <option value='-1'>Selecciona</option>
                         <option value='1'>Todo el arhivo</option>
@@ -244,11 +238,11 @@
                                 </form> -->
                 <input type="file" id="fileUP"/>                
                 <div id="cargaArchivo">
-                    <span class="txtTipoCarga" >Selecciona un tipo de carga</span>
+                    <span class="txtTipoCarga" >¿Como Adjuntaras tu archivo?</span>
                     <select id="cmbxTipoCarga">
                         <option value="-1">Selecciona</option>
                         <option value="1">Cargar un archvo desde tú equipo.</option>
-                        <option value="2">Compartir un link desde un repositorio(nube).</option>
+                        <option value="2">Compartir un link de descarga.</option>
                     </select>
                     <div id="decor1" ></div>
                     <div id="tipoCargaSelect">
@@ -545,7 +539,7 @@
                         <span class id="descripImpre" id="descrip1" ></span>
                         <!--<span class="codigo-Impresion" id="codigoImpresion">000000</span>-->
                         <span class="valorImpresion" id="valorImpresionPedido1">Valor: $4000</span>
-                    </div>
+                    </div>                    
                 </div>
             </div>            
         </div>

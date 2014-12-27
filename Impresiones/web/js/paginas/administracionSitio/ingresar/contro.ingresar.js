@@ -7,8 +7,15 @@ elementosHiden = {"elementos": [
         {"nombre": "#info"},
     ]};
 
+
+$(document).ready(function() {    
+    controlIngresar.init();
+    controlIngresar.eventos();
+});
+
 var controlIngresar = {
     init: function() {
+        $('div#mensajeL').hide();
         controlIngresar.ocultarObjetos();
         $('#imgCerrar').css({"cursor": "pointer"});
     },
@@ -38,7 +45,7 @@ var controlIngresar = {
             peticionesIngresar.ingresar($('#usuario').val(), $('#password').val());
         }
     },
-    ocultarObjetos: function() {
+    ocultarObjetos: function() {        
         for (var i = 0; i < elementosHiden.elementos.length; i++) {
             $(elementosHiden.elementos[i].nombre).hide();
         }
@@ -64,5 +71,3 @@ var controlIngresar = {
     }
 };
 
-controlIngresar.init();
-controlIngresar.eventos();

@@ -8,11 +8,11 @@ Estilos para los mensajes del sistema.
 
 div#mensaje{
     border-radius: 10px;    
-    width: 98%;
-    height: 50px;
+    width: 94%;
+    height: 20px;
     margin: 0px 20px 10px;
     display: block;
-    padding: 14px;
+    padding: 16px;
     font-weight: bold;    
     background: #F46868;
     color: #FFFFFF;

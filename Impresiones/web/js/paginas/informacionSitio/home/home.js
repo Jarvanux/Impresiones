@@ -2,27 +2,29 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-var inicio={
-    init:function(){                
-        inicio.cargar('paginas/informacionSitio/home.html');
+var inicio = {
+    init: function() {
+        if (location.href != "http://localhost:8080/impresiones/login.html") {
+            inicio.cargar('paginas/servicios/impresion.html');
+        }
         $('#info').hide();
-        $("#lnkServicios").on('click',inicio.servicios);        
-        $("#lnkContactenos").on('click',inicio.contactenos);
-        $("#lnkIngresar").on('click',inicio.ingresar);
-        
-        $("#liServicios").on('click',inicio.servicios);
-        $("#liContactenos").on('click',inicio.contactenos);
-        $("#liIngresar").on('click',inicio.ingresar);
-        $("#liHome").on('click',inicio.home);
-        $("#liChat").on('click',inicio.chat);
-        
-        $('#btnIniciarChat').on('click', inicio.iniciarChat);                 
-        
+        $("#lnkServicios").on('click', inicio.servicios);
+        $("#lnkContactenos").on('click', inicio.contactenos);
+        $("#lnkIngresar").on('click', inicio.ingresar);
+
+        $("#liServicios").on('click', inicio.servicios);
+        $("#liContactenos").on('click', inicio.contactenos);
+        $("#liIngresar").on('click', inicio.ingresar);
+        $("#liHome").on('click', inicio.home);
+        $("#liChat").on('click', inicio.chat);
+
+        $('#btnIniciarChat').on('click', inicio.iniciarChat);
+
         //inicio.cargar('chat.html');
-        
+
     },
-    soporteContectado: function(){
-         $.ajax({
+    soporteContectado: function() {
+        $.ajax({
             'url': 'soporteConectado',
             success: function(data) {
                 var respuesta = JSON.parse(data);
@@ -42,48 +44,46 @@ var inicio={
             }
         });
     },
-    home:function(){
-        $(location).attr('href','/impresiones/');
+    home: function() {
+        $(location).attr('href', '/impresiones/');
     },
-    servicios:function(){
+    servicios: function() {     
         inicio.cargar('paginas/informacionSitio/servicios.html');
     },
-    contactenos:function(){
+    contactenos: function() {
         inicio.cargar('paginas/informacionSitio/contactenos.html');
     },
-    ingresar:function(){
-        inicio.cargar('paginas/administracionsSitio/ingresar.html');
+    ingresar: function() {
+        $(location).attr('href', '/impresiones/login.html');
     },
-    cargar:function(pagina){
+    cargar: function(pagina) {
         $("#divContenido")
-            .html('')
-            .append($('#cargador').clone().show());
-        $.post(pagina, function( data ) {
-            $( "#divContenido" ).html( data );
+                .html('')
+                .append($('#cargador').clone().show());
+        $.post(pagina, function(data) {
+            $("#divContenido").html(data);
         });
     },
-    
-    chat:function(){
+    chat: function() {
         var dialogo = $('#divModalChat');
         dialogo.modal();
         dialogo.find('#txtNombreChat').focus();
-        
+
     },
-    
-    iniciarChat:function(){
-        
+    iniciarChat: function() {
+
         var dialog = $('#divModalChat');
         var nombre = dialog.find('#txtNombreChat').val().trim();
         var asunto = dialog.find('#txtAsuntoChat').val().trim();
-        if (nombre!=="" && asunto!=="") {
+        if (nombre !== "" && asunto !== "") {
             dialog.find('.alert-danger').addClass('hide');
             dialog.find('#txtNombreChat').val('');
             dialog.find('#txtAsuntoChat').val('');
             dialog.modal('hide');
-            
-            
+
+
             //OJO, esto se reemplaza por una peticion asincrona
-            
+
             chat.init({
                 id: 0,
                 mensaje: asunto,
@@ -92,14 +92,14 @@ var inicio={
                 tipo: 1,
                 emisor: 'Tú'
             });
-            
-            
-        }else{
+
+
+        } else {
             dialog.find('.alert-danger').removeClass('hide');
-            
+
         }
     }
-    
+
 };
 
 inicio.init();

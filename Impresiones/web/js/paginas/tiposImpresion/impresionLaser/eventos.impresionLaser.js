@@ -174,6 +174,11 @@ var eventosImpresionLaer = {
     },
     lnkAtras: function() {
         $('#contentD3').hide();
+        $('input[type="number"]#valorAnillado').val(0);
+        $('input[type="number"]#valorPlastificado').val(0);
+        $('input[type="number"]#valorCorte').val(0);
+        $('input[type="number"]#valorCosido').val(0);
+        $('input[type="number"]#valorTotalConServicios').val(0);
         $('#contentD2').show();
     },
     modalSubForm: function() {
@@ -181,7 +186,7 @@ var eventosImpresionLaer = {
         eventosImpresionLaer.cargarSubForm('paginas/tiposImpresion/subFormModalLaser.html');
         $('div#content').css({"width": "800px", "height": "500px", "margin-top": "20px"});
         $('body').css({"background": "black"});
-        $('div#content div#cuerpo').css({"height": "390px", "overflow": "auto", "width": "100%"});
+        $('div#content div#cuerpo').css({"height": "390px", "overflow": "auto", "width": "90%"});
         $('div#info div#cuerpo').css({"overflow": "auto"});
         $('#aceptar').hide();
         $('#aceptar2').hide();
@@ -191,19 +196,19 @@ var eventosImpresionLaer = {
     eventos: function() {
         //Evento finalizar formulario. - guardará los datos ingresados en la BD.               
 //          $('#' + data.id).css({"border": "1px solid #999999"});
-        
-        $('select').change(function(event){                                    
-            if($('#'+event.currentTarget.id).val() > 0){
-               $('#'+event.currentTarget.id).css({"border": "1px solid #999999"});
+
+        $('select').change(function(event) {
+            if ($('#' + event.currentTarget.id).val() > 0) {
+                $('#' + event.currentTarget.id).css({"border": "1px solid #999999"});
             }
         });
         $('#btnFin').click(function() {
+            eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');
             if (validacionesImpresionLaser.validarSegundoForm()) {
                 $('#contentD2').hide();
-                $('#contentD3').show();                
-                eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');                
+                $('#contentD3').show();
+                $('div#nums').hide();
             } else {
-//                alert('Sucedió algo.');
             }
         });
         $('#btnFinModal').click(function() {
@@ -225,7 +230,7 @@ var eventosImpresionLaer = {
             $('#aceptar').show();
             $('#info').slideDown(500);
             $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-            $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+            $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
         });
         $('#aceptar').click(function() {
             inicio.cargar('paginas/servicios/impresion.html');
@@ -448,14 +453,14 @@ var eventosImpresionLaer = {
             if ($('#numAnill').val() > $('#numCopys2').val()) {
 //                $('div#content').css({"width": "400px", "height": "auto", "margin-top": "30px"});
                 $('div#titulo h2').html('!Atención!');
-                $('div#cuerpo p').html('El número de anillados no puede superar el número de copias de la misma impresión.');
+                $('div#cuerpo p').html('El número de anillados no puede superar el número de copias seleccionado para la impresión, si desea cambiar el número de copias use el botón atrás de la parte inferior.');
                 $('#numAnill').val($('#numCopys').val());
                 $('#aceptar').hide();
                 $('#aceptar2').hide();
                 $('#aceptar3').show();
                 $('#info').slideDown(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-                $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+                $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             } else if ($('#numAnill').val() < 1) {
                 $('#numAnill').val($('#numCopys').val());
                 $('div#titulo h2').html('!Atención!');
@@ -465,7 +470,7 @@ var eventosImpresionLaer = {
                 $('#aceptar3').show();
                 $('#info').slideDown(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-                $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+                $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             }
         });
         //Fin eventos formulario 2.
@@ -504,7 +509,7 @@ var eventosImpresionLaer = {
                 $('#aceptar3').show();
                 $('#info').slideDown(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-                $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+                $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             } else if ($('#txtPagPlastificadas').val() < 1) {
                 $('#txtPagPlastificadas').val(parseInt($('#numTotalBN').val()) + parseInt($('#numTotalColor').val()));
                 $('div#titulo h2').html('!Atención!');
@@ -514,7 +519,7 @@ var eventosImpresionLaer = {
                 $('#aceptar3').show();
                 $('#info').slideDown(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-                $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+                $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             }
         });
         $('#numCorte').change(function() {
@@ -528,7 +533,7 @@ var eventosImpresionLaer = {
                 $('#aceptar3').show();
                 $('#info').slideDown(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-                $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+                $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             } else if ($('#numCorte').val() < 1) {
                 $('#numCorte').val(parseInt($('#numTotalBN').val()) + parseInt($('#numTotalColor').val()));
                 $('div#titulo h2').html('!Atención!');
@@ -538,7 +543,7 @@ var eventosImpresionLaer = {
                 $('#aceptar3').show();
                 $('#info').slideDown(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-                $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+                $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             }
         });
 
@@ -810,12 +815,18 @@ var eventosImpresionLaer = {
             $('#numPaginasBN').val($('#txtCantBN').val());
             $('#numTotalBN').val($('#numPaginasBN').val() * $('#numCopys').val());
             $('#mensaje').slideUp(500);
+            if ($('#txtCantBN').val() < 0) {
+                $('#txtCantBN').val(0);
+            }
             eventosImpresionLaer.calcularPrecioImpresion();
         });
         $('#txtCantColor').change(function() {
             $('#numPaginasColor').val($('#txtCantColor').val());
             $('#numTotalColor').val($('#numPaginasColor').val() * $('#numCopys').val());
             $('#mensaje').slideUp(500);
+            if ($('#txtCantColor').val() < 0) {
+                $('#txtCantColor').val(0);
+            }
             eventosImpresionLaer.calcularPrecioImpresion();
         });
 //        $('#txtCantBN').keypress(function(event) {

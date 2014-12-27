@@ -52,10 +52,10 @@ ObjetoElementos = {"elementos": [
         {"nombre": "info"},
         {"nombre": "subForm"},
         {"nombre": "vistaAnillado"},
-        {"nombre": "servicioCorte"},        
+        {"nombre": "servicioCorte"},
         {"nombre": "td5Add"},
         {"nombre": "contentCorte"},
-        {"nombre": "td5Anillado span,#numAnill,#td5Anillado img.imgAyuda"},                
+        {"nombre": "td5Anillado span,#numAnill,#td5Anillado img.imgAyuda"},
     ]};
 //En este objeto se encuentran los pasos del formulario.
 ObjetoPasos = {"pasos": [
@@ -67,10 +67,29 @@ ObjetoPasos = {"pasos": [
         {"descripcion": "<b>6 Paso: </b>Selecciona el tipo de papel que deseas usar para tú impresión"},
         {"descripcion": "<b>7 Paso: </b>Carga el archivo que vas a imprimir desde tú equipo, o compartenos un link."}
     ]};
-
 datatxtCantColor = 0;
 var controlImpresionLaser = {
     init: function() {
+        //Si la url actual equivale al panel de usuario simplemente se aplican y reemplazan algunos
+        //estilos.
+        if (location.href == "http://localhost:8080/impresiones/panelusuario.html") {
+            $('div#divContenido').css({
+                'padding': '50px 0px 0px 0px',
+                'height': '570px',
+                'box-shadow': '0px 0px 3px gray'
+            });
+            //Modificamos la altura del contenedor del carrito y el mismo.
+            $('div#contentQ').css({'height': '570px'});
+            
+            $('div#cuerpoCarrito').css({
+                'height': '520px',
+                'background': '#fff',
+            });
+            //Fin edición carrito.
+            
+            $('#contentD3').css({'height': '500px','max-heigh': '500px'});
+
+        }
 //        if (document.getElementById("le_truquito") == undefined)
 //        {
 //            window.alert("Si se produce algún tipo de error en la funcionalidad del sistema, desactiva el AdBlock que te está protegiendo de anuncios.");
@@ -129,11 +148,11 @@ var controlImpresionLaser = {
         var objetoJSON;
         var datos = {};
         datos.tipoColor = tipoColorSeleccionado;
-        if(datos.tipoColor == 1){
-            datos.hojasBn = divContent.find('#numTotalBN').val();            
-        }else if(datos.tipoColor == 2){            
-            datos.hojasColor = divContent.find('#numTotalColor').val();            
-        }else if(datos.tipoColor == 3){
+        if (datos.tipoColor == 1) {
+            datos.hojasBn = divContent.find('#numTotalBN').val();
+        } else if (datos.tipoColor == 2) {
+            datos.hojasColor = divContent.find('#numTotalColor').val();
+        } else if (datos.tipoColor == 3) {
             datos.hojasBn = divContent.find('#numTotalBN').val();
             datos.hojasColor = divContent.find('#numTotalColor').val();
         }
@@ -141,26 +160,24 @@ var controlImpresionLaser = {
         datos.copias = divContent.find('input#numCopys').val();
         datos.modoImpresion = divContent.find('#cmbxModoImpresion').val();
         datos.tamanoPapel = divContent.find('#cmbxTipoTamano').val();
-        datos.tipoPapel = divContent.find('#cmbxTipoPapel').val();        
+        datos.tipoPapel = divContent.find('#cmbxTipoPapel').val();
         datos.tipoCarga = divContent.find('#cmbxTipoCarga').val();
-        if(datos.tipoCarga == 1){
+        if (datos.tipoCarga == 1) {
             datos.rutaArchivo = "Ruta";
-        }else{
+        } else {
             datos.linkArchivo = divContent.find("#txtLinkArchivos").val();
         }
         divContent = $('#contentD2');
-        
-        if(divContent.find("#anillado").is(":checked")){
+        if (divContent.find("#anillado").is(":checked")) {
             datos.anillado = true;
             datos.colorAnillo = divContent.find('#cmbxColorAnillo').val();
             datos.colorTapa1 = divContent.find('#cmbxColorTapas').val();
             datos.colorTapa2 = divContent.find('#cmbxColorTapas2').val();
-        }else{
+        } else {
             datos.anillado = false;
         }
         datos.instruccionesEspeciales = divContent.find('#txtaIAdicionales').val();
         datos.valorTotal = divContent.find('#valorTotal2').html();
-                
         objetoJSON = {'impresionlaser': JSON.stringify(datos)};
         controlPeticiones.insertar(url, metodo, objetoJSON, divMensaje);
     }

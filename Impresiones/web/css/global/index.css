@@ -1,0 +1,119 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27/12/2014, 03:23:54 AM
+    Author     : jhonjaider1000
+*/
+
+*{
+    margin: 0px;
+}
+
+body{
+    background-color: #000;
+    font-family: sans-serif;
+}
+
+label{
+    font-weight: bold;
+}
+header{
+    width: 100%;    
+    height: 150px;        
+    padding: 0px;    
+}
+div#contenedor{
+    width: 1150px;    
+    margin: 0 auto;
+}
+header img{    
+    width: 100%;
+    height: 150px;
+}
+
+div#cargador{
+    position: absolute;
+    top:-1px;
+    left: 45%;
+    border:solid 1px #379C2D;
+    padding: 5px 15px 6px 15px;
+    color:#333;
+    background-color: #FFF;
+    border-radius:0px 0px 15px 15px;
+    box-shadow: 0px 0px 7px #379C2D;  
+    display: none;
+}
+
+div#cargador img{
+    width: 30px;
+}
+
+nav{
+    width: 100%;
+    height: 31px;
+    background-color: #000;
+}
+
+div#divContenido{
+    width: 100%;
+    border: 1px solid black;
+    height: 450px;
+    background-color: #fff;
+}
+
+/* Estilos Leonardo */
+input[type='button']{
+    border-radius: 7px;
+}
+
+label{
+    display: block;
+    margin-bottom: 5px;
+    margin-top: 7px;
+    font-size: 1.1em;
+}
+
+
+select{
+    height: 30px;
+    background-color: #FFF;
+    border-radius: 7px;
+}
+
+
+input[type="text"],
+input[type="file"],
+input[type="password"]{
+    height: 30px;
+    background-color: #FFF;
+    border-radius: 7px;
+    padding-left: 5px;
+    
+}
+
+input[type="text"],
+input[type="password"]{
+    border:solid 1px #999;
+}
+
+input[type="file"]{
+    margin-top: 10px;
+}
+
+select option{
+    height: 20px;
+
+}
+
+select option:hover{
+    background-color: #F00;
+}
+input[type="number"]{
+    height: 20px;
+}
+div#divContenido{
+    padding: 0px;
+}

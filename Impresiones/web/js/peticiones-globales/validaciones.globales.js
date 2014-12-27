@@ -18,14 +18,15 @@ var validacionesGlobales = {
             data = null;
             for (var i = (dataFinds.length - 1); i >= 0; i--) {
                 data = dataFinds[i];
-                if ((!(data.id == 'celular')) && (!(data.id == 'telefono'))){
-                    if ($('#' + data.id).val().length > limitDatos) {
-                        completo++;
-                        $('#' + data.id).css({"border": "1px solid #999999"});
-                    } else {
-                        $('#' + data.id).css({"border": "1px solid red"});
-                    }
+//                if ((!(data.id == 'celular')) && (!(data.id == 'telefono'))){
+                if ($('#' + data.id).val().length > limitDatos) {
+                    completo++;
+                    $('#' + data.id).css({"border": "1px solid #999999"});
+                } else {
+                    $('#' + data.id).css({"border": "1px solid red"});
+                    console.log($('#' + data.id));
                 }
+//                }
             }
             //Fin For
 
@@ -55,6 +56,7 @@ var validacionesGlobales = {
                     $('#' + data.id).css({"border": "1px solid #999999"});
                 } else {
                     $('#' + data.id).css({"border": "1px solid red"});
+                    console.log($('#' + data.id));
                 }
             }
             //Fin For
@@ -84,6 +86,7 @@ var validacionesGlobales = {
                     $('#' + data.id).css({"border": "1px solid #999999"});
                 } else {
                     $('#' + data.id).css({"border": "1px solid red"});
+                    console.log($('#' + data.id));
                 }
             }
             //Fin For
@@ -106,6 +109,7 @@ var validacionesGlobales = {
         } else {
             respuesta = false;
         }
+        console.log(respuesta);
         return respuesta;
     }
 };

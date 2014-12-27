@@ -26,8 +26,17 @@ var controlRegistrar = {
     },
     init: function() {
         controlRegistrar.eventos();
+        controlRegistrar.posScroll();
         $('div#mensaje').hide();
         $('div#mensaje').css({"text-align": "center"});
+        $('div.contet-modal div#bodyForm').css({'width':'90%'});
+        $('div.campo1 input[type="text"]').css({'width':'94%'});
+        $('div.campo1 input[type="password"]').css({'width':'94%'});
+        $('div.campo2 input[type="text"]').css({'width':'94%'});
+        $('div.campo2 input[type="password"]').css({'width':'94%'});
+        $('div#foot').css({'width':'94%'});
+        $('div#mensaje').css({'width':'94%','height':'20px'});
+        $('div#info div#content').css({height: '84%'});
 //        controlRegistrar.temp('#registroUsuario');
     },
     eventos: function() {
@@ -45,7 +54,7 @@ var controlRegistrar = {
                 controlRegistrar.posScroll();
             }
         });
-        $('#email').bind("cut copy paste", function(e) {
+        $('#contrasenaConfirm').bind("cut copy paste", function(e) {
             e.preventDefault();
             $('div#mensaje').slideDown();
             $('div#mensaje span').html('Error: Opción deshabilitada!.');

@@ -5,11 +5,7 @@ var terminos = {
         $('#rhojasColor').html($('#numTotalColor').val());
         $('#rnCopias').html($('#numCopys').val());
         $('#rtImpre').html(($('#numTotalBN').val() + $('#numTotalColor').val()));
-        $('#rtotal').html($('#valorTotal').html());
-        var valoresUnitarios = $('#valorTotal').html();
-//        var valorFinalConServicios = parseInt($('#valorAnillado').val()) + parseInt($('#valorPlastificado').val()) + parseInt($('#valorCorte').val()) + parseInt($('#valorCosido').val()) + (($('#valorTotal2').html()).replace('$', ''));
-        var valorFinalConServicios = parseInt($('#valorAnillado').val()) + parseInt($('#valorPlastificado').val()) + parseInt($('#valorCorte').val()) + parseInt($('#valorCosido').val()) + parseInt((($('#valorTotal2').html()).replace('$', '')));
-        $('#rtotal').html('$'+valorFinalConServicios);
+        $('#rtotal').html($('#valorTotal').html());        
         $('#valorImpresionPedido1').html('Valor: '+$('#rtotal').html());
         $('#codigoImpre').css({'color':'blue','font-weight':'bold'});
         $('#rtotal').css({'color':'blue','font-weight':'bold'});

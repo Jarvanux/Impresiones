@@ -1,5 +1,5 @@
 /*
-Creando con fines solo para la página impresion.html
+Creando con fines solo para la pÃƒÂ¡gina impresion.html
 */
 /* 
     Created on : 25/11/2014, 01:34:39 PM
@@ -7,8 +7,9 @@ Creando con fines solo para la página impresion.html
 */
 
 #selectTipoImpresion{
-    width: 100%;
+    width: 40%;
     height: auto;
+    margin: 0 auto;
     text-align: center;
 }
 
@@ -51,9 +52,7 @@ Creando con fines solo para la página impresion.html
     margin-bottom: 10px;
     margin-top: 2px;
     width: 300px;
-}
-#divContenido{
-    padding: 70px;
+    display: block;
 }
 #imgLoader{    
     display: block;
@@ -63,4 +62,14 @@ Creando con fines solo para la página impresion.html
 .subTitulo1{
     display: block;
     margin-bottom: 1px;
+}
+div#content{
+    margin-top: 80px;
+}
+select#cmbTipoImpresion{
+    display: block;
+}
+#btnTipoImpresion{    
+    display: block;    
+    margin: 0 auto;
 }

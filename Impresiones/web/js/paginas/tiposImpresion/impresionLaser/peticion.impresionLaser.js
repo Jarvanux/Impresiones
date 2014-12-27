@@ -7,6 +7,14 @@ num2 = 0;
 tempCont = 0;
 resultado = 0;
 
+valorAnillado = 0;
+valorPlastificado = 0;
+valorCorte = 0;
+valorCosido = 0;
+
+colorConsultado = null;
+colorAnilloConsultado = null;
+
 ListaColores = {"colores": [
         {"nombre": "Negro", "idColor": 1, "urlImg": "img/data/paginas/impresionLaser/conversionesIMG/imgNegra"},
         {"nombre": "Azul", "idColor": 2, "urlImg": "img/data/paginas/impresionLaser/conversionesIMG/imgAzul"},
@@ -22,8 +30,6 @@ ListaColoresAnillo = {"colores": [
         {"nombre": "Rojo", "idColor": 4, "urlImg": "img/data/paginas/impresionLaser/conversionesIMG/anilloRojo.png"},
         {"nombre": "Verde", "idColor": 5, "urlImg": "img/data/paginas/impresionLaser/conversionesIMG/anilloVerde.png"},
     ]};
-colorConsultado = null;
-colorAnilloConsultado = null;
 //Fin datos para calcular el valor final.
 var peticionesImpresionLaser = {
     consultarColoresPorID: function(id) {
@@ -354,12 +360,15 @@ var peticionesImpresionLaser = {
             success: function(data) {
                 var respuesta = JSON.parse(data);
                 console.log(respuesta);
-                if (respuesta.codigo > 0) {    
+                if (respuesta.codigo > 0) {
                     console.log(respuesta.datos.valor);
-                    var valor= respuesta.datos.valor;                    
-                    $('#valorAnillado').val(valor *= $('input[type="number"]#numAnill').val());
-//                    $('#valorTotal2').html('$'+parseInt(valor) + parseInt(($('#valorTotal2').html()).replace('$', '')));
-                } else {                    
+                    var valor = respuesta.datos.valor;
+                    var valoresUnitarios = $('#valorTotal').html();
+                    valorAnillado = (valor *= $('input[type="number"]#numAnill').val());
+                    var valorFinalConServicios = valorAnillado + valorPlastificado + valorCorte + valorCosido + parseInt((($('#valorTotal2').html()).replace('$', '')));
+                    $('#esanillado').html('Si');
+                    $('#rtotal').html('$' + valorFinalConServicios);
+                } else {
                 }
             }
         });
@@ -374,9 +383,12 @@ var peticionesImpresionLaser = {
                 console.log(respuesta);
                 if (respuesta.codigo > 0) {
                     console.log(respuesta.datos.valor);
-                    var valor= respuesta.datos.valor;
-                    $('#valorPlastificado').val(valor *= $('input[type="number"]#txtPagPlastificadas').val());
-//                    $('#valorTotal2').html('$'+parseInt(valor) + parseInt(($('#valorTotal2').html()).replace('$', '')));
+                    var valor = respuesta.datos.valor;
+                    valorPlastificado = (valor *= $('input[type="number"]#txtPagPlastificadas').val());
+                    var valoresUnitarios = $('#valorTotal').html();
+                    var valorFinalConServicios = valorAnillado + valorPlastificado + valorCorte + valorCosido + parseInt((($('#valorTotal2').html()).replace('$', '')));
+                    $('#esplastificado').html('Si');
+                    $('#rtotal').html('$' + valorFinalConServicios);
                 } else {
                 }
             }
@@ -390,12 +402,15 @@ var peticionesImpresionLaser = {
             success: function(data) {
                 var respuesta = JSON.parse(data);
                 console.log(respuesta);
-                if (respuesta.codigo > 0) {                    
+                if (respuesta.codigo > 0) {
                     console.log(respuesta.datos.valor);
-                    var valor= respuesta.datos.valor;
-                    $('#valorCorte').val(valor *= $('input[type="number"]#numCorte').val());
-//                    $('#valorTotal2').html('$'+parseInt(valor) + parseInt(($('#valorTotal2').html()).replace('$', '')));
-                } else {                    
+                    var valor = respuesta.datos.valor;
+                    valorCorte = (valor *= $('input[type="number"]#numCorte').val());
+                    var valoresUnitarios = $('#valorTotal').html();
+                    var valorFinalConServicios = valorAnillado + valorPlastificado + valorCorte + valorCosido + parseInt((($('#valorTotal2').html()).replace('$', '')));
+                    $('#escorte').html('Si');
+                    $('#rtotal').html('$' + valorFinalConServicios);
+                } else {
                 }
             }
         });

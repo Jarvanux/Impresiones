@@ -154,29 +154,28 @@ var validacionesImpresionLaser = {
                 //Ejecutá el error estimado.
                 validacionesImpresionLaser.informe('Se han encontrado listas despegables sin seleccionar.');
                 $('select#cmbxColorAnillo').css({'border': '1px solid red'});
+                validacionesImpresionLaser.ocultarElementos(1);
             } else {
                 contadorAnillado++;
             }
             if ($('select#cmbxColorTapas').val() < 0) {
                 validacionesImpresionLaser.informe('Se han encontrado listas despegables sin seleccionar.');
                 $('select#cmbxColorTapas').css({'border': '1px solid red'});
+                validacionesImpresionLaser.ocultarElementos(1);
             } else {
                 contadorAnillado++;
             }
             if ($('select#cmbxColorTapas2').val() < 0) {
                 validacionesImpresionLaser.informe('Se han encontrado listas despegables sin seleccionar.');
                 $('select#cmbxColorTapas2').css({'border': '1px solid red'});
+                validacionesImpresionLaser.ocultarElementos(1);
             } else {
                 contadorAnillado++;
             }
 
             if (contadorAnillado == 3) {
                 contador++;
-                peticionesImpresionLaser.consultarValorAnillado($('input[type="number"]#numAnill').val());
-                /**
-                 * Una vez consultado el valor del anillado en la bd de datos.
-                 * se multiplicará por el número de copias de anillado ingresadas. :D
-                 */                                                
+                peticionesImpresionLaser.consultarValorAnillado($('input[type="number"]#numAnill').val());               
             }
         } else {
             contador++;
@@ -188,13 +187,13 @@ var validacionesImpresionLaser = {
             if ($('select#cmbxPlastificado').val() < 0) {
                 validacionesImpresionLaser.informe('Debes seleccionar un tipo de plastificado.');
                 $('select#cmbxPlastificado').css({'border': '1px solid red'});
+                validacionesImpresionLaser.ocultarElementos(2);
             } else {
                 contadorPlastificado++;
             }
 
             if (contadorPlastificado == 1) {                
-                contador++;                
-                
+                contador++;                                
                 peticionesImpresionLaser.consultarValorPlastificado($('input[type="number"]#txtPagPlastificadas').val());                                
             }
         } else {
@@ -206,7 +205,8 @@ var validacionesImpresionLaser = {
             var contadorCorte = 0;
             if ($('select#cmbxSCorte').val() < 0) {
                 validacionesImpresionLaser.informe('Debes seleccionar un tipo de plastificado.');
-                $('select#cmbxSCorte').css({'border': '1px solid red'});
+                $('select#cmbxSCorte').css({'border': '1px solid red'});                
+                validacionesImpresionLaser.ocultarElementos(3);
             } else {
                 contadorCorte++;
             }
@@ -234,7 +234,7 @@ var validacionesImpresionLaser = {
         $('#aceptar3').show();
         $('#info').slideDown(500);
         $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-        $('div#content div#cuerpo').css({"width": "400px", "height": "auto"});
+        $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
     },
     ocultarElementos: function(codigo) {
         var oculta = {
