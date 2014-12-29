@@ -15,13 +15,18 @@ public class util1 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {        
-//        String cadena = "|xd";
-//        System.out.println(cadena.startsWith("|"));
-//        System.out.println(cadena.substring(1));
-        for (int i = 2014; i > 1984; i--) {
-            System.out.println(i);            
-        }
+    public static void main(String[] args) {    
+//        {"codigo":1,"mensaje":"Datos consultados satisfactoriamente!.","datos":{"idUsuario":7,"nombres":"alguien","apellidos":"alguien","email":"alguien","cedula":"alguien","celular":"343-34","telefono":"3-444-44","ciudad":2,"contrasena":"No subministrada por el sistema","zona":1,"idRol":2,"estado":1}}
+        String res = "{\"codigo\":1,\"mensaje\":\"Datos consultados satisfactoriamente!.\",\"datos\":{\"idUsuario\":7,\"nombres\":\"alguien\",\"apellidos\":\"alguien\",\"email\":\"alguien\",\"cedula\":\"alguien\",\"celular\":\"343-34\",\"telefono\":\"3-444-44\",\"ciudad\":2,\"contrasena\":\"No subministrada por el sistema\",\"zona\":1,\"idRol\":2,\"estado\":1}}";
+        
+        System.out.println(res);
+        System.out.println(res.indexOf("datos"));        
+        System.out.println(res.substring(64));
+        
+        String cadena = "";
+        int index = cadena.indexOf("datos");
+        cadena.substring(index);
+        
     }
     
 }

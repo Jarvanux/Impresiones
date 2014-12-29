@@ -2000,3 +2000,7 @@ h2.subTitulo{
 div.pedido:hover{
     background: #A5FE9A;
 }
+
+div.divColum{
+    cursor: default;
+}

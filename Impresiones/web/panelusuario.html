@@ -4,7 +4,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Impresiones a Domicilio</title>
         <link type="text/css" rel="stylesheet" media="screen" href="css/global/panel-usuario.css" />
+        <link href="img/icons/global/favicon.jpg" rel="icon" type="image/x-icon" />        
         <link rel="stylesheet" href="css/global/menus-despegables.css" />
+        <link rel="stylesheet" href="css/global/global-modals.css" />
+        <link rel="stylesheet" href="css/global/global.css" />
         <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="js/paginas/administracionSitio/panel-usuario/control-panelusuario.js"></script>
         <script src="js/paginas/administracionSitio/panel-usuario/eventos-panelusuario.js"></script>
@@ -13,29 +16,58 @@
             <div id="content-header">
                 <img id="logo" src="img/icons/global/logo.jpg" alt="Impresiones a domicilio"/>              
                 <nav>                
-                    <ul class="menu">
+                    <ul class="menu" id="menu1">
                         <li> <a id="lnk-inicio" href="javascript:;">Inicio</a></li>
                         <li> <a id="lnk-impresiones" href="javascript:;">Mis impresiones</a>                        
-                        <li> <a href="javascript:;">Conversaciones</a>                         
-                        </li>
-                        <li> <a href="sede.html">Configuración</a>
+                        <li> <a id="lnk-conversaciones" href="javascript:;">Conversaciones</a></li>
+                        <li> <a id="lnk-configuracion" href="javascritp:;">Configuración</a>
                             <ul>
-                                <li> <a href="#">Perfil</a></li>
+                                <li> <a id="lnk-perfil" href="javascript:;">Perfil</a></li>
                                 <li> <a href="#">Preferencias</a></li>                            
                             </ul> 
                         </li>
-                        <li> <a href="sede.html">Ayuda</a>
+                        <li> <a id="lnk-ayuda" href="javascritp:;">Ayuda</a></li>
+                        <li> <a id="lnk-contacto" href="javascritp:;" >Contacto</a>
                             <ul>
-                                <li> <a href="#">Sistema</a></li>
-                                <li> <a href="#">Soporte</a></li>                            
+                                <li> <a id="lnk-telefono" href="javascript:;">Teléfono</a></li>
+                                <li> <a href="javascritp:;">Correo</a></li>
+                                <li> <a id="lnk-oficinas" href="javascript:;">Oficinas</a></li>
                             </ul> 
                         </li>
-                        <li> <a href="contacto.html" >Contacto</a>
+                        <li> <a id="lnk-salir" href="javascritp:;" >
+                                <img src="img/icons/global/cerrar-sesion.png" id="salir" />
+                                <span>Cerrar sesión</span>
+                            </a>                            
+                        </li>
+                    </ul>
+                    
+                    <ul class="menu" id="menu2" style="display: none">
+                        <li> <a id="lnk-inicio" href="javascript:;">Inicio</a></li>
+                        <li> <a id="lnk-impresiones" href="javascript:;">Mis impresiones</a>                        
+                        <li> <a id="lnk-configuracion" href="javascritp:;">Configuración</a>
                             <ul>
-                                <li> <a href="telefono.html">Telefono</a></li>
-                                <li> <a href="correo.html">Correo</a></li>
-                                <li> <a href="oficinas.html">Oficinas</a></li>
+                                <li> <a id="lnk-perfil" href="javascript:;">Perfil</a></li>
+                                <li> <a href="#">Preferencias</a></li>                            
                             </ul> 
+                        </li>
+                        <li> <a id="lnk-contacto" href="javascritp:;" >Contacto</a>
+                            <ul>
+                                <li> <a id="lnk-telefono" href="javascript:;">Teléfono</a></li>
+                                <li> <a href="javascritp:;">Correo</a></li>
+                                <li> <a id="lnk-oficinas" href="javascript:;">Oficinas</a></li>
+                            </ul> 
+                        </li>
+                        <li><a id="lnk-menu-android" href="javascritp:;"><img src="img/icons/global/menu-android.png" id="menu-android"/></a>
+                            <ul>
+                                <li> <a id="lnk-conversaciones" href="javascript:;">Conversaciones</a></li>                                
+                                <li> <a id="lnk-ayuda" href="javascritp:;">Ayuda</a>                                    
+                                </li>                                                                
+                            </ul>
+                        </li>
+                        <li> <a id="lnk-salir" href="javascritp:;" >
+                                <img src="img/icons/global/cerrar-sesion.png" id="salir" />
+                                <span>Cerrar sesión</span>
+                            </a>                            
                         </li>
                     </ul>
                 </nav>    
@@ -63,17 +95,18 @@
 
         <!--Aquí se cargarán las páginas externas del login y registro modalmente.-->
         <div id="info" class="back-modal" style="display: none">
-            <div id="content" class="contet-modal" style="width: 60%; height: 95%; margin-top: 10px;">
-                <div id="titulo" class="header-modal" style="background: #1FC71F; color: #FFF; text-shadow: 0px 0px 4px black; font-size: 14px; font-weight: bold; border-radius: 10px 10px 0px 0px; height: 50px;">
-                    <div id="titulo" class="titulo-modal" style="width: 90%; float: left;">
-                        <h2>Registro de usuario</h2>                    
+            <div id="content" class="contet-modal" >
+                <div id="titulo" class="header-modal">
+                    <div id="titulo" class="titulo-modal" >
+                        <h2>Información - empresa</h2>                    
                     </div>
-                    <div id="cerrar" class="close-modal" style="width: 10%; float: left;">
+                    <div id="cerrar" class="close-modal" style="cursor: pointer;" >
                         <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCerrar"/>
                     </div>
                 </div>                
-                <div id="cuerpo" class="body-modal" style="overflow: auto; height: 94%;">
-                    <p>Hola esto es una ventana modal.</p>
+                <div id="cuerpo" class="body-modal" style="overflow: auto;">
+                    <p>                       
+                    </p>
                 </div>
                 <div class="footer-modal">                               
                 </div>

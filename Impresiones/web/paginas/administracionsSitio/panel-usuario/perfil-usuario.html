@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div id="archivos-exeternos">
+
+</div>
+<div id="content-perfil">
+    <fieldset>
+        <legend><span id="title-legend">Configuración de Perfil</span></legend>
+        <div id="content-field">
+            <!--
 Formulario de registro de usuario externo.
 -->
 
 <div id="importExtends" style="display: none;">
-    <link href="css/paginas/administracionSitio/registrar.css" media="screen" type="text/css" rel="stylesheet" />                    
+    <link href="css/paginas/administracionSitio/registrar.css" media="screen" type="text/css" rel="stylesheet" />                
+    <link href="css/paginas/administracionSitio/config-perfil.css" media="screen" type="text/css" rel="stylesheet" />                
 
     <!--Scritps-->    
     <script type="text/javascript" src="js/peticiones-globales/validaciones.globales.js" ></script>        
@@ -37,33 +50,21 @@ Formulario de registro de usuario externo.
                     </div>
                 </div>
                 <label for="email" >E-Mail:</label>
-                <input type="text" placeholder="ejemplo@dominio.com" id="email" />
-                <label for="emailconfirm" >Confirmar E-Mail:</label>
-                <input type="text" id="emailconfirm" placeholder="ejemplo@dominio.com"/>            
+                <input type="text" placeholder="ejemplo@dominio.com" id="email" />                
                 <label for="cedula" >N° de cédula o NIT:</label>
                 <input type="text" id="cedula" placeholder="Documento"/>
                 <div class="duo-campos">
                     <div class="campo1">
                         <label for="celular" >Celular:</label>
-                        <input type="text" id="celular" placeholder="Celular" class="mobile" onkeyup="mascara(this, '-', patron3, true)" maxlength="12"/>
+                        <input type="text" id="celular" placeholder="Celular" class="mobile" onkeyup="mascara(this,'-',patron3,true)" maxlength="12"/>
                     </div>
                     <div class="campo2">
                         <label for="telefono" >Teléfono:</label>
-                        <input type="text" id="telefono" placeholder="Teléfono"  name = "telefono" onkeyup="mascara(this, '-', patron2, true)" maxlength="17" class="phone"/>                                      
+                        <input type="text" id="telefono" placeholder="Teléfono"  name = "telefono" onkeyup="mascara(this,'-',patron2,true)" maxlength="17" class="phone"/>                                      
                     </div>
                 </div>
                 <label for="direccion" >Dirección:</label>
-                <input type="text" id="direccion" placeholder="Dirección"/>
-                <div class="duo-campos">
-                    <div class="campo1">
-                        <label for="contrasena" >Contraseña:</label>
-                        <input type="password" id="contrasena" placeholder="Contraseña" />
-                    </div>
-                    <div class="campo2">
-                        <label for="contrasena" >Confirmar Contraseña:</label>
-                        <input type="password" id="contrasenaConfirm" placeholder="Confirma Contraseña" />
-                    </div>
-                </div>
+                <input type="text" id="direccion" placeholder="Dirección"/>                
                 <div class="duo-campos">
                     <div class="campo1">
                         <label for="ciudad" >Ciudad:</label>
@@ -91,7 +92,11 @@ Formulario de registro de usuario externo.
             </div>       
         </form>
         <div id="foot">
-            <input type="button" id="btnRegistrar" value="Registrar"/>
+            <input type="button" id="btnActualizar" value="Guardar cambios"/>
         </div>
     </div>
 </div>
+
+        </div>
+    </fieldset>
+</div>  

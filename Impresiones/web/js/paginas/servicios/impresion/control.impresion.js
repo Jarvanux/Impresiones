@@ -10,10 +10,7 @@ var controlTipoImpresion = {
         $('#cmbTipoImpresion').hide();
         $('#btnTipoImpresion').hide();
         $('.subTitulo1').hide();
-        peticionImpresion.tiposImpresion(cmbxTipoImpresion);
-
-//        $('#divContenido').css({"padding":"70px"});
-        //Cuando se cambie la selección del combox tipo de impersión.
+        peticionImpresion.tiposImpresion(cmbxTipoImpresion);        
         $('#cmbTipoImpresion').change(function() {
             $('#mensaje').slideUp(500);
             $('#mensaje').css({"background": "#EFFF5E"});
@@ -32,7 +29,7 @@ var controlTipoImpresion = {
             });
             $('#mensaje').slideDown(500);
         });
-    },
+    },    
     evaluarCarga: function() {
         if (cmbxTipoImpresion.val() == 1) {
             inicio.cargar('paginas/tiposImpresion/impresionLaser.html');

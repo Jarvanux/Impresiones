@@ -72,7 +72,7 @@ var controlImpresionLaser = {
     init: function() {
         //Si la url actual equivale al panel de usuario simplemente se aplican y reemplazan algunos
         //estilos.
-        if (location.href == "http://localhost:8080/impresiones/panelusuario.html") {
+        if (location.href == "http://localhost:8080/impresiones/panelusuario.html" || location.href == "http://localhost:8080/impresiones/panelusuario.html#") {            
             $('div#divContenido').css({
                 'padding': '50px 0px 0px 0px',
                 'height': '570px',

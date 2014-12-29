@@ -19,12 +19,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "UsuariosServlet", urlPatterns = {"/registrarUsuarios", "/ingresar","/cambiarEstado"})
+@WebServlet(name = "UsuariosServlet", urlPatterns = {"/registrarUsuarios", "/ingresar", "/cambiarEstado"})
 public class UsuariosServlet extends HttpServlet {
 
     private UsuarioDelegado usuarioDelegado;
@@ -47,8 +48,11 @@ public class UsuariosServlet extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
+//        request.getRequestDispatcher("panelusuario.html").include(request, response);  
         PrintWriter out = response.getWriter();
         Respuesta respuesta = new Respuesta();
+        Usuarios usuario = null;
+//        request.getRequestDispatcher("panelusuario.html").include(request, response);
         try {
             String ulr = request.getServletPath();
             EDireccion direccion = EDireccion.getDireccion(ulr);
@@ -69,8 +73,13 @@ public class UsuariosServlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             String json = new Gson().toJson(respuesta);
+//            String cadena = json;
+//            int index = cadena.indexOf("datos");
+//            cadena = cadena.substring(index);
+//            cadena = "{\"" + cadena;
+//            System.out.println(cadena);
             out.print(json);
-            out.close();
+            out.close();            
         }
     }
 
@@ -86,9 +95,9 @@ public class UsuariosServlet extends HttpServlet {
         String password = request.getParameter("password");
         return usuarioDelegado.ingresar(usuario, password);
     }
-    
-    private Respuesta cambiarEstado(HttpServletRequest request){
-        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));        
+
+    private Respuesta cambiarEstado(HttpServletRequest request) {
+        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
         return usuarioDelegado.cambiarEstado(idUsuario);
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
