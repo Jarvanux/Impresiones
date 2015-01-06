@@ -4,7 +4,7 @@
  */
 var inicio = {
     init: function() {
-        if (location.href != "http://localhost:8080/impresiones/login.html") {
+        if (location.href == "http://localhost:8080/impresiones/") {
             inicio.cargar('paginas/servicios/impresion.html');
         }
         $('#info').hide();

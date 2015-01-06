@@ -5,12 +5,10 @@
  */
 package co.com.rempe.impresiones.negocio.servlets;
 
-import co.com.progredi.impresiones.persistencia.entidades.Chat;
 import co.com.rempe.impresiones.negocio.constantes.EDireccion;
-import co.com.rempe.impresiones.negocio.delegado.ChatDelegado;
+import co.com.rempe.impresiones.negocio.delegado.VisitanteDelegado;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -23,21 +21,20 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "ChatServlet", urlPatterns = {"/insertarchat","/leerchat"})
-public class ChatServlet extends HttpServlet {
+@WebServlet(name = "VisitantesServlet", urlPatterns = {"/guardarVisitante"})
+public class VisitantesServlet extends HttpServlet {
 
-    private ChatDelegado chatDelegado;
+    private VisitanteDelegado delegadoVisitante;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        chatDelegado = ChatDelegado.getInstancia();
+        delegadoVisitante = VisitanteDelegado.getInstancia();
     }
 
     /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -48,51 +45,31 @@ public class ChatServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        Respuesta respuesta=new Respuesta();
+        Respuesta respuesta = new Respuesta();
         try {
             String url = request.getServletPath();
             EDireccion direccion = EDireccion.getDireccion(url);
-            switch (direccion) {
-                case INSERTAR_CHAT:
-                    respuesta = insertarChat(request);
-                    break;
-                case LEER_CHAT:
-                    respuesta = leerChat(request);
+            switch(direccion){
+                case GUARDAR_VISITANTE:
+                    respuesta = guardarVisitante(request);
                     break;
             }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }finally{
+        } catch (Exception ex) {
+            System.err.println("Error desde el servlet: "+ex);
+        } finally {
             String json = new Gson().toJson(respuesta);
             out.print(json);
             out.close();
         }
     }
 
-    private Respuesta insertarChat(HttpServletRequest request) throws IOException {
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-        String json = request.getParameter("chat");
-        Chat chat = gson.fromJson(json, Chat.class);
-        if(chat != null){
-            if(chat.getIdConversacion() < 0){
-                chat.setIdConversacion(System.currentTimeMillis());
-            }
-        }
-        return chatDelegado.insertarChat(chat);
+    private Respuesta guardarVisitante(HttpServletRequest request) throws IOException{
+        String ipVisitante = request.getParameter("ipVisitante");
+        return delegadoVisitante.guardarVisitante(ipVisitante);
     }
-    
-    private Respuesta leerChat(HttpServletRequest request){
-        int accion = Integer.parseInt(request.getParameter("accion"));
-        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
-        int idUsuarioContacto = Integer.parseInt(request.getParameter("idUsuarioContacto"));
-        int idConversacion = Integer.parseInt(request.getParameter("idConversacion"));
-        return chatDelegado.leerChat(accion,idUsuario,idUsuarioContacto,idConversacion);
-    }
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP
-     * <code>GET</code> method.
+     * Handles the HTTP <code>GET</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -106,8 +83,7 @@ public class ChatServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -129,4 +105,5 @@ public class ChatServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

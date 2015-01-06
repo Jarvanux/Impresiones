@@ -20,10 +20,13 @@
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/peticion.impresionLaser.js" ></script>
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/validaciones.impresionLaser.js" ></script>
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/eventos.impresionLaser.js" ></script>
-        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/control.impresionLaser.js" ></script>
+        <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/control.impresionLaser.js" ></script>    
+
+        <script src="js/peticiones-globales/jquery.uploader.js" type="text/javascript"></script>      
+        <script src="js/peticiones-globales/subir-archivo.js" type="text/javascript"></script>  
         <!--Fin Scripts - Consultas combobox.-->
     </head>
-    <body>        
+    <body>                
         <div id="contentLaser">
             <div id="tipoImpresionSeleccionado">                
                 <div id="cambiar" title="Seleccionar otro tipo de impresión.">
@@ -232,11 +235,11 @@
                 </div>
                 <!--FIN TIPO PAPEL-->
 
-                <!--CARGAR ARCHIVO-->            
-                <!--                <form enctype="multipart/form-data" id="formFile"> 
-                                    Fichero: <input type="file" name="fichero"/></br>                  
-                                </form> -->
-                <input type="file" id="fileUP"/>                
+                <!--CARGAR ARCHIVO-->                                    
+                <form action="subirArchivosServlet" enctype="multipart/form-data" name="form" id="formUpload" method="POST"> 
+                    <input type="button" name="fichero1" id="btnFile" value="Up" style="display: none;"/>
+                </form> 
+
                 <div id="cargaArchivo">
                     <span class="txtTipoCarga" >¿Como Adjuntaras tu archivo?</span>
                     <select id="cmbxTipoCarga">
@@ -309,12 +312,12 @@
                                     </select>
                                 </div>
                                 <div id="colorTapas">                                    
-                                    <span class="txtTapas">Color Tapa 1</span>
+                                    <span class="txtTapas">Color Tapa Frente</span>
                                     <select id="cmbxColorTapas">
                                     </select>
                                 </div>
                                 <div id="colorTapas2">                 
-                                    <span class="txtTapas">Color Tapa 2</span>
+                                    <span class="txtTapas">Color Tapa Tracera</span>
                                     <select id="cmbxColorTapas2">
                                     </select>
                                 </div>
@@ -403,7 +406,7 @@
                                                         </div>
                                                         <div id="cuperpoAyudaAnill" class="cuerpoHelp">
                                                             <span class="txtInfo">
-                                                                
+
                                                             </span>
                                                         </div>
                                                     </div>

@@ -1,4 +1,9 @@
 //Datos para calcular el valor final.
+
+$(document).ready(function(){
+   $('#cmbxTipoCarga').val(1); 
+});
+
 modoImpresion = null;
 tamanoPapel = null;
 TipoPapel = null;

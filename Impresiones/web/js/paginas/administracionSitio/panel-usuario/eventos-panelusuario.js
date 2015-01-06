@@ -7,12 +7,13 @@ $(document).ready(function() {
     eventosUsuario.eventos();
 });
 
-var eventosUsuario = {    
+var eventosUsuario = {
     regresarfondoLis: function() {
         $('.menu li a#lnk-inicio').removeAttr('class');
         $('.menu li a#lnk-impresiones').removeAttr('class');
         $('.menu li a#lnk-conversaciones').removeAttr('class');
         $('.menu li a#lnk-configuracion').removeAttr('class');
+        $('.menu li a#lnk-perfil').removeAttr('class');
         $('.menu li a#lnk-ayuda').removeAttr('class');
         $('.menu li a#lnk-contacto').removeAttr('class');
     },
@@ -20,7 +21,7 @@ var eventosUsuario = {
         $('a#lnk-inicio').click(function() {
             inicio.cargar('paginas/servicios/impresion.html');
             eventosUsuario.regresarfondoLis();
-            $('.menu li a#lnk-inicio').attr({'class':'fondo-rojo'});
+            $('.menu li a#lnk-inicio').attr({'class': 'fondo-rojo'});
         });
         $('img#logo').click(function() {
             inicio.cargar('paginas/servicios/impresion.html');
@@ -28,12 +29,12 @@ var eventosUsuario = {
         $('#lnk-impresiones').click(function() {
             inicio.cargar('paginas/resumen-impresion/impresiones-realizadas.html');
             eventosUsuario.regresarfondoLis();
-            $('.menu li a#lnk-impresiones').attr({'class':'fondo-rojo'});
+            $('.menu li a#lnk-impresiones').attr({'class': 'fondo-rojo'});
         });
-        $('#lnk-conversaciones').click(function() {            
+        $('#lnk-conversaciones').click(function() {
             eventosUsuario.regresarfondoLis();
-            $('.menu li a#lnk-conversaciones').attr({'class':'fondo-rojo'});
-        });       
+            $('.menu li a#lnk-conversaciones').attr({'class': 'fondo-rojo'});
+        });
         $('#lnk-contacto').click(function() {
             $('#info div#cuerpo p').html(' <br/>' +
                     '<span style="display:block; margin-bottom: 10px;"><b>Teléfono:</b> 321-249-1941xx</span>' +
@@ -63,8 +64,20 @@ var eventosUsuario = {
         $('#lnk-cs').click(function() {
             $(location).attr('href', '/impresiones/login.html');
         });
+        $('#lnk-salir').click(function() {
+            controlUsuario.cerrarSesion();
+        });
+        $('#lnk-perfil').click(function() {
+            eventosUsuario.regresarfondoLis();
+            $('.menu li a#lnk-configuracion').attr({'class': 'fondo-rojo'});            
+            $('.menu li a#lnk-perfil').attr({'class': 'fondo-rojo'});  
+            controlUsuario.editarDatosUsuario();
+        });
         $(window).resize(function() {
             controlUsuario.init();
+        });
+        $('#btnActualizar').click(function(){
+            controlUsuario
         });
     }
 };

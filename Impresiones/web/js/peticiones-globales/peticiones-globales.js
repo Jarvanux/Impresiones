@@ -1,6 +1,27 @@
 include = "js/peticiones-globales/imagenes.cursor.js";
-
+var respuestaUsuario = null;
 var controlPeticiones = {
+    consultarUsuarioLogeado: function() {
+        var resultado = null;
+        $.ajax({
+            'url': 'consultarUsuarioLogeado',
+            'type': 'POST',
+            'async': false,
+            success: function(data) {
+                resultado = data;
+            }
+        });
+//        console.log(resultado);
+        var respuesta = JSON.parse(resultado);
+//        console.log(respuesta);
+        if (respuesta.datos != null) {
+            respuestaUsuario = respuesta;
+            return true;
+        } else {
+//            console.log("No hay nadie logueado");
+            return false;
+        }
+    },
     calcularPaginasMixto: function(txt, txt2) {
         controlPeticiones.calcularPaginas(txt, 1);
         controlPeticiones.calcularPaginas(txt2, 1);
@@ -34,16 +55,16 @@ var controlPeticiones = {
             }
         });
     },
-    PaginasRepetidasEnCampos: function(txt,txt2) {
+    PaginasRepetidasEnCampos: function(txt, txt2) {
         $.ajax({
             'url': 'calcularpaginas', //Nombre de instancia del servlet.
             'type': 'POST',
-            'data': {'cadena': $('#' + txt).val()+','+$('#' + txt2).val()},
+            'data': {'cadena': $('#' + txt).val() + ',' + $('#' + txt2).val()},
             success: function(data) {
                 var respuesta = JSON.parse(data); //Concatenamos el objeto recibido a un objeto de JSON.
                 if (respuesta.codigo > 0) {
 //                    $('#' + txt).val(respuesta.datos.string);                    
-                } else {                    
+                } else {
                     $('#mensaje span.textMensaje').html('ERROR: ' + respuesta.mensaje);
                     $('#mensaje').slideDown(500);
                 }
@@ -70,16 +91,16 @@ var controlPeticiones = {
                 respuesta = JSON.parse(data);
                 console.log(respuesta);
                 switch (parseInt(respuesta.codigo)) {
-                    case 1:                        
+                    case 1:
                         controlPeticiones.limpiar();
                         break;
                     default:
 //                        divMensaje.addClass("alert-danger");
                         break;
-                }                
+                }
             },
-            error: function(e) {                
-                console.log('Error: '+e);
+            error: function(e) {
+                console.log('Error: ' + e);
             }
         });
         return respuesta;

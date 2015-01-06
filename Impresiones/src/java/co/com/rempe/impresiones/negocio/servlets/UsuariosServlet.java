@@ -14,6 +14,7 @@ import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,10 +26,11 @@ import javax.servlet.http.HttpSession;
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "UsuariosServlet", urlPatterns = {"/registrarUsuarios", "/ingresar", "/cambiarEstado"})
+@WebServlet(name = "UsuariosServlet", urlPatterns = {"/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores"})
 public class UsuariosServlet extends HttpServlet {
 
     private UsuarioDelegado usuarioDelegado;
+    RequestDispatcher vista;
 
     public void init() throws ServletException {
         super.init();
@@ -53,18 +55,41 @@ public class UsuariosServlet extends HttpServlet {
         Respuesta respuesta = new Respuesta();
         Usuarios usuario = null;
 //        request.getRequestDispatcher("panelusuario.html").include(request, response);
+        String ulr = "";
+        EDireccion direccion = null;
         try {
-            String ulr = request.getServletPath();
-            EDireccion direccion = EDireccion.getDireccion(ulr);
+            ulr = request.getServletPath();
+            direccion = EDireccion.getDireccion(ulr);
             switch (direccion) {
                 case REGISTRAR_USUARIO:
                     respuesta = insertarUsuario(request);
                     break;
                 case INGRESAR:
                     respuesta = ingresar(request);
+                    Usuarios usuarios = (Usuarios) respuesta.getDatos();
+                    HttpSession session = request.getSession();
+                    session.setAttribute("usuario", usuarios);
+                    if (usuarios != null) {
+                        System.out.println(session.getAttribute("usuario"));
+//                        RequestDispatcher a = request.getRequestDispatcher("panelusuario.html");
+//                        a.forward(request, response);
+//                        response.sendRedirect("panelusuario.html");
+                    }
                     break;
                 case CAMBIAR_ESTADO:
                     respuesta = null;
+                    break;
+                case CONSULTAR_USUARIOS:
+                    respuesta = consultarUsuarioPorID(request);
+                    break;
+                case CONSULTAR_USUARIO_LOGEADO:
+                    respuesta = consultarUsuarioLogueado(request);
+                    break;
+                case CERRAR_SESION:
+                    respuesta = cerrarSesion(request);
+                    break;
+                case BUSCAR_ASESORES:
+                    respuesta = buscarAsesores();
                     break;
             }
         } catch (Exception e) {
@@ -77,9 +102,9 @@ public class UsuariosServlet extends HttpServlet {
 //            int index = cadena.indexOf("datos");
 //            cadena = cadena.substring(index);
 //            cadena = "{\"" + cadena;
-//            System.out.println(cadena);
+//            System.out.println(cadena);           
             out.print(json);
-            out.close();            
+            out.close();
         }
     }
 
@@ -99,6 +124,23 @@ public class UsuariosServlet extends HttpServlet {
     private Respuesta cambiarEstado(HttpServletRequest request) {
         int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
         return usuarioDelegado.cambiarEstado(idUsuario);
+    }
+
+    private Respuesta consultarUsuarioPorID(HttpServletRequest request) {
+        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+        return usuarioDelegado.cambiarEstado(idUsuario);
+    }
+
+    private Respuesta consultarUsuarioLogueado(HttpServletRequest request) {
+        return usuarioDelegado.consultarSession(request);
+    }
+
+    private Respuesta cerrarSesion(HttpServletRequest request) {
+        return usuarioDelegado.cerrarSesion(request);
+    }
+    
+    private Respuesta buscarAsesores(){
+        return usuarioDelegado.buscarAsesores();
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -67,10 +67,8 @@ var chatControl = {
         var date = day + "/" + month + "/" + year + " " + hours + ":" + minutes + ":" + secounds + ' ' +formato;
         return date;
     },
-    modoLectura: function() {
-        console.log("Ejecutado" + $('#cuerpoChat').scrollTop());
-        modoLectura = true;
-        posScroll = $('#cuerpoChat').scrollTop();
+    modoLectura: function() {      
+        modoLectura = true;        
     },
     keyPress: function(event) {
         //Obtengo el div padre desde el cual se ejcutó el evento.
@@ -128,6 +126,8 @@ var chatControl = {
         scc.scrollTop = scc.scrollHeight + scc.offsetHeight;
         var elemento = scc;
         elemento.scrollTop = elemento.scrollHeight - elemento.clientHeight;
+        
+        
         
 //        var myCont = document.getElementById('cuerpoChat');
 //        vary = 9999999999999999999999999999999999999999999999999;

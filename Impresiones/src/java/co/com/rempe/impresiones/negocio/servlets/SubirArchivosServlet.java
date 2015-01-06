@@ -7,6 +7,7 @@ package co.com.rempe.impresiones.negocio.servlets;
 
 import co.com.rempe.impresiones.negocio.constantes.EDireccion;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
+import co.com.rempe.impresiones.persistencia.entidades.ArchivosAdjuntos;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +28,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "SubirArchivosServlet", urlPatterns = {"/subirArchivosServlet"})
+@WebServlet(name = "SubirArchivosServlet", urlPatterns = {"/subirArchivosServlet", "/eliminarArchivo"})
 public class SubirArchivosServlet extends HttpServlet {
 
     @Override
@@ -46,6 +47,9 @@ public class SubirArchivosServlet extends HttpServlet {
             switch (direccion) {
                 case SUBIR_ARCHIVO:
                     respuesta = subirArchivo(request);
+                    break;
+                case ELIMINAR_ARCHIVO:
+                    respuesta = eliminarArchivo(request);
                     break;
             }
         } catch (Throwable e) {
@@ -104,27 +108,88 @@ public class SubirArchivosServlet extends HttpServlet {
 // req es la HttpServletRequest que recibimos del formulario.
 // Los items obtenidos serán cada uno de los campos del formulario,
 // tanto campos normales como ficheros subidos.
+        System.out.println("Items-------");
         List items = upload.parseRequest(request);
         System.out.println(items);
 
+        System.out.println("Request-----------------");
+        System.out.println(request);
 // Se recorren todos los items, que son de tipo FileItem
         for (Object item : items) {
             FileItem uploaded = (FileItem) item;
             // Hay que comprobar si es un campo de formulario. Si no lo es, se guarda el fichero
             // subido donde nos interese
+            System.out.println("Item---------------");
+            System.out.println(uploaded.isFormField());
             if (!uploaded.isFormField()) {
                 // No es campo de formulario, guardamos el fichero en algún sitio
-                File fichero = new File("D:" + File.separator + "Servidor", uploaded.getName());
-                System.out.println("Archivo subido: " + uploaded.getName());
-                uploaded.write(fichero);
-                respuesta.setCodigo(1);
-                respuesta.setMensaje("Se ha subido exitosamente el archivo: "+uploaded.getName());
-            } else {
-                // es un campo de formulario, podemos obtener clave y valor
-                String key = uploaded.getFieldName();
-                String valor = uploaded.getString();
-                System.out.println("Archivo subido: " + key);
+
+                //El sisguiente bloque simplemente es para divorciar el nombre del archivo de las rutas
+                //posibles que pueda traernos el getName() sobre el objeto de  la clase FileItem,
+                //pues he descuvierto que el explorer especificamente es el único que envía
+                //la ruta adjuntada al nombre, por lo cual es importante corregirlo.
+                String nombreArchivo = uploaded.getName();
+                String cadena = nombreArchivo;
+                System.out.println(cadena);
+                while (cadena.contains("\\")) {
+                    cadena = cadena.replace("\\", "&");
+                }
+                System.out.println(cadena);
+                String[] ruta = cadena.split("&");
+                for (int i = 0; i < ruta.length; i++) {
+                    String string = ruta[i];
+                    System.out.println(string);
+                }
+                nombreArchivo = ruta[ruta.length - 1];
+                System.out.println("Ruta archivo: " + nombreArchivo);
+                //Fin corrección nombre.
+
+                String nombreArchivoEscrito = System.currentTimeMillis() + "-" + nombreArchivo;
+                String rutaEscritura = new File("D:" + File.separator + "Servidor", nombreArchivoEscrito).toString();
+                File fichero = new File(rutaEscritura);
+
+                ArchivosAdjuntos archivo = new ArchivosAdjuntos();
+                archivo.setNombreArchivo(nombreArchivo);
+                archivo.setRutaArchivo(rutaEscritura);
+                archivo.setTamanioArchivo(uploaded.getSize());
+                if (nombreArchivo.endsWith(".pdf") || nombreArchivo.endsWith(".png")
+                        || nombreArchivo.endsWith(".jpg") || nombreArchivo.endsWith(".bmp")
+                        || nombreArchivo.endsWith(".svg")) {
+                    System.out.println("Archivo subido: " + uploaded.getName());
+                    uploaded.write(fichero);
+                    respuesta.setCodigo(1);
+                    respuesta.setDatos(archivo);
+                    respuesta.setMensaje("Se ha subido exitosamente el archivo: " + uploaded.getName());
+                } else {
+                    respuesta.setCodigo(0);
+                    respuesta.setDatos(archivo);
+                    respuesta.setMensaje("El formato del archivo " + nombreArchivo + " es invalido!");
+                }
             }
+//            else {
+//                // es un campo de formulario, podemos obtener clave y valor
+//                String key = uploaded.getFieldName();
+//                String valor = uploaded.getString();
+//                System.out.println("Archivo subido: " + key);
+//            }
+        }
+        return respuesta;
+    }
+
+    private Respuesta eliminarArchivo(HttpServletRequest request) {
+        Respuesta respuesta = new Respuesta();
+        try {
+            File archivo = new File(request.getParameter("rutaArchivo"));
+            if (archivo.delete()) {
+                respuesta.setCodigo(1);
+                respuesta.setMensaje("Se ha eliminado el archivo!.");
+            }else{
+                respuesta.setCodigo(0);
+                respuesta.setMensaje("No se pudo eliminar el archivo.");
+            }
+        } catch (Exception e) {
+            respuesta.setCodigo(-1);
+            respuesta.setMensaje("Error al eliminar el archivo!.");
         }
         return respuesta;
     }

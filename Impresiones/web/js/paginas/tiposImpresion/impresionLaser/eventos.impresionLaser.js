@@ -195,8 +195,7 @@ var eventosImpresionLaer = {
     },
     eventos: function() {
         //Evento finalizar formulario. - guardará los datos ingresados en la BD.               
-//          $('#' + data.id).css({"border": "1px solid #999999"});
-
+//          $('#' + data.id).css({"border": "1px solid #999999"});                
         $('select').change(function(event) {
             if ($('#' + event.currentTarget.id).val() > 0) {
                 $('#' + event.currentTarget.id).css({"border": "1px solid #999999"});
@@ -263,17 +262,17 @@ var eventosImpresionLaer = {
 
         $('#cmbxSCorte').change(function() {
             if ($('#cmbxSCorte').val() == 1) {
-                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-01.jpg'});
-                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-01.jpg'});
+                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-01.svg'});
+                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-01.svg'});
             } else if ($('#cmbxSCorte').val() == 2) {
-                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-02.jpg'});
-                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-02.jpg'});
+                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-02.svg'});
+                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-02.svg'});
             } else if ($('#cmbxSCorte').val() == 3) {
-                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-03.jpg'});
-                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-03.jpg'});
+                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-03.svg'});
+                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-03.svg'});
             } else if ($('#cmbxSCorte').val() == 4) {
-                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-04.jpg'});
-                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-04.jpg'});
+                $('#imgCorte').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-04.svg'});
+                $('#imgCorte-v').attr({'src': 'img/data/paginas/impresionLaser/tipo-corte/servicio de corte-04.svg'});
             } else {
                 $('#imgCorte').removeAttr("src");
                 $('#imgCorte-v').removeAttr("src");

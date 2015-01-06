@@ -16,7 +16,7 @@ var chatInicio = {
             'type': 'POST',
             success: function(data) {
                 var respuesta = JSON.parse(data); //Concatenamos el objeto recibido a un objeto de JSON.                                                                            
-                console.log(respuesta);
+//                console.log(respuesta);
                 chatInicio.eventos();
                 chatControl.posScroll();
                 if (respuesta.codigo > 0) {
@@ -26,7 +26,7 @@ var chatInicio = {
                     $('div.cabezaChat').css({'background': 'orange'});
                     $('div.cabezaChat span').html('Desconectado - deja tú mensaje');
                     $('div.contenedorChat').show();
-                    console.log('Desconectados');
+//                    console.log('Desconectados');
                     $('div.cuerpoChat').html('');
                     $('div.cuerpoChat').css({'height': '280px'});
                     $('div.text-sms').prop('disabled', 'true');

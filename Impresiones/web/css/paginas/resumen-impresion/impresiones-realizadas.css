@@ -72,94 +72,54 @@ div#num-impresiones{
     border-radius: 5px;
 }
 
-div#table{
-    width: 83%; 
+table{
+    width: 89%;
+    margin: 0px;
     margin: 0 auto;    
-    height: 450px;    
+    text-align: center;    
 }
 
-div#table *{
-    float: left;
-}
-div#table div.thead-table{
-    background: green;
+th{
+    background: green;    
     color: #fff;    
-    width: 100%;    
-    border-radius: 4px 4px 4px 0px;
-    box-shadow: 0px 0px 1px black;
+    padding: 4px 2px;
 }
-div#table div.tbody-table{
-    background: #fff;
-    color: #000;
+
+td{
+    border: 1px solid #ccc;
+    margin: 0px;
+}
+
+.colum-1{
+    width: 40px;
+}
+
+.colum-2{
+    width: 200px;
+}
+.colum-3{
+    width: 200px;
+}
+.colum-4{
+    width: 240px;
+}
+.colum-5{
+    width: 160px;
+    text-align: center;
+}
+
+tr:hover{
+    background: #78a5d1;
+    cursor: pointer; 
+}
+div#content-table{
+   width: 89%;
+   border: 1px solid #ccc;
+   margin: 0 auto;
+   height: 390px;
+   overflow: auto; 
+}
+
+table#tablaContent{
     width: 100%;
-    height: 420px;        
-    overflow: auto;
-    box-shadow: 0px 0px 1px black;
-}
-
-div#table div.thead-table div.th-table{    
-    text-align: center;
-    padding: 5px 10px;    
-    font-family: sans-serif;
-    font-weight: bold;
-    border-right: 1px solid #ccc;
-}
-div#table div.tbody-table div.td-table{
-    text-align: center;
-    padding: 3px 10px;
-    font-family: sans-serif;
-    font-weight: normal;
-    border-right: 1px solid #AAA;
-}
-
-div#table div.thead-table div#codigoImpre{
-    width: 150px;
-}
-div#table div.tbody-table div#codigoImpre{
-    width: 150px;
-}
-div#table div.thead-table div#fechaImpre{
-    width: 160px;
-}
-div#table div.tbody-table div#fechaImpre{
-    width: 160px;
-}
-div#table div.thead-table div#nombreArchivo{
-    width: 160px;
-}
-div#table div.tbody-table div#nombreArchivo{
-    width: 160px;
-}
-div#table div.thead-table div#totalImpre{
-    width: 180px;
-}
-div#table div.tbody-table div#totalImpre{
-    width: 180px;
-}
-div#table div.thead-table div#estadoImpre{
-    width: 144px;
-}
-div#table div.tbody-table div#estadoImpre{
-    width: 144px;
-}
-
-div#table div.tbody-table div.tr-table1:hover{    
-    background: #78a5d1;
-    cursor: pointer;    
-}
-div#table div.tbody-table div.tr-table2:hover{
-    background: #78a5d1;
-    cursor: pointer;    
-}
-div#table div.tbody-table div.tr-table1{
-    background: #fff;
-}
-div#table div.tbody-table div.tr-table2{
-    background: #EAEAEA;
-}
-div#table div.thead-table div#indice-table{    
-    width: 30px;
-    text-align: center;
-    padding: 8px 0px 0px 0px;
-    height: 17px;
 }

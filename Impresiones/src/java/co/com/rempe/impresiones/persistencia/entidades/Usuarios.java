@@ -88,6 +88,8 @@ public class Usuarios implements Serializable {
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
+    @Column(name = "conectado")
+    private boolean conectado;
 
     public Usuarios() {
     }
@@ -108,6 +110,14 @@ public class Usuarios implements Serializable {
         return apodo;
     }
 
+    public boolean isConectado() {
+        return conectado;
+    }
+
+    public void setConectado(boolean conectado) {
+        this.conectado = conectado;
+    }
+    
     public void setApodo(String apodo) {
         this.apodo = apodo;
     }

@@ -14,10 +14,11 @@ public class BuscarEmoticones {
     public static void main(String[] args) {
         String cadena = "Hola que hace :) :) :) :) :) :D ;) :3";
         buscarEmoticones(cadena);
+        System.out.println(buscarEtiquetas("<html>"));
     }
 
-    public static String buscarEmoticones(String cadena) {        
-        System.out.println(cadena);
+    public static String buscarEmoticones(String cadena) {  
+        cadena = buscarEtiquetas(cadena);
         while (cadena.contains(":)") || cadena.contains(":D") || cadena.contains(";)") || cadena.contains(":3") || cadena.contains("(y)") || cadena.contains("(Y)")
                 || cadena.contains("<3") || cadena.contains(":P") || cadena.contains(":p")) {
             cadena = cadena.replace(":)", "<img src=\"img/chat/emoticones/sonrie.png\" style=\"width: 17px\"/>");
@@ -29,6 +30,14 @@ public class BuscarEmoticones {
             cadena = cadena.replace("<3", "<img src=\"img/chat/emoticones/corazon.png\" style=\"width: 17px\"/>");
             cadena = cadena.replace(":P", "<img src=\"img/chat/emoticones/muecas.png\" style=\"width: 17px\"/>");
             cadena = cadena.replace(":p", "<img src=\"img/chat/emoticones/muecas.png\" style=\"width: 17px\"/>");
+        }        
+        return cadena;
+    }
+    
+    public static String buscarEtiquetas(String cadena) {                
+        while (cadena.contains("<") || cadena.contains(">")){
+            cadena = cadena.replace("<", "");            
+            cadena = cadena.replace(">", "");            
         }        
         return cadena;
     }

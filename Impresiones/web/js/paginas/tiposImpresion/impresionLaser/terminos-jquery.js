@@ -1,3 +1,13 @@
+$(document).ready(function(){
+    var logger = false;
+    $('#btnAceptarTerminos').click(function(){
+        logger = controlPeticiones.consultarUsuarioLogeado();
+    });
+    if(!logger){
+        
+    }
+});
+
 var terminos = {
     init: function() {
         terminos.generarUnCodigo();

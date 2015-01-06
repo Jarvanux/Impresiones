@@ -1,0 +1,281 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29/12/2014, 11:44:30 PM
+    Author     : jhonjaider1000
+*/
+
+div.chat-panel{                
+    width: 300px;
+    height: 350px;
+    border-radius: 5px 5px 0px 0px;
+    box-shadow: 0px 0px 4px black;    
+    margin-right: 20px;    
+    float: right;
+}
+div.all-chats{    
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-height: 350px;
+    max-height: 350px;
+    pointer-events: none;   
+}
+div.chat-panel div.chat-header{
+    border-radius: 5px 5px 0px 0px;
+    background: #48AE5C;
+    width: 280px;
+    height: 30px;
+    padding: 10px 0px 0px 20px;
+    pointer-events: auto;   
+}
+
+div.chat-panel div.chat-header div.estado{
+    background: #00FF00;
+    width: 15px;
+    height: 15px;
+    float: left;
+    border-radius: 10px;       
+}
+
+div.chat-panel div.chat-header div.btn-close{
+    float: right;
+    margin-right: 10px;         
+    cursor: pointer;      
+}
+
+div.chat-panel div.chat-header div.btn-min div{
+    background: #000;    
+    width: 20px;
+    height: 6px;
+    float: right;
+    margin-top: 7px;
+    border-radius: 3px;
+}
+
+div.chat-panel div.chat-header div.btn-min div:hover{
+    background: #fff;
+}
+
+div.chat-panel div.chat-header div.btn-min{    
+    margin-right: 10px;
+    width: 20px;
+    height: 13px;    
+    float: right;
+    cursor: pointer;
+    display: none;
+}
+
+div.chat-panel div.chat-header div.btn-max{    
+    margin-right: 10px;
+    width: 20px;
+    height: 13px;    
+    float: right;
+    cursor: pointer;
+}
+
+div.chat-panel div.chat-header div.btn-max div:hover{    
+    border-top: 6px solid #fff;
+    border-left: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-bottom: 3px solid #fff;
+}
+div.chat-panel div.chat-header div.btn-max div{    
+    width: 20px;
+    height: 5px;        
+    cursor: pointer;
+    border-top: 6px solid #000;
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+    border-bottom: 3px solid #000;
+}
+div.chat-panel div.chat-header div#mensajes-recibidos{
+    background: red;
+    width: 30px;
+    height: 20px;
+    color: #fff;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    padding: 2px 0px 0px 0px;
+    margin-left: 20px;
+    float: left;
+}
+div.chat-panel div.chat-header span{
+    color: #fff;
+
+    float: left;
+    margin-left: 10px;
+    font-family: sans-serif;
+    font-weight: bold;        
+}
+div.chat-panel div.chat-body{
+    width: 300px;
+    height: 259px;
+    background: #fff;
+    overflow: auto;  
+    pointer-events: auto;
+}
+
+div.chat-panel div.chat-footer{
+    width: 300px;
+    height: 60px;
+    background: yellow;
+    pointer-events: auto;   
+}
+
+div.sms-emisor{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;
+    background: #DEF5DE;    
+    float: right;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #DEF5DE);    
+    border-radius: 5px 5px 0px 5px;
+    box-shadow: 0px 0px 2px black;
+    margin-right: 10px;    
+    padding: 3px 6px;
+    font-family: sans-serif;
+    word-wrap: break-word;    
+}
+
+div.sms-reseptor{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;    
+    float: left;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #ECECEC);    
+    border-radius: 5px 5px 5px 0px;
+    box-shadow: 0px 0px 2px black;
+    margin-left: 10px;    
+    padding: 3px 6px;
+    word-wrap: break-word;    
+}
+
+div.sms-emisor div.name-usuario{       
+    width: 100%;    
+    text-align: right;    
+    display: block;
+    height: 15px;        
+    margin-bottom: 4px;    
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;    
+}
+div.sms-reseptor div.name-usuario{       
+    width: 100%;     
+    text-align: left;   
+    display: block;
+    height: 15px;        
+    margin-bottom: 4px;    
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;    
+}
+div.fecha{    
+    text-align: right;
+    color: #AAA;
+    font-size: 9px;
+    margin-top: 6px;
+}
+
+textarea.text-sms{
+    border-radius: 0px;
+    min-width: 293px;
+    max-width: 300px;
+    min-height: 50px;
+    max-height: 50px;
+    overflow: auto;
+    margin: 0 auto;
+    resize: none;  
+}
+
+div.chat-panel{
+    height: 40px;
+    padding: 310px 0px 0px 0px;
+    box-shadow: none;
+}        
+
+div.chat-panel div.chat-body, div.chat-panel div.chat-footer{
+    display: none;    
+}   
+
+div.chat-panel div.chat-header div.btn-max{    
+    margin-right: 13px;
+    display: block;
+}    
+div.chat-panel div.chat-header div.btn-min{
+    display: none;
+}
+div.chat-panel div.chat-header div.btn-close{
+    display: none;
+}
+
+div.buscando-soporte{    
+    text-align: center;    
+}
+
+div.buscando-soporte img{
+    display: block;
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 40px;
+}
+
+div.buscando-soporte span{
+    color: green;
+    font-family: sans-serif;
+    font-weight: bold;    
+}
+
+div.estado-acciones{
+    width: 100%;
+    font-size: 13px;
+    height: 20px;   
+    background: #fff;    
+    float: right;
+    display: block;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 20px;            
+    font-family: sans-serif;    
+}
+
+div.estado-acciones img{
+    width: 20px;
+    margin: 0 auto;
+    display: block;        
+}
+div.contacto-escribiendo{
+    width: 20px;
+    height: 20px;
+    float: right;
+}
+div.mensajes-reci img{
+    width: 100%;        
+}
+
+div.estado-acciones span{
+    color: #aaa;    
+    margin: 0 auto;
+    display: block;
+    text-align: center;    
+}

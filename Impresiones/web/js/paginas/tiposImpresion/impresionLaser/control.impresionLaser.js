@@ -35,8 +35,7 @@ ObjetoElementos = {"elementos": [
         {"nombre": "continuarForm"},
         {"nombre": "btnSiguiente"},
         {"nombre": "fileUP"},
-        {"nombre": "descripParamas"},
-        {"nombre": "tipoCargaSelect"},
+        {"nombre": "descripParamas"},        
         {"nombre": "numPaginasBN"},
         {"nombre": "numPaginasColor"},
         {"nombre": "contentD2"},
@@ -79,8 +78,7 @@ var controlImpresionLaser = {
                 'box-shadow': '0px 0px 3px gray'
             });
             //Modificamos la altura del contenedor del carrito y el mismo.
-            $('div#contentQ').css({'height': '570px'});
-            
+            $('div#contentQ').css({'height': '570px'});            
             $('div#cuerpoCarrito').css({
                 'height': '520px',
                 'background': '#fff',

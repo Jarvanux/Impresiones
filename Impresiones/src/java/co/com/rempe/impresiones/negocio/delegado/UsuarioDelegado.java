@@ -7,12 +7,16 @@ package co.com.rempe.impresiones.negocio.delegado;
 
 import co.com.rempe.impresiones.negocio.constantes.ECodigoRespuesta;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
+import co.com.rempe.impresiones.persistencia.dao.UsuarioDAO;
 import co.com.rempe.impresiones.persistencia.dao.UsuariosDAO;
 import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import co.com.rempe.impresiones.persistencia.entidades.conexion.BDConexion;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -83,6 +87,59 @@ public class UsuarioDelegado {
         }
         return null;
     }
+    
+    public Respuesta buscarAsesores(){
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            Usuarios usuario = new Usuarios();
+            UsuariosDAO dao = new UsuariosDAO(em);
+            usuario = dao.buscarSoporte();
+            int codigo = (usuario == null) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            if(codigo == 0){
+               usuario = dao.buscarSoporteRecurso2();
+            }
+            codigo = (usuario == null) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            respuesta.setCodigo(codigo);
+            respuesta.setDatos(usuario);
+            respuesta.setMensaje("Asesor consultado satisfactoriamente");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al consultar un asesor.");
+        }
+        return respuesta;
+    }
+    
+    public Respuesta consultarSession(HttpServletRequest request){
+        Respuesta respuesta = new Respuesta();
+        try {
+            HttpSession session = request.getSession();
+            Usuarios usuario = (Usuarios)session.getAttribute("usuario");
+            int codigo = (usuario == null) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            respuesta.setCodigo(codigo);
+            respuesta.setDatos(usuario);
+            respuesta.setMensaje(ECodigoRespuesta.CORRECTO.getDescripcion());
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje(ECodigoRespuesta.ERROR.getDescripcion());
+        }
+        return respuesta;
+    }
+    
+    public Respuesta cerrarSesion(HttpServletRequest request){
+        Respuesta respuesta = new Respuesta();
+        try {
+            HttpSession session = request.getSession();
+            session.invalidate();
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setMensaje("Sesión cerrada éxitosamente");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al cerrar la sesión");
+        }
+        return respuesta;
+    }
     public Respuesta cambiarEstado(int idUsuario){
         EntityManager em = null;        
         Respuesta respuesta = new Respuesta();
@@ -105,5 +162,13 @@ public class UsuarioDelegado {
         }
         return respuesta;
     }
-
+    
+       public Usuarios seleccionarAsesor(List<Usuarios> lista){
+        Usuarios usuario = new Usuarios();
+        
+        for (int i = 0; i < lista.size(); i++) {            
+            usuario = lista.get(i);
+        }
+        return usuario;
+    }
 }
