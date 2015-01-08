@@ -19,10 +19,8 @@ $(document).ready(function() {
     controlChat.init();
 });
 var controlChat = {
-    init: function() {
-        if (location.href.search('panelusuario') > -1) {
-            controlChat.chatNuevo();
-        }
+    init: function() {        
+        $('#chatmodelo div.btn-close').show();
     },
     prepararChat2: function() {
         calculaIP2();
@@ -40,15 +38,15 @@ var controlChat = {
     leerChat: function() {
 
     },
-    chatNuevo: function() {
+    chatNuevo: function(idChat) {
         var marginRight = 0;
         var tamanioVentana = $(window).width();
         var tamanioReqByChats = 330 * chatsAbiertos;
         if (tamanioReqByChats < tamanioVentana) {
             if (chatsAbiertos == 1) {
-                marginRight = 0;
+                marginRight = 150;
             } else {
-                marginRight = (330 * chatsAbiertos) - 330;
+                marginRight = 0;
             }
             //Si hay espacio en la ventana simplemente se agrega visible en la misma.
             $('div.all-chats').append($('#chatmodelo').clone().attr('id', 'chat' + contChat).show());
@@ -57,12 +55,13 @@ var controlChat = {
             $('#chat' + contChat + ' div.btn-min').attr({'onclick': "controlChat.clickMin('chat" + contChat + "')"});
             $('#chat' + contChat + ' div.chat-footer .text-sms').attr({'onclick': "controlChat.clickPress('chat" + contChat + "')"});
             divContent = $('#chat' + contChat);
-            $('div#chat1 div.chat-header div.estado').hide();
+            if (chatsAbiertos == 1) {
+                $('#chat' + contChat).css({'margin-right': '150px'});
+            }            
             $('div#chat1 div.chat-header div#mensajes-recibidos').hide();
             $('div#chat1 div.chat-header span').show();
             $('div#chat1 div.chat-header span').css({'font-size': '14px'});
-            $('div#chat1 div.chat-header div.btn-max').show();
-            $('div#chat1 div.chat-header span').html('¿Dudas? - Chatea con nosotros');
+            $('div#chat1 div.chat-header div.btn-max').show();            
         } else {
             alert('No hay espacio en la ventana. Ventana: ' + tamanioVentana + ' Chats: ' + tamanioReqByChats);
             $('#chat' + contChat + ' div.btn-min').click();

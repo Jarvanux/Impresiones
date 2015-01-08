@@ -12,10 +12,15 @@ import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
 import co.com.rempe.impresiones.persistencia.entidades.Usuario;
 import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
+import java.net.URL;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.SessionTrackingMode;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +31,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "UsuariosServlet", urlPatterns = {"/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores"})
+@WebServlet(name = "UsuariosServlet", urlPatterns = {"/opteneripusuario", "/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores"})
 public class UsuariosServlet extends HttpServlet {
 
     private UsuarioDelegado usuarioDelegado;
@@ -91,6 +96,9 @@ public class UsuariosServlet extends HttpServlet {
                 case BUSCAR_ASESORES:
                     respuesta = buscarAsesores();
                     break;
+                case OPTENER_IP_USUARIO:
+                    respuesta = optenerIpUsuario(request);
+                    break;
             }
         } catch (Exception e) {
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
@@ -138,8 +146,8 @@ public class UsuariosServlet extends HttpServlet {
     private Respuesta cerrarSesion(HttpServletRequest request) {
         return usuarioDelegado.cerrarSesion(request);
     }
-    
-    private Respuesta buscarAsesores(){
+
+    private Respuesta buscarAsesores() {
         return usuarioDelegado.buscarAsesores();
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -180,5 +188,23 @@ public class UsuariosServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private Respuesta optenerIpUsuario(HttpServletRequest request) {
+        Respuesta respuesta = new Respuesta();
+        try {
+            
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setDatos(getIp());
+            respuesta.setMensaje("Ip consultada exitosamente!.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("No se pudo optener el ip del cliente.");
+        }
+        return respuesta;
+    }
+
+    public static String getIp() throws Exception {
+       return ""+System.currentTimeMillis();
+    }
 
 }

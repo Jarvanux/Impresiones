@@ -42,17 +42,24 @@ var controlUsuario = {
         });
         console.log(resultado);
         var respuesta = JSON.parse(resultado);
+        var lugarPagina = location.href;
+        var posSearch = lugarPagina.search("/impresiones/");
+        lugarPagina = lugarPagina.substring(posSearch);
         console.log(respuesta);
         if (respuesta.datos != null) {
             console.log("Existe un usuario logeado");
-//            alert('Se ejecuto esa joa');
-            if (location.href == 'http://localhost:8080/impresiones/') {
-//                alert('Esta en el index');
-                location.href = '/impresiones/panelusuario.html';
+            console.log(lugarPagina);
+//            alert('Se ejecuto esa joa');          
+            if (lugarPagina == '/impresiones/') {
+                if (respuesta.datos.idRol == 2) {
+                    location.href = '/impresiones/panelusuario.html';
+                } else if (respuesta.datos.idRol == 1) {
+                    location.href = '/impresiones/paneladministrador.html';
+                }
             }
         } else {
             console.log("No hay nadie logueado");
-            if (!(location.href == 'http://localhost:8080/impresiones/')) {
+            if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneladministrador.html') > -1 || lugarPagina.search('panelusuario.html') > -1) {
                 location.href = '/impresiones/login.html';
             }
         }

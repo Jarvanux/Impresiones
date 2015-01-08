@@ -102,10 +102,12 @@
             <div class="chat-panel" id="chatmodelo" style="display: none">            
                 <div class="chat-header">
                     <div class="estado"></div>
-                    <span class="text-header">Ana vargas</span>
-                    <div id="mensajes-recibidos">
+                    <span class="text-header">Ana vargas</span>                    
+                                            
+                    <div class="mensajes-reci" id="mensajes-recibidos">
+<!--                        <img src="img/chat/escribiendo-sms.gif" title=""/>-->
                         0
-                    </div>
+                    </div>                    
                     <div class="btn-close" onclick="controlChat.clickClose(event)" title="Cerrar ventana"><img src="img/chat/close-chat.png"/></div>
                     <div class="btn-min" onclick="controlChat.clickMin(event)" title="Minimizar"><div></div></div>
                     <div class="btn-max" onclick="controlChat.clickMax(event)" title="Maximizar"><div></div></div>
@@ -117,8 +119,14 @@
                 </div>
             </div>                
         </div>
+
         <div id="tiposSms" style="display:none;">
+            <div class="contacto-escribiendo" style="display: none">                
+                <img src="img/chat/escribiendo-sms.gif" />
+            </div>
             <div class="estado-acciones">
+                <span>Escribiendo...</span>
+                <img src="img/chat/enviando-sms.gif" style="display: none"/>                
             </div>
 
             <div class="buscando-soporte">
@@ -126,15 +134,14 @@
                 <span class="text-shearh" >Buscando un asesor.</span>
             </div>
             <!--SMS EMISOR-->
-            <div class="sms-emisor" style="display: none;">                  
-                <div class="name-usuario" >
-                    <span>Tú</span>
+            <div class="sms-emisor" style="display: none;">
+                <div class="name-usuario" >                    
+                    <span class="usuario">Tú</span>
                 </div>
                 <div class="content-sms" >
                     Sms emisor
                 </div>
-                <div class="fecha">
-                    22/23/2014 02:00 pm
+                <div class="fecha">                    
                 </div>
             </div>
             <!--FIN SMS EMISOR-->
@@ -153,8 +160,7 @@
             <!--FIN SMS RESPTOR-->
         </div>
         <!--Fin carga chat.-->
-
-
+        
         <!--Aquí se cargarán las páginas externas del login y registro modalmente.-->
         <div id="info" class="back-modal" style="display: none">
             <div id="content" class="contet-modal" >

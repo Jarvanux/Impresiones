@@ -37,7 +37,7 @@ public class VisitanteDelegado {
             em.getTransaction().begin();
             Visitantes visitante = new Visitantes();
             VisitantesDAO dao = new VisitantesDAO(em);
-            visitante.setIpComputadora(Integer.parseInt(ipUsuario));
+            visitante.setIpComputadora(Long.parseLong(ipUsuario));
             visitante.setFecha(new Date());
             dao.crear(visitante);
             em.getTransaction().commit();

@@ -140,10 +140,6 @@ a#lnk-salir img#salir{
     width: 30px;
     float: left;
 }
-a#lnk-salir *{    
-    float: left;
-    font-size: 12px;
-}
 a span{
     margin-left: 0px;
     float: left;
@@ -164,4 +160,18 @@ img#menu-android{
 }
 #lnk-menu-android{
     width: 44px;    
+}
+
+div#info div#cuerpo{    
+    width: 92%;
+    margin: 0 auto;
+}
+
+
+div#info div#cuerpo table td.td1{
+    font-family: sans-serif;
+}
+div#info div#cuerpo table td.td1{
+    font-weight: bold;
+    text-align: left;
 }

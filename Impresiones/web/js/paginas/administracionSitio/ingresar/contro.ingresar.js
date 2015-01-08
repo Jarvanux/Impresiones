@@ -8,13 +8,8 @@ elementosHiden = {"elementos": [
     ]};
 
 
-$(document).ready(function() {    
-    controlIngresar.init();
-    controlIngresar.eventos();
-});
-
 var controlIngresar = {
-    init: function() {
+    init: function() {        
         $('div#mensajeL').hide();
         controlIngresar.ocultarObjetos();
         $('#imgCerrar').css({"cursor": "pointer"});
@@ -36,22 +31,26 @@ var controlIngresar = {
         if (!($('#password').val().length != 0)) {
             $('div#mensajeL span').html('Ingresa tú contraseña!');
             $('div#mensajeL').slideDown(500);
+            $('p#smsReg').hide();
+            $('div#facebook').hide();
         }
         if (!($('#usuario').val().length > 0)) {
             $('div#mensajeL span').html('Ingresa tu correo electrónico!');
             $('div#mensajeL').slideDown(500);
+            $('p#smsReg').hide();
+            $('div#facebook').hide();
         }
         if (($('#usuario').val().length != 0) && ($('#password').val().length != 0)) {
             peticionesIngresar.ingresar($('#usuario').val(), $('#password').val());
         }
     },
-    ocultarObjetos: function() {        
+    ocultarObjetos: function() {
         for (var i = 0; i < elementosHiden.elementos.length; i++) {
             $(elementosHiden.elementos[i].nombre).hide();
         }
     },
     eventos: function() {
-        $('#btnIngresar').click(function() {
+        $('#btnLogear').click(function() {
             controlIngresar.ingresar();
         });
         $('#imgCerrar').click(function() {
@@ -69,5 +68,16 @@ var controlIngresar = {
             }
         });
     }
+
 };
+
+
+
+
+$(document).ready(function() {
+//    controlIngresar.init();
+//    controlIngresar.eventos();
+    controlIngresar.init();
+    controlIngresar.eventos();
+});
 

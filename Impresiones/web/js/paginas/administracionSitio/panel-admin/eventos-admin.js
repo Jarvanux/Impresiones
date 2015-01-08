@@ -17,17 +17,21 @@ var eventosUsuario = {
         $('.menu li a#lnk-ayuda').removeAttr('class');
         $('.menu li a#lnk-contacto').removeAttr('class');
     },
+    detallesImpresion: function() {
+        $('div#info').slideDown();        
+    },
     eventos: function() {
+        inicio.cargar('paginas/resumen-impresion/impresiones.html');
+        eventosUsuario.regresarfondoLis();
+
+        $('.menu li a#lnk-inicio').attr({'class': 'fondo-rojo'});
         $('a#lnk-inicio').click(function() {
-            inicio.cargar('paginas/servicios/impresion.html');
+            inicio.cargar('paginas/resumen-impresion/impresiones.html');
             eventosUsuario.regresarfondoLis();
             $('.menu li a#lnk-inicio').attr({'class': 'fondo-rojo'});
         });
-        $('img#logo').click(function() {
-            inicio.cargar('paginas/servicios/impresion.html');
-        });
-        $('#lnk-impresiones').click(function() {            
-            inicio.cargar('paginas/resumen-impresion/impresiones-realizadas.html');
+        $('#lnk-impresiones').click(function() {
+            inicio.cargar('paginas/resumen-impresion/impresiones.html');
             eventosUsuario.regresarfondoLis();
             $('.menu li a#lnk-impresiones').attr({'class': 'fondo-rojo'});
         });
@@ -69,15 +73,14 @@ var eventosUsuario = {
         });
         $('#lnk-perfil').click(function() {
             eventosUsuario.regresarfondoLis();
-            $('.menu li a#lnk-configuracion').attr({'class': 'fondo-rojo'});            
-            $('.menu li a#lnk-perfil').attr({'class': 'fondo-rojo'});  
+            $('.menu li a#lnk-configuracion').attr({'class': 'fondo-rojo'});
+            $('.menu li a#lnk-perfil').attr({'class': 'fondo-rojo'});
             controlUsuario.editarDatosUsuario();
         });
         $(window).resize(function() {
             controlUsuario.init();
         });
-        $('#btnActualizar').click(function(){
-            controlUsuario
+        $('#btnActualizar').click(function() {
         });
     }
 };

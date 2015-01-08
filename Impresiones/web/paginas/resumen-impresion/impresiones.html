@@ -32,39 +32,42 @@
         </div>
     </div>
     <div id="body">
-        <table cellspacing="0">
-            <tr>
-                <th class="colum-1">
-                    *
-                </th>
-                <th class="colum-2">
-                    Código impresión
-                </th>
-                <th class="colum-3">
-                    Fecha
-                </th>
-                <th class="colum-4">
-                    Archivo
-                </th>
-                <th class="colum-5">
-                    Total impresiones
-                </th>
-                <th class="colum-6">
-                    Estado
-                </th>
-            </tr>
-        </table>
-        <div id="content-table">
-            <table cellspacing="0" id="tablaContent">
+        <div id="datatable">
+            <table cellspacing="0">
                 <tr>
-                    <td class="colum-1">1</td>
-                    <td class="colum-2">1419613600030</td>
-                    <td class="colum-3">26/12/2014 12:06:40</td>
-                    <td class="colum-4"><a href="#">archivo.pdf</a></td>
-                    <td class="colum-5">20</td>
-                    <td class="colum-6">Sin revisar</td>
-                </tr>                         
+                    <th class="colum-1">
+                        *
+                    </th>
+                    <th class="colum-2">
+                        Código impresión
+                    </th>
+                    <th class="colum-3">
+                        Fecha
+                    </th>
+                    <th class="colum-4">
+                        Archivo
+                    </th>
+                    <th class="colum-5">
+                        Total impresiones
+                    </th>
+                    <th class="colum-6">
+                        Estado
+                    </th>
+                </tr>
             </table>
+            <div id="content-table">
+                <table cellspacing="0" id="tablaContent">
+                    <tr>
+                        <td class="colum-1">1</td>
+                        <td class="colum-2">1419613600030</td>
+                        <td class="colum-3">26/12/2014 12:06:40</td>
+                        <td class="colum-4"><a href="#">archivo.pdf</a></td>
+                        <td class="colum-5">20</td>
+                        <td class="colum-6">Sin revisar</td>
+                        <td class="colum-6"><img src="img/icons/global/view-icon.png" id="verImpresion" title="Ver con detalles" onclick="eventosUsuario.detallesImpresion()"/></td>
+                    </tr>                         
+                </table>
+            </div>
         </div>
     </div>
     <div id="footer">

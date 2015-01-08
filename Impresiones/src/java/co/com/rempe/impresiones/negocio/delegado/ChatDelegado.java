@@ -41,7 +41,7 @@ public class ChatDelegado {
             chatDAO.crear(chat);
             em.getTransaction().commit();
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
-            respuesta.setDatos(chat.getIdConversacion());
+            respuesta.setDatos(new Date());
             respuesta.setMensaje("Chat enviado.");
         } catch (Exception ex) {
             Logger.getLogger(ChatDelegado.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,7 +58,7 @@ public class ChatDelegado {
         try {
             em = BDConexion.getEntityManager();
             em.getTransaction().begin();
-            ChatDAO chatDAO = new ChatDAO(em);            
+            ChatDAO chatDAO = new ChatDAO(em);
             chatDAO.editar(chat);
             em.getTransaction().commit();
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
@@ -71,7 +71,7 @@ public class ChatDelegado {
         return respuesta;
     }
 
-    public Respuesta leerChat(int accion, int idUsuario, int idUsuarioContacto, long idConversacion) {
+    public Respuesta leerChat(int accion, long idUsuario, long idUsuarioContacto, long idConversacion) {
         EntityManager em = null;
         Respuesta respuesta = new Respuesta();
         try {
@@ -91,26 +91,51 @@ public class ChatDelegado {
             chat = dao.consultarUltimoChatUOrigen(idUsuario, idConversacion);
             if (chat != null) {
                 chat.setAccion(accion);
-                 editarUnRegistro(chat);                                 
+                editarUnRegistro(chat);
             }
 
-            chat = dao.consultarUltimoChatUOrigen(idUsuarioContacto, idConversacion);
+            Chat chat2 = new Chat();
+            System.out.println("Se enviará: " + idUsuarioContacto);
+            chat2 = dao.consultarUltimoChatUOrigen(idUsuarioContacto, idConversacion);
+            System.out.println("UsuarioDestino: " + chat2.getAccion() + " Destino" + chat2.getIdUsuarioDestino() + " Origen: " + chat2.getIdUsuarioOrigen());
+            System.out.println("Acción: " + chat2.getMensaje() + "Acción: " + chat2.getAccion());
             int estadoUsuarioDestino = 0;
-            System.out.println("SDFJLAFJL");
-            if (chat != null) {
-                estadoUsuarioDestino = chat.getAccion();
-                System.out.println("El está: "+estadoUsuarioDestino);
+            if (chat2 != null) {
+                estadoUsuarioDestino = chat2.getAccion();
             }
             listObjetc.add(estadoUsuarioDestino);
-                       
+
             respuesta.setCodigo(codigo);
             respuesta.setDatos(listObjetc);
-            respuesta.setMensaje("Chats consultados..");            
+            System.out.println("Este es el estado del usuario:" + estadoUsuarioDestino);
+            if (estadoUsuarioDestino > 0) {
+                listObjetc.add(estadoUsuarioDestino);
+            }
+
+            respuesta.setMensaje("Chats consultados..");
         } catch (Exception e) {
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
-            respuesta.setMensaje("Error al consultar mensajes.");            
+            respuesta.setMensaje("Error al consultar mensajes.");
         }
-       
-        return respuesta;        
+
+        return respuesta;
+    }
+
+    public Respuesta consultaClientes(int idAdministrador) {
+        EntityManager em = null;
+        Respuesta respuesta = new Respuesta();
+        try {
+            em = BDConexion.getEntityManager();
+            int codigo = 0;
+            Chat chat = new Chat();
+            ChatDAO dao = new ChatDAO(em);
+            dao.consultaClientes(idAdministrador);
+            respuesta.setCodigo(codigo);
+            respuesta.setMensaje("Se han consultado satisfactoriaente los clientes para el aministrador.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al consultar los clientes para el administrador.");
+        }
+        return respuesta;
     }
 }

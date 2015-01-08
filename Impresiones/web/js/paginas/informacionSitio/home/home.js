@@ -4,13 +4,12 @@
  */
 var inicio = {
     init: function() {
-        if (location.href == "http://localhost:8080/impresiones/") {
+        if ((location.href.search('paneladministrador') < 0) && (location.href.search('login') < 0)) {
             inicio.cargar('paginas/servicios/impresion.html');
         }
         $('#info').hide();
         $("#lnkServicios").on('click', inicio.servicios);
-        $("#lnkContactenos").on('click', inicio.contactenos);
-        $("#lnkIngresar").on('click', inicio.ingresar);
+        $("#lnkContactenos").on('click', inicio.contactenos);        
 
         $("#liServicios").on('click', inicio.servicios);
         $("#liContactenos").on('click', inicio.contactenos);
@@ -45,16 +44,16 @@ var inicio = {
         });
     },
     home: function() {
-        $(location).attr('href', '/impresiones/');
+        inicio.cargar('paginas/servicios/impresion.html');
     },
-    servicios: function() {     
+    servicios: function() {
         inicio.cargar('paginas/informacionSitio/servicios.html');
     },
     contactenos: function() {
         inicio.cargar('paginas/informacionSitio/contactenos.html');
     },
     ingresar: function() {
-        $(location).attr('href', '/impresiones/login.html');
+        inicio.cargar('paginas/administracionsSitio/ingresar.html');
     },
     cargar: function(pagina) {
         $("#divContenido")
@@ -71,7 +70,6 @@ var inicio = {
 
     },
     iniciarChat: function() {
-
         var dialog = $('#divModalChat');
         var nombre = dialog.find('#txtNombreChat').val().trim();
         var asunto = dialog.find('#txtAsuntoChat').val().trim();
@@ -80,7 +78,6 @@ var inicio = {
             dialog.find('#txtNombreChat').val('');
             dialog.find('#txtAsuntoChat').val('');
             dialog.modal('hide');
-
 
             //OJO, esto se reemplaza por una peticion asincrona
 

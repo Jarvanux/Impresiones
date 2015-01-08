@@ -39,33 +39,43 @@ public class Visitantes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_visitante")
-    private Integer idVisitante;
+    private Long idVisitante;
     @Column(name = "ip_computadora")
-    private Integer ipComputadora;
+    private Long ipComputadora;
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
+    @Column(name = "num_visitas")
+    private long numVisitas;
 
     public Visitantes() {
     }
 
-    public Visitantes(Integer idVisitante) {
+    public long getNumVisitas() {
+        return numVisitas;
+    }
+
+    public void setNumVisitas(long numVisitas) {
+        this.numVisitas = numVisitas;
+    }
+   
+    public Visitantes(Long idVisitante) {
         this.idVisitante = idVisitante;
     }
 
-    public Integer getIdVisitante() {
+    public Long getIdVisitante() {
         return idVisitante;
     }
 
-    public void setIdVisitante(Integer idVisitante) {
+    public void setIdVisitante(Long idVisitante) {
         this.idVisitante = idVisitante;
     }
 
-    public Integer getIpComputadora() {
+    public Long getIpComputadora() {
         return ipComputadora;
     }
 
-    public void setIpComputadora(Integer ipComputadora) {
+    public void setIpComputadora(Long ipComputadora) {
         this.ipComputadora = ipComputadora;
     }
 

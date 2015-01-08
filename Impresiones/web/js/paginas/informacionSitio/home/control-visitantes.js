@@ -11,12 +11,9 @@ $(document).ready(function() {
 
 var controlVisitantes = {
     init: function() {
-        controlVisitantes.guardarVisita();
-    },
-    guardarVisita: function() {
         calculaIP();
-        var x = "jkfs";
-        x.hasOwnProperty("s")
+    },
+    guardarVisita: function() {                                
         if (location.href == "http://localhost:8080/impresiones/") {
             $.ajax({
                 'url': 'guardarVisitante',
@@ -27,21 +24,28 @@ var controlVisitantes = {
                     console.log(respuesta);
                 }
             });
-        }else{
+        } else {
         }
     }
 };
 
 function calculaIP() {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-//    script.src = "http://www.telize.com/jsonip?callback=DisplayIP";
+//    var script = document.createElement("script");
+//    script.type = "text/javascript";
+//    script.src = "http://www.telize.com/jsonip?callback=DisplayIP"; //Con internet, generalmente usa una app de internet.
+//    DisplayIP(response);//Sin internet.    
 //    document.getElementsByTagName("head")[0].appendChild(script);
-    DisplayIP('982.934.234');
-}
-;
-
-function DisplayIP(response) {
-//    var ip = response.ip;
-    ipVisitante = response.replace(/\./g, '');
-}
+    $.ajax({
+        'url': 'opteneripusuario',
+        'type': 'POST',
+        success: function(data) {
+            console.log(data);
+//            alert(data);
+            var respuesta = JSON.parse(data);
+            ipVisitante = respuesta.datos;            
+            ipVisitante = respuesta.datos.replace(/\./g, '');
+            console.info(ipVisitante);
+            controlVisitantes.guardarVisita();
+        }
+    });
+};

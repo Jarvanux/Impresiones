@@ -47,9 +47,9 @@ public class Chat implements Serializable {
     @Column(name = "mensaje")
     private String mensaje;
     @Column(name = "id_usuario_origen")
-    private Integer idUsuarioOrigen;
+    private Long idUsuarioOrigen;
     @Column(name = "id_usuario_destino")
-    private Integer idUsuarioDestino;    
+    private Long idUsuarioDestino;    
     @Column(name = "id_conversacion")
     private Long idConversacion;   
     @Column(name = "accion")
@@ -107,19 +107,19 @@ public class Chat implements Serializable {
         this.idConversacion = idConversacion;
     }    
 
-    public Integer getIdUsuarioOrigen() {
+    public Long getIdUsuarioOrigen() {
         return idUsuarioOrigen;
     }
 
-    public void setIdUsuarioOrigen(Integer idUsuarioOrigen) {
+    public void setIdUsuarioOrigen(Long idUsuarioOrigen) {
         this.idUsuarioOrigen = idUsuarioOrigen;
     }
 
-    public Integer getIdUsuarioDestino() {
+    public Long getIdUsuarioDestino() {
         return idUsuarioDestino;
     }
 
-    public void setIdUsuarioDestino(Integer idUsuarioDestino) {
+    public void setIdUsuarioDestino(Long idUsuarioDestino) {
         this.idUsuarioDestino = idUsuarioDestino;
     }
 

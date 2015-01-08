@@ -9,61 +9,61 @@ and open the template in the editor.
 */
 
 .menu{
-	font-family: sans-serif;
-	font-size: 14px;
-	font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
     list-style:none;
-	padding:1px;	
-	margin:0px;	
-	height: 40px;		
+    padding:1px;	
+    margin:0px;	
+    height: 40px;		
 }
 .menu li{
-	margin:0px;
-	padding:0px;
-	float:left;
-	position:relative;	
+    margin:0px;
+    padding:0px;
+    float:left;
+    position:relative;	
 }
 .menu li a{
-	display: block;
-	width: 120px;
-	height: 30px;
-	padding: 6px;
-	line-height:30px;
-	text-decoration: none;
-	text-align: center;
-	color: #FFF;
-	background-color: #000;
-	position: relative;
-	border-left: 2px solid #333;
- 
+    display: block;
+    width: 120px;
+    height: 30px;
+    padding: 6px;
+    line-height:30px;
+    text-decoration: none;
+    text-align: center;
+    color: #FFF;
+    background-color: #000;
+    position: relative;
+    border-left: 2px solid #333;
+
 }
 .menu li a:hover{
-	color:#fff;
-	background-color:green;	
+    color:#fff;
+    background-color:green;	
 }
 
 .menu ul{
     position:absolute;
-	left:10px;
-	top:36px;
-	margin:0px;
-	list-style:none;
-	padding:0px;
-	opacity:0;
-	transition:opacity .35s ease .2s;
-	-webkit-transition:opacity .35s ease .2s;
-	-moz-transition:opacity .35s ease .2s;
-	-o-transition:opacity .35s ease .2s;
-	visibility:hidden;	
+    left:10px;
+    top:36px;
+    margin:0px;
+    list-style:none;
+    padding:0px;
+    opacity:0;
+    transition:opacity .35s ease .2s;
+    -webkit-transition:opacity .35s ease .2s;
+    -moz-transition:opacity .35s ease .2s;
+    -o-transition:opacity .35s ease .2s;
+    visibility:hidden;	
 }
 .menu ul li a{
-	border-bottom:2px solid #333;
-	border-left:none;
-	display:block;
-	text-align:left;
+    border-bottom:2px solid #333;
+    border-left:none;
+    display:block;
+    text-align:left;
 }
 .menu li:hover ul{
     opacity:1;
-	visibility:visible;
-	z-index: 9;
+    visibility:visible;
+    z-index: 9;
 }
