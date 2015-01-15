@@ -89,7 +89,18 @@ public class Usuarios implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
     @Column(name = "conectado")
-    private boolean conectado;
+    private boolean conectado;    
+    @Column(name = "sesion_cerrada_admin")
+    private boolean sesionAdminCerrada;    
+    @Column(name = "ultima_conexion")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date ultimaConexion;    
+    @Column(name = "visitante_temporal")
+    private boolean visitanteTemporal;
+    @Column(name = "fecha_registro")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaRegistro;
+    
 
     public Usuarios() {
     }
@@ -102,6 +113,22 @@ public class Usuarios implements Serializable {
         return idUsuario;
     }
 
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public Date getUltimaConexion() {
+        return ultimaConexion;
+    }
+
+    public void setUltimaConexion(Date ultimaConexion) {
+        this.ultimaConexion = ultimaConexion;
+    }        
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+    
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
@@ -110,7 +137,7 @@ public class Usuarios implements Serializable {
         return apodo;
     }
 
-    public boolean isConectado() {
+    public boolean getConectado() {
         return conectado;
     }
 
@@ -137,6 +164,14 @@ public class Usuarios implements Serializable {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
+
+    public boolean isVisitanteTemporal() {
+        return visitanteTemporal;
+    }
+
+    public void setVisitanteTemporal(boolean visitanteTemporal) {
+        this.visitanteTemporal = visitanteTemporal;
+    }    
 
     public String getEmail() {
         return email;
@@ -198,6 +233,14 @@ public class Usuarios implements Serializable {
         return idRol;
     }
 
+    public boolean getSesionAdminCerrada() {
+        return sesionAdminCerrada;
+    }
+
+    public void setSesionAdminCerrada(boolean sesionAdminCerrada) {
+        this.sesionAdminCerrada = sesionAdminCerrada;
+    }
+    
     public void setIdRol(Integer idRol) {
         this.idRol = idRol;
     }

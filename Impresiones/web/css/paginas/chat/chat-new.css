@@ -124,7 +124,7 @@ div.chat-panel div.chat-body{
 div.chat-panel div.chat-footer{
     width: 300px;
     height: 60px;
-    background: yellow;
+    background: #FEDC56;
     pointer-events: auto;   
 }
 
@@ -165,6 +165,43 @@ div.sms-reseptor{
     padding: 3px 6px;
     word-wrap: break-word;    
 }
+div.sms-emisor2{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;
+    background: #DEF5DE;    
+    float: right;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #DEF5DE);    
+    border-radius: 5px 5px 0px 5px;
+    box-shadow: 0px 0px 2px black;
+    margin-right: 10px;    
+    padding: 3px 6px;
+    font-family: sans-serif;
+    word-wrap: break-word;    
+}
+
+div.sms-reseptor2{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;    
+    float: left;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #ECECEC);    
+    border-radius: 5px 5px 5px 0px;
+    box-shadow: 0px 0px 2px black;
+    margin-left: 10px;    
+    padding: 3px 6px;
+    word-wrap: break-word;    
+}
 
 div.sms-emisor div.name-usuario{       
     width: 100%;    
@@ -178,6 +215,29 @@ div.sms-emisor div.name-usuario{
     border-bottom: 1px solid #ccc;    
 }
 div.sms-reseptor div.name-usuario{       
+    width: 100%;     
+    text-align: left;   
+    display: block;
+    height: 15px;        
+    margin-bottom: 4px;    
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;    
+}
+
+div.sms-emisor2 div.name-usuario{       
+    width: 100%;    
+    text-align: right;    
+    display: block;
+    height: 15px;        
+    margin-bottom: 4px;    
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;    
+}
+div.sms-reseptor2 div.name-usuario{       
     width: 100%;     
     text-align: left;   
     display: block;
@@ -278,4 +338,178 @@ div.estado-acciones span{
     margin: 0 auto;
     display: block;
     text-align: center;    
+}
+
+div#alerta img{    
+    width: 70px;
+    display: block;        
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+div#alerta span{
+    color: #000;    
+    margin: 0 auto;
+    display: block;    
+    width: 80%;
+    text-align: center;    
+}
+
+div#alerta input{    
+        background: #48AE5C;
+        color: #fff;
+        border: 0px;
+        border-radius: 3px;
+        margin: 0 auto;
+        display: block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-family: sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+}
+div#alerta input:hover{
+    background: orange
+}
+div.chat-footer{
+    background: #ccc;
+}
+
+div#cuerpo{
+    width: 92%;    
+    height: 60%
+}
+
+div.footer-modal{
+    width: 100%;
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding: 10px 0px 0px 0px;
+}
+#imgCerrar{
+    cursor: pointer;
+}
+.btn-aceptar{
+    cursor: pointer;
+}
+
+div.body-modal div#contenido{
+    background: #fff;
+    width: 80%;
+    display: block;
+    margin: 0 auto;       
+    height: 100%;    
+    padding: 0px 0px 0px 22px;
+}
+
+div.body-modal div#contenido label{
+    font-size: 13px;
+}
+div.body-modal div#contenido label span{
+    font-size: 11px;
+    font-weight: normal;
+}
+
+div.body-modal div#contenido input{
+    width: 97%;    
+    height: 24px;
+    border-radius: 3px;
+}
+
+div#contentModal div#content{
+    width: 600px;
+    margin-top: 30px;
+    height: 390px;
+}
+
+div.body-modal div#contenido textarea{
+    width: 80%;
+    min-width:97%;
+    max-width: 97%;
+    min-height: 100px;
+    resize: none;
+    font-family: sans-serif;    
+}
+
+div#infoEnvio{
+    float: right; 
+    margin-top: 3px;
+    margin-right: 20px;   
+}
+
+div#infoEnvio *{
+    float: left;
+}
+div#infoEnvio img{
+    width: 22px;
+    margin-right: 4px;
+    margin-left: 20px;    
+}
+div#infoEnvio span{
+    font-family: sans-serif;
+    font-size: 13px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+.btn-aceptar{
+    float: right;   
+    margin-right: 80px;
+    font-weight: bold;
+}
+h2{
+    color: #000;
+    text-shadow: 0px 0px 1px #000;
+}
+div#datosVisitante{
+    width: 90%;
+    height: auto;        
+    padding: 10px;
+    display: block;
+    margin: 0 auto;
+    text-align: justify;
+    font-family: sans-serif;
+}
+
+div#datosVisitante img{
+    width: 30px;
+    float: left;        
+}
+div#datosVisitante div#informacion{
+    border-bottom: 1px solid #ccc;
+    height: 53px;
+}
+div#datosVisitante span{
+    float: left;    
+    width: 80%;
+    margin-left: 10px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+div#datosVisitante label{
+    font-size: 13px;
+    float: left;
+    margin-left: 10px;
+}
+
+div#datosVisitante input{
+    width: 90%;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+}
+
+div#datosVisitante input[type="button"]{
+    width: 50%;
+    padding: 10px;
+    height: auto;
+    margin-top: 20px;
+    background: #748DF1;
+    color: #fff;
+    font-family: sans-serif;
+    font-weight: bold;;
+    border: 0px;
+    cursor: pointer;
 }

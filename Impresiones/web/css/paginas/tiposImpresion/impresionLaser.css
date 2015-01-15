@@ -2004,3 +2004,15 @@ div.pedido:hover{
 div.divColum{
     cursor: default;
 }
+.btn-aceptar{
+  float: right;
+  margin: 0px;
+  margin-right: 4px;       
+}
+.btn-cancelar{
+  float: right;  
+}
+
+.footer-modal{
+  height: 26px;
+}

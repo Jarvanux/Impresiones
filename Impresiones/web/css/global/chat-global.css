@@ -92,6 +92,44 @@ div.sms-reseptor{
     word-wrap: break-word;       
     text-align: justify;
 }
+div.sms-emisor2{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;
+    background: #DEF5DE;    
+    float: right;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #DEF5DE);    
+    border-radius: 5px 5px 0px 5px;
+    box-shadow: 0px 0px 2px black;
+    margin-right: 10px;    
+    padding: 3px 6px;    
+    word-wrap: break-word;    
+    text-align: justify;
+}
+
+div.sms-reseptor2{   
+    width: 70%;
+    font-size: 13px;
+    height: auto;    
+    float: left;
+    position: relative;
+    bottom: 0;
+    top: 125px;
+    right: 0;
+    margin-bottom: 10px;
+    background: linear-gradient(#FFF,  #ECECEC);    
+    border-radius: 5px 5px 5px 0px;
+    box-shadow: 0px 0px 2px black;
+    margin-left: 10px;    
+    padding: 3px 6px;    
+    word-wrap: break-word;       
+    text-align: justify;
+}
 .footChat{
     background: #FFF;
     width: 270px;

@@ -9,7 +9,8 @@ var abc = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
 
 var namePeticion = "";
 
-
+var accion = 0;
+var texto = null;
 $(document).ready(function() {
     refreshChatVisitante.scrollModoLectura();
     setInterval(refrescarChat, 1200);
@@ -20,13 +21,13 @@ $(document).ready(function() {
 
 
     function refrescarChat() {
-        if (controlPeticiones.consultarUsuarioLogeado()) {
-            if (idUsuario > 0) {
-                idUsuario = respuestaUsuario.datos.idUsuario;
-            }
-        } else {
-            idUsuario = ipVisitante;
-        }
+//        if (controlPeticiones.consultarUsuarioLogeado()) {
+//            if (idUsuario > 0) {
+////                idUsuario = respuestaUsuario.datos.idUsuario;
+//            }
+//        } else {
+//            idUsuario = ipVisitante;
+//        }
         if (maxChat == 1) {
             if (idUsuario != 0) {
                 var id = divContent.find('div')[8].id;
@@ -76,8 +77,7 @@ var refreshChatVisitante = {
     },
     leerChat: function() {
 //        console.info('Se está refrescando el chat');
-        var accion = 0;
-        var texto = divContent.find('#sms').val();
+        texto = divContent.find('#sms').val();
         if (texto.length > 1) {
             accion = 1;
         } else {
@@ -99,12 +99,11 @@ var refreshChatVisitante = {
                     numSms = 0;
 //                    console.log(respuesta);
 
-
                     if (refresh == 0) {
                         divContent.find('div.chat-body').html('');
                         $.each(respuesta.datos[0], function(indice, valor) {
 //                        console.dir(respuesta);                 
-                            if (ipVisitante == respuesta.datos[0][indice].idUsuarioOrigen) {
+                            if (idUsuario == respuesta.datos[0][indice].idUsuarioOrigen) {
                                 divContent.find('div.chat-body').append($('#tiposSms div.sms-emisor').clone().attr('id', 'sms' + indice).show());
                             } else {
                                 divContent.find('div.chat-body').append($('#tiposSms div.sms-reseptor').clone().attr('id', 'sms' + indice).show());
@@ -116,22 +115,30 @@ var refreshChatVisitante = {
                             divContent.find('div.chat-body div#estado').remove();
                             divContent.find('div.chat-body').append($('#tiposSms div.estado-acciones').clone().attr('id', 'estado').show());
                             console.log(respuesta.datos[1]);
-                            if (respuesta.datos[1] > 0) {
-//                        console.log('Él está escibiendo');
-                                divContent.find('div.chat-body div.estado-acciones span').html('Él está escribiendo...').show();
-                                divContent.find('div.chat-body div.estado-acciones span').css({'margin': 'auto'});
-                            } else {
-//                        console.log('Él no está escibiendo');
-                                divContent.find('div.chat-body div.estado-acciones span').html('');
-                                divContent.find('div.chat-body div.estado-acciones span').hide();
-                            }
-//                    divContent.find('.mensajes-reci').show();
-//                    divContent.find('.mensajes-reci').css({'background':'#48AE5C'});
-//                    console.info('sdfdsf');
                         });
                         refresh = 1;
                         numData = respuesta.datos[0].length;
                     } else {
+                        if (respuesta.datos[4] == 2) {
+                            divContent.find('div.chat-header .estado').css({'background': '#00FF00'});
+                            divContent.find('div.chat-header span').html(usuarioOpuesto.nombres);
+                        } else if (respuesta.datos[4] == 3) {
+                            divContent.find('div.chat-header .estado').css({'background': '#595959'});
+                            divContent.find('div.chat-header span').html('Desconectado');
+                        } else if (respuesta.datos[4] == 4) {
+                            divContent.find('div.chat-header .estado').css({'background': '#F41313'});
+                            divContent.find('div.chat-header span').html('Ocupado');
+                        } else if (respuesta.datos[4] == 5) {
+                            divContent.find('div.chat-header .estado').css({'background': '#CBB91B'});
+                            divContent.find('div.chat-header span').html('Ausente');
+                        }
+                        if (respuesta.datos[3]) {
+//                            divContent.find('div.chat-header .estado').css({'background': '#00FF00'});
+                        } else {
+                            divContent.find('div.chat-header .estado').css({'background': '#595959'});
+                            divContent.find('div.chat-header span').html('Desconectado');
+                        }
+
                         if (respuesta.datos[0].length != numData) {
                             numData = respuesta.datos[0].length;
 //                        $.each(respuesta.datos[0], function(indice, valor) {
@@ -139,7 +146,7 @@ var refreshChatVisitante = {
                             var indice = numData - 1;
                             var valor = respuesta.datos[0][indice];
 
-                            if (ipVisitante == respuesta.datos[0][indice].idUsuarioOrigen) {
+                            if (idUsuario == respuesta.datos[0][indice].idUsuarioOrigen) {
 //                                divContent.find('div.chat-body').append($('#tiposSms div.sms-emisor').clone().attr('id', 'sms' + indice).show());
                             } else {
                                 divContent.find('div.chat-body').append($('#tiposSms div.sms-reseptor').clone().attr('id', 'sms' + indice).show());
@@ -150,27 +157,22 @@ var refreshChatVisitante = {
 //                        });                            
                             divContent.find('div.chat-body div#estado').remove();
                             divContent.find('div.chat-body').append($('#tiposSms div.estado-acciones').clone().attr('id', 'estado').show());
-                            console.log(respuesta.datos[1]);
-                            if (respuesta.datos.length == 3) {
-//                        console.log('Él está escibiendo');
-                                divContent.find('div.chat-body div.estado-acciones span').html('Él está escribiendo...').show();
-                                divContent.find('div.chat-body div.estado-acciones span').css({'margin': 'auto'});
-                            } else {
-//                        console.log('Él no está escibiendo');
-                                divContent.find('div.chat-body div.estado-acciones span').hide();
-                            }
-//                    divContent.find('.mensajes-reci').show();
-//                    divContent.find('.mensajes-reci').css({'background':'#48AE5C'});
-//                    console.info('sdfdsf');
-                            console.log('Actualizado');
                             divContent.find('div.chat-body div.estado-acciones span').hide();
                         } else {
-                            if (respuesta.datos.length == 3) {
-//                        console.log('Él está escibiendo');
-                                divContent.find('div.chat-body div.estado-acciones span').html('Escribiendo...').show();
-                                divContent.find('div.chat-body div.estado-acciones span').css({'margin': 'auto'});
+
+                        }
+
+                        for (var i = respuesta.datos[0].length - 1; i >= 0; i--) {
+                            if (respuesta.datos[0][i].idUsuarioOrigen != idUsuario) {
+                                if (respuesta.datos[0][i].accion == 1) {
+                                    divContent.find('div.chat-body div.estado-acciones span').html('Escribiendo...').show();
+                                    divContent.find('div.chat-body div.estado-acciones span').css({'margin': 'auto'});
+                                } else {
+                                    divContent.find('div.chat-body div.estado-acciones span').hide();
+                                }
+                                break;
+                                break;
                             } else {
-//                        console.log('Él no está escibiendo');
                                 divContent.find('div.chat-body div.estado-acciones span').hide();
                             }
                         }
@@ -184,10 +186,9 @@ var refreshChatVisitante = {
 
     },
     posScroll: function() {
+//        var id = divContent.find('div')[8].id;
         var id = divContent.find('div')[8].id;
-
         var elemento = document.getElementById(id);
-
         if (!leyendoChat) {
             elemento.scrollTop = (elemento.scrollHeight - elemento.clientHeight) + 100;
         }

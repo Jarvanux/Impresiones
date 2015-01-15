@@ -5,10 +5,12 @@
  */
 package co.com.rempe.impresiones.negocio.servlets;
 
-import co.com.progredi.impresiones.persistencia.entidades.Chat;
+import co.com.rempe.impresiones.persistencia.entidades.Chat;
 import co.com.rempe.impresiones.negocio.constantes.EDireccion;
 import co.com.rempe.impresiones.negocio.delegado.ChatDelegado;
+import co.com.rempe.impresiones.negocio.delegado.UsuarioDelegado;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
+import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
@@ -18,12 +20,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "ChatServlet", urlPatterns = {"/insertarchat", "/leerchat", "/servlet",})
+@WebServlet(name = "ChatServlet", urlPatterns = {"/insertarchat", "/leerchat", "/servlet", "/consultaClientes", "/mensajeDeBuzon", "/listaMensajesBuzon","/actualizarSMSLeido"})
 public class ChatServlet extends HttpServlet {
 
     private ChatDelegado chatDelegado;
@@ -64,6 +67,15 @@ public class ChatServlet extends HttpServlet {
                 case CONSULTA_CLIENTES:
                     respuesta = consultaClientes(request);
                     break;
+                case MENSAJE_BUZON:
+                    respuesta = mensajeBuzon(request);
+                    break;
+                case LISTA_MENSAJE_BUZON:
+                    respuesta = listaMensjesBuzon(request);
+                    break;
+                case ACTUALIZA_MENSAJE_BUZON:
+                    respuesta = actualizaMensajeBuzon(request);
+                    break;                
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -137,9 +149,39 @@ public class ChatServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    
     private Respuesta consultaClientes(HttpServletRequest request) {
-        int idAdministrador = Integer.parseInt(request.getParameter("idUsuario"));
+        int idAdministrador = 0;
+        UsuarioDelegado usuarioDelegado = UsuarioDelegado.getInstancia();
+        Respuesta respuesta = usuarioDelegado.consultarSession(request);
+        Usuarios usuarios = (Usuarios) respuesta.getDatos();
+//        HttpSession session = request.getSession();
+//        session.setAttribute("usuario", usuarios);
+//        if (usuarios != null) {
+//            System.out.println(session.getAttribute("usuario"));
+//        }
+        idAdministrador = usuarios.getIdUsuario();
         return chatDelegado.consultaClientes(idAdministrador);
-    }    
+    }
+
+    private Respuesta mensajeBuzon(HttpServletRequest request) { //Inserta un mensaje nuevo.
+        String nombre = request.getParameter("nombre");
+        String correo = request.getParameter("correoE");
+        String mensaje = request.getParameter("mensaje");
+        return chatDelegado.mensajeBuzon(nombre, correo, mensaje);
+    }
+
+    private Respuesta listaMensjesBuzon(HttpServletRequest request) {
+        int codigoLeido = Integer.parseInt(request.getParameter("codigoLeido"));
+        String fecha1 = request.getParameter("fecha1");
+        String fecha2 = request.getParameter("fecha2");
+        String desde = request.getParameter("desde");
+        return chatDelegado.listaMensajesBuzon(codigoLeido,fecha1,fecha2,desde);
+    }
+
+    private Respuesta actualizaMensajeBuzon(HttpServletRequest request) {
+        int idSMS = Integer.parseInt(request.getParameter("idSMS"));
+        int idUsuarioLector = Integer.parseInt(request.getParameter("idUsuario"));
+        return chatDelegado.actualizaMensajeBuzaon(idSMS,idUsuarioLector);
+    }
+        
 }

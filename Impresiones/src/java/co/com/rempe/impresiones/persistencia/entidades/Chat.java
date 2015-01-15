@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.com.progredi.impresiones.persistencia.entidades;
+package co.com.rempe.impresiones.persistencia.entidades;
 
 import java.io.Serializable;
 import java.util.Date;

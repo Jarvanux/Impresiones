@@ -5,7 +5,17 @@
  */
 $(document).ready(function() {
     eventosUsuario.eventos();
+    setInterval(consultaSesion, 2000);
 });
+
+var chateando = false;
+
+function consultaSesion() {
+    if (!chateando) {
+        controlUsuario.consultarUsuarioLogeado();
+    }
+}
+
 
 var eventosUsuario = {
     regresarfondoLis: function() {
@@ -19,23 +29,28 @@ var eventosUsuario = {
     },
     eventos: function() {
         $('a#lnk-inicio').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             inicio.cargar('paginas/servicios/impresion.html');
             eventosUsuario.regresarfondoLis();
             $('.menu li a#lnk-inicio').attr({'class': 'fondo-rojo'});
         });
         $('img#logo').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             inicio.cargar('paginas/servicios/impresion.html');
         });
-        $('#lnk-impresiones').click(function() {            
+        $('#lnk-impresiones').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             inicio.cargar('paginas/resumen-impresion/impresiones-realizadas.html');
             eventosUsuario.regresarfondoLis();
             $('.menu li a#lnk-impresiones').attr({'class': 'fondo-rojo'});
         });
         $('#lnk-conversaciones').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             eventosUsuario.regresarfondoLis();
             $('.menu li a#lnk-conversaciones').attr({'class': 'fondo-rojo'});
         });
         $('#lnk-contacto').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             $('#info div#cuerpo p').html(' <br/>' +
                     '<span style="display:block; margin-bottom: 10px;"><b>Teléfono:</b> 321-249-1941xx</span>' +
                     '<span style="display: block; margin-bottom: 10px;"><b>Dirección:</b>' +
@@ -46,37 +61,46 @@ var eventosUsuario = {
             $('#info').slideDown(500);
         });
         $('#lnk-telefono').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             $('#info div#cuerpo p').html(' <br/>' +
                     '<b>Teléfono:</b> 321-249-1941');
             $('#info').slideDown(500);
         });
         $('#lnk-oficinas').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             $('#info div#cuerpo p').html(' <br/>' +
                     '<b>Dirección:</b> Calle san-fason carrera 22');
             $('#info').slideDown(500);
         });
         $('#imgCerrar').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             $('#info').hide();
         });
         $('#lnk-perfil').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             inicio.cargar('paginas/administracionsSitio/panel-usuario/perfil-usuario.html');
         });
         $('#lnk-cs').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             $(location).attr('href', '/impresiones/login.html');
         });
         $('#lnk-salir').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             controlUsuario.cerrarSesion();
         });
         $('#lnk-perfil').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             eventosUsuario.regresarfondoLis();
-            $('.menu li a#lnk-configuracion').attr({'class': 'fondo-rojo'});            
-            $('.menu li a#lnk-perfil').attr({'class': 'fondo-rojo'});  
+            $('.menu li a#lnk-configuracion').attr({'class': 'fondo-rojo'});
+            $('.menu li a#lnk-perfil').attr({'class': 'fondo-rojo'});
             controlUsuario.editarDatosUsuario();
         });
         $(window).resize(function() {
+            controlUsuario.consultarUsuarioLogeado();
             controlUsuario.init();
         });
-        $('#btnActualizar').click(function(){
+        $('#btnActualizar').click(function() {
+            controlUsuario.consultarUsuarioLogeado();
             controlUsuario
         });
     }

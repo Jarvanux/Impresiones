@@ -31,7 +31,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "UsuariosServlet", urlPatterns = {"/opteneripusuario", "/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores"})
+@WebServlet(name = "UsuariosServlet", urlPatterns = {"/actualizaPerfil", "/opteneripusuario", "/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores", "/visitanteTemporal", "/cambiarEstadoAdmin"})
 public class UsuariosServlet extends HttpServlet {
 
     private UsuarioDelegado usuarioDelegado;
@@ -72,13 +72,12 @@ public class UsuariosServlet extends HttpServlet {
                 case INGRESAR:
                     respuesta = ingresar(request);
                     Usuarios usuarios = (Usuarios) respuesta.getDatos();
-                    HttpSession session = request.getSession();
-                    session.setAttribute("usuario", usuarios);
                     if (usuarios != null) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("usuario", usuarios);
                         System.out.println(session.getAttribute("usuario"));
-//                        RequestDispatcher a = request.getRequestDispatcher("panelusuario.html");
-//                        a.forward(request, response);
-//                        response.sendRedirect("panelusuario.html");
+                        usuarioDelegado.cambiarEstadoConexion(usuarios.getIdUsuario(), true);
+                        usuarioDelegado.cambiarEstadoAdmin(usuarios.getIdUsuario(), 2);
                     }
                     break;
                 case CAMBIAR_ESTADO:
@@ -98,6 +97,15 @@ public class UsuariosServlet extends HttpServlet {
                     break;
                 case OPTENER_IP_USUARIO:
                     respuesta = optenerIpUsuario(request);
+                    break;
+                case GUARDAR_VISITANTE_TEMPORAL:
+                    respuesta = guardarVisitanteTemporal(request);
+                    break;
+                case CAMBIAR_ESTADO_ADMIN:
+                    respuesta = cambiarEstadoAdmin(request);
+                    break;
+                case ACTUALIZAR:
+                    respuesta = actualizarDatos(request);
                     break;
             }
         } catch (Exception e) {
@@ -192,7 +200,7 @@ public class UsuariosServlet extends HttpServlet {
     private Respuesta optenerIpUsuario(HttpServletRequest request) {
         Respuesta respuesta = new Respuesta();
         try {
-            
+
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
             respuesta.setDatos(getIp());
             respuesta.setMensaje("Ip consultada exitosamente!.");
@@ -204,7 +212,49 @@ public class UsuariosServlet extends HttpServlet {
     }
 
     public static String getIp() throws Exception {
-       return ""+System.currentTimeMillis();
+        return "" + System.currentTimeMillis();
     }
 
+    private Respuesta guardarVisitanteTemporal(HttpServletRequest request) {
+        String nombre = request.getParameter("nombre");
+        String correo = request.getParameter("correo");
+        Usuarios usuario = new Usuarios();
+        if (nombre.contains(" ")) {
+            String[] partesNombre = nombre.split(" ");
+            if (partesNombre.length == 2) {
+                usuario.setNombres(partesNombre[0]);
+                usuario.setApellidos(partesNombre[1]);
+            } else if (partesNombre.length == 3) {
+                usuario.setNombres(partesNombre[0] + ' ' + partesNombre[1]);
+                usuario.setApellidos(partesNombre[2]);
+            } else if (partesNombre.length == 4) {
+                usuario.setNombres(partesNombre[0] + ' ' + partesNombre[1]);
+                usuario.setApellidos(partesNombre[3] + ' ' + partesNombre[2]);
+            } else if (partesNombre.length > 4) {
+                usuario.setNombres(partesNombre[0] + ' ' + partesNombre[1]);
+                String string = "";
+                for (int i = 1; i < partesNombre.length; i++) {
+                    string += partesNombre[1];
+                }
+                usuario.setApellidos(string);
+            }
+        } else {
+            usuario.setNombres(nombre);
+        }
+        usuario.setEmail(correo);
+        return usuarioDelegado.insertarUsuario(usuario);
+    }
+
+    private Respuesta cambiarEstadoAdmin(HttpServletRequest request) {
+        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+        int idEstado = Integer.parseInt(request.getParameter("estado"));
+        return usuarioDelegado.cambiarEstadoAdmin(idUsuario, idEstado);
+    }
+
+    private Respuesta actualizarDatos(HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("data");
+        Usuarios usuario = gson.fromJson(json, Usuarios.class);
+        return usuarioDelegado.actualizarDatos(usuario);
+    }
 }

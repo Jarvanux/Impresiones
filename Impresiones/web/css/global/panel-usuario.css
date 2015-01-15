@@ -302,3 +302,147 @@ div.reg-visitante{
 div.reg-visitante:hover{
     background: #ccc;
 }
+
+div#visitantes div#body{
+    overflow: auto;
+}
+
+div#visitantes{
+    pointer-events: auto;
+}
+li span.numMensajes{
+    float: right;
+    background-color: red;
+    padding: 0px 6px 0px 5px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    width: 20px;
+    max-width: 30px;
+    text-align: center;
+}
+
+div#cuerpo{
+    display: block;
+    margin: 0 auto;       
+}
+div#cuerpo input{
+    width: 90%;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+}
+div#cuerpo label{
+    float: left;
+    margin-left: 20px;
+    font-size: 14px;    
+}
+div#cuerpo textarea{
+    min-width: 90%;
+    max-width: 90%;
+    min-height: 100px;
+    max-height: 100px;
+    font-family: sans-serif;
+    margin: 0 auto;
+    display: block;
+}
+div#cuerpo #divFecha{
+    float: right;
+    font-size: 12px;
+    margin-right: 20px;    
+    color: #919191;
+}
+#visto{
+    margin-right: 40px;       
+}
+table#tablaContent td{
+    font-size: 14px;        
+}
+
+.data1{
+    background: #EAEAEA;
+}
+
+.data2{
+    background: #FFFFFF;
+}
+.noLeido{
+    background: #FFD5D5;    
+}
+
+#cancelar{
+    float: right;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#notificaciones{
+    cursor: default;
+    width: 300px;
+    border-radius: 10px;
+    height: 100px;    
+    position: fixed;
+    top:0;
+    right: 0;
+    background: #FAFFC4;
+    box-shadow: 0px 0px 10px;
+    margin-right: 10px;
+    margin-top: 20px;
+    font-family: sans-serif;
+}
+#notificaciones #noti-header{
+    width: 96%;
+    padding: 10px 0px 2px 10px; 
+    color: #000;
+    border-radius: 10px 10px 0px 0px;
+}
+#notificaciones #noti-header span{
+    font-weight: bold;                        
+}
+#notificaciones #noti-header img{
+    float: right;
+    cursor: pointer;
+    width: 10px;        
+    margin-top: 1px;
+    margin-right: 10px;
+}
+
+#notificaciones #noti-body{    
+    height: 80%;       
+    padding: 10px;    
+}
+#notificaciones #noti-body img{
+    width: 20px;
+    float: left;
+}
+#notificaciones #noti-body p{
+    float: left;
+    margin-left: 10px;      
+    width: 88%;
+}
+#imgRefrescar{
+    width: 40px;
+    cursor: pointer;
+}
+.infoClientes{
+    float: left;
+    display: block;
+    margin-top: 16px;    
+    margin-left: 10px;
+}
+#visitantes div#header div#estado{
+    float: left;
+    width: 12px;
+    display: block;
+    height: 12px;
+    background: #000;
+    border-radius: 10px;
+    margin-left: 18px;
+    margin-top: 2px;
+}
+#visitantes div#header span{
+    padding: 0px;        
+    float: left;
+    margin-left: 10px;
+}

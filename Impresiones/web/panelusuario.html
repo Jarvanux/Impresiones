@@ -96,16 +96,15 @@
             <span>Cargando...</span>
         </div>
 
-
         <!--Aquí se cargará el chat :D-->
         <div class="all-chats">
             <div class="chat-panel" id="chatmodelo" style="display: none">            
                 <div class="chat-header">
                     <div class="estado"></div>
                     <span class="text-header">Ana vargas</span>                    
-                                            
+
                     <div class="mensajes-reci" id="mensajes-recibidos">
-<!--                        <img src="img/chat/escribiendo-sms.gif" title=""/>-->
+                        <!--                        <img src="img/chat/escribiendo-sms.gif" title=""/>-->
                         0
                     </div>                    
                     <div class="btn-close" onclick="controlChat.clickClose(event)" title="Cerrar ventana"><img src="img/chat/close-chat.png"/></div>
@@ -121,6 +120,22 @@
         </div>
 
         <div id="tiposSms" style="display:none;">
+            <div id="errorbuscandoamin">
+                <img src="img/icons/global/alert-icon.png" />
+                <span>¡Ups! Estamos desconectados, si deseas deja un mensaje, nuestros agentes intentarán ponerse en contacto más tarde.</span>
+                <input type="button" id="dejarSms" value="Dejar Mensaje" onclick="controlChat.showInfo()"/>
+            </div>
+            <div id="datosPersonales">
+                <div id="informacion">
+                    <img src="img/icons/global/alerta-info.png" />
+                    <span id="informacion">Para iniciar el chat debes ingresar tú nombre y un correo electrónico a continuación.</span>
+                </div>
+                <label>Nombre:</label>
+                <input type="text" id="nameVisitante" />
+                <label>Correo:</label>
+                <input type="text" id="correoVisitante" />
+                <input type="button" value="Empezar ahora" onclick="controlChat.validaDatosVisitante()"/>
+            </div>
             <div class="contacto-escribiendo" style="display: none">                
                 <img src="img/chat/escribiendo-sms.gif" />
             </div>
@@ -160,7 +175,7 @@
             <!--FIN SMS RESPTOR-->
         </div>
         <!--Fin carga chat.-->
-        
+
         <!--Aquí se cargarán las páginas externas del login y registro modalmente.-->
         <div id="info" class="back-modal" style="display: none">
             <div id="content" class="contet-modal" >

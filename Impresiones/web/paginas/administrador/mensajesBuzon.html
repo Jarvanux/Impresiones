@@ -1,0 +1,119 @@
+<div id="archivos-externos">
+    <link rel="stylesheet" href="css/paginas/resumen-impresion/impresiones-realizadas.css" />
+</div>
+
+<div id="lista-impresiones">
+    <div id="header">
+        <div id="filtro-fecha" class="consultas">
+            <label for="fecha-filtro">Filtrar por día</label>
+            <input type="date" id="fecha-filtro" />
+        </div>
+        <div id="filtro-fecha" class="consultas">
+            <label for="fecha-filtro">Filtrar desde</label>
+            <input type="date" id="fecha-filtro-desde" />
+        </div>
+        <div id="filtro-fecha" class="consultas">
+            <label>Filtrar por estado</label>
+            <select id="cmbxEstadoLeido">
+                <option value="-1">Todos</option>
+                <option value="1">Leidos</option>
+                <option value="0">No Leidos</option>
+            </select>
+        </div>
+        <div id="refrescar" class="consultas">
+            <label>Refrescar</label>
+            <img src="img/icons/global/img-refrecar.png" id="imgRefrescar" onclick="eventosUsuario.filtrarMensajesDejados()"/>
+        </div>
+        <div id="num-impresiones" class="consultas" style="display: none;">
+            <span id="number-impresiones">0</span>
+        </div>
+        <script>
+            $('#cmbxEstadoLeido').change(function() {
+                eventosUsuario.filtrarMensajesDejados();
+            });
+            $('#fecha-filtro').change(function() {
+                eventosUsuario.filtrarMensajesDejados();
+            });
+            $('#fecha-filtro-desde').change(function() {
+                eventosUsuario.filtrarMensajesDejados();
+            });
+        </script>
+    </div>
+    <div id="body">
+        <table cellspacing="0">
+            <tr>
+                <th class="colum-1">
+                    *
+                </th>
+                <th class="colum-2">
+                    Correo
+                </th>
+                <th class="colum-3">
+                    Nombre
+                </th>                
+                <th class="colum-4">
+                    Mensaje
+                </th>
+                <th class="colum-5">
+                    Atendido
+                </th>
+                <th class="colum-6">
+                    Fecha
+                </th>
+            </tr>
+        </table>       
+        <div id="content-table">
+            <table cellspacing="0" id="tablaContent">                
+                <tr style="height: 40px; display: none;" id="trModelo">
+                    <td class="colum-1">0</td>
+                    <td class="colum-2">xxxxxxxxx</td>
+                    <td class="colum-3">xxxxxx xxxxxx</td>
+                    <td class="colum-4"><span class="mensajeResumido">xxxxxxxx xx xxxxx...</span>
+                        <span class="mensajeCompleto" style="display: none;"></span></td>
+                    <td class="colum-5">No</td>
+                    <td class="colum-6">26/12/2014 12:06:40</td>
+                </tr>                         
+            </table>
+        </div>
+    </div>
+    <div id="footer">
+
+    </div>
+</div>
+
+
+
+<div id="detallesSMS" class="back-modal" style="display: none;">
+    <div id="contentModal">
+        <div id="content" class="contet-modal">
+            <div id="titulo" class="header-modal">
+                <div id="titulo" class="titulo-modal">
+                    <h2>Mensaje</h2>                    
+                </div>
+                <div id="cerrar" class="close-modal">
+                    <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCerrar"/>
+                </div>
+            </div>                
+            <div id="cuerpo" class="body-modal">
+                <input type="hidden" id="idSMS" />
+                <label>Nombre del cliente:</label>
+                <input type="text" disabled="disabled" id="nombreCliente"/>
+                <label>Correo del cliente:</label>
+                <input type="text" disabled="disabled" id="correo" />
+                <label>Mensaje:</label>
+                <textarea id="mensajeEnviado" disabled="disabled"></textarea>
+                <div id="divFecha"><b>Fecha del mensaje</b><span id="fecha">26/12/2014 12:06:40</span></div>
+            </div>
+            <div class="footer-modal">
+                <input type="button" id="visto" class="btn-aceptar" value="Visto"  title="Marcar como leido." onclick="eventosUsuario.marcarComoLeido()"/>
+                <input type="button" id="cancelar" class="btn-cancelar" value="Volver"  title="Volver atrás" onclick="eventosUsuario.cerrarDetallesSMS()"/>
+            </div>
+        </div>
+    </div>
+</div>    
+
+<script>
+    $('#imgCerrar').click(function() {
+        $('#detallesSMS').hide();
+    });
+</script>

@@ -474,28 +474,34 @@ var eventosImpresionLaer = {
         });
         //Fin eventos formulario 2.
         $('#continuarForm').click(function() {
-            $('#valorImpresionPedido1').html('Valor: ' + $('#valorTotal').html());
-            $('#valorUnitario2').html($('#valorUnitario').html());
-            $('#valorTotal2').html($('#valorTotal').html());
-            $('#contentD').css({'display': 'none'});
-            $('#contentD2').show();
-            $('#numCopys2').val($('#numCopys').val());
-            $('#numCopys2').val($('#numCopys').val());
-            $('#numAnill').val($('#numCopys').val());
-            $('#txtPagPlastificadas').val(parseInt($('#numTotalBN').val()) + parseInt($('#numTotalColor').val()));
-            $('#numCorte').val(parseInt($('#numTotalBN').val()) + parseInt($('#numTotalColor').val()));
-            if ($('#soloBN').is(':checked')) {
-                $('#totalImpre2').val($('#numTotalBN').val());
-            } else if ($('#soloColor').is(':checked')) {
-                $('#totalImpre2').val($('#numTotalColor').val());
-            } else if ($('#mixto').is(':checked')) {
-                $('#totalImpre2').val($('#numTotalBN').val() + ' || ' + $('#numTotalColor').val());
-            } else {
-                $('#totalImpre2').val(0);
-            }
+            if (archivoSubido) {
+                $('#valorImpresionPedido1').html('Valor: ' + $('#valorTotal').html());
+                $('#valorUnitario2').html($('#valorUnitario').html());
+                $('#valorTotal2').html($('#valorTotal').html());
+                $('#contentD').css({'display': 'none'});
+                $('#contentD2').show();
+                $('#numCopys2').val($('#numCopys').val());
+                $('#numCopys2').val($('#numCopys').val());
+                $('#numAnill').val($('#numCopys').val());
+                $('#txtPagPlastificadas').val(parseInt($('#numTotalBN').val()) + parseInt($('#numTotalColor').val()));
+                $('#numCorte').val(parseInt($('#numTotalBN').val()) + parseInt($('#numTotalColor').val()));
+                if ($('#soloBN').is(':checked')) {
+                    $('#totalImpre2').val($('#numTotalBN').val());
+                } else if ($('#soloColor').is(':checked')) {
+                    $('#totalImpre2').val($('#numTotalColor').val());
+                } else if ($('#mixto').is(':checked')) {
+                    $('#totalImpre2').val($('#numTotalBN').val() + ' || ' + $('#numTotalColor').val());
+                } else {
+                    $('#totalImpre2').val(0);
+                }
 
-            $('#nums').slideDown(500);
+                $('#nums').slideDown(500);
+            }else{
+                validacionesImpresionLaser.informe('No has subido un archivo o el seleccionado no tiene un formato válido!.');
+            }
         });
+
+
 
         $('#txtPagPlastificadas').change(function() {
             if ($('#txtPagPlastificadas').val() > (parseInt($('#numTotalBN').val()) + parseInt($('#numTotalColor').val()))) {

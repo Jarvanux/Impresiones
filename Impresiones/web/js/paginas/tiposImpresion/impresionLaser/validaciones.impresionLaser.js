@@ -235,6 +235,7 @@ var validacionesImpresionLaser = {
         $('#info').slideDown(500);
         $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
         $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
+//        $('#cancelar').hide();
     },
     ocultarElementos: function(codigo) {
         var oculta = {

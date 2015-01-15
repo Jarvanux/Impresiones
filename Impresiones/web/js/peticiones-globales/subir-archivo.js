@@ -1,4 +1,5 @@
 var formularioTemporal = null;
+var archivoSubido = false;
 $(document).ready(function() {
 //    console.log('Fjadksfjsaflf');
     $('#btnFile').uploader({
@@ -18,13 +19,16 @@ $(document).ready(function() {
             if (respuestaArchivo.codigo == 1) {
                 $('#txtArchivosCargados').val(respuestaArchivo.datos.nombreArchivo);
                 formularioTemporal = respuestaArchivo.datos;
+                archivoSubido = true;
             }
             else if (respuestaArchivo.codigo == 0) {
                 $('#txtArchivosCargados').val(respuestaArchivo.datos.nombreArchivo);
                 validacionesImpresionLaser.informe('El formato del archivo es invalido, el sistema solo aceptará archivos de imagen (jpg,svg,bmp,png) y documentos pdf.');
+                archivoSubido = false;
             } else if (respuestaArchivo.codigo < 0) {
                 $('#txtArchivosCargados').val(respuestaArchivo.datos.nombreArchivo);
                 validacionesImpresionLaser.informe('Se ha producido un error inesperado, vuelve a intentarlo o contacta el adminnistrador.');
+                archivoSubido = false;
             }
         }
     });

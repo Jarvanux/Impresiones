@@ -11,7 +11,7 @@ leyendoChat = false;
 var maxChat = 0;
 var idConversacionChat = 0;
 var idUsuarioContacto = 0;
-var idUsuario = 0;
+//var idUsuario = 0;
 var usuarioOpuesto = null;
 var idChatText = null;
 var idMensajeEnviado = 0;
@@ -19,7 +19,7 @@ $(document).ready(function() {
     controlChat.init();
 });
 var controlChat = {
-    init: function() {        
+    init: function() {
         $('#chatmodelo div.btn-close').show();
     },
     prepararChat2: function() {
@@ -39,46 +39,45 @@ var controlChat = {
 
     },
     chatNuevo: function(idChat) {
-        var marginRight = 0;
-        var tamanioVentana = $(window).width();
-        var tamanioReqByChats = 330 * chatsAbiertos;
-        if (tamanioReqByChats < tamanioVentana) {
-            if (chatsAbiertos == 1) {
-                marginRight = 150;
-            } else {
-                marginRight = 0;
-            }
-            //Si hay espacio en la ventana simplemente se agrega visible en la misma.
-            $('div.all-chats').append($('#chatmodelo').clone().attr('id', 'chat' + contChat).show());
-            $('#chat' + contChat + ' div.chat-body').attr({'id': 'cuerpo-chat' + contChat});
-            $('#chat' + contChat + ' div.btn-max').attr({'onclick': "controlChat.clickMax('chat" + contChat + "')"});
-            $('#chat' + contChat + ' div.btn-min').attr({'onclick': "controlChat.clickMin('chat" + contChat + "')"});
-            $('#chat' + contChat + ' div.chat-footer .text-sms').attr({'onclick': "controlChat.clickPress('chat" + contChat + "')"});
-            divContent = $('#chat' + contChat);
-            if (chatsAbiertos == 1) {
-                $('#chat' + contChat).css({'margin-right': '150px'});
-            }            
-            $('div#chat1 div.chat-header div#mensajes-recibidos').hide();
-            $('div#chat1 div.chat-header span').show();
-            $('div#chat1 div.chat-header span').css({'font-size': '14px'});
-            $('div#chat1 div.chat-header div.btn-max').show();            
+        if ($('div.all-chats').find('#chat' + idChat).length == 0) {
+            $('div.all-chats').append($('#chatmodelo').clone().attr('id', 'chat' + idChat).show());
+            $('#chat' + idChat + ' div.chat-body').attr({'id': 'cuerpo-chat' + idChat});
+            $('#chat' + idChat + ' div.btn-max').attr({'onclick': "controlChat.clickMax('chat" + idChat + "')"});
+            $('#chat' + idChat + ' div.btn-min').attr({'onclick': "controlChat.clickMin('chat" + idChat + "')"});
+            $('#chat' + idChat + ' div.chat-footer .text-sms').attr({'onclick': "controlChat.clickPress('chat" + idChat + "')"});
+            divContent = $('#chat' + idChat);
+            $('div#chat' + idChat + ' div.chat-header div#mensajes-recibidos').hide();
         } else {
-            alert('No hay espacio en la ventana. Ventana: ' + tamanioVentana + ' Chats: ' + tamanioReqByChats);
-            $('#chat' + contChat + ' div.btn-min').click();
-            chatsAbiertos--;
+            $('div.all-chats').find('#chat' + idChat).show();
+            $('div#chat' + idChat + ' div.chat-header .btn-max').click();
+            chatsAbiertos++;
         }
-        chatsAbiertos++;
-        contChat++;
-//        console.log(chatsAbiertos);        
+    },
+    crearPanelChat: function(idChat) {
+        if ($('div.all-chats').find('#chat' + idChat).length == 0) {
+            //Si hay espacio en la ventana simplemente se agrega visible en la misma.
+            $('div.all-chats').append($('#chatmodelo').clone().attr('id', 'chat' + idChat));
+            $('#chat' + idChat + ' div.chat-body').attr({'id': 'cuerpo-chat' + idChat});
+            $('#chat' + idChat + ' div.btn-max').attr({'onclick': "controlChat.clickMax('chat" + idChat + "')"});
+            $('#chat' + idChat + ' div.btn-min').attr({'onclick': "controlChat.clickMin('chat" + idChat + "')"});
+            $('#chat' + idChat + ' div.chat-footer .text-sms').attr({'onclick': "controlChat.clickPress('chat" + idChat + "')"});
+            divContent = $('#chat' + idChat);
+            $('div#chat' + idChat + ' div.chat-header div#mensajes-recibidos').hide();
+        }
+    },
+    consultaDatosChat: function(idChat) {
+        $.ajax({
+        });
     },
     clickClose: function(event) {
         var idChat = event.path[3];
         $(idChat).hide();
         chatsAbiertos--;
-//        console.log(chatsAbiertos);
+        $(idChat).find('span#leidos').attr('class', 'false'); //Se le asigna eso para saber que el usuario está leyendo ese chat.
     },
     clickMin: function(idChat) {
 //        console.log(idChat);
+        $('#' + idChat + ' span#leidos').attr('class', 'false'); //Se le asigna eso para saber que el usuario está leyendo ese chat.
         $('#' + idChat).css({
             'height': '40px',
             'padding': '310px 0px 0px 0px',
@@ -100,81 +99,43 @@ var controlChat = {
             'padding': '0px',
             'box-shadow': '0px 0px 4px black'
         });
-
+        var idUnico = idChat.substring(idChat.search('-') + 1);
+        $('#'+idChat).find('span.maxPrimeraVez').html("true");
+        
+        $('#' + idChat + ' span#leidos').attr('class', 'true'); //Se le asigna eso para saber que el usuario está leyendo ese chat.
+        $('#' + idChat).find('.chatsLeidos').html(0);
         $('#' + idChat + ' div.chat-body').show();
         $('#' + idChat + ' div.chat-footer').show();
         $('#' + idChat + ' div.chat-footer #sms').focus();
         $('#' + idChat + ' div.btn-min').show();
         $('#' + idChat + ' div.btn-max').hide();
-        var id = divContent.find('div')[8].id;
-        var elemento = document.getElementById(id);
+//        var id = divContent.find('div')[8].id;
+//        var elemento = document.getElementById(id);
         leyendoChat = false;
 //        evento = event;
         if (!leyendoChat) {
-            elemento.scrollTop = (elemento.scrollHeight - elemento.clientHeight) + 100;
+//            elemento.scrollTop = (elemento.scrollHeight - elemento.clientHeight) + 100;
         }
-        leyendoChat = true;
-
-        //Consultamos un asesor de soporte si la variable maxChat es = 0,
-        //generalmente se hace para cuando el usuario maximise la primera vez
-        //la venenta del chat, se abra el recurso en el sistema, para no 
-        //consumir memoria inesesaria del servidor, y sobre todo que los
-        //usuarios de soporte tengan la posibilidad de no frustrarse con tantos
-        //conectados.
-
-        if (maxChat == 0) {
-//            console.log('Inicia la petición - Buscar asesores');
-            //Inicia la petición            
-            divContent.find('div.chat-body').append($('#tiposSms div.buscando-soporte').clone().attr('id', 'informativo').show());
-            //Lanzamos la petición AJAX para buscar los asesores disponibles.
-            $.ajax({
-                'url': 'buscarAsesores',
-                'type': 'POST',
-                success: function(data) {
-                    var respuesta = JSON.parse(data);
-//                    console.log(respuesta);
-                    if (respuesta.datos != null) {
-                        console.info('Se ha encontrado un asesor');
-                        idUsuarioContacto = respuesta.datos.idUsuario;
-                        usuarioOpuesto = respuesta.datos;
-                        console.log(usuarioOpuesto);
-//                        console.info('IdUsuarioContacto: ' + idUsuarioContacto);
-//                        divContent.find('div.chat-body div#informativo').hide();
-                        divContent.find('div.chat-header div.estado').show();
-                        divContent.find('span.text-header').html(respuesta.datos.nombres + ' ' + respuesta.datos.apellidos);
-                        controlChat.enviarChat(idUsuarioContacto, 'Bienvenido ¿en que te puedo colaborar?');
-                        divContent.find('div.chat-body div#informativo span').html('Buscando soporte...');
-                        maxChat = 1;
-                    } else {
-                        console.warn('No se encontró un asesor');
-                    }
-                }
-            });
-            //Finaliza la petición.            
-        }
+//        leyendoChat = true;
     },
     enviarChat: function(idUSuarioOrigen, sms) {
-        var id = divContent.find('div')[8].id;
-        var elemento = document.getElementById(id);
-
+        var id = divContent.find('div').selector.substring(1).replace(' div', '');
+        var elemento = document.getElementById('cuerpo-' + id);
         var posScroll = elemento.scrollHeight - elemento.clientHeight;
 
-        if (elemento.scrollTop < (posScroll)) {
-            leyendoChat = true;
-//            console.log('Es menor');
-        } else {
-//            console.log('Es mayor');
-            leyendoChat = false;
-        }
 
-        if (idUSuarioOrigen == idUsuario) {
+        if (idUSuarioOrigen == idUsuarioLogeado) {
             divContent.find('div.chat-body').append($('#tiposSms div.sms-emisor').clone().attr('id', 'smsSend' + idMensajeEnviado).show());
-            $('#smsSend' + idMensajeEnviado + ' div.content-sms').html(refreshChatVisitante.buscarEmoticones(sms));
-            $('#smsSend' + idMensajeEnviado + ' div.fecha').html(controlChat.formatearHora(new Date()));
+            $('#smsSend' + idMensajeEnviado + ' div.content-sms').html(refrescaClientes.buscarEmoticones(sms));
+            $('#smsSend' + idMensajeEnviado + ' div.fecha').html(controlPeticiones.formatearHora(new Date()));
             divContent.find('div.chat-body div#estado').remove();
             divContent.find('div.chat-body').append($('#tiposSms div.estado-acciones').clone().attr('id', 'estado').show());
-            refreshChatVisitante.posScroll();
+            divContent.find('div.chat-body div.estado-acciones span').hide();
+//            refreshChatVisitante.posScroll();
             idMensajeEnviado++;
+            var id = divContent.find('div').selector.substring(1).replace(' div', '');
+            var elemento = document.getElementById('cuerpo-' + id);
+            elemento.scrollTop = (elemento.scrollHeight - elemento.clientHeight) + 100;
         }
 
         var url = 'insertarchat';
@@ -183,10 +144,13 @@ var controlChat = {
         var data = {};
         data.mensaje = sms;
         data.idUsuarioOrigen = idUSuarioOrigen;
-        if (idUSuarioOrigen == idUsuario) {
+        if (idUSuarioOrigen == idUsuarioLogeado) {
+            var x = idChatText;
+            x = x.substring(x.search('-') + 1);
+            idUsuarioContacto = x;
             data.idUsuarioDestino = idUsuarioContacto;
         } else {
-            data.idUsuarioDestino = idUsuario;
+            data.idUsuarioDestino = idUsuarioLogeado;
         }
         data.idConversacion = idConversacionChat;
         objetoJSON = {'chat': JSON.stringify(data)};
@@ -244,17 +208,17 @@ var controlChat = {
 function calculaIP2() {
 //    script.src = "http://www.telize.com/jsonip?callback=DisplayIP";
 //    document.getElementsByTagName("head")[0].appendChild(script);        
-    DisplayIP2(ipVisitante);
+    DisplayIP2(idUsuarioLogeado);
 }
 ;
 function DisplayIP2(response) {
 //    var ip = response.ip;
-    var ip = response.replace(/\./g, '');
+//    var ip = response.replace(/\./g, '');
 //    console.log('Su ip es: ' + ip);
     var sms = divContent.find('#sms').val();
     divContent.find('#sms').val('');
     if (sms.length > 1) {
 //        divContent.find('div.chat-body img').show();
-        controlChat.enviarChat(idUsuario, sms);
+        controlChat.enviarChat(idUsuarioLogeado, sms);
     }
 }

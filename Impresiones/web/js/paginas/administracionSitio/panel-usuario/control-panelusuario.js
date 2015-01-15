@@ -10,11 +10,10 @@
 ////    controlUsuario.init();
 //    controlUsuario.dimencionPantalla();
 //});
-
+var idUsuarioLogeado = 0;
 var controlUsuario = {
     init: function() {
         controlUsuario.consultarUsuarioLogeado();
-//        alert('HEllo');
     },
     dimencionPantalla: function() {
         $(window).resize(function() {
@@ -37,32 +36,59 @@ var controlUsuario = {
             'type': 'POST',
             'async': false,
             success: function(data) {
-                resultado = data;
-            }
-        });
-        console.log(resultado);
-        var respuesta = JSON.parse(resultado);
-        var lugarPagina = location.href;
-        var posSearch = lugarPagina.search("/impresiones/");
-        lugarPagina = lugarPagina.substring(posSearch);
-        console.log(respuesta);
-        if (respuesta.datos != null) {
-            console.log("Existe un usuario logeado");
-            console.log(lugarPagina);
-//            alert('Se ejecuto esa joa');          
-            if (lugarPagina == '/impresiones/') {
-                if (respuesta.datos.idRol == 2) {
-                    location.href = '/impresiones/panelusuario.html';
-                } else if (respuesta.datos.idRol == 1) {
-                    location.href = '/impresiones/paneladministrador.html';
+                console.log(resultado);
+                var respuesta = JSON.parse(data);
+                var lugarPagina = location.href;
+                var posSearch = lugarPagina.search("/impresiones/");
+                lugarPagina = lugarPagina.substring(posSearch);
+                console.log(respuesta);
+                if (respuesta.codigo > 0) {
+                    if (respuesta.datos != null) {
+                        console.log("Existe un usuario logeado");
+                        idUsuarioLogeado = respuesta.datos.idUsuario;
+                        console.log(lugarPagina);
+                        if (lugarPagina == '/impresiones/') {
+                            if (respuesta.datos.idRol == 2) {
+                                location.href = '/impresiones/panelusuario.html';
+                            } else if (respuesta.datos.idRol == 1) {
+                                location.href = '/impresiones/paneladministrador.html';
+                            }
+                        }
+                    }
+                } else {
+                    if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneladministrador.html') > -1 || lugarPagina.search('panelusuario.html') > -1) {
+                        location.href = '/impresiones/login.html';
+                    }
                 }
             }
-        } else {
-            console.log("No hay nadie logueado");
-            if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneladministrador.html') > -1 || lugarPagina.search('panelusuario.html') > -1) {
-                location.href = '/impresiones/login.html';
-            }
-        }
+        });
+
+
+//        console.log(resultado);
+//        var respuesta = JSON.parse(resultado);
+//        var lugarPagina = location.href;
+//        var posSearch = lugarPagina.search("/impresiones/");
+//        lugarPagina = lugarPagina.substring(posSearch);
+//        console.log(respuesta);
+//        if (respuesta.datos != null) {
+//            console.log("Existe un usuario logeado");
+//            alert('Existe!');
+//            console.log(lugarPagina);
+////            alert('Se ejecuto esa joa');          
+//            if (lugarPagina == '/impresiones/') {
+//                if (respuesta.datos.idRol == 2) {
+//                    location.href = '/impresiones/panelusuario.html';
+//                } else if (respuesta.datos.idRol == 1) {
+//                    location.href = '/impresiones/paneladministrador.html';
+//                }
+//            }
+//        } else {
+//            console.log("No hay nadie logueado");
+//            alert('No existe');
+//            if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneladministrador.html') > -1 || lugarPagina.search('panelusuario.html') > -1) {
+//                location.href = '/impresiones/login.html';
+//            }
+//        }
     },
     cerrarSesion: function() {
         $.ajax({

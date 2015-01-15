@@ -6,6 +6,7 @@ var inicio = {
     init: function() {
         if ((location.href.search('paneladministrador') < 0) && (location.href.search('login') < 0)) {
             inicio.cargar('paginas/servicios/impresion.html');
+            $('#chat1').css({'margin-right':'30px'});
         }
         $('#info').hide();
         $("#lnkServicios").on('click', inicio.servicios);

@@ -15,9 +15,14 @@ var peticionesIngresar = {
                 if (respuesta.codigo > 0) {
                     if (respuesta.datos.idRol == 2) {
                         location.href = '/impresiones/panelusuario.html';
-                    }else if(respuesta.datos.idRol == 1){
+                    } else if (respuesta.datos.idRol == 1) {
                         location.href = '/impresiones/paneladministrador.html';
                     }
+                } else if (respuesta.codigo == -1) {
+                    $('div#mensajeL span#txtMensaje').html('Error en el servidor.');
+                    $('div#mensajeL').slideDown();
+                    $('p#smsReg').hide();
+                    $('div#facebook').hide();
                 } else {
                     $('div#mensajeL span#txtMensaje').html('Error en el usuario o la clave');
                     $('div#mensajeL').slideDown();

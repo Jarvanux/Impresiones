@@ -1,7 +1,5 @@
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 
 var chatsAbiertos = 1;
@@ -15,14 +13,48 @@ var idUsuario = 0;
 var usuarioOpuesto = null;
 var idChatText = null;
 var idMensajeEnviado = 0;
+var correoVisitante = "";
+var nombreVisitante = "";
 $(document).ready(function() {
     controlChat.init();
 });
 var controlChat = {
     init: function() {
-        if (location.href.search('panelusuario') > -1) {
-            controlChat.chatNuevo();
-        }
+        controlChat.chatNuevo();
+        $('#imgCerrar').click(function() {
+            $('#info').hide('explode');
+        });
+        $('#aceptar').click(function() {
+            $('#info').hide('explode');
+        });
+        $('#enviar').click(function() {
+            if ($('#nombreContacto').val().length > 6 && $('#mensajeText').val().length > 20 && $('#correoE').val().length > 6) {
+                $('#infoEnvio').show();
+                $('#enviar').hide();
+                $.ajax({
+                    'url': 'mensajeDeBuzon',
+                    'type': 'POST',
+                    'data': {'nombre': $('#nombreContacto').val(), 'correoE': $('#correoE').val(), 'mensaje': $('#mensajeText').val()},
+                    success: function(data) {
+                        data = JSON.parse(data);
+                        console.log(data);
+                        $('#infoEnvio img').attr('src', 'img/icons/global/fine-img.png');
+                        $('#infoEnvio span').html(data.mensaje);
+                        $('#aceptar').show();
+                    }
+                });
+            } else {
+                $('#infoEnvio img').attr('src', 'img/icons/global/error-img.png');
+                $('#infoEnvio span').html('Completa el formulario.');
+                $('#infoEnvio').show();
+            }
+        });
+    },
+    showInfo: function() {
+        $('div#contentModal #aceptar').css({'margin-right': '20px'});
+        $('#nombreContacto').val(nombreVisitante);
+        $('#correoE').val(correoVisitante);
+        $('#info').slideDown();
     },
     prepararChat2: function() {
         calculaIP2();
@@ -94,6 +126,74 @@ var controlChat = {
     prueba: function(id) {
         alert(id);
     },
+    validaDatosVisitante: function() {
+        var name = divContent.find('div.chat-body div#datosVisitante #nameVisitante').val();
+        var email = divContent.find('div.chat-body div#datosVisitante #correoVisitante').val();
+        if ((name.length > 6) && (email.length > 6)) {
+            nombreVisitante = name;
+            correoVisitante = email;
+            controlChat.enviarDatosVisitante();
+        } else {
+            divContent.find('div.chat-body div#datosVisitante div#informacion img').attr('src', 'img/icons/global/alert-icon.png');
+            divContent.find('div.chat-body div#datosVisitante div#informacion span').html('La información ingresada no es válida, por favor corrígela.');
+        }
+    },
+    enviarDatosVisitante: function() {
+        divContent.find('div.chat-body div#datosVisitante span#informacion').css('margin-top', '9px');
+        divContent.find('div.chat-body div#datosVisitante span#informacion').html('Enviando...');
+        var name = divContent.find('div.chat-body div#datosVisitante #nameVisitante').val();
+        var email = divContent.find('div.chat-body div#datosVisitante #correoVisitante').val();
+        $.ajax({
+            'url': 'visitanteTemporal',
+            'data': {'nombre': name, 'correo': email},
+            success: function(data) {
+                var respuesta = JSON.parse(data);
+                console.log(respuesta);
+                if (respuesta.codigo > 0) {
+                    idUsuario = respuesta.datos;
+                    if (maxChat == 0) {
+//            console.log('Inicia la petición - Buscar asesores');
+                        //Inicia la petición                                    
+                        divContent.find('div.chat-body').html('');
+                        divContent.find('div.chat-body').append($('#tiposSms div.buscando-soporte').clone().attr('id', 'informativo').show());
+                        //Lanzamos la petición AJAX para buscar los asesores disponibles.
+                        $.ajax({
+                            'url': 'buscarAsesores',
+                            'type': 'POST',
+                            success: function(data) {
+                                var respuesta = JSON.parse(data);
+//                    console.log(respuesta);
+                                if (respuesta.datos != null) {
+                                    console.info('Se ha encontrado un asesor');
+                                    idUsuarioContacto = respuesta.datos.idUsuario;
+                                    usuarioOpuesto = respuesta.datos;
+//                                    console.log(usuarioOpuesto);
+//                        console.info('IdUsuarioContacto: ' + idUsuarioContacto);
+//                        divContent.find('div.chat-body div#informativo').hide();
+                                    divContent.find('div.chat-header div.estado').show();
+                                    divContent.find('span.text-header').html(respuesta.datos.nombres + ' ' + respuesta.datos.apellidos);
+                                    controlChat.enviarChat(idUsuarioContacto, 'Bienvenid@ ¿en que te puedo colaborar?');
+                                    divContent.find('div.chat-body div#informativo span').html('Buscando soporte...');
+                                    maxChat = 1;
+                                    divContent.find('div.chat-footer #sms').show();
+                                } else {
+                                    console.warn('No se encontró un asesor');
+                                    divContent.find('div.chat-body').html('');
+                                    divContent.find('div.chat-footer #sms').hide();
+                                    divContent.find('div.chat-body').append($('div#tiposSms div#errorbuscandoamin').clone().attr('id', 'alerta'));
+                                    maxChat = 2;
+                                }
+                            }
+                        });
+                        //Finaliza la petición.            
+                    }
+                } else {
+                    divContent.find('div.chat-body div#datosVisitante span#informacion').html('Se ha producido un error desconocido, por favor intenta de nuevo!.');
+                    divContent.find('div.chat-body div#datosVisitante div#informacion img').attr('src', 'img/icons/global/error-icon.png');
+                }
+            }
+        });
+    },
     clickMax: function(idChat) {
         idChatText = idChat;
         $('#' + idChat).css({
@@ -121,37 +221,47 @@ var controlChat = {
         //la venenta del chat, se abra el recurso en el sistema, para no 
         //consumir memoria inesesaria del servidor, y sobre todo que los
         //usuarios de soporte tengan la posibilidad de no frustrarse con tantos
-        //conectados.
+        //conectados. 
 
         if (maxChat == 0) {
-//            console.log('Inicia la petición - Buscar asesores');
-            //Inicia la petición            
-            divContent.find('div.chat-body').append($('#tiposSms div.buscando-soporte').clone().attr('id', 'informativo').show());
-            //Lanzamos la petición AJAX para buscar los asesores disponibles.
-            $.ajax({
-                'url': 'buscarAsesores',
-                'type': 'POST',
-                success: function(data) {
-                    var respuesta = JSON.parse(data);
+            if (controlPeticiones.consultarUsuarioLogeado()) {
+                idUsuario = respuestaUsuario.datos.idUsuario;
+                nombreVisitante = respuestaUsuario.datos.nombres +' '+ respuestaUsuario.apellidos;
+                correoVisitante = respuestaUsuario.datos.email;
+                alert('Se encontro alguien logueado');
+                $.ajax({
+                    'url': 'buscarAsesores',
+                    'type': 'POST',
+                    success: function(data) {
+                        var respuesta = JSON.parse(data);
 //                    console.log(respuesta);
-                    if (respuesta.datos != null) {
-                        console.info('Se ha encontrado un asesor');
-                        idUsuarioContacto = respuesta.datos.idUsuario;
-                        usuarioOpuesto = respuesta.datos;
-                        console.log(usuarioOpuesto);
+                        if (respuesta.datos != null) {
+                            console.info('Se ha encontrado un asesor');
+                            idUsuarioContacto = respuesta.datos.idUsuario;
+                            usuarioOpuesto = respuesta.datos;
+//                                    console.log(usuarioOpuesto);
 //                        console.info('IdUsuarioContacto: ' + idUsuarioContacto);
 //                        divContent.find('div.chat-body div#informativo').hide();
-                        divContent.find('div.chat-header div.estado').show();
-                        divContent.find('span.text-header').html(respuesta.datos.nombres + ' ' + respuesta.datos.apellidos);
-                        controlChat.enviarChat(idUsuarioContacto, 'Bienvenido ¿en que te puedo colaborar?');
-                        divContent.find('div.chat-body div#informativo span').html('Buscando soporte...');
-                        maxChat = 1;
-                    } else {
-                        console.warn('No se encontró un asesor');
+                            divContent.find('div.chat-header div.estado').show();
+                            divContent.find('span.text-header').html(respuesta.datos.nombres + ' ' + respuesta.datos.apellidos);
+                            controlChat.enviarChat(idUsuarioContacto, 'Bienvenid@ ¿en que te puedo colaborar?');
+                            divContent.find('div.chat-body div#informativo span').html('Buscando soporte...');
+                            maxChat = 1;
+                            divContent.find('div.chat-footer #sms').show();
+                        } else {
+                            console.warn('No se encontró un asesor');
+                            divContent.find('div.chat-body').html('');
+                            divContent.find('div.chat-footer #sms').hide();
+                            divContent.find('div.chat-body').append($('div#tiposSms div#errorbuscandoamin').clone().attr('id', 'alerta'));
+                            maxChat = 2;
+                        }
                     }
-                }
-            });
-            //Finaliza la petición.            
+                });
+            } else {
+                divContent.find('div.chat-body').html('');
+                divContent.find('div.chat-footer #sms').hide();
+                divContent.find('div.chat-body').append($('div#tiposSms div#datosPersonales').clone().attr('id', 'datosVisitante'));
+            }
         }
     },
     enviarChat: function(idUSuarioOrigen, sms) {
@@ -174,6 +284,7 @@ var controlChat = {
             $('#smsSend' + idMensajeEnviado + ' div.fecha').html(controlChat.formatearHora(new Date()));
             divContent.find('div.chat-body div#estado').remove();
             divContent.find('div.chat-body').append($('#tiposSms div.estado-acciones').clone().attr('id', 'estado').show());
+            divContent.find('div.chat-body div.estado-acciones span').hide();
             refreshChatVisitante.posScroll();
             idMensajeEnviado++;
         }
@@ -250,7 +361,7 @@ function calculaIP2() {
 ;
 function DisplayIP2(response) {
 //    var ip = response.ip;
-    var ip = response.replace(/\./g, '');
+//    var ip = response.replace(/\./g, '');
 //    console.log('Su ip es: ' + ip);
     var sms = divContent.find('#sms').val();
     divContent.find('#sms').val('');
