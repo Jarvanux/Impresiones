@@ -5,15 +5,18 @@
 package co.com.rempe.impresiones.negocio.servlets;
 
 import co.com.rempe.impresiones.negocio.constantes.EDireccion;
-import co.com.rempe.impresiones.negocio.delegado.ImpresionLaserDelegado;
+import co.com.rempe.impresiones.negocio.delegado.ImpresionDelegado;
 import co.com.rempe.impresiones.negocio.delegado.ModoImpresionDelegado;
 import co.com.rempe.impresiones.negocio.delegado.TamanoPapelDelegado;
 import co.com.rempe.impresiones.negocio.delegado.TipoImpresionDelegado;
 import co.com.rempe.impresiones.negocio.delegado.TipoPapelDelegado;
+import co.com.rempe.impresiones.negocio.delegado.UsuarioDelegado;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
 import co.com.rempe.impresiones.negocio.utilerias.CalcularPaginas;
+import co.com.rempe.impresiones.persistencia.entidades.CostosMantenimiento;
 import co.com.rempe.impresiones.persistencia.entidades.ImpresionLaser;
 import co.com.rempe.impresiones.persistencia.entidades.TipoImpresion;
+import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,14 +30,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hrey
  */
-@WebServlet(name = "ImpresionLaserServlet", urlPatterns = {"/tipoimpresion", "/tipoimpresionid", "/tipopapel", "/tamanopapel", "/modoimpresion", "/insertarprimerform", "/imgmodoimpre", "/calcularvalorimpre", "/calcularpaginas","/colores","/tipoPlastico","/serviciosCorte","/asignarDatosImpre","/consultarValorAnillado","/consultarValorPlastificado","/consultarValorCorte"})
-public class ImpresionLaserServlet extends HttpServlet {
+//Instancias... Descripción de cada una en la clase EDireccion;
+@WebServlet(name = "ImpresionLaserServlet", urlPatterns = {"/tipoimpresion",
+    "/tipoimpresionid", "/tipopapel", "/tamanopapel", "/modoimpresion",
+    "/insertarprimerform", "/imgmodoimpre", "/calcularvalorimpre",
+    "/calcularpaginas", "/colores", "/tipoPlastico", "/serviciosCorte",
+    "/asignarDatosImpre", "/consultarValorAnillado", "/consultarValorPlastificado",
+    "/consultarValorCorte", "/guardarImpresionLaser", "/listaImpresionesLaser",
+    "/filtrarImpresionLaser", "/ultimaImpresionLaser", "/consultarPrecios",
+    "/actualizarCostosMantenimiento", "/actualizarNombrePapel", "/actualizarPrecioPapel"})
+
+public class ImpresionServlet extends HttpServlet {
 
     private TipoImpresionDelegado tipoImpresionDelegado;
     private TipoPapelDelegado tipoPapelDelegado;
     private ModoImpresionDelegado modoImpresionDelegado;
     private TamanoPapelDelegado tamanoPapelDelegado;
-    private ImpresionLaserDelegado impresionLaserDelegado;
+    private ImpresionDelegado impresionLaserDelegado;
 
     @Override
     public void init() throws ServletException {
@@ -43,7 +55,7 @@ public class ImpresionLaserServlet extends HttpServlet {
         tipoImpresionDelegado = TipoImpresionDelegado.getInstancia();
         modoImpresionDelegado = ModoImpresionDelegado.getInstancia();
         tamanoPapelDelegado = TamanoPapelDelegado.getInstancia();
-        impresionLaserDelegado = ImpresionLaserDelegado.getInstancia();
+        impresionLaserDelegado = ImpresionDelegado.getInstancia();
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -102,6 +114,30 @@ public class ImpresionLaserServlet extends HttpServlet {
                     break;
                 case CONSULTA_VALOR_CORTE:
                     respuesta = consultaValorCorte(request);
+                    break;
+                case GUARDAR_IMPRESION_LASER:
+                    respuesta = guardarImpresionLaser(request);
+                    break;
+                case LISTAR_IMPRESION_LASER:
+                    respuesta = listarImpresionesLaser(request);
+                    break;
+                case FILTRAR_IMPRESION_LASER:
+                    respuesta = filtrarImpresionLaser(request);
+                    break;
+                case ULTIMA_IMPRESION_LASER:
+                    respuesta = ultimaImpresionLaser(request);
+                    break;
+                case CONSULTAR_PRECIOS:
+                    respuesta = consultarPrecios(request);
+                    break;
+                case ACTUALIZAR_COSTOSMANTENIMIENTO:
+                    respuesta = actualizarCostosMantenimiento(request);
+                    break;
+                case ACTUALIZAR_NOMBRE_PAPEL:
+                    respuesta = actualizarNombrePapel(request);
+                    break;
+                case ACTUALIZAR_PRECIO_PAPEL:
+                    respuesta = actualizarPrecioPapel(request);
                     break;
             }
         } catch (Throwable e) {
@@ -199,32 +235,89 @@ public class ImpresionLaserServlet extends HttpServlet {
         System.out.println(cadena);
         return impresionLaserDelegado.calculaNumPaginas(cadena);
     }
-    
-    private Respuesta colores() throws IOException{
+
+    private Respuesta colores() throws IOException {
         return impresionLaserDelegado.colores();
     }
-    
-    private Respuesta tipoPlastico() throws IOException{
+
+    private Respuesta tipoPlastico() throws IOException {
         return impresionLaserDelegado.tipoPlastico();
     }
-    private Respuesta tipoCorte() throws IOException{
+
+    private Respuesta tipoCorte() throws IOException {
         return impresionLaserDelegado.tipoCorte();
     }
-    private Respuesta genDatosImpre() throws IOException{
+
+    private Respuesta genDatosImpre() throws IOException {
         return impresionLaserDelegado.asigDataImpre();
     }
-    
-    private Respuesta consultaValorAnillado(HttpServletRequest request) throws IOException{        
+
+    private Respuesta consultaValorAnillado(HttpServletRequest request) throws IOException {
         int numero = Integer.parseInt(request.getParameter("numero"));
         return impresionLaserDelegado.consultarValorServicio(1, numero);
     }
-    private Respuesta consultaValorPlastificado(HttpServletRequest request) throws IOException{
+
+    private Respuesta consultaValorPlastificado(HttpServletRequest request) throws IOException {
         int numero = Integer.parseInt(request.getParameter("numero"));
         return impresionLaserDelegado.consultarValorServicio(2, numero);
     }
-    private Respuesta consultaValorCorte(HttpServletRequest request) throws IOException{
+
+    private Respuesta consultaValorCorte(HttpServletRequest request) throws IOException {
         int numero = Integer.parseInt(request.getParameter("numero"));
         return impresionLaserDelegado.consultarValorServicio(5, numero);
     }
-    
+
+    private Respuesta guardarImpresionLaser(HttpServletRequest request) throws IOException {
+        Gson gson = new Gson();
+        String json = request.getParameter("data");
+        long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
+        ImpresionLaser data = gson.fromJson(json, ImpresionLaser.class);
+        return impresionLaserDelegado.guardarImpresionLaser(data, idUsuario);
+    }
+
+    private Respuesta listarImpresionesLaser(HttpServletRequest request) {
+        long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
+        int tipoImpresion = Integer.parseInt(request.getParameter("tipo"));
+        return impresionLaserDelegado.listarImpresionesLaser(idUsuario, tipoImpresion);
+    }
+
+    private Respuesta filtrarImpresionLaser(HttpServletRequest request) {
+        long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
+        String filtro = request.getParameter("filtro");
+        int tipoImpresion = Integer.parseInt(request.getParameter("tipo"));
+        return impresionLaserDelegado.filtrarImpresionLaser(idUsuario, filtro, tipoImpresion);
+    }
+
+    private Respuesta ultimaImpresionLaser(HttpServletRequest request) {
+        Usuarios usuario = UsuarioDelegado.getInstancia().consultaUsuarioLogeado(request);
+        System.err.println("Id Usuario: " + usuario.getIdUsuario());
+        return impresionLaserDelegado.ultimaImpresionLaser(usuario);
+    }
+
+    private Respuesta consultarPrecios(HttpServletRequest request) {
+        return impresionLaserDelegado.consultarPrecios(request);
+    }
+
+    private Respuesta actualizarCostosMantenimiento(HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("dataBn");
+        System.out.println(json);
+        CostosMantenimiento dataBn = gson.fromJson(json, CostosMantenimiento.class);
+        json = request.getParameter("dataColor");
+        CostosMantenimiento dataColor = gson.fromJson(json, CostosMantenimiento.class);
+        return impresionLaserDelegado.actualizarCostosMantenimiento(dataBn, dataColor);
+    }
+
+    private Respuesta actualizarNombrePapel(HttpServletRequest request) {
+        int idPapel = Integer.parseInt(request.getParameter("idPapel"));
+        String nuevoNombre = request.getParameter("nuevoNombre");
+        return impresionLaserDelegado.actualizarNombrePapel(idPapel, nuevoNombre);
+    }
+
+    private Respuesta actualizarPrecioPapel(HttpServletRequest request) {
+        int idPapel = Integer.parseInt(request.getParameter("idPapel"));
+        double precioPapel = Double.parseDouble(request.getParameter("nuevoPrecio"));
+        return impresionLaserDelegado.actualizarPrecioPapel(idPapel, precioPapel);
+    }
+
 }

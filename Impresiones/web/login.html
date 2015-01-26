@@ -69,69 +69,69 @@
             <span>Cargando...</span>
         </div>
 
-<!--        Aquí se cargará el chat :D
-        <div class="all-chats">
-            <div class="chat-panel" id="chatmodelo" style="display: none">            
-                <div class="chat-header">
-                    <div class="estado"></div>
-                    <span class="text-header">Ana vargas</span>                    
-
-                    <div class="mensajes-reci" id="mensajes-recibidos">
-                                                <img src="img/chat/escribiendo-sms.gif" title=""/>
-                        0
-                    </div>                    
-                    <div class="btn-close" onclick="controlChat.clickClose(event)" title="Cerrar ventana"><img src="img/chat/close-chat.png"/></div>
-                    <div class="btn-min" onclick="controlChat.clickMin(event)" title="Minimizar"><div></div></div>
-                    <div class="btn-max" onclick="controlChat.clickMax(event)" title="Maximizar"><div></div></div>
+        <!--        Aquí se cargará el chat :D
+                <div class="all-chats">
+                    <div class="chat-panel" id="chatmodelo" style="display: none">            
+                        <div class="chat-header">
+                            <div class="estado"></div>
+                            <span class="text-header">Ana vargas</span>                    
+        
+                            <div class="mensajes-reci" id="mensajes-recibidos">
+                                                        <img src="img/chat/escribiendo-sms.gif" title=""/>
+                                0
+                            </div>                    
+                            <div class="btn-close" onclick="controlChat.clickClose(event)" title="Cerrar ventana"><img src="img/chat/close-chat.png"/></div>
+                            <div class="btn-min" onclick="controlChat.clickMin(event)" title="Minimizar"><div></div></div>
+                            <div class="btn-max" onclick="controlChat.clickMax(event)" title="Maximizar"><div></div></div>
+                        </div>
+                        <div class="chat-body">             
+                        </div>            
+                        <div class="chat-footer">
+                            <textarea class="text-sms" id="sms" onkeydown="controlChat.keyPress(event)" ></textarea>
+                        </div>
+                    </div>                
                 </div>
-                <div class="chat-body">             
-                </div>            
-                <div class="chat-footer">
-                    <textarea class="text-sms" id="sms" onkeydown="controlChat.keyPress(event)" ></textarea>
+        
+                <div id="tiposSms" style="display:none;">
+                    <div class="contacto-escribiendo" style="display: none">                
+                        <img src="img/chat/escribiendo-sms.gif" />
+                    </div>
+                    <div class="estado-acciones">
+                        <span>Escribiendo...</span>
+                        <img src="img/chat/enviando-sms.gif" style="display: none"/>                
+                    </div>
+        
+                    <div class="buscando-soporte">
+                        <img src="img/icons/global/loader.gif" />
+                        <span class="text-shearh" >Buscando un asesor.</span>
+                    </div>
+                    SMS EMISOR
+                    <div class="sms-emisor" style="display: none;">
+                        <div class="name-usuario" >                    
+                            <span class="usuario">Tú</span>
+                        </div>
+                        <div class="content-sms" >
+                            Sms emisor
+                        </div>
+                        <div class="fecha">                    
+                        </div>
+                    </div>
+                    FIN SMS EMISOR
+                    SMS RESEPTOR
+                    <div class="sms-reseptor" style="display: none;">                            
+                        <div class="name-usuario">
+                            <span>Alex Amaya</span>
+                        </div>
+                        <div class="content-sms">
+                            Sms reseptor
+                        </div>
+                        <div class="fecha">
+                            22/23/2014 02:00 pm
+                        </div>
+                    </div>        
+                    FIN SMS RESPTOR
                 </div>
-            </div>                
-        </div>
-
-        <div id="tiposSms" style="display:none;">
-            <div class="contacto-escribiendo" style="display: none">                
-                <img src="img/chat/escribiendo-sms.gif" />
-            </div>
-            <div class="estado-acciones">
-                <span>Escribiendo...</span>
-                <img src="img/chat/enviando-sms.gif" style="display: none"/>                
-            </div>
-
-            <div class="buscando-soporte">
-                <img src="img/icons/global/loader.gif" />
-                <span class="text-shearh" >Buscando un asesor.</span>
-            </div>
-            SMS EMISOR
-            <div class="sms-emisor" style="display: none;">
-                <div class="name-usuario" >                    
-                    <span class="usuario">Tú</span>
-                </div>
-                <div class="content-sms" >
-                    Sms emisor
-                </div>
-                <div class="fecha">                    
-                </div>
-            </div>
-            FIN SMS EMISOR
-            SMS RESEPTOR
-            <div class="sms-reseptor" style="display: none;">                            
-                <div class="name-usuario">
-                    <span>Alex Amaya</span>
-                </div>
-                <div class="content-sms">
-                    Sms reseptor
-                </div>
-                <div class="fecha">
-                    22/23/2014 02:00 pm
-                </div>
-            </div>        
-            FIN SMS RESPTOR
-        </div>
-        Fin carga chat.-->
+                Fin carga chat.-->
 
         <!--Aquí se cargarán las páginas externas del login y registro modalmente.-->
         <div id="info" class="back-modal" style="display: none">
@@ -151,7 +151,12 @@
                 </div>
             </div>
         </div>      
-        <!--Fin carga páginas externas.-->
+        <div id="error-data" style="display: none;">
+            <img src="img/icons/global/error-icon.png" /><h1>Error de servidor</h1>
+            <p>El servidor de aplicación ha generado un error desconocido, recarga la página 
+                para volver a solicitar la petición, si se presenta el mismo error contacta el 
+                administrador del servicio en donde se encuentra alojada la aplicación.</p>
+        </div>  
         <script type="text/javascript" src="js/paginas/informacionSitio/home/home.js"></script>    
     </body>
 </html>

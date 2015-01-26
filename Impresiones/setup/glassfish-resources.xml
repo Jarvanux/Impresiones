@@ -11,4 +11,5 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="jdbc/Impresiones" object-type="user" pool-name="mysql_impresiones_impresionesPool"/>
+    <jdbc-resource enabled="true" jndi-name="jdbc/impresiones" object-type="user" pool-name="mysql_impresiones_impresionesPool"/>
 </resources>

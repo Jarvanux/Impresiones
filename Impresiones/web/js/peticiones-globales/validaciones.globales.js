@@ -19,7 +19,7 @@ var validacionesGlobales = {
             for (var i = (dataFinds.length - 1); i >= 0; i--) {
                 data = dataFinds[i];
 //                if ((!(data.id == 'celular')) && (!(data.id == 'telefono'))){
-                if ($('#' + data.id).val().length > limitDatos) {
+                if ($('#' + data.id).val().length > limitDatos || ($('#' + data.id).attr('class') == "mobile" ) || $('#' + data.id).attr('class') == "phone") {
                     completo++;
                     $('#' + data.id).css({"border": "1px solid #999999"});
                 } else {

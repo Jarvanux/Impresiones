@@ -4,6 +4,7 @@
 valorImprePosible = false;
 tipoColorSeleccionado = 0;
 
+
 var eventosImpresionLaer = {
     calcularPrecioImpresion: function() {
         //Evaluamos que todo el formulario esté completo para brindarle la 
@@ -207,6 +208,8 @@ var eventosImpresionLaer = {
                 $('#contentD2').hide();
                 $('#contentD3').show();
                 $('div#nums').hide();
+                posFormulario = 2;
+                $('#cambiar').attr('title','Ir al formulario anterior');
             } else {
             }
         });
@@ -222,14 +225,24 @@ var eventosImpresionLaer = {
 
         $('#cambiar').css({"cursor": "pointer"});
         $('#cambiar').click(function() {
-            $('div#titulo h2').html('!Atención!');
-            $('div#cuerpo p').html('Los datos ingresados de todo el formulario se perderán al completar la operación ¿estás deacuerdo?');
-            $('#aceptar2').hide();
-            $('#aceptar3').hide();
-            $('#aceptar').show();
-            $('#info').slideDown(500);
-            $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
-            $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
+            if (posFormulario == 0) {
+                $('div#titulo h2').html('!Atención!');
+                $('div#cuerpo p').html('Los datos ingresados de todo el formulario se perderán al completar la operación ¿estás deacuerdo?');
+                $('#aceptar2').hide();
+                $('#aceptar3').hide();
+                $('#aceptar').show();
+                $('#info').slideDown(500);
+                $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
+                $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
+            } else if (posFormulario == 1) {                
+                posFormulario = 0;
+                $('#cambiar').attr('title', 'Seleccionar otro tipo de impresión');
+                $('#btnAtras').click();
+            } else if (posFormulario == 2) {
+                $('#cambiar').attr('title', 'Ir al formulario anterior');
+                posFormulario = 1;
+                $('#lnkAtras').click();
+            }
         });
         $('#aceptar').click(function() {
             inicio.cargar('paginas/servicios/impresion.html');
@@ -294,6 +307,7 @@ var eventosImpresionLaer = {
         $('#btnAtras').click(function() {
             $('#contentD2').hide();
             $('#contentD').show();
+            posFormulario = 0;
         });
         //Fin eventos form2
         //Eventos de los checked's y radios del formulario 2.        
@@ -494,9 +508,10 @@ var eventosImpresionLaer = {
                 } else {
                     $('#totalImpre2').val(0);
                 }
-
                 $('#nums').slideDown(500);
-            }else{
+                posFormulario = 1;
+                $('#cambiar').attr('title','Ir al formulario anterior');
+            } else {
                 validacionesImpresionLaser.informe('No has subido un archivo o el seleccionado no tiene un formato válido!.');
             }
         });

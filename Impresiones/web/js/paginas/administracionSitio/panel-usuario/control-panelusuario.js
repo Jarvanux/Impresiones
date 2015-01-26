@@ -11,6 +11,9 @@
 //    controlUsuario.dimencionPantalla();
 //});
 var idUsuarioLogeado = 0;
+var gestionPago = 0;
+var consulta = 0;
+var comprando = false;
 var controlUsuario = {
     init: function() {
         controlUsuario.consultarUsuarioLogeado();
@@ -29,6 +32,9 @@ var controlUsuario = {
             }
         });
     },
+    comprando: function() {
+        inicio.cargar('paginas/administracionSitio/facturacion.html');
+    },
     consultarUsuarioLogeado: function() {
         var resultado = null;
         $.ajax({
@@ -36,7 +42,7 @@ var controlUsuario = {
             'type': 'POST',
             'async': false,
             success: function(data) {
-                console.log(resultado);
+//                console.log(resultado);
                 var respuesta = JSON.parse(data);
                 var lugarPagina = location.href;
                 var posSearch = lugarPagina.search("/impresiones/");
@@ -44,9 +50,10 @@ var controlUsuario = {
                 console.log(respuesta);
                 if (respuesta.codigo > 0) {
                     if (respuesta.datos != null) {
-                        console.log("Existe un usuario logeado");
+                        comprando = respuesta.datos.comprando;
                         idUsuarioLogeado = respuesta.datos.idUsuario;
                         console.log(lugarPagina);
+
                         if (lugarPagina == '/impresiones/') {
                             if (respuesta.datos.idRol == 2) {
                                 location.href = '/impresiones/panelusuario.html';

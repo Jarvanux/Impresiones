@@ -196,6 +196,26 @@
             </div>
         </div>      
         <!--Fin carga páginas externas.-->
+        <div id="notificaciones" style="display: none;">
+            <div id="noti-header">
+                <span>Atención!</span>
+                <img src="img/icons/global/close.png" id="cerrarAlert" onclick="controlPeticiones.cerrarAlerta()"/>
+            </div>
+            <div id="noti-body">                
+                <img src="img/icons/global/alerta-info.png" />
+                <p>
+                    Revisa el panel de mensajes, ha llegado uno nuevo.
+                </p>
+            </div>
+            <div id="noti-footer">                
+            </div>
+        </div>
         <script type="text/javascript" src="js/paginas/informacionSitio/home/home.js"></script>    
+        <div id="error-data" style="display: none;">
+            <img src="img/icons/global/error-icon.png" /><h1>Error de servidor</h1>
+            <p>El servidor de aplicación ha generado un error desconocido, recarga la página 
+                para volver a solicitar la petición, si se presenta el mismo error contacta el 
+                administrador del servicio en donde se encuentra alojada la aplicación.</p>
+        </div>       
     </body>
 </html>

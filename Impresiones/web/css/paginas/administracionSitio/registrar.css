@@ -7,16 +7,6 @@ and open the template in the editor.
     Created on : 25/11/2014, 01:32:41 PM
     Author     : jhonjaider1000
 */
-div#encabezado{
-    width: 100%;
-    height: 50px;
-    padding: 10px 60px;
-    background: #1FC71F;    
-    border-bottom: 1px solid #ccc;        
-    color: #FFFFFF;
-    text-shadow: 1px 1px 4px black;
-    font-size: 20px;        
-}
 div.contet-modal{
     padding: 20px;    
     width: 100%;

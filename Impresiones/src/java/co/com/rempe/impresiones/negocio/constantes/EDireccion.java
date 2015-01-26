@@ -54,6 +54,14 @@ public enum EDireccion {
     CONSULTA_VALOR_ANILLADO("/consultarValorAnillado","Consulta el valor de un anillado con el parámetro de número de copias recibido."),
     CONSULTA_VALOR_PLASTIFICADO("/consultarValorPlastificado","Consulta el valor de un plastificado con el parámetro de número de páginas recibido."),
     CONSULTA_VALOR_CORTE("/consultarValorCorte","Consulta el valor de un corte con el parámetro de número de páginas recibido."),
+    GUARDAR_IMPRESION_LASER("/guardarImpresionLaser","Guardar impresión laser."),
+    LISTAR_IMPRESION_LASER("/listaImpresionesLaser","Lista las impresiones laser realizadas por x usuario."),
+    FILTRAR_IMPRESION_LASER("/filtrarImpresionLaser","Filtra las impresiones laser, por el código que va ingresando el usuario."),
+    ULTIMA_IMPRESION_LASER("/ultimaImpresionLaser","Filtra la última impresión realizada por el usuario, para realizar el respectivo pago."),
+    CONSULTAR_PRECIOS("/consultarPrecios","Consultar los precios manejados para todo en el sistema."),
+    ACTUALIZAR_COSTOSMANTENIMIENTO("/actualizarCostosMantenimiento","Actualizará los costos de mantenimiento editados por el superusuario,"),
+    ACTUALIZAR_NOMBRE_PAPEL("/actualizarNombrePapel","Actualizará el nombre de un tipo de papel.,"),
+    ACTUALIZAR_PRECIO_PAPEL("/actualizarPrecioPapel","Actualizará el precio de un tipo de papel.,"),
     FINAL("/final","Ninguna funcionalidad, solo sirve para no estár borrando la última linea.");
     private String url;
     private String descripcion;

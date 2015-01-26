@@ -9,7 +9,7 @@ elementosHiden = {"elementos": [
 
 
 var controlIngresar = {
-    init: function() {        
+    init: function() {
         $('div#mensajeL').hide();
         controlIngresar.ocultarObjetos();
         $('#imgCerrar').css({"cursor": "pointer"});
@@ -23,9 +23,16 @@ var controlIngresar = {
         });
     },
     registrar: function() {
-        controlIngresar.cargarData('paginas/administracionsSitio/registrar.html');
-        $('#info').slideDown(500);
-        $('div#mensaje').hide();
+        if (posicionActual == 1 || posFormulario == 2) {
+            $('#contentD3 #loginPedido').hide();
+            $.post('paginas/administracionsSitio/registrar.html', function(data) {
+                $("#contentD3 #registroUsuario #body").append(data);
+                $("#contentD3 #registroUsuario").slideDown(500);
+            });            
+        }
+//        controlIngresar.cargarData('paginas/administracionsSitio/registrar.html');
+//        $('#info').slideDown(500);
+//        $('div#mensaje').hide();
     },
     ingresar: function() {
         if (!($('#password').val().length != 0)) {
@@ -40,6 +47,7 @@ var controlIngresar = {
             $('p#smsReg').hide();
             $('div#facebook').hide();
         }
+
         if (($('#usuario').val().length != 0) && ($('#password').val().length != 0)) {
             peticionesIngresar.ingresar($('#usuario').val(), $('#password').val());
         }

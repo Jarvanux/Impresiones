@@ -4,106 +4,18 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 27/12/2014, 03:23:54 AM
+    Created on : 17/01/2015, 09:21:44 AM
     Author     : jhonjaider1000
 */
 
-*{
-    margin: 0px;
-}
-
-body{
-    background-color: #000;
-    font-family: sans-serif;
-}
-
-label{
-    font-weight: bold;
-}
-header{
-    width: 100%;    
-    height: 150px;        
-    padding: 0px;    
-}
-div#contenedor{
-    width: 1150px;    
-    margin: 0 auto;
-}
-header img{    
-    width: 100%;
-    height: 150px;
-}
-
-div#cargador{
-    position: absolute;
-    top:-1px;
-    left: 45%;
-    border:solid 1px #379C2D;
-    padding: 5px 15px 6px 15px;
-    color:#333;
-    background-color: #FFF;
-    border-radius:0px 0px 15px 15px;
-    box-shadow: 0px 0px 7px #379C2D;  
-    display: none;
-}
-
-div#cargador img{
-    width: 30px;
-}
-
-nav{
-    width: 100%;
-    height: 31px;
-    background-color: #000;
-}
-
-div#divContenido{
-    width: 100%;
-    border-top: 1px solid black;
-    height: 450px;
-    background-color: #fff;
-}
-
-/* Estilos Leonardo */
-
-label{
-    display: block;
-    margin-bottom: 5px;
-    margin-top: 7px;
-    font-size: 1.1em;
-}
-
-
-select{
-    height: 30px;
-    background-color: #FFF;
-    border-radius: 7px;
-}
-
-select option{
-    height: 20px;
-
-}
-
-select option:hover{
-    background-color: #F00;
-}
-input[type="number"]{
-    height: 20px;
-}
-div#divContenido{
-    padding: 0px;
-}
-
-
 
 //Estilos del panel login.
-h2{
+.login h2{
     text-align: center;
     color: #F1F2F4;
     text-shadow: 0 1px 0 #000;
 }
-a{
+.login a{
     text-decoration: none; color: red; 
 }
 .ribbon{
@@ -154,12 +66,12 @@ a{
     border-top: 2px solid #CBCBCD;
     margin: 0 auto;
 }
-h1{
+.login h1{
     font-size: 1.6em;
     margin-top: 30px;
     margin-bottom: 10px;
 }
-p{
+.login p{
     font-family:'Helvetica Neue';
     font-weight: 300;
     color: #7B808A;
@@ -202,11 +114,11 @@ p{
     color: #B1B3B7;
     text-shadow: 0 1px 0 #FFF;
 }
-::-webkit-input-placeholder {
+/*::-webkit-input-placeholder {
     color: #71747A;
     font-family:'Helvetica Neue';
     text-shadow: 0 1px 0 #FFF;
-}
+}*/
 button{
     margin-top: 20px;
     display: block;
@@ -232,7 +144,7 @@ button:active{
 
 /* ### TEST PASS GOOGLE IO ### */
 
-hr{
+.login hr{
     border-top: 1px solid rgba(0,0,0,.5);
     border-bottom: 1px solid rgba(255,255,255,.5);
     border-left: 0;
@@ -291,10 +203,6 @@ hr{
 }
 p{
     font-family: sans-serif;    
-}
-
-.login input{
-    
 }
 
 .blockinput{    
@@ -358,4 +266,16 @@ b:hover{
 .login input{
     font-family: sans-serif;
     font-size: 15px;    
+}
+
+#mensajeL{    
+    width: 95%;
+    height: 18px;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 2px black;
+    padding: 5px;
+    background: #FF8888;
+    font-size: 16px;
 }

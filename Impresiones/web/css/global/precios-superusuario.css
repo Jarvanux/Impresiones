@@ -1,0 +1,287 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23/01/2015, 02:08:47 PM
+    Author     : jhonjaider1000
+*/
+
+table tr th{    
+    color: #fff;
+    background: #000;
+}
+
+table tr td{
+    color: #000;
+}
+
+td.tdprecios{
+    width: 120px;        
+    text-align: center;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    background: #fff;
+}
+td.clr{
+    background: #FBFBFB;
+}
+td.bn{
+    background: #FBFBFB;
+}
+th#titulo{
+    background: #ccc;
+    padding: 4px;
+    text-shadow: 0px 0px 3px #000;    
+}
+th#thcolor{
+    background: #C0F8BA;
+    padding: 4px;
+    text-shadow: 0px 0px 3px #000;
+}
+
+td{
+    border-bottom: 1px solid #ccc;
+    padding: 4px;
+}
+table{
+    border: 1px solid #000;
+    cursor: default;    
+    display: block;    
+}
+
+table td input{
+    width: 90%;
+    height: 20px !important;     
+    text-align: center;    
+    border-radius: 2px !important;
+    display: none;    
+}
+div#precios-content{
+    border: 1px solid;
+    width: 100%;
+    height: 100%;        
+    overflow: auto;
+}
+
+div#costosMantenimiento{
+    margin-top: 10px !important;
+    width: 670px;    
+    margin: 0 auto;
+    height: 180px;
+}
+td#informacion{
+    height: 10px !important;        
+    text-align: right;
+    padding: 2px;
+    font-size: 12px;
+    background: #ccc;
+    font-family: arial, sans-serif;
+    color: #fff;
+    border-bottom: 0px;
+    border-top: 1px solid #000;
+    text-shadow: 0px 0px 2px #000;
+}
+td#informacion span{
+    margin-right: 10px;    
+}
+tr#costos{
+    background: #F8FFB3 !important;
+}
+
+tr#costos td.clr{
+    background: #F8FFB3 !important;
+}
+tr#costos td.bn{
+    background: #F8FFB3 !important;
+}
+tr#costos td.tdprecios{
+    background: #F8FFB3 !important;
+}
+
+#costosInternosImpresionLaser{    
+    width: 1000px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;    
+}
+
+
+#costosInternosImpresionLaser th{
+    background: #ccc;
+    text-shadow: 0px 0px 2px #000;
+    padding: 5px;
+}
+
+.tdcbx{
+    width: 22px;    
+    background: #E4F1FF;
+}
+.tdcbx2{
+    width: 22px;    
+    background: rgb(85, 76, 129);
+}
+input.cbx{
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin: 0 auto;    
+}
+td.descrip{
+    width: 300px;
+    font-family: sans-serif;
+    font-size: 11px;
+    border-right: 1px solid #ccc;
+    background: #E4F1FF;        
+}
+td.descrip2{
+    width: 300px;
+    font-family: sans-serif;
+    font-size: 14px;
+    border-right: 1px solid #ccc;
+    background: rgb(85, 76, 129);
+}
+td.precios{
+    min-width: 100px;    
+    max-width: 100px;    
+    border-right: 1px solid #ccc;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+}
+td.precio-pliego{
+    width: 100px;    
+    border-right: 1px solid #ccc;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+    background: #D5FFDF;
+}
+td.precio-pliego2{
+    width: 100px;    
+    border-right: 1px solid #ccc;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 13px;
+    background: rgb(85, 76, 129);
+}
+tr.titulos{
+    font-family: sans-serif;
+    font-size: 11px;
+    text-align: center;    
+    background: #70816E;    
+}
+tr.titulos td{
+    border-right: 1px solid #ccc;
+    text-shadow: 0px 0px 2px #000;
+    color: #fff;
+}
+
+tr.valores{
+    background: rgba(237, 237, 237, 1);
+    text-align: center;    
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+tr.trdata td{
+    font-size: 11px;
+    padding: 0px 0px 0px 0px;
+    height: 28px;
+}
+
+td.tdcbx{
+    width: 30px;
+}
+
+tr.trSelect{
+    background-color: rgb(85, 76, 129);
+    text-shadow: 0px 0px 3px #000;       
+}
+
+tr.trSelect td{
+    font-size: 11px;
+    padding: 0px;
+    height: 28px;
+    color: #FFFFFF !important;
+}
+#opciones{
+    pointer-events: none;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    right: 0;    
+    height: 50px;      
+}
+
+#opciones img{
+    display: block;
+    float: left;
+    margin-right: 10px;
+    margin-left: 15px;    
+    height: 70%;
+    cursor: pointer;
+}
+
+#btns{
+    background-color: #E4E4E4;
+    border-radius: 10px 10px 0px 0px;
+    width: 120px;
+    display: block;
+    height: 100%;
+    margin: 0 auto;    
+    padding: 9px;
+    box-shadow: 0px 0px 6px #0B0808;
+    pointer-events: auto;
+}
+
+table#tbcostosInternosImpresionLaser{
+    margin-bottom: 20px !important;
+}
+
+tr.encabezados th{
+    background: #ccc !important;
+    padding: 5px;
+    text-shadow: 0px 0px 3px #000;
+}
+
+div#costosImpresionMasPapel{
+    margin: 0 auto;
+    width: 990px;
+    display: block;
+    height: 20px;        
+}
+table#tbcostosImpresionMasPapel{
+    margin-bottom: 30px !important;        
+}
+table#tbcostosImpresionMasPapel td.descrip{
+    padding: 0px 0px 0px 10px !important;
+}
+table#tbcostosImpresionMasPapelBN td.descrip{
+    padding: 0px 0px 0px 10px !important;
+}
+
+table#tbcostosImpresionMasPapelBN{
+    margin-bottom: 100px !important;        
+}
+div#costosImpresionMasPapelBN{
+    width: 990px;
+    display: block;
+    margin: 0 auto;
+}
+div#costosImpresionMasPapel input[type="text"]{
+    width: 80% !important;        
+}
+div#costosImpresionMasPapelBN input[type="text"]{
+    width: 80% !important;        
+}
+
+tr.valores td{
+    max-width: 90px !important;
+    min-width: 90px !important;    
+}
+tr.valores td input{
+    height: 16px !important;
+}

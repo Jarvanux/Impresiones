@@ -5,21 +5,27 @@
 var inicio = {
     init: function() {
         if ((location.href.search('paneladministrador') < 0) && (location.href.search('login') < 0)) {
-            inicio.cargar('paginas/servicios/impresion.html');
-            $('#chat1').css({'margin-right':'30px'});
+            if (location.href.search('facturar') > 0) {
+                inicio.cargar('paginas/administracionsSitio/facturacion.html');
+            } else {
+                inicio.cargar('paginas/servicios/impresion.html');
+                $('#chat1').css({'margin-right': '30px'});
+            }
+
+            if (comprando) {
+                inicio.cargar('paginas/administracionsSitio/facturacion.html');
+            }
         }
+
         $('#info').hide();
         $("#lnkServicios").on('click', inicio.servicios);
-        $("#lnkContactenos").on('click', inicio.contactenos);        
-
+        $("#lnkContactenos").on('click', inicio.contactenos);
         $("#liServicios").on('click', inicio.servicios);
         $("#liContactenos").on('click', inicio.contactenos);
         $("#liIngresar").on('click', inicio.ingresar);
         $("#liHome").on('click', inicio.home);
         $("#liChat").on('click', inicio.chat);
-
         $('#btnIniciarChat').on('click', inicio.iniciarChat);
-
         //inicio.cargar('chat.html');
 
     },
@@ -46,29 +52,56 @@ var inicio = {
     },
     home: function() {
         inicio.cargar('paginas/servicios/impresion.html');
+        posicionActual = 0;
     },
     servicios: function() {
         inicio.cargar('paginas/informacionSitio/servicios.html');
+        posicionActual = 8;
     },
     contactenos: function() {
+        posicionActual = 7;
         inicio.cargar('paginas/informacionSitio/contactenos.html');
     },
     ingresar: function() {
+        posicionActual = 6;
         inicio.cargar('paginas/administracionsSitio/ingresar.html');
     },
+    recargar: function(pagina) {
+
+    },
     cargar: function(pagina) {
-        $("#divContenido")
-                .html('')
-                .append($('#cargador').clone().show());
-        $.post(pagina, function(data) {
-            $("#divContenido").html(data);
+        $("#divContenido").html('').append($('#cargador').clone().show());       
+        $.ajax({
+            'url': pagina,
+            'type': 'POST',            
+            success: function(data) {
+                $("#divContenido").html(data);
+            },
+            error: function(data) {
+                console.error(data);
+                $('#divContenido').html('');
+                $('#divContenido').append($('#error-data').clone().show());
+            }
         });
+
+//        $.ajaxSetup({'async': 'false'});
+//        $("#divContenido").html('').append($('#cargador').clone().show());
+////        $.post(pagina, function(data)
+////        {
+////            $("#divContenido").html(data);
+////        }
+////        );
+//        $("#divContenido")
+//                .html('')
+//                .append($('#cargador').clone().show());
+//        $.post(pagina, function(data) {
+//            $("#divContenido").html(data);
+//        });
     },
     chat: function() {
         var dialogo = $('#divModalChat');
         dialogo.modal();
         dialogo.find('#txtNombreChat').focus();
-
     },
     iniciarChat: function() {
         var dialog = $('#divModalChat');
@@ -79,7 +112,6 @@ var inicio = {
             dialog.find('#txtNombreChat').val('');
             dialog.find('#txtAsuntoChat').val('');
             dialog.modal('hide');
-
             //OJO, esto se reemplaza por una peticion asincrona
 
             chat.init({
@@ -90,15 +122,11 @@ var inicio = {
                 tipo: 1,
                 emisor: 'Tú'
             });
-
-
         } else {
             dialog.find('.alert-danger').removeClass('hide');
-
         }
     }
 
 };
-
 inicio.init();
 

@@ -29,13 +29,13 @@ var controlRegistrar = {
         controlRegistrar.posScroll();
         $('div#mensaje').hide();
         $('div#mensaje').css({"text-align": "center"});
-        $('div.contet-modal div#bodyForm').css({'width':'90%'});
-        $('div.campo1 input[type="text"]').css({'width':'94%'});
-        $('div.campo1 input[type="password"]').css({'width':'94%'});
-        $('div.campo2 input[type="text"]').css({'width':'94%'});
-        $('div.campo2 input[type="password"]').css({'width':'94%'});
-        $('div#foot').css({'width':'94%'});
-        $('div#mensaje').css({'width':'94%','height':'20px'});
+        $('div.contet-modal div#bodyForm').css({'width': '90%'});
+        $('div.campo1 input[type="text"]').css({'width': '94%'});
+        $('div.campo1 input[type="password"]').css({'width': '94%'});
+        $('div.campo2 input[type="text"]').css({'width': '94%'});
+        $('div.campo2 input[type="password"]').css({'width': '94%'});
+        $('div#foot').css({'width': '94%'});
+        $('div#mensaje').css({'width': '94%', 'height': '20px'});
         $('div#info div#content').css({height: '84%'});
 //        controlRegistrar.temp('#registroUsuario');
     },
@@ -90,19 +90,52 @@ var controlRegistrar = {
         });
     },
     validarForm: function() {
-        var respuesta = (validacionesGlobales.validar('bodyForm', 2));     
+        var respuesta = (validacionesGlobales.validar('bodyForm', 2));
         if (respuesta) {
             $('div#mensaje').slideUp();
-            enviarPeticiones.enviarPeticion('#registroUsuario', {"estado": "1", "idRol": "2"});
+            controlRegistrar.enviarPeticion('form#registroUsuario', {"estado": "1", "idRol": "2"});
         } else {
             $('div#mensaje').slideDown();
             $('div#mensaje span').html('Error: No has completado el formulario.');
             controlRegistrar.posScroll();
         }
     },
+    enviarPeticion: function(formulario, array) { //Documentación en enviarPeticiones.enviarPeticion();
+        var instanciaServlet = $(formulario).attr("class");
+        var url = $(formulario).attr("action");
+        var metodo = $(formulario).attr("method");
+        var objetoJSON;
+
+        console.info(instanciaServlet+' '+url+' '+metodo+' ');
+        var dataFinds = $(formulario).find('input[type="text"],input[type="password"],select');
+        if (dataFinds.length > 0) {
+            //Inicio For            
+            data = null;
+            for (var i = 0; i < dataFinds.length; i++) {
+                data = dataFinds[i];
+                var tempName = data.id;
+                array[tempName] = $(formulario).find('#' + data.id).val();
+            }
+            //Fin For           
+            //Despues del for ya tendríasmos armado el array que vamos a convertir.
+        } else {
+            console.log('El formulario no cuenta con elementos para crear el objeto JSON');
+        }
+
+        if (array != null) {
+            //Si todo salió bien, pasamos a convertir el array en un objeto JSON.     
+            objetoJSON = {};
+            objetoJSON[instanciaServlet] = JSON.stringify(array);
+            console.log('data');
+            console.log(objetoJSON);
+            controlPeticiones.registrarEIngresar(url, metodo, objetoJSON, null);
+        } else {
+            console.log('Imposible completar la petición, el array de conversión está vacio.');
+        }
+    },
     posScroll: function() {
         var myCont = document.getElementById('cuerpo');
-        vary = -999;
+        vary = -9999999999999999999;
         myCont.scrollTop = vary;
     }
 

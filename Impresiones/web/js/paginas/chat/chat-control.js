@@ -228,7 +228,7 @@ var controlChat = {
                 idUsuario = respuestaUsuario.datos.idUsuario;
                 nombreVisitante = respuestaUsuario.datos.nombres +' '+ respuestaUsuario.apellidos;
                 correoVisitante = respuestaUsuario.datos.email;
-                alert('Se encontro alguien logueado');
+//                alert('Se encontro alguien logueado');
                 $.ajax({
                     'url': 'buscarAsesores',
                     'type': 'POST',
@@ -245,6 +245,7 @@ var controlChat = {
                             divContent.find('div.chat-header div.estado').show();
                             divContent.find('span.text-header').html(respuesta.datos.nombres + ' ' + respuesta.datos.apellidos);
                             controlChat.enviarChat(idUsuarioContacto, 'Bienvenid@ ¿en que te puedo colaborar?');
+                            refreshChatVisitante.eventoMax();
                             divContent.find('div.chat-body div#informativo span').html('Buscando soporte...');
                             maxChat = 1;
                             divContent.find('div.chat-footer #sms').show();

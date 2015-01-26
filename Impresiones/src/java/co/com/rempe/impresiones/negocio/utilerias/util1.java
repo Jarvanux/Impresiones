@@ -6,6 +6,8 @@
 
 package co.com.rempe.impresiones.negocio.utilerias;
 
+import java.util.Date;
+
 /**
  *
  * @author jhonjaider1000
@@ -26,6 +28,7 @@ public class util1 {
 //        String cadena = "";
 //        int index = cadena.indexOf("datos");
 //        cadena.substring(index);
+        System.out.println(new Date());
         
     }
     

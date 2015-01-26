@@ -21,6 +21,7 @@ import co.com.rempe.impresiones.persistencia.dao.TipoCorteDAO;
 import co.com.rempe.impresiones.persistencia.dao.TipoPapelDAO;
 import co.com.rempe.impresiones.persistencia.dao.TipoPlasticoDAO;
 import co.com.rempe.impresiones.persistencia.dao.TipoTamanoDAO;
+import co.com.rempe.impresiones.persistencia.dao.UsuariosDAO;
 import co.com.rempe.impresiones.persistencia.entidades.Color;
 import co.com.rempe.impresiones.persistencia.entidades.CostosMantenimiento;
 import co.com.rempe.impresiones.persistencia.entidades.ImpresionLaser;
@@ -31,25 +32,28 @@ import co.com.rempe.impresiones.persistencia.entidades.TipoCorte;
 import co.com.rempe.impresiones.persistencia.entidades.TipoPapel;
 import co.com.rempe.impresiones.persistencia.entidades.TipoPlastico;
 import co.com.rempe.impresiones.persistencia.entidades.TipoTamano;
+import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import co.com.rempe.impresiones.persistencia.entidades.conexion.BDConexion;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author jhonjaider1000
  */
-public class ImpresionLaserDelegado {
+public class ImpresionDelegado {
 
-    private static ImpresionLaserDelegado instancia = new ImpresionLaserDelegado();
+    private static ImpresionDelegado instancia = new ImpresionDelegado();
 
-    public ImpresionLaserDelegado() {
+    public ImpresionDelegado() {
     }
 
-    public static ImpresionLaserDelegado getInstancia() {
+    public static ImpresionDelegado getInstancia() {
         return instancia;
     }
 
@@ -67,7 +71,7 @@ public class ImpresionLaserDelegado {
             respuesta.setMensaje("Primeros parámetros de la impresión guarddos.");
             return respuesta;
         } catch (Exception e) {
-            Logger.getLogger(ImpresionLaserDelegado.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ImpresionDelegado.class.getName()).log(Level.SEVERE, null, e);
             em.getTransaction().rollback();
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
             respuesta.setMensaje("Error al insertar.");
@@ -89,7 +93,7 @@ public class ImpresionLaserDelegado {
             respuesta.setMensaje("Datos consultados satisfactoriamente!.");
             return respuesta;
         } catch (Exception e) {
-            Logger.getLogger(ImpresionLaserDelegado.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ImpresionDelegado.class.getName()).log(Level.SEVERE, null, e);
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
             respuesta.setMensaje("Error al consultar los datos solicitados.");
             return respuesta;
@@ -115,10 +119,10 @@ public class ImpresionLaserDelegado {
             return respuesta;
         }
     }
-    
-    public Respuesta consultarValorServicio(int codigo,int numData){
+
+    public Respuesta consultarValorServicio(int codigo, int numData) {
         EntityManager em;
-        Respuesta respuesta = new  Respuesta();
+        Respuesta respuesta = new Respuesta();
         try {
             em = BDConexion.getEntityManager();
             ServiciosAdicionales objetoRespuesta = new ServiciosAdicionales();
@@ -131,7 +135,7 @@ public class ImpresionLaserDelegado {
             return respuesta;
         } catch (Exception e) {
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
-            respuesta.setMensaje("No se pudo consultar los datos. ERROR: "+e.getMessage());
+            respuesta.setMensaje("No se pudo consultar los datos. ERROR: " + e.getMessage());
             return respuesta;
         }
     }
@@ -278,20 +282,237 @@ public class ImpresionLaserDelegado {
         }
     }
     //Fin calcular valor de una impresión.
-    
-    
-    public Respuesta asigDataImpre(){
+
+    public Respuesta asigDataImpre() {
         Respuesta respuesta = new Respuesta();
         try {
             DatosRespuesta datos = new DatosRespuesta();
-            datos.setEnteroGrande(System.currentTimeMillis());            
-            datos.setFecha(new Date());            
+            datos.setEnteroGrande(System.currentTimeMillis());
+            datos.setFecha(new Date());
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
             respuesta.setDatos(datos);
             respuesta.setMensaje(ECodigoRespuesta.CORRECTO.getDescripcion());
         } catch (Exception e) {
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
             respuesta.setMensaje(ECodigoRespuesta.ERROR.getDescripcion());
+        }
+        return respuesta;
+    }
+
+    public Respuesta guardarImpresionLaser(ImpresionLaser data, long idUSuario) {
+        EntityManager em = null;
+        Respuesta respuesta = new Respuesta();
+        try {
+            System.out.println("Tipo Color: " + data.getTipoColor());
+            em = BDConexion.getEntityManager();
+            em.getTransaction().begin();
+            //Fijamos el usuario para saber que está comprando.
+            Usuarios usuario = UsuarioDelegado.getInstancia().consultarUsuario(idUSuario);
+            System.out.println("Id Usuario Recibido: " + idUSuario);
+            if (usuario != null) {
+                System.out.println("Consultado.");
+                usuario.setComprando(true);
+                UsuariosDAO daoUser = new UsuariosDAO(em);
+                daoUser.editar(usuario);
+                ImpresionLaserDAO dao = new ImpresionLaserDAO(em);
+                Date hora = new Date();
+                System.out.println(hora);
+                data.setFecha(hora);
+                data.setIdUsuario(idUSuario); //Le pasamos el id del usuario logeado.
+                dao.crear(data);//Y finalmente guardamos la impresión realizada
+                em.getTransaction().commit();
+                respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+                respuesta.setMensaje("Impresión guardada");
+            } else {
+                respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+                respuesta.setMensaje("El usuario no ha sido consultado.");
+                System.err.println("No consultado.");
+            }
+            return respuesta;
+        } catch (Exception e) {
+            Logger.getLogger(ImpresionDelegado.class.getName()).log(Level.SEVERE, null, e);
+            em.getTransaction().rollback();
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Error al insertar.");
+            return respuesta;
+        }
+    }
+
+    public Respuesta listarImpresionesLaser(long idUsuario, int tipoImpresion) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            ImpresionLaserDAO dao = new ImpresionLaserDAO(em);
+            List<ImpresionLaser> lista = dao.listarImpresionesLaser(idUsuario, tipoImpresion);
+            int codigo = (lista.isEmpty()) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            respuesta.setCodigo(codigo);
+            //Pasamos la lista que vamos a retornar.
+            respuesta.setDatos(lista);
+            respuesta.setMensaje("Se ha conseguido el listado de las impresiones laser.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("No se pudo conseguir el listado de las impresiones laser.");
+        }
+        //Retornamos el resultado.
+        return respuesta;
+    }
+
+    public Respuesta filtrarImpresionLaser(long idUsuario, String filtro, int tipoImpresion) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            ImpresionLaserDAO dao = new ImpresionLaserDAO(em);
+            List<ImpresionLaser> lista = dao.filtrarImpresionesLaser(idUsuario, filtro);
+            int codigo = (lista.isEmpty()) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            respuesta.setCodigo(codigo);
+            //Pasamos la lista que vamos a retornar.
+            respuesta.setDatos(lista);
+            respuesta.setMensaje("Se ha conseguido el listado de las impresiones laser.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("No se pudo conseguir el listado de las impresiones laser.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta ultimaImpresionLaser() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Respuesta ultimaImpresionLaser(Usuarios usuario) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            ImpresionLaserDAO dao = new ImpresionLaserDAO(em);
+            if (usuario.getComprando()) {
+                ImpresionLaser impresion = dao.ultimaImpresionUsuario(usuario.getIdUsuario());
+                int codigo = (impresion == null) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+                respuesta.setCodigo(codigo);
+                respuesta.setDatos(impresion);
+                respuesta.setMensaje("Se ha obtenido la última impresión del cliente.");
+            } else {
+                respuesta.setCodigo(ECodigoRespuesta.VACIO.getCodigo());
+                respuesta.setMensaje("El cliente no está comprando, petición no válida.");
+            }
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al obtener la última impresión del cliente.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta consultarPrecios(HttpServletRequest request) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            CostosMantenimientoDAO dao = new CostosMantenimientoDAO(em);
+            //Listamos los costos de mantenimiento.
+            List<CostosMantenimiento> costos = dao.buscarTodos();
+
+            //Listamos los costos internos de impresión laser.
+            TipoPapelDAO daoTp = new TipoPapelDAO(em);
+            List<TipoPapel> listaTp = daoTp.buscarTodos();
+
+            //Listamos los tamaños.
+            TipoTamanoDAO daoTt = new TipoTamanoDAO(em);
+            List<TipoTamano> listaTt = daoTt.buscarTodos();
+
+            List<Object> listaReturn = new ArrayList<Object>();
+            listaReturn.add(costos);
+            listaReturn.add(listaTp);
+            listaReturn.add(listaTt);
+
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setMensaje("Precios consultados satisfactoriamente");
+            respuesta.setDatos(listaReturn);
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al consultar precios.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta actualizarCostosMantenimiento(CostosMantenimiento dataBn, CostosMantenimiento dataColor) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            CostosMantenimientoDAO dao = new CostosMantenimientoDAO(em);
+            CostosMantenimiento costo = dao.consultarCostosMantenimientoID(dataBn.getIdCostosMantenimiento());
+            System.err.println(costo);
+            costo.setClipColor(dataBn.getClipColor());
+            costo.setOperadores(dataBn.getOperadores());
+            costo.setRecuInversion(dataBn.getRecuInversion());
+            costo.setValorCosto(dataBn.getValorCosto());
+            costo.setUltimaActualizacion(new Date());
+
+            em.getTransaction().begin();
+            dao.editar(costo);
+            em.getTransaction().commit();
+
+            costo = dao.consultarCostosMantenimientoID(dataColor.getIdCostosMantenimiento());
+            costo.setClipColor(dataColor.getClipColor());
+            costo.setOperadores(dataColor.getOperadores());
+            costo.setRecuInversion(dataColor.getRecuInversion());
+            costo.setValorCosto(dataColor.getValorCosto());
+            costo.setUltimaActualizacion(new Date());
+
+            em.getTransaction().begin();
+            dao.editar(costo);
+            em.getTransaction().commit();
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setDatos(new Date());
+            respuesta.setMensaje("Se han guardado los cambios realizados.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Error al guardar los cambios realizados.");
+            em.getTransaction().rollback();
+        }
+        return respuesta;
+    }
+
+    public Respuesta actualizarNombrePapel(int idPapel, String nuevoNombre) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            em.getTransaction().begin();
+            TipoPapelDAO dao = new TipoPapelDAO(em);
+            TipoPapel tipoPapel = dao.consultarTipoPapelPorID(idPapel);
+            tipoPapel.setPapel(nuevoNombre);
+            dao.editar(tipoPapel);
+            em.getTransaction().commit();
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setMensaje("Se ha editado el nombre del papel satisfactoriamente.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al actualizar el nombre del papel.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta actualizarPrecioPapel(int idPapel, double precioPapel) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            em.getTransaction().begin();
+            TipoPapelDAO dao = new TipoPapelDAO(em);
+            TipoPapel tipoPapel = dao.consultarTipoPapelPorID(idPapel);
+            tipoPapel.setPrecioPliego(precioPapel);
+            dao.editar(tipoPapel);
+            em.getTransaction().commit();
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setMensaje("Se ha editado el precio del papel satisfactoriamente.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al actualizar el precio del papel.");
         }
         return respuesta;
     }

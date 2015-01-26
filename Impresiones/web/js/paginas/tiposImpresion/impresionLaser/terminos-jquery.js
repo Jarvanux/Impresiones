@@ -1,10 +1,10 @@
-$(document).ready(function(){
+$(document).ready(function() {
     var logger = false;
-    $('#btnAceptarTerminos').click(function(){
+    $('#btnAceptarTerminos').click(function() {
         logger = controlPeticiones.consultarUsuarioLogeado();
     });
-    if(!logger){
-        
+    if (!logger) {
+
     }
 });
 
@@ -15,10 +15,10 @@ var terminos = {
         $('#rhojasColor').html($('#numTotalColor').val());
         $('#rnCopias').html($('#numCopys').val());
         $('#rtImpre').html(($('#numTotalBN').val() + $('#numTotalColor').val()));
-        $('#rtotal').html($('#valorTotal').html());        
-        $('#valorImpresionPedido1').html('Valor: '+$('#rtotal').html());
-        $('#codigoImpre').css({'color':'blue','font-weight':'bold'});
-        $('#rtotal').css({'color':'blue','font-weight':'bold'});
+        $('#rtotal').html($('#valorTotal').html());
+        $('#valorImpresionPedido1').html('Valor: ' + $('#rtotal').html());
+        $('#codigoImpre').css({'color': 'blue', 'font-weight': 'bold'});
+        $('#rtotal').css({'color': 'blue', 'font-weight': 'bold'});
         if ($('#mixto').is(':checked')) {
             $('#rvUnitarioBN').html('$' + num1);
             $('#rvUnitarioColor').html('$' + num2);
@@ -28,7 +28,12 @@ var terminos = {
             } else if ($('#soloColor').is(':checked')) {
                 $('#rvUnitarioBN').html($('#valorTotal').html());
             }
-        }        
+        }
+        var pagina = "paginas/administracionsSitio/ingresar.html";
+        $("div#loginPedido").html('').append($('#cargador').clone().show());
+        $.post(pagina, function(data) {
+            $("div#loginPedido").html(data);
+        });
     },
     generarUnCodigo: function() {
         $.ajax({

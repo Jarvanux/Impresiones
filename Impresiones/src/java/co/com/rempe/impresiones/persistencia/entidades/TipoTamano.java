@@ -45,7 +45,7 @@ public class TipoTamano implements Serializable {
     @Column(name = "numero_hojas")
     private Double numeroHojas;
     @Column(name = "costo_impresion")
-    private Integer costoImpresion;
+    private Double costoImpresion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoTamano", fetch = FetchType.LAZY)
     private List<ImpresionTamano> impresionTamanoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoTamano", fetch = FetchType.LAZY)
@@ -82,11 +82,11 @@ public class TipoTamano implements Serializable {
         this.numeroHojas = numeroHojas;
     }
 
-    public Integer getCostoImpresion() {
+    public Double getCostoImpresion() {
         return costoImpresion;
     }
 
-    public void setCostoImpresion(Integer costoImpresion) {
+    public void setCostoImpresion(Double costoImpresion) {
         this.costoImpresion = costoImpresion;
     }    
 

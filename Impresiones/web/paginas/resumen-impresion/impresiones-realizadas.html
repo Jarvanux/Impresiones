@@ -1,5 +1,6 @@
 <div id="archivos-externos">
     <link rel="stylesheet" href="css/paginas/resumen-impresion/impresiones-realizadas.css" />
+    <script src="js/paginas/resumen-impresion/control-impresiones-realizadas.js" ></script>
 </div>
 
 <div id="lista-impresiones">
@@ -7,10 +8,6 @@
         <div id="contultarBycodigo" class="consultas">
             <label for="codigo-impre">Consultar por código</label>
             <input type="text" id="codigo-impre" placeholder="Código de la impresión"/>
-        </div>
-
-        <div id="btn-buscar" class="consultas">
-            <input type="button" id="btnBuscar" value="Buscar"/>
         </div>
         <div id="consultarPorTipo" class="consultas">
             <label for="consulta-tipo">Consultar por tipo</label>
@@ -29,7 +26,7 @@
         </div>
         <div id="num-impresiones" class="consultas">
             <span id="number-impresiones">0</span>
-        </div>
+        </div>        
     </div>
     <div id="body">
         <table cellspacing="0">
@@ -38,7 +35,7 @@
                     *
                 </th>
                 <th class="colum-2">
-                    Código impresión
+                    Guía de impresión
                 </th>
                 <th class="colum-3">
                     Fecha
@@ -56,7 +53,7 @@
         </table>
         <div id="content-table">
             <table cellspacing="0" id="tablaContent">
-                <tr>
+                <tr id="trModelo" style="display: none;" >
                     <td class="colum-1">1</td>
                     <td class="colum-2">1419613600030</td>
                     <td class="colum-3">26/12/2014 12:06:40</td>
@@ -69,5 +66,8 @@
     </div>
     <div id="footer">
 
+    </div>
+    <div id="menuOpcionItemLista" >
+        <span>Opcion</span>
     </div>
 </div>

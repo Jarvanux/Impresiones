@@ -5,25 +5,40 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Impresiones a Domicilio</title>
         <meta charset="UTF-8" />
-        <link type="text/css" rel="stylesheet" media="screen" href="css/global/panel-usuario.css" />
+        <link type="text/css" rel="stylesheet" media="screen" href="css/paginas/administracionSitio/superusuario.css" />
         <link href="img/icons/global/favicon.jpg" rel="icon" type="image/x-icon" />        
         <link rel="stylesheet" href="css/global/menus-despegables.css" />
         <link rel="stylesheet" href="css/global/global-modals.css" />
         <link rel="stylesheet" href="css/global/global.css" />
-        <link rel="stylesheet" href="css/paginas/chat/chat-new.css" />           
-        <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>        
+        <link rel="stylesheet" href="css/paginas/chat/chat-new.css" />
+        <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="js/peticiones-globales/peticiones-globales.js" type="text/javascript"></script>
         <script src="js/paginas/informacionSitio/home/control-visitantes.js" type="text/javascript"></script>
-        <script src="js/paginas/administracionSitio/panel-usuario/control-panelusuario.js"></script>
+        <!--<script src="js/paginas/administracionSitio/panel-usuario/control-panelusuario.js"></script>-->
         <script src="js/paginas/administracionSitio/panel-admin/eventos-admin.js"></script>
         <script>
             controlUsuario.init();
         </script>
-        <script src="js/paginas/chat/chat-eventos.js" type="text/javascript"></script>        
-        <script src="js/paginas/chat/chat-control-admin.js" type="text/javascript"></script>
-        <script src="js/paginas/chat/refrescar-chats-admin.js" type="text/javascript"></script>
-        <!--<script src="js/paginas/chat/refres-panel-admin.js"></script>-->
+        <!--<script src="js/paginas/chat/chat-control-admin.js" type="text/javascript"></script>-->
+        <!--<script src="js/paginas/chat/refrescar-chats-admin.js" type="text/javascript"></script>-->
+        <script src="js/paginas/administracionSitio/superusuario/eventos-superusuario.js" ></script>
     <body>
+        <div id="menuAvanzado" title="Menú avanzado">
+            >>
+        </div>
+        <div id="menuAvanzadoList">
+            <div id="header-menu">
+                <div id="titulo">
+                    Menú avanzado                    
+                </div>
+                <div id="minimizarMenu" title="Minimizar menú"><<</div>
+            </div>
+            <div id="body-menu">
+            </div>
+            <div id="footer-menu">
+
+            </div>
+        </div>
         <header>  
             <div id="content-header">
                 <img id="logo" src="img/icons/global/logo-new.svg" alt="Impresiones a domicilio"/>              
@@ -40,6 +55,7 @@
                         <li> <a id="lnk-configuracion" href="#">Configuración</a>
                             <ul>
                                 <li> <a id="lnk-perfil" href="#">Perfil</a></li>
+                                <li> <a href="#" id="precios">Precios</a></li>                                                            
                                 <li> <a href="#">Preferencias</a></li>                                                            
                             </ul> 
                         </li>
@@ -301,11 +317,13 @@
             <div id="noti-footer">                
             </div>
         </div>
+
+
         <div id="error-data" style="display: none;">
             <img src="img/icons/global/error-icon.png" /><h1>Error de servidor</h1>
             <p>El servidor de aplicación ha generado un error desconocido, recarga la página 
                 para volver a solicitar la petición, si se presenta el mismo error contacta el 
-                administrador del servicio en donde se encuentre alojada la aplicación.</p>
-        </div>       
+                administrador del servicio en donde se encuentra alojada la aplicación.</p>
+        </div>        
     </body>
 </html>

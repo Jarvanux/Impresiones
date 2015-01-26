@@ -69,6 +69,7 @@ ObjetoPasos = {"pasos": [
 datatxtCantColor = 0;
 var controlImpresionLaser = {
     init: function() {
+        posicionActual = 1;
         //Si la url actual equivale al panel de usuario simplemente se aplican y reemplazan algunos
         //estilos.
         if (location.href == "http://localhost:8080/impresiones/panelusuario.html" || location.href == "http://localhost:8080/impresiones/panelusuario.html#") {            

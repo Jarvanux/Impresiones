@@ -7,6 +7,7 @@
 package co.com.rempe.impresiones.persistencia.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,7 +33,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CostosMantenimiento.findAll", query = "SELECT c FROM CostosMantenimiento c"),
     @NamedQuery(name = "CostosMantenimiento.findByIdCostosMantenimiento", query = "SELECT c FROM CostosMantenimiento c WHERE c.idCostosMantenimiento = :idCostosMantenimiento"),
     @NamedQuery(name = "CostosMantenimiento.findByDescripcion", query = "SELECT c FROM CostosMantenimiento c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "CostosMantenimiento.findByValorCosto", query = "SELECT c FROM CostosMantenimiento c WHERE c.valorCosto = :valorCosto")})
+    @NamedQuery(name = "CostosMantenimiento.findByValorCosto", query = "SELECT c FROM CostosMantenimiento c WHERE c.valorCosto = :valorCosto"),
+    @NamedQuery(name = "CostosMantenimiento.findByClipColor", query = "SELECT c FROM CostosMantenimiento c WHERE c.clipColor = :clipColor"),
+    @NamedQuery(name = "CostosMantenimiento.findByRecuInversion", query = "SELECT c FROM CostosMantenimiento c WHERE c.recuInversion = :recuInversion"),
+    @NamedQuery(name = "CostosMantenimiento.findByOperadores", query = "SELECT c FROM CostosMantenimiento c WHERE c.operadores = :operadores"),
+    @NamedQuery(name = "CostosMantenimiento.findByUltimaActualizacion", query = "SELECT c FROM CostosMantenimiento c WHERE c.ultimaActualizacion = :ultimaActualizacion")})
 public class CostosMantenimiento implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,21 +48,24 @@ public class CostosMantenimiento implements Serializable {
     @Size(max = 50)
     @Column(name = "descripcion")
     private String descripcion;
-    @Basic(optional = false)
-    @NotNull
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valor_costo")
-    private double valorCosto;
+    private Double valorCosto;
+    @Column(name = "clip_color")
+    private Double clipColor;
+    @Column(name = "recu_inversion")
+    private Double recuInversion;
+    @Column(name = "operadores")
+    private Double operadores;
+    @Column(name = "ultima_actualizacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ultimaActualizacion;
 
     public CostosMantenimiento() {
     }
 
     public CostosMantenimiento(Integer idCostosMantenimiento) {
         this.idCostosMantenimiento = idCostosMantenimiento;
-    }
-
-    public CostosMantenimiento(Integer idCostosMantenimiento, double valorCosto) {
-        this.idCostosMantenimiento = idCostosMantenimiento;
-        this.valorCosto = valorCosto;
     }
 
     public Integer getIdCostosMantenimiento() {
@@ -75,12 +84,44 @@ public class CostosMantenimiento implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public double getValorCosto() {
+    public Double getValorCosto() {
         return valorCosto;
     }
 
-    public void setValorCosto(double valorCosto) {
+    public void setValorCosto(Double valorCosto) {
         this.valorCosto = valorCosto;
+    }
+
+    public Double getClipColor() {
+        return clipColor;
+    }
+
+    public void setClipColor(Double clipColor) {
+        this.clipColor = clipColor;
+    }
+
+    public Double getRecuInversion() {
+        return recuInversion;
+    }
+
+    public void setRecuInversion(Double recuInversion) {
+        this.recuInversion = recuInversion;
+    }
+
+    public Double getOperadores() {
+        return operadores;
+    }
+
+    public void setOperadores(Double operadores) {
+        this.operadores = operadores;
+    }
+
+    public Date getUltimaActualizacion() {
+        return ultimaActualizacion;
+    }
+
+    public void setUltimaActualizacion(Date ultimaActualizacion) {
+        this.ultimaActualizacion = ultimaActualizacion;
     }
 
     @Override

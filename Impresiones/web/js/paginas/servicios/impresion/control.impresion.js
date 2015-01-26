@@ -33,18 +33,23 @@ var controlTipoImpresion = {
     evaluarCarga: function() {
         if (cmbxTipoImpresion.val() == 1) {
             inicio.cargar('paginas/tiposImpresion/impresionLaser.html');
+            posicionActual = 1;
         }
         else if (cmbxTipoImpresion.val() == 2) {
             inicio.cargar('paginas/tiposImpresion/impresionInjec.html');
+            posicionActual = 2;
         }
         else if (cmbxTipoImpresion.val() == 3) {
             inicio.cargar('paginas/tiposImpresion/impresionGrabacionCD.html');
+            posicionActual = 3;
         }
         else if (cmbxTipoImpresion.val() == 4) {
             inicio.cargar('paginas/tiposImpresion/impresionBanner.html');
+            posicionActual = 4;
         }
         else if (cmbxTipoImpresion.val() == 4) {
             inicio.cargar('paginas/tiposImpresion/impresionPlanos.html');
+            posicionActual = 5;
         } else {
             $('#mensaje').slideDown(500);
         }

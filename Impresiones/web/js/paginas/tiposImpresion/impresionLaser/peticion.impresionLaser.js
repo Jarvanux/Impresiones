@@ -185,13 +185,13 @@ var peticionesImpresionLaser = {
         var totalPaginas = 0;
         var totalPaginaColor = 0;
         if ($('#soloBN').is(':checked')) {
-            tipoColor = 0;
+            tipoColor = 1;
             totalPaginas = $('#numTotalBN').val();
         } else if ($('#soloColor').is(':checked')) {
-            tipoColor = 1;
+            tipoColor = 2;
             totalPaginas = $('#numTotalColor').val();
         } else if ($('#mixto').is(':checked')) {
-            tipoColor = 2;
+            tipoColor = 3;
         }
         $.ajax({
             'url': 'calcularvalorimpre',
@@ -270,13 +270,13 @@ var peticionesImpresionLaser = {
         var totalPaginas = 0;
         var totalPaginaColor = 0;
         if (condicion == 0) {
-            tipoColor = 0;
+            tipoColor = 1;
             totalPaginas = $('#numTotalBN').val();
         } else if (condicion == 1) {
-            tipoColor = 1;
+            tipoColor = 2;
             totalPaginas = $('#numTotalColor').val();
         } else if (condicion == 2) {
-            tipoColor = 2;
+            tipoColor = 3;
         }
         $.ajax({
             'url': 'calcularvalorimpre',

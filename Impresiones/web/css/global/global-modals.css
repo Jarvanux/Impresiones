@@ -91,3 +91,46 @@ Tomado de: Modales tomado de: http://emiliocobos.net/modalbox-una-ventana-modal-
 .contet-modal{
     box-shadow: 0px 0px 7px black;
 }
+div.contenido-modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.2);
+    z-index: 99999;
+    opacity: 1;
+    bottom: 0;
+    right: 0;   
+}
+#error-data{
+    width: 60%; 
+    height: 60%;       
+    display: block;
+    margin: 0 auto;    
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px #BE4C4C;
+}
+
+#error-data img{
+    width: 200px;
+    float: left;
+}
+
+#error-data h1{
+    float: left;
+    margin-left: 20px;    
+    margin-top: 40px;
+    display: block;    
+    color: rgb(232, 15, 15);
+}
+
+#error-data p{    
+    float: left;
+    width: 60%;
+    margin-left: 20px;
+    margin-top: 10px;
+    font-family: sans-serif;
+    text-align: justify;
+    color: #7E6161;
+}

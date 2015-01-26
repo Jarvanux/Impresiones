@@ -113,13 +113,28 @@ tr:hover{
     cursor: pointer; 
 }
 div#content-table{
-   width: 89%;
-   border: 1px solid #ccc;
-   margin: 0 auto;
-   height: 390px;
-   overflow: auto; 
+    width: 89%;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    height: 390px;
+    overflow: auto; 
 }
 
 table#tablaContent{
     width: 100%;
+}
+#body td{
+    padding: 5px !important;
+}
+#menuOpcionItemLista{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #fff;
+    width: 140px;
+    height: 60px;
+    box-shadow: 0px 0px 3px #000;
+    border-radius: 4px;
+    padding: 5px;   
 }

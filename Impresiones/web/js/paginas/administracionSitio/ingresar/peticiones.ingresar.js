@@ -13,8 +13,15 @@ var peticionesIngresar = {
                 var respuesta = JSON.parse(data);
                 console.log(respuesta);
                 if (respuesta.codigo > 0) {
+                    if (posicionActual == 1 || posFormulario == 2) {
+                        controlPeticiones.guardarImpresionLaser(respuesta.datos.idUsuario);
+                    }
                     if (respuesta.datos.idRol == 2) {
-                        location.href = '/impresiones/panelusuario.html';
+                        if (posicionActual == 1 || posFormulario == 2) {
+                            location.href = '/impresiones/panelusuario.html?facturar';
+                        }else{
+                            location.href = '/impresiones/panelusuario.html';                            
+                        }
                     } else if (respuesta.datos.idRol == 1) {
                         location.href = '/impresiones/paneladministrador.html';
                     }

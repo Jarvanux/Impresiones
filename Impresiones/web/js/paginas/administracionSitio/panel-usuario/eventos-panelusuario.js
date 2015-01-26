@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var timeSesion = 0;
 $(document).ready(function() {
     eventosUsuario.eventos();
     setInterval(consultaSesion, 2000);
@@ -13,6 +14,12 @@ var chateando = false;
 function consultaSesion() {
     if (!chateando) {
         controlUsuario.consultarUsuarioLogeado();
+    }
+    timeSesion++;
+    if ((timeSesion * 2) == 600) {
+        alert('La sesión ha caducado por inactividad');
+        controlUsuario.cerrarSesion();
+        console.log(timeSesion);
     }
 }
 

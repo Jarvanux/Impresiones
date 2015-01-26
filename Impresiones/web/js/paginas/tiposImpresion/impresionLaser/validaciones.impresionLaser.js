@@ -232,7 +232,7 @@ var validacionesImpresionLaser = {
         $('#aceptar2').hide();
         $('#aceptar').hide();
         $('#aceptar3').show();
-        $('#info').slideDown(500);
+        $('#info').show();
         $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
         $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
 //        $('#cancelar').hide();

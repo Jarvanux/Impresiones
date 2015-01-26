@@ -1,0 +1,184 @@
+<div id="archivos-exeternos">
+    <link rel="stylesheet" type="text/css" href="css/global/precios-superusuario.css" />
+    <script src="js/paginas/administracionSitio/superusuario/precios-control.js" ></script>    
+</div>
+<div id="precios-content">
+
+    <!--Contenedor de las tabs.-->
+    <div class="tab-content">                
+        <div id="header-tabs"> 
+        </div>        
+        <div id="body-tabs">
+            <div id="costosMantenimiento" style="display: none" >
+                <table cellspacing="0" border="0" id="tbcostosMantenimiento" >
+                    <tr><th colspan="4" id="titulo">Costos mantenimiento</th></tr>
+                    <tr><th colspan="2" id="thcolor">Color</th> <th colspan="2" id="thbn">Blanco y negro(B/N)</th></tr>
+                    <tr>
+                        <td class="clr">Clip color: </td><td id="t00_clipColor" class="tdprecios" ondblclick="preciosControl.mostrarUnInput('t00_clipColor')"><span id="clipColor">$0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('t00_clipColor')"/></td>
+                        <td class="bn">Clip color: </td><td id="t00_clipBn" class="tdprecios" ondblclick="preciosControl.mostrarUnInput('t00_clipBn')"><span id="clipBn">$0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('t00_clipBn')"/></td>
+                    </tr>
+                    <tr>
+                        <td class="clr">Recuperación inversión: </td><td id="t00_rIColor" class="tdprecios" ondblclick="preciosControl.mostrarUnInput('t00_rIColor')"><span id="rInversionColor">$0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('t00_rIColor')"/></td>
+                        <td class="bn">Recuperación inversión: </td><td id="t00_rIBn" class="tdprecios" ondblclick="preciosControl.mostrarUnInput('t00_rIBn')"><span id="rInversionBn">$0</span><input type="text"  onchange="preciosControl.cambiarEstadoInput('t00_rIBn')"/></td>
+                    </tr>
+                    <tr>
+                        <td class="clr">Operadores: </td><td id="t00_operColor" class="tdprecios" ondblclick="preciosControl.mostrarUnInput('t00_operColor')"><span id="operadoresColor">$0</span><input type="text"  onchange="preciosControl.cambiarEstadoInput('t00_operColor')" /></td>
+                        <td class="bn">Operadores: </td><td id="t00_operBn" class="tdprecios" ondblclick="preciosControl.mostrarUnInput('t00_operBn')"><span id="operadoresBn">$0</span><input type="text"  onchange="preciosControl.cambiarEstadoInput('t00_operBn')"/></td>
+                    </tr>
+                    <tr id="costos">
+                        <td class="clr">Costo por impresión: </td><td id="t00_cIColor" class="tdprecios" ><span id="costoIColor">$0</span></td>
+                        <td class="bn">Costo por impresión: </td><td id="t00_cIBn" class="tdprecios" ><span id="costoIBN">$0</span></td>
+                    </tr>
+                    <tr><td colspan="4" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>
+                </table>
+            </div>
+
+            <!--PRECIOS DE EMPRESA-->
+            <div id="costosInternosImpresionLaser" style="display: none">
+                <table  cellspacing="0" border="0" id="tbcostosInternosImpresionLaser">
+                    <tr id="t01_titulo">
+                        <th colspan="9">
+                            Precios internos de papel para impresión Laser                    
+                        </th>
+                    </tr>
+                    <tr class="valores">
+                        <td colspan="3"></td>
+                        <td id="vlrModelo" ondblclick="preciosControl.mostrarUnInput('vlr1')"><span>0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('vlr1')"/></td>
+                        <td id="vlr2" ondblclick="preciosControl.mostrarUnInput('vlr2')"><span>0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('vlr2')"/></td>
+                        <td id="vlr3" ondblclick="preciosControl.mostrarUnInput('vlr3')"><span>0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('vlr3')"/></td>
+                        <td id="vlr4" ondblclick="preciosControl.mostrarUnInput('vlr4')"><span>0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('vlr4')"/></td>
+                        <td id="vlr5" ondblclick="preciosControl.mostrarUnInput('vlr5')"><span>0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('vlr5')"/></td>
+                        <td id="vlr6" ondblclick="preciosControl.mostrarUnInput('vlr6')"><span>0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('vlr6')"/></td>
+                    </tr>
+                    <tr class="titulos">
+                        <td><input type="checkbox" id="cbxselecttodos" class="cbx" /></td><td>Tipo de papel</td><td>Precio Pliego</td><td>Carta oficio</td><td>Octavo</td><td>Tabloide 0 12x18</td><td>33x48</td><td>33x70 cms</td><td>33x100 cms</td>                    
+                    </tr>
+                    <tr id="trModelo" class="trdata" style="display: none;">
+                        <td class="tdcbx"><input type="checkbox" id="cbx_trModelo" class="cbx"/></td>
+                        <td class="descrip"><b style="display: none;"></b><span>Descripción o nombre del papel</span><input type="text" /></td>
+                        <td id="t01_precio_pliego" class="precio-pliego" ondblclick="preciosControl.mostrarUnInput('t01_precio_pliego')"><span>0</span><input type="text" onchange="preciosControl.cambiarEstadoInput('t01_precio_pliego')" /></td>
+                        <td id="t01_precio_carta" class="precios" ></td>
+                        <td id="t01_precio_octavo" class="precios" ></td>
+                        <td id="t01_precio_tabloide" class="precios" ></td>
+                        <td id="t01_precio_33x48" class="precios" ></td>
+                        <td id="t01_precio_33x70" class="precios" ></td>
+                        <td id="t01_precio_33x100" class="precios" ></td>
+                    </tr>
+                    <tr><td colspan="9" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>
+                </table>
+            </div>
+            <!--FIN PRECIOS DE EMPRESA-->   
+
+            <!--COSTOS IMPRESIÓN COLOR + PAPEL-->
+            <div id="costosImpresionMasPapel" >
+                <table id="tbcostosImpresionMasPapel" cellspacing="0" border="0">
+                    <tr id="t02_titulo" class="encabezados">
+                        <th colspan="7">Costo impresión color + papel</th>
+                    </tr>
+                    <tr class="valores">
+                        <td></td>
+                        <td id="valorModelo"><span></span><input type="text" /></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr id="titulos2" class="titulos">
+                        <td>Tipo de papel</td>
+                        <td>Carta/Oficio</td>
+                        <td>Octavo</td>
+                        <td>Tabloide 0 12x18</td>
+                        <td>33x48</td>
+                        <td>33x70</td>
+                        <td>33x100</td>
+                    </tr>
+                    <tr id="trModelo" class="trdata" style="display: none;">
+                        <td class="descrip" id="t02_descrip">Descripción o nombre del papel</td>
+                        <td class="precios" id="t02_precio_carta">000</td>
+                        <td class="precios" id="t02_precio_octavo">000</td>                        
+                        <td class="precios" id="t02_precio_tabloide">000</td>                        
+                        <td class="precios" id="t02_precio_33x48">000</td>                        
+                        <td class="precios" id="t02_precio_33x70">000</td>                        
+                        <td class="precios" id="t02_precio_33x100">000</td>                        
+                    </tr>
+                    <tr style="display: none;"><td colspan="7" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>
+                </table>
+            </div>
+            <!--FIN COSTOS IMPRESIÓN COLOR  + PAPEL-->   
+
+            <!--COSTOS IMPRESIÓN BN + PAPEL-->
+            <div id="costosImpresionMasPapelBN" >
+                <table id="tbcostosImpresionMasPapelBN" cellspacing="0" border="0">
+                    <tr id="t03_titulo" class="encabezados">
+                        <th colspan="7">Costo impresión blanco y negro(B/N) + papel</th>
+                    </tr>
+                    <tr class="valores">
+                        <td></td>
+                        <td id="valorModelo"><span></span><input type="text" /></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr class="titulos">
+                        <td>Tipo de papel</td>
+                        <td>Carta/Oficio</td>
+                        <td>Octavo</td>
+                        <td>Tabloide 0 12x18</td>
+                        <td>33x48</td>
+                        <td>33x70</td>
+                        <td>33x100</td>
+                    </tr>
+                    <tr id="trModelo" class="trdata" style="display: none;">
+                        <td class="descrip" id="t03_descrip">Descripción o nombre del papel</td>
+                        <td class="precios" id="t03_precio_carta">000</td>
+                        <td class="precios" id="t03_precio_octavo">000</td>                        
+                        <td class="precios" id="t03_precio_tabloide">000</td>                        
+                        <td class="precios" id="t03_precio_33x48">000</td>                        
+                        <td class="precios" id="t03_precio_33x70">000</td>                        
+                        <td class="precios" id="t03_precio_33x100">000</td>                        
+                    </tr>
+                    <tr style="display: none;"><td colspan="7" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>
+                </table>
+            </div>
+            <!--FIN COSTOS IMPRESIÓN BN  + PAPEL-->   
+
+            <div id="ganancias">
+                <table cellspacing="0" border="0">
+                    <tr><th class="encabezados">Porcentajes de ganancia</th></tr>
+                    <!--Porcentajes-->
+                    <tr class="valores">
+                        <td></td>
+                        <td id="valorModelo"><span></span><input type="text" /></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <!--Para los rangos-->
+                    <tr class="valores2">
+                        <td></td>
+                        <td id="valorModelo"><span></span><input type="text" /></td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="footer-tabs">
+        </div>
+    </div>        
+</div>
+
+<div id="opciones" style="display: none;">
+    <div id="btns">
+        <img src="img/icons/global/add.gif" id="add" title="Agregar nuevo papel"/>    
+        <img src="img/icons/global/del.gif" id="del"  title="Eliminar seleccionados"/>    
+    </div>
+</div>

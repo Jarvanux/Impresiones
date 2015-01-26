@@ -90,6 +90,8 @@ public class Usuarios implements Serializable {
     private Date fechaNacimiento;
     @Column(name = "conectado")
     private boolean conectado;    
+    @Column(name = "comprando")
+    private boolean comprando;    
     @Column(name = "sesion_cerrada_admin")
     private boolean sesionAdminCerrada;    
     @Column(name = "ultima_conexion")
@@ -144,7 +146,15 @@ public class Usuarios implements Serializable {
     public void setConectado(boolean conectado) {
         this.conectado = conectado;
     }
-    
+
+    public boolean getComprando() {
+        return comprando;
+    }
+
+    public void setComprando(boolean comprando) {
+        this.comprando = comprando;
+    }
+        
     public void setApodo(String apodo) {
         this.apodo = apodo;
     }

@@ -81,17 +81,18 @@ public class UsuarioDelegado {
         }
     }
 
-    public Usuarios consultarUsuario(int idUsuario) {
+    public Usuarios consultarUsuario(long idUsuario) {
         EntityManager em = null;
         try {
             em = BDConexion.getEntityManager();
             Usuarios usuarios = new Usuarios();
             UsuariosDAO dao = new UsuariosDAO(em);
             usuarios = dao.consultarUsuarioPorID(idUsuario);
+            return usuarios;
         } catch (Exception e) {
             System.out.println("Se ha producido un error en la consulta del usuario por id.");
+            return null;
         }
-        return null;
     }
 
     public Respuesta buscarAsesores() {
@@ -131,6 +132,16 @@ public class UsuarioDelegado {
             respuesta.setMensaje(ECodigoRespuesta.ERROR.getDescripcion());
         }
         return respuesta;
+    }
+    
+    public Usuarios consultaUsuarioLogeado(HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            Usuarios usuario = (Usuarios) session.getAttribute("usuario");
+            return usuario;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Respuesta cerrarSesion(HttpServletRequest request) {

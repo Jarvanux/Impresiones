@@ -173,3 +173,24 @@ div#redes{
     float: right;
     margin-right: 495px;
 }
+body{
+    background-color: #ededed !important;
+}
+section{
+    box-shadow: 0px 0px 3px #555;
+}
+header{
+    box-shadow: 0px 0px 3px #555;
+}
+.content-footer{
+    background-color: #323232 !important;         
+}
+nav{
+    box-shadow: 0px 0px 4px #555 !important;   
+}
+footer div.content-footer label{
+    color: #C4C4C4;
+}
+footer div.content-footer span{
+    color: #C4C4C4;
+}

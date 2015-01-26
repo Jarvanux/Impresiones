@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.com.rempe.impresiones.persistencia.entidades;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -50,6 +52,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ImpresionLaser.findByInstruccionesEspeciales", query = "SELECT i FROM ImpresionLaser i WHERE i.instruccionesEspeciales = :instruccionesEspeciales"),
     @NamedQuery(name = "ImpresionLaser.findByValorTotal", query = "SELECT i FROM ImpresionLaser i WHERE i.valorTotal = :valorTotal")})
 public class ImpresionLaser implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,7 +81,6 @@ public class ImpresionLaser implements Serializable {
     @Size(max = 300)
     @Column(name = "link_archivo")
     private String linkArchivo;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "valor_impresion")
     private Double valorImpresion;
     @Column(name = "anillado")
@@ -101,6 +103,17 @@ public class ImpresionLaser implements Serializable {
     @Size(max = 50)
     @Column(name = "valor_total")
     private String valorTotal;
+    @Column(name = "guia_impresion")
+    private String guiaImpresion;
+    @Column(name = "estado")
+    private String estado;
+    @Column(name = "nombre_archivo")
+    private String nombreArchivo;
+    @Column(name = "id_usuario")
+    private Long idUsuario;
+    @Column(name = "fecha")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecha;
 
     public ImpresionLaser() {
     }
@@ -113,8 +126,48 @@ public class ImpresionLaser implements Serializable {
         return idImpresion;
     }
 
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
     public void setIdImpresion(Integer idImpresion) {
         this.idImpresion = idImpresion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getGuiaImpresion() {
+        return guiaImpresion;
+    }
+
+    public void setGuiaImpresion(String guiaImpresion) {
+        this.guiaImpresion = guiaImpresion;
     }
 
     public Integer getTipoColor() {
@@ -301,5 +354,5 @@ public class ImpresionLaser implements Serializable {
     public String toString() {
         return "co.com.rempe.impresiones.persistencia.entidades.ImpresionLaser[ idImpresion=" + idImpresion + " ]";
     }
-    
+
 }

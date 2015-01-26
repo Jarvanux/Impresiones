@@ -1,6 +1,3 @@
-$(document).ready(function() {
-    listaImpresiones.init();
-});
 
 var listaImpresiones = {
     init: function() {
@@ -18,3 +15,6 @@ var listaImpresiones = {
         });
     },
 };
+$(document).ready(function() {
+    listaImpresiones.init();
+});

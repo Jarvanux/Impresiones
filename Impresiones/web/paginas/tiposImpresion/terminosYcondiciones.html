@@ -2,73 +2,88 @@
     <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/terminos-jquery.js"></script>   
     <script type="text/javascript" src="js/peticiones-globales/formatear-hora.js"></script>   
 </div>
-        <div id="resumenImpre">
-            <div id="titleResumen">
-                <h2>Resumen del pedido</h2>                
-            </div>
-            <div id="resumen">                
-                <div class="divColum">
-                    <span class="otros">Código impresión:</span><span id="codigoImpre" class="valoresR">00000000</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Fecha:</span><span id="fecha" class="valoresR">13/12/2014</span>                                
-                </div>
-                <div class="divColum">
-                    <span class="otros">Hojas Blanco y negro:</span><span id="rhojasBN" class="valoresR">00000</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Hojas a color:</span><span id="rhojasColor" class="valoresR">00000</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">N° de copias</span><span id="rnCopias" class="valoresR">00000</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Total impresiones</span><span id="rtImpre" class="valoresR">0000</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Valor Unitario Blanco y Negro:</span><span id="rvUnitarioBN" class="valoresR">0000</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Valor Unitario Color:</span><span id="rvUnitarioColor" class="valoresR">0000</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Valor Total:</span><span id="rtotal" class="valoresR">0</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Anillado:</span><span id="esanillado" class="valoresR">No</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Plastificado:</span><span id="esplastificado" class="valoresR">No</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Corte:</span><span id="escorte" class="valoresR">No</span>
-                </div>
-                <div class="divColum">
-                    <span class="otros">Cosido:</span><span id="escosido" class="valoresR">No</span>
-                </div>                
-            </div>
+<div id="resumenImpre" style="background: url('img/backgrounds/papel-backgrounnd.png')">
+    <div id="titleResumen">
+        <h2>Resumen del pedido</h2>                
+    </div>
+    <div id="resumen">                
+        <div class="divColum">
+            <span class="otros">Guía de impresión:</span><span id="codigoImpre" class="valoresR">00000000</span>
         </div>
-        <div id="terminos" style="display: none;">
-            <span class="titulo">Términos y condiciones</span>
-            <p id="one">
-                <span class="letraRoja">I</span>mpresiones a <span class="letraRoja">D</span>omicilio pone a disposición de sus clientes la posibilidad de comprar sus productos a través de Internet. Los términos y condiciones de las compras que realice el cliente por este medio serán los que constan a continuación y que serán aceptados por el cliente, como condición esencial para acceder a los productos ofrecidos por la misma. por medio de este Sitio.
-                La posibilidad de realizar compras a través de esta página, está disponible de manera exclusiva para los clientes que cuenten con capacidad jurídica, según lo dispuesto por la normatividad colombiana vigente. En consecuencia, SANTORINI – ILANKO S.A. no se encuentra obligada a emitir aceptación de una oferta emanada de un cliente que no posea la capacidad necesaria para contratar. 
-            </p>
-            <p>
-                Independencia de disposiciones.
-
-                En caso de que una o más de las disposiciones contenidas en este documento sean consideradas nulas, ilegales o ineficaces en cualquier aspecto, la validez, legalidad y exigibilidad o eficacia del resto de las disposiciones del presente documento, no se verán afectadas o anuladas por dicha circunstancia.
-            </p>            
-            <h2 class="subTitulo">1. Registro</h2>
-            <p>
-                Los productos que los clientes de Impresiones a Domicilio. podrán adquirir se enuncian y describen en el sitio web: www.santorini.com.co (en adelante la TIENDA VIRTUAL).
-
-                El sitio requiere tener un registro de los principales datos del cliente que nos permita un trato personalizado con el mismo. Para este fin existe una sección denominada INGRESO, en la cual podrá accesar a un formulario de registro de nuevos clientes.
-                Para registrarse es necesario colocar todos los datos solicitados.
-                Si Usted ya se registró y desea volver a comprar, solo debe indicar su nombre de usuario y clave de acceso, previamente registrada.
-                La TIENDA VIRTUAL no es la encargada de efectuar los descuentos de tarjetas de crédito, ni de guardar los datos relacionados con ese fin, como números de tarjeta o cuenta, claves, etc. SANTORINI – ILANKO S.A. para esto cuenta con el servicio de PagosOnline.net empresa colombiana que es la encargada a través de la cual se realizan todos los pagos derivados de sus compras. PagosOnline.net cumple con todos los estándares de seguridad garantizando la seguridad de sus transacciones y tanto Netscape Navigator como Microsoft Internet Explorer soportan este tipo de transacciones.
-                LA TIENDA VIRTUAL ha sido desarrollada para asegurar que su información personal permanezca confidencial.
-            </p>
-            <input type="button" value="Aceptar terminos" title="Aceptar todos los terminos y condiciones del servicio." id="btnAceptarTerminos"/>
-            <a href="javascript:;" id="lnkAtras" onclick="eventosImpresionLaer.lnkAtras()"><span>Ir a la página anterior</span></a>
+        <div class="divColum">
+            <span class="otros">Fecha:</span><span id="fecha" class="valoresR">13/12/2014</span>                                
         </div>
+        <div class="divColum">
+            <span class="otros">Hojas Blanco y negro:</span><span id="rhojasBN" class="valoresR">00000</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Hojas a color:</span><span id="rhojasColor" class="valoresR">00000</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">N° de copias</span><span id="rnCopias" class="valoresR">00000</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Total impresiones</span><span id="rtImpre" class="valoresR">0000</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Valor Unitario Blanco y Negro:</span><span id="rvUnitarioBN" class="valoresR">0000</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Valor Unitario Color:</span><span id="rvUnitarioColor" class="valoresR">0000</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Anillado:</span><span id="esanillado" class="valoresR">No</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Plastificado:</span><span id="esplastificado" class="valoresR">No</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Corte:</span><span id="escorte" class="valoresR">No</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Cosido:</span><span id="escosido" class="valoresR">No</span>
+        </div>                
+        <div class="divColum">
+            <span class="text-break"> ---------------------------------------------------------------</span>
+        </div>
+        <div class="divColum">
+            <span class="otros">Valor Total:</span><span id="rtotal" class="valoresR">0</span>
+        </div>
+    </div>
+</div>
+
+<div id="terminos" style="display: none;">
+    <span class="titulo">Términos y condiciones</span>
+    <p id="one">
+        <span class="letraRoja">I</span>mpresiones a <span class="letraRoja">D</span>omicilio pone a disposición de sus clientes la posibilidad de comprar sus productos a través de Internet. Los términos y condiciones de las compras que realice el cliente por este medio serán los que constan a continuación y que serán aceptados por el cliente, como condición esencial para acceder a los productos ofrecidos por la misma. por medio de este Sitio.
+        La posibilidad de realizar compras a través de esta página, está disponible de manera exclusiva para los clientes que cuenten con capacidad jurídica, según lo dispuesto por la normatividad colombiana vigente. En consecuencia, SANTORINI – ILANKO S.A. no se encuentra obligada a emitir aceptación de una oferta emanada de un cliente que no posea la capacidad necesaria para contratar. 
+    </p>
+    <p>
+        Independencia de disposiciones.
+
+        En caso de que una o más de las disposiciones contenidas en este documento sean consideradas nulas, ilegales o ineficaces en cualquier aspecto, la validez, legalidad y exigibilidad o eficacia del resto de las disposiciones del presente documento, no se verán afectadas o anuladas por dicha circunstancia.
+    </p>            
+    <h2 class="subTitulo">1. Registro</h2>
+    <p>
+        Los productos que los clientes de Impresiones a Domicilio. podrán adquirir se enuncian y describen en el sitio web: www.santorini.com.co (en adelante la TIENDA VIRTUAL).
+
+        El sitio requiere tener un registro de los principales datos del cliente que nos permita un trato personalizado con el mismo. Para este fin existe una sección denominada INGRESO, en la cual podrá accesar a un formulario de registro de nuevos clientes.
+        Para registrarse es necesario colocar todos los datos solicitados.
+        Si Usted ya se registró y desea volver a comprar, solo debe indicar su nombre de usuario y clave de acceso, previamente registrada.
+        La TIENDA VIRTUAL no es la encargada de efectuar los descuentos de tarjetas de crédito, ni de guardar los datos relacionados con ese fin, como números de tarjeta o cuenta, claves, etc. SANTORINI – ILANKO S.A. para esto cuenta con el servicio de PagosOnline.net empresa colombiana que es la encargada a través de la cual se realizan todos los pagos derivados de sus compras. PagosOnline.net cumple con todos los estándares de seguridad garantizando la seguridad de sus transacciones y tanto Netscape Navigator como Microsoft Internet Explorer soportan este tipo de transacciones.
+        LA TIENDA VIRTUAL ha sido desarrollada para asegurar que su información personal permanezca confidencial.
+    </p>
+    <input type="button" value="Aceptar terminos" title="Aceptar todos los terminos y condiciones del servicio." id="btnAceptarTerminos"/>
+    <a href="javascript:;" id="lnkAtras" onclick="eventosImpresionLaer.lnkAtras()"><span>Ir a la página anterior</span></a>
+</div>
+<div id="loginPedido">
+</div>
+
+<div id="registroUsuario" style="display: none;">
+    <div id="header">
+        <span>Registro de usuario</span>
+    </div>
+    <div id="body">
+        
+    </div>
+</div>
