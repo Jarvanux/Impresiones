@@ -12,9 +12,42 @@ var namePeticion = "";
 var accion = 0;
 var texto = null;
 $(document).ready(function() {
-    $.ajaxSetup({cache: false});
+    refreshChatVisitante.scrollModoLectura();
+    setInterval(refrescarChat, timeRefreshChat);    
     namePeticion = indicePeticion;
     indicePeticion++;
+
+
+
+    function refrescarChat() {
+//        if (controlPeticiones.consultarUsuarioLogeado()) {
+//            if (idUsuario > 0) {
+////                idUsuario = respuestaUsuario.datos.idUsuario;
+//            }
+//        } else {
+//            idUsuario = ipVisitante;
+//        }
+        if (maxChat == 1) {
+            if (idUsuario != 0) {
+                var id = divContent.find('div')[8].id;
+                var elemento = document.getElementById(id);
+
+                var posScroll = elemento.scrollHeight - elemento.clientHeight;
+
+                if (elemento.scrollTop < (posScroll)) {
+                    leyendoChat = true;
+                } else {
+                    leyendoChat = false;
+                }
+                refreshChatVisitante.leerChat();
+                timeRefreshChat = 1200;
+                console.info('Se está refrescando el chat.')
+            }
+//            console.log('Se refresco el chat.');
+        } else {
+            console.log('No se refresco el chat.');
+        }
+    }
 });
 
 numSms = 0;
@@ -55,8 +88,7 @@ var refreshChatVisitante = {
         $.ajax({
             url: 'leerchat',
             type: 'POST',
-            data: {'accion': accion, 'idConversacion': idConversacionChat, 'idUsuarioContacto': idUsuarioContacto, 'idUsuario': idUsuario},
-            cache: false,
+            data: {'accion': accion, 'idConversacion': idConversacionChat, 'idUsuarioContacto': idUsuarioContacto, 'idUsuario': idUsuario},            
             success: function(data) {
                 respuesta = JSON.parse(data);
                 console.log(respuesta);
@@ -150,36 +182,8 @@ var refreshChatVisitante = {
             }
         });
     },
-    eventoMax: function() {
-        setInterval(refrescarChat, 1200);
-        function refrescarChat() {
-            console.info('refrescado');
-//        if (controlPeticiones.consultarUsuarioLogeado()) {
-//            if (idUsuario > 0) {
-////                idUsuario = respuestaUsuario.datos.idUsuario;
-//            }
-//        } else {
-//            idUsuario = ipVisitante;
-//        }
-            if (maxChat == 1) {
-                if (idUsuario != 0) {
-                    var id = divContent.find('div')[8].id;
-                    var elemento = document.getElementById(id);
+    scrollModoLectura: function() {
 
-                    var posScroll = elemento.scrollHeight - elemento.clientHeight;
-
-                    if (elemento.scrollTop < (posScroll)) {
-                        leyendoChat = true;
-                    } else {
-                        leyendoChat = false;
-                    }
-                    refreshChatVisitante.leerChat();
-                }
-//            console.log('Se refresco el chat.');
-            } else {
-//            console.log('No se refresco el chat...');
-            }
-        }
     },
     posScroll: function() {
 //        var id = divContent.find('div')[8].id;

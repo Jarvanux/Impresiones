@@ -2108,3 +2108,12 @@ div#registroUsuario div#header{
 div#registroUsuario .duo-campos input[type="text"],div#registroUsuario .duo-campos input[type="password"]{
     width: 90% !important;
 }
+
+
+#valorFinalTotal{
+    margin-bottom: 15px;
+}
+#totalAdicionales{    
+    font-size: 13px;    
+    font-weight: bold;        
+}

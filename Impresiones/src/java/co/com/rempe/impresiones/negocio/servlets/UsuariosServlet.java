@@ -9,6 +9,7 @@ import co.com.rempe.impresiones.negocio.constantes.ECodigoRespuesta;
 import co.com.rempe.impresiones.negocio.constantes.EDireccion;
 import co.com.rempe.impresiones.negocio.delegado.UsuarioDelegado;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
+import co.com.rempe.impresiones.persistencia.entidades.DireccionesUsuarios;
 import co.com.rempe.impresiones.persistencia.entidades.Usuario;
 import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "UsuariosServlet", urlPatterns = {"/actualizaPerfil", "/opteneripusuario", "/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores", "/visitanteTemporal", "/cambiarEstadoAdmin"})
+@WebServlet(name = "UsuariosServlet", urlPatterns = {"/actualizaPerfil", "/opteneripusuario", "/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores", "/visitanteTemporal", "/cambiarEstadoAdmin", "/listarDirecciones", "/guardarDireccion"})
 public class UsuariosServlet extends HttpServlet {
 
     private UsuarioDelegado usuarioDelegado;
@@ -71,7 +72,10 @@ public class UsuariosServlet extends HttpServlet {
                     break;
                 case INGRESAR:
                     respuesta = ingresar(request);
-                    Usuarios usuarios = (Usuarios) respuesta.getDatos();
+                    Usuarios usuarios = null;
+                    if (respuesta.getDatos() != null) {
+                        usuarios = (Usuarios) respuesta.getDatos();
+                    }
                     if (usuarios != null) {
                         HttpSession session = request.getSession();
                         session.setAttribute("usuario", usuarios);
@@ -107,6 +111,13 @@ public class UsuariosServlet extends HttpServlet {
                 case ACTUALIZAR:
                     respuesta = actualizarDatos(request);
                     break;
+                case LISTAR_DIRECCIONES:
+                    respuesta = listarDirecciones(request);
+                    break;
+                case GUARDAR_DIRECCION:
+                    respuesta = guardarDireccion(request);
+                    break;
+
             }
         } catch (Exception e) {
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
@@ -200,7 +211,6 @@ public class UsuariosServlet extends HttpServlet {
     private Respuesta optenerIpUsuario(HttpServletRequest request) {
         Respuesta respuesta = new Respuesta();
         try {
-
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
             respuesta.setDatos(getIp());
             respuesta.setMensaje("Ip consultada exitosamente!.");
@@ -257,4 +267,21 @@ public class UsuariosServlet extends HttpServlet {
         Usuarios usuario = gson.fromJson(json, Usuarios.class);
         return usuarioDelegado.actualizarDatos(usuario);
     }
+
+    private Respuesta listarDirecciones(HttpServletRequest request) {
+        return usuarioDelegado.listarDirecciones(request);
+    }
+
+    private Respuesta guardarDireccion(HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("data");
+        HttpSession session = request.getSession();
+        Usuarios usuario = (Usuarios) session.getAttribute("usuario");
+        DireccionesUsuarios direcciones = gson.fromJson(json, DireccionesUsuarios.class);
+        if (usuario != null) {
+            direcciones.setIdUsuario(usuario.getIdUsuario());
+        }
+        return usuarioDelegado.guardarDireccion(direcciones);
+    }
+
 }

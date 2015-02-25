@@ -6,8 +6,7 @@
 
 
 $(document).ready(function() {
-    setInterval(refrescarChat, 1000);
-    $.ajaxSetup({cache: false});
+    setInterval(refrescarChat, 1000);    
     function refrescarChat() {
 //        console.log('Se ha actualizado! :D');
         chatControl.leerChat();
@@ -16,8 +15,7 @@ $(document).ready(function() {
     }
 });
 $(document).ready(function() {
-    setInterval(refrescarEstado, 20000);
-    $.ajaxSetup({cache: false});
+    setInterval(refrescarEstado, 20000);    
     function refrescarEstado() {
 //        console.log('Se ha actualizado! :D');
         chatInicio.determinarConectados();

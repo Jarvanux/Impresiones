@@ -14,6 +14,7 @@ var usuarioOpuesto = null;
 var idChatText = null;
 var idMensajeEnviado = 0;
 var correoVisitante = "";
+var timeRefreshChat = 9000000;
 var nombreVisitante = "";
 $(document).ready(function() {
     controlChat.init();
@@ -245,7 +246,6 @@ var controlChat = {
                             divContent.find('div.chat-header div.estado').show();
                             divContent.find('span.text-header').html(respuesta.datos.nombres + ' ' + respuesta.datos.apellidos);
                             controlChat.enviarChat(idUsuarioContacto, 'Bienvenid@ ¿en que te puedo colaborar?');
-                            refreshChatVisitante.eventoMax();
                             divContent.find('div.chat-body div#informativo span').html('Buscando soporte...');
                             maxChat = 1;
                             divContent.find('div.chat-footer #sms').show();

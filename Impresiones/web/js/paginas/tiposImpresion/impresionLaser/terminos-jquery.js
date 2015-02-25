@@ -20,13 +20,13 @@ var terminos = {
         $('#codigoImpre').css({'color': 'blue', 'font-weight': 'bold'});
         $('#rtotal').css({'color': 'blue', 'font-weight': 'bold'});
         if ($('#mixto').is(':checked')) {
-            $('#rvUnitarioBN').html('$' + num1);
-            $('#rvUnitarioColor').html('$' + num2);
+            $('#rvUnitarioBN').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(num1)));
+            $('#rvUnitarioColor').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(num1)));
         } else {
             if ($('#soloBN').is(':checked')) {
-                $('#rvUnitarioBN').html($('#valorTotal').html());
+                $('#rvUnitarioBN').html('$'+controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal($('#valorTotal').html().replace('$',''))));
             } else if ($('#soloColor').is(':checked')) {
-                $('#rvUnitarioBN').html($('#valorTotal').html());
+                $('#rvUnitarioBN').html('$'+controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal($('#valorTotal').html().replace('$',''))));
             }
         }
         var pagina = "paginas/administracionsSitio/ingresar.html";
@@ -34,6 +34,10 @@ var terminos = {
         $.post(pagina, function(data) {
             $("div#loginPedido").html(data);
         });
+        
+        //Volvemos a validar los campos del formulario anterior solo para
+        //Adquirir los precios de anillado y demás cosas seleccionadas.
+        validacionesImpresionLaser.validarSegundoForm();
     },
     generarUnCodigo: function() {
         $.ajax({
@@ -43,7 +47,7 @@ var terminos = {
                 var respuesta = JSON.parse(data); //Concatenamos el objeto recibido a un objeto de JSON.
                 if (respuesta.codigo > 0) {
                     $('#codigoImpre').html(respuesta.datos.enteroGrande);
-                    $('#fecha').html(format.formatearHora(respuesta.datos.fecha));
+                    $('#fecha').html(controlPeticiones.formatearHora(respuesta.datos.fecha));
                 } else {
                     $('div#titulo h2').html('!Atención!');
                     $('div#cuerpo p').html('Se ha producido un error inesperado y no \n\

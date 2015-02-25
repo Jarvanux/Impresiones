@@ -28,11 +28,25 @@ var controlIngresar = {
             $.post('paginas/administracionsSitio/registrar.html', function(data) {
                 $("#contentD3 #registroUsuario #body").append(data);
                 $("#contentD3 #registroUsuario").slideDown(500);
-            });            
+            });
+        } else {
+            $.post('paginas/administracionsSitio/registrar.html', function(data) {
+//                $(".ribbon").hide();                
+//                $(".login").hide();                
+                $(".register-body").append(data);
+                $(".modal-register").show();
+                $("#foot").hide();
+            });
+//            controlIngresar.cargarData('paginas/administracionsSitio/registrar.html');
+//            $('#info').slideDown(500);
+//            $('div#mensaje').hide();
         }
-//        controlIngresar.cargarData('paginas/administracionsSitio/registrar.html');
-//        $('#info').slideDown(500);
-//        $('div#mensaje').hide();
+    },
+    registrarFormu: function() {
+        controlRegistrar.validarForm();
+    },
+    cerrarRegistrar: function() {
+        $('#formRegistroUsuario').hide();
     },
     ingresar: function() {
         if (!($('#password').val().length != 0)) {

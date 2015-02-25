@@ -1,7 +1,7 @@
 //Datos para calcular el valor final.
 
-$(document).ready(function(){
-   $('#cmbxTipoCarga').val(1); 
+$(document).ready(function() {
+    $('#cmbxTipoCarga').val(1);
 });
 
 modoImpresion = null;
@@ -141,7 +141,7 @@ var peticionesImpresionLaser = {
         $('#imgModo').attr({"src": "img/icons/global/loader.gif"});
         $('#imgModo').show();
 //        $('#imgModo').css({"src": "img/icons/global/loader.gif"});        
-        $('#imgModoImpre').slideDown(500);
+        $('#imgModoImpre').show(500);
         $.ajax({
             'url': 'imgmodoimpre', //Nombre de instancia del serlet.
             'type': 'POST',
@@ -218,7 +218,7 @@ var peticionesImpresionLaser = {
                         if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
                             $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 2));
                         } else {
-                            $('#mensaje').slideDown(500);
+                            $('#mensaje').show(500);
                             $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
                         }
                     }
@@ -227,7 +227,7 @@ var peticionesImpresionLaser = {
                         if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
                             $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 2));
                         } else {
-                            $('#mensaje').slideDown(500);
+                            $('#mensaje').show(500);
                             $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
                         }
                     }
@@ -309,7 +309,7 @@ var peticionesImpresionLaser = {
                             if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
                                 $('#valorTotal').html('$' + ((resultado) / 2));
                             } else {
-                                $('#mensaje').slideDown(500);
+                                $('#mensaje').show(500);
                                 $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
                             }
                         }
@@ -318,7 +318,7 @@ var peticionesImpresionLaser = {
                             if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
                                 $('#valorTotal').html('$' + ((resultado * totalPaginas) / 2));
                             } else {
-                                $('#mensaje').slideDown(500);
+                                $('#mensaje').show(500);
                                 $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
                             }
                         }
@@ -371,8 +371,8 @@ var peticionesImpresionLaser = {
                     var valoresUnitarios = $('#valorTotal').html();
                     valorAnillado = (valor *= $('input[type="number"]#numAnill').val());
                     var valorFinalConServicios = valorAnillado + valorPlastificado + valorCorte + valorCosido + parseInt((($('#valorTotal2').html()).replace('$', '')));
-                    $('#esanillado').html('Si');
-                    $('#rtotal').html('$' + valorFinalConServicios);
+                    $('#esanillado').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(valorAnillado)));
+                    $('#rtotal').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(valorFinalConServicios)));
                 } else {
                 }
             }
@@ -392,8 +392,8 @@ var peticionesImpresionLaser = {
                     valorPlastificado = (valor *= $('input[type="number"]#txtPagPlastificadas').val());
                     var valoresUnitarios = $('#valorTotal').html();
                     var valorFinalConServicios = valorAnillado + valorPlastificado + valorCorte + valorCosido + parseInt((($('#valorTotal2').html()).replace('$', '')));
-                    $('#esplastificado').html('Si');
-                    $('#rtotal').html('$' + valorFinalConServicios);
+                    $('#esplastificado').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(valorPlastificado)));
+                    $('#rtotal').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(valorFinalConServicios)));
                 } else {
                 }
             }
@@ -413,8 +413,8 @@ var peticionesImpresionLaser = {
                     valorCorte = (valor *= $('input[type="number"]#numCorte').val());
                     var valoresUnitarios = $('#valorTotal').html();
                     var valorFinalConServicios = valorAnillado + valorPlastificado + valorCorte + valorCosido + parseInt((($('#valorTotal2').html()).replace('$', '')));
-                    $('#escorte').html('Si');
-                    $('#rtotal').html('$' + valorFinalConServicios);
+                    $('#escorte').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(valorCorte)));
+                    $('#rtotal').html('$' + controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(valorFinalConServicios)));
                 } else {
                 }
             }

@@ -13,6 +13,8 @@ public enum EDireccion {
 
     INSERTAR_MENSAJE("/insertarmensaje", "Se inserta en la tabla de contacto"),
     LEER_MENSAJE("/leermensaje", "Se cambia el estado de los mensajes a 1"),
+    INSERTAR_CONTENTEDITOR("/insertarContenteditor", "Se inserta el texto guardado del editor."),
+    BUSCAR_CONTENTEDITOR("/buscarContenteditor", "Se filtra el texto guardado del editor."),
     CONSULTAR_POR_ID("/consultarporid","Se consulta un objeto."),
     INSERTAR_CHAT("/insertarchat", "Se insertar en la tabla chat"),
     LEER_CHAT("/leerchat", "Lista el chat de una conversación."),
@@ -40,6 +42,8 @@ public enum EDireccion {
     REGISTRAR_USUARIO("/registrarUsuarios","Registrar usuarios."),
     INGRESAR("/ingresar","Inisiar sesión."),
     ACTUALIZAR("/actualizaPerfil","Actualiza los datos de un usuario."),
+    LISTAR_DIRECCIONES("/listarDirecciones","Lista las direcciones del usuario logeado."),
+    GUARDAR_DIRECCION("/guardarDireccion","Guarda una dirección."),
     SOPORTE_CONECTADO("/soporteconectado","Inisiar sesión."),
     CONSULTAR_USUARIOS("/consultarUsuarios","Consulta un usuario por id."),
     CONSULTAR_USUARIO_LOGEADO("/consultarUsuarioLogeado","Consulta un usuario logeado en el sistema"),

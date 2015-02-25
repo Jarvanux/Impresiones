@@ -3,7 +3,7 @@
  * guarar en la BD la información del vistante, para estadisticas. ;)S
  */
 
-ipVisitante = null;
+ipVisitante = 0;
 
 $(document).ready(function() {
     controlVisitantes.init();
@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 var controlVisitantes = {
     init: function() {
-        controlVisitantes.guardarVisita();
+//        controlVisitantes.guardarVisita();
     },
     guardarVisita: function() {
         if (location.href == "http://localhost:8080/impresiones/") {

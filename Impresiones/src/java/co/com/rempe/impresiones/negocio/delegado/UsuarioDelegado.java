@@ -7,11 +7,15 @@ package co.com.rempe.impresiones.negocio.delegado;
 
 import co.com.rempe.impresiones.negocio.constantes.ECodigoRespuesta;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
+import co.com.rempe.impresiones.persistencia.dao.DireccionesDAO;
 import co.com.rempe.impresiones.persistencia.dao.UsuarioDAO;
 import co.com.rempe.impresiones.persistencia.dao.UsuariosDAO;
+import co.com.rempe.impresiones.persistencia.entidades.DireccionesUsuarios;
+import co.com.rempe.impresiones.persistencia.entidades.DireccionesUsuarios_;
 import co.com.rempe.impresiones.persistencia.entidades.Usuario;
 import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import co.com.rempe.impresiones.persistencia.entidades.conexion.BDConexion;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -67,7 +71,9 @@ public class UsuarioDelegado {
             Usuarios usuarios = new Usuarios();
             UsuariosDAO dao = new UsuariosDAO(em);
             usuarios = dao.iniciarSesion(usuario, usuario, clave);
-            usuarios.setContrasena("No subministrada por el sistema");
+            if (usuarios != null) {
+                usuarios.setContrasena("No subministrada por el sistema");
+            }
             int codigo = (usuarios == null) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
             respuesta.setCodigo(codigo);
             respuesta.setDatos(usuarios);
@@ -133,8 +139,8 @@ public class UsuarioDelegado {
         }
         return respuesta;
     }
-    
-    public Usuarios consultaUsuarioLogeado(HttpServletRequest request){
+
+    public Usuarios consultaUsuarioLogeado(HttpServletRequest request) {
         try {
             HttpSession session = request.getSession();
             Usuarios usuario = (Usuarios) session.getAttribute("usuario");
@@ -266,6 +272,58 @@ public class UsuarioDelegado {
         } catch (Exception e) {
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
             respuesta.setMensaje("No se han podido actualizar tus datos.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta listarDirecciones(HttpServletRequest request) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            HttpSession session = request.getSession();
+            Usuarios usuario = (Usuarios) session.getAttribute("usuario");
+            List<DireccionesUsuarios> list = null;
+            if (usuario != null) {
+                DireccionesDAO direccionesDAO = new DireccionesDAO(em);
+                list = direccionesDAO.direcciones(usuario.getIdUsuario());
+            }
+            int codigo = (list.isEmpty()) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            respuesta.setCodigo(codigo);
+            respuesta.setDatos(list);
+            respuesta.setMensaje("Se han consultado las direcciones del usuario correctamente.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Error al consultar direcciones del usuario.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta guardarDireccion(DireccionesUsuarios direcciones) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            DireccionesDAO dao = new DireccionesDAO(em);
+            if (direcciones != null && direcciones.getIdUsuario() > 0) {
+                if (!(dao.consultarDireccion(direcciones.getDireccion()).size() > 0)) {
+                    em.getTransaction().begin();
+                    direcciones.setFechaRegistro(new Date());
+                    dao.crear(direcciones);
+                    em.getTransaction().commit();
+                    respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+                    respuesta.setMensaje("Se ha guardado la dirección");
+                } else {
+                    respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+                    respuesta.setMensaje("La dirección ya se encuentra registrada.");
+                }
+            } else {
+                respuesta.setCodigo(ECodigoRespuesta.VACIO.getCodigo());
+                respuesta.setMensaje("No hay datos para guardar");
+            }
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("No se pudo guardar la dirección.");
         }
         return respuesta;
     }

@@ -3,9 +3,97 @@
  */
 valorImprePosible = false;
 tipoColorSeleccionado = 0;
+consultadoAnillado = 0;
+consultadoPlastificado = 0;
+consultadoCorte = 0;
+consultadoCosido = 0;
 
 
 var eventosImpresionLaer = {
+    calcularAdicionales: function() {
+        // <Editor JavaScript> Todo su código aquí.
+        $('#totalAdicionales input').val(0);
+
+//Inicio calculo anillado.
+        if ($('#anillado').is(':checked')) {
+            $.ajax({
+                'url': 'consultarValorAnillado',
+                type: 'POST',
+                'data': {'numero': $('#numAnill').val()},
+                success: function(data) {
+                    respuesta = JSON.parse(data);
+                    console.log(respuesta);
+                    consultadoAnillado = parseInt(respuesta.datos.valor) * $('#numAnill').val();
+                    console.log(consultadoAnillado);
+                    var tAdicionales = parseInt($('#totalAdicionales input').val());
+                    tAdicionales += consultadoAnillado;
+                    $('#totalAdicionales input').val(tAdicionales);
+                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
+//                    var valorTotal = parseInt($('#valorTotal').html().replace('$', ''));
+//                    var valorFinal = valorTotal + parseInt($('#totalAdicionales input').val());
+//                    $('#valorTotal2').html(valorFinal);
+                }
+            });
+        } else {
+            consultadoAnillado = 0;
+        }
+//Fin calculo anillado.
+
+        if ($('#plasti').is(':checked')) {
+//Ahora iniciamos con el calculo para el plastificado.
+            $.ajax({
+                'url': 'consultarValorPlastificado',
+                type: 'POST',
+                'data': {'numero': $('#txtPagPlastificadas').val()},
+                success: function(data) {
+                    respuesta = JSON.parse(data);
+                    console.log(respuesta);
+                    consultadoPlastificado = parseInt(respuesta.datos.valor) * $('#txtPagPlastificadas').val();
+                    console.log(consultadoPlastificado);
+                    var tAdicionales = parseInt($('#totalAdicionales input').val());
+                    tAdicionales += consultadoPlastificado;
+                    $('#totalAdicionales input').val(tAdicionales);
+                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
+//                    var valorTotal = parseInt($('#valorTotal').html().replace('$', ''));
+//                    var valorFinal = valorTotal + parseInt($('#totalAdicionales input').val());
+//                    $('#valorTotal2').html(valorFinal);
+                }
+            });
+        } else {
+            consultadoPlastificado = 0;
+        }
+//Fin calculo plastificado.
+
+
+//Inicio calculo corte.
+        if ($('#servicoCorte').is(':checked')) {
+            $.ajax({
+                'url': 'consultarValorCorte',
+                type: 'POST',
+                'data': {'numero': $('#numCorte').val()},
+                success: function(data) {
+                    respuesta = JSON.parse(data);
+                    console.log(respuesta);
+                    consultadoCorte = parseInt(respuesta.datos.valor) * $('#numCorte').val();
+                    console.log(consultadoCorte);
+                    var tAdicionales = parseInt($('#totalAdicionales input').val());
+                    tAdicionales += consultadoCorte;
+                    $('#totalAdicionales input').val(tAdicionales);
+                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
+//                    var valorTotal = parseInt($('#valorTotal').html().replace('$', ''));
+//                    var valorFinal = valorTotal + parseInt($('#totalAdicionales input').val());
+//                    $('#valorTotal2').html(valorFinal);
+                }
+            });
+        } else {
+            consultadoCorte = 0;
+        }
+//Fin calculo corte.
+//Terminamos austes de precios y cálculos e imprimimos en pantalla.
+        var tAdicionales = consultadoAnillado + consultadoPlastificado + consultadoCorte;        
+        $('#totalAdicionales input').val(tAdicionales);
+        $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
+    },
     calcularPrecioImpresion: function() {
         //Evaluamos que todo el formulario esté completo para brindarle la 
         //información necesaria al sistema para que tome los respectivos 
@@ -27,28 +115,28 @@ var eventosImpresionLaer = {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un tipo de papel de impresión.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#cmbxTipoTamano').val() > 0) {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un tamaño de impresión.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#cmbxModoImpresion').val() > 0) {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un modo de impresión.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#numCopys').val() > 0) {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: La cantidad de número copias debe ser  mayor a 0.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#soloBN').is(':checked')) {
@@ -56,7 +144,7 @@ var eventosImpresionLaer = {
                 datosValidos += 1;
             } else {
                 $('#mensaje span.textMensaje').html('ERROR: La cantidad de número de hojas a blanco y negro debe ser  mayor a 0.');
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
             }
         }
 
@@ -65,7 +153,7 @@ var eventosImpresionLaer = {
                 datosValidos += 1;
             } else {
                 $('#mensaje span.textMensaje').html('ERROR: La cantidad de número de hojas a color debe ser  mayor a 0.');
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
             }
         }
 
@@ -84,28 +172,28 @@ var eventosImpresionLaer = {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un tipo de papel de impresión.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#cmbxTipoTamano').val() > 0) {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un tamaño de impresión.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#cmbxModoImpresion').val() > 0) {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un modo de impresión.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#numCopys').val() > 0) {
             datosValidos += 1;
         } else {
             $('#mensaje span.textMensaje').html('ERROR: La cantidad de número copias debe ser  mayor a 0.');
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
 
         if ($('#soloBN').is(':checked')) {
@@ -113,7 +201,7 @@ var eventosImpresionLaer = {
                 datosValidos += 1;
             } else {
                 $('#mensaje span.textMensaje').html('ERROR: La cantidad de número de hojas a blanco y negro debe ser  mayor a 0.');
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
             }
         }
 
@@ -122,7 +210,7 @@ var eventosImpresionLaer = {
                 datosValidos += 1;
             } else {
                 $('#mensaje span.textMensaje').html('ERROR: La cantidad de número de hojas a color debe ser  mayor a 0.');
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
             }
         }
         if ($('#mixto').is(':checked')) {
@@ -130,7 +218,7 @@ var eventosImpresionLaer = {
                 datosValidos += 1;
             } else {
                 $('#mensaje span.textMensaje').html('ERROR: La cantidad de número de hojas a color debe ser  mayor a 0.');
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
             }
         }
 
@@ -192,9 +280,57 @@ var eventosImpresionLaer = {
         $('#aceptar').hide();
         $('#aceptar2').hide();
         $('#aceptar3').show();
-        $('#info').slideDown(500);
+        $('#info').show(500);
     },
     eventos: function() {
+        //EVENTOS PRECIOS ADICIONALES:        
+
+//Ahora vamos con los eventos...
+//Temporal  
+        //Fin temporal.
+//        $('#anilladoSi').click(function() {
+//            var numBloques = $('#numAnill').val();
+//            console.log('xx');
+//            $.ajax({
+//                'url': 'consultarValorAnillado',
+//                type: 'POST',
+//                'data': {'numero': numBloques},
+//                success: function(data) {
+//                    var respuesta = JSON.parse(data);
+//                    console.log(respuesta);
+//                    if (respuesta.codigo > 0) {
+//                        var valorAcumulado = $('#totalAdicionales input').val();
+//                        consultadoAnillado = respuesta.datos.valor * numBloques;
+//                        $('#totalAdicionales span').html((parseInt(+valorAcumulado + respuesta.datos.valor)));
+//                        $('#totalAdicionales input').val((parseInt(+valorAcumulado + respuesta.datos.valor)));
+//                    }
+//                }
+//            });
+//        });//Fin click si anillado.
+//
+//        $('#anilladoNo').click(function() {            
+//            var valorAcumulado = $('#totalAdicionales input').html();                        
+//            $('#totalAdicionales input').val((parseInt(valorAcumulado - consultadoAnillado)));
+//            $('#totalAdicionales span').html((parseInt(valorAcumulado - consultadoAnillado)));
+//            consultadoAnillado = 0;
+//        });//Fin click no anillado.
+//        
+//        
+//        // 
+//        
+        //FIN PRECIOS ADICIONALES.
+
+
+        $('#imgCerrarRegistro').click(function() {
+            $('#register').hide();
+        });
+
+        $('#vistaAnillado').click(function() {
+            anillado();
+        });
+        $('#servicioCorte').click(function() {
+            corte();
+        });
         //Evento finalizar formulario. - guardará los datos ingresados en la BD.               
 //          $('#' + data.id).css({"border": "1px solid #999999"});                
         $('select').change(function(event) {
@@ -203,13 +339,13 @@ var eventosImpresionLaer = {
             }
         });
         $('#btnFin').click(function() {
-            eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');
             if (validacionesImpresionLaser.validarSegundoForm()) {
+                eventosImpresionLaer.cargarTerminos('paginas/tiposImpresion/terminosYcondiciones.html');
                 $('#contentD2').hide();
                 $('#contentD3').show();
                 $('div#nums').hide();
                 posFormulario = 2;
-                $('#cambiar').attr('title','Ir al formulario anterior');
+                $('#cambiar').attr('title', 'Ir al formulario anterior');
             } else {
             }
         });
@@ -231,10 +367,10 @@ var eventosImpresionLaer = {
                 $('#aceptar2').hide();
                 $('#aceptar3').hide();
                 $('#aceptar').show();
-                $('#info').slideDown(500);
+                $('#info').show(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
                 $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
-            } else if (posFormulario == 1) {                
+            } else if (posFormulario == 1) {
                 posFormulario = 0;
                 $('#cambiar').attr('title', 'Seleccionar otro tipo de impresión');
                 $('#btnAtras').click();
@@ -330,6 +466,7 @@ var eventosImpresionLaer = {
         });
 
         function anillado() {
+            eventosImpresionLaer.calcularAdicionales();
             if ($('#anillado').is(':checked')) {
                 $("#anilladoSi").prop("checked", true);
                 $("#colorAnillo").show();
@@ -373,6 +510,7 @@ var eventosImpresionLaer = {
         });
 
         function plastificado() {
+            eventosImpresionLaer.calcularAdicionales();
             if ($('#plastificado').is(':checked')) {
                 $("#plastificadoSi").prop("checked", true);
             } else {
@@ -395,6 +533,7 @@ var eventosImpresionLaer = {
             corte();
         });
         function corte() {
+            eventosImpresionLaer.calcularAdicionales();
             if ($('#servicoCorte').is(':checked')) {
                 $("#servicoCorteSi").prop("checked", true);
                 $("#cmbxSCorte").show();
@@ -426,6 +565,7 @@ var eventosImpresionLaer = {
             plasti();
         });
         function plasti() {
+            eventosImpresionLaer.calcularAdicionales();
             if ($('#plasti').is(':checked')) {
                 $("#plastiSi").prop("checked", true);
                 $("#cmbxPlastificado").show();
@@ -471,7 +611,7 @@ var eventosImpresionLaer = {
                 $('#aceptar').hide();
                 $('#aceptar2').hide();
                 $('#aceptar3').show();
-                $('#info').slideDown(500);
+                $('#info').show(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
                 $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             } else if ($('#numAnill').val() < 1) {
@@ -481,7 +621,7 @@ var eventosImpresionLaer = {
                 $('#aceptar').hide();
                 $('#aceptar2').hide();
                 $('#aceptar3').show();
-                $('#info').slideDown(500);
+                $('#info').show(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
                 $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             }
@@ -508,9 +648,9 @@ var eventosImpresionLaer = {
                 } else {
                     $('#totalImpre2').val(0);
                 }
-                $('#nums').slideDown(500);
+                $('#nums').show(500);
                 posFormulario = 1;
-                $('#cambiar').attr('title','Ir al formulario anterior');
+                $('#cambiar').attr('title', 'Ir al formulario anterior');
             } else {
                 validacionesImpresionLaser.informe('No has subido un archivo o el seleccionado no tiene un formato válido!.');
             }
@@ -527,7 +667,7 @@ var eventosImpresionLaer = {
                 $('#aceptar').hide();
                 $('#aceptar2').hide();
                 $('#aceptar3').show();
-                $('#info').slideDown(500);
+                $('#info').show(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
                 $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             } else if ($('#txtPagPlastificadas').val() < 1) {
@@ -537,7 +677,7 @@ var eventosImpresionLaer = {
                 $('#aceptar').hide();
                 $('#aceptar2').hide();
                 $('#aceptar3').show();
-                $('#info').slideDown(500);
+                $('#info').show(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
                 $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             }
@@ -551,7 +691,7 @@ var eventosImpresionLaer = {
                 $('#aceptar').hide();
                 $('#aceptar2').hide();
                 $('#aceptar3').show();
-                $('#info').slideDown(500);
+                $('#info').show(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
                 $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             } else if ($('#numCorte').val() < 1) {
@@ -561,7 +701,7 @@ var eventosImpresionLaer = {
                 $('#aceptar').hide();
                 $('#aceptar2').hide();
                 $('#aceptar3').show();
-                $('#info').slideDown(500);
+                $('#info').show(500);
                 $('div#content').css({"width": "400px", "height": "auto", "margin-top": "15%"});
                 $('div#content div#cuerpo').css({"width": "90%", "height": "auto"});
             }
@@ -689,8 +829,8 @@ var eventosImpresionLaer = {
             $('#cmbxTipoBN').val(-1);
             $('#cmbxTipoColor').val(-1);
             $('.txtInfoBN').html('Debes seleccionar la forma en la que deseas ingresar las hojas que vas a imprimir.<br/><br/><b>Opciones</b><br/> - Todo el archivo.</br> - Algunas las hojas del archivo.');
-            $('#lblSelecBN').slideDown(500);
-            $('#cmbxTipoBN').slideDown(500);
+            $('#lblSelecBN').show(500);
+            $('#cmbxTipoBN').show(500);
             $('#lblCantBN').css({"display": "none"});
             $('#txtCantBN').css({"display": "none"});
             $('#imgRegresarBN').css({"display": "none"});
@@ -701,8 +841,8 @@ var eventosImpresionLaer = {
             $('#txtCantVarBN').css({"display": "none"});
 
             $('.txtInfoColor').html('Debes seleccionar la forma en la que deseas ingresar las hojas que vas a imprimir.<br/><br/><b>Opciones</b><br/> - Todo el archivo.</br> - Algunas las hojas del archivo.');
-            $('#lblSelecColor').slideDown(500);
-            $('#cmbxTipoColor').slideDown(500);
+            $('#lblSelecColor').show(500);
+            $('#cmbxTipoColor').show(500);
             $('#lblCantColor').css({"display": "none"});
             $('#txtCantColor').css({"display": "none"});
             $('#imgRegresarColor').css({"display": "none"});
@@ -721,8 +861,8 @@ var eventosImpresionLaer = {
             $('#cmbxTipoBN').val(-1);
             $('#cmbxTipoColor').val(-1);
             $('.txtInfoBN').html('Debes seleccionar la forma en la que deseas ingresar las hojas que vas a imprimir.<br/><br/><b>Opciones</b><br/> - Todo el archivo.</br> - Algunas hojas del archivo.');
-            $('#lblSelecBN').slideDown(500);
-            $('#cmbxTipoBN').slideDown(500);
+            $('#lblSelecBN').show(500);
+            $('#cmbxTipoBN').show(500);
             $('#lblCantBN').css({"display": "none"});
             $('#txtCantBN').css({"display": "none"});
             $('#imgRegresarBN').css({"display": "none"});
@@ -733,8 +873,8 @@ var eventosImpresionLaer = {
             $('#txtCantVarBN').css({"display": "none"});
 
             $('.txtInfoColor').html('Debes seleccionar la forma en la que deseas ingresar las hojas que vas a imprimir.<br/><br/><b>Opciones</b><br/> - Todo el archivo.</br> - Algunas hojas del archivo.');
-            $('#lblSelecColor').slideDown(500);
-            $('#cmbxTipoColor').slideDown(500);
+            $('#lblSelecColor').show(500);
+            $('#cmbxTipoColor').show(500);
             $('#lblCantColor').css({"display": "none"});
             $('#txtCantColor').css({"display": "none"});
             $('#imgRegresarColor').css({"display": "none"});
@@ -754,10 +894,10 @@ var eventosImpresionLaer = {
                 $('.txtInfoBN').html('Debes ingresar con un número entero la cantidad de hojas que contiene el archivo.<br/><br/> <b>Nota:</b>todas las páginas del mismo serán cobradas, si quieres especificar que hojas deseas imprimir usa la segunda opción.');
                 $('#lblSelecBN').css({"display": "none"});
                 $('#cmbxTipoBN').css({"display": "none"});
-                $('#lblCantBN').slideDown(500);
-                $('#txtCantBN').slideDown(500);
-                $('#imgRegresarBN').slideDown(500);
-                $('#txtAtras').slideDown(500);
+                $('#lblCantBN').show(500);
+                $('#txtCantBN').show(500);
+                $('#imgRegresarBN').show(500);
+                $('#txtAtras').show(500);
                 $('#txtCantBN').focus();
                 $('#descripParamas').hide();
             } else if ($('#cmbxTipoBN').val() == 2) {
@@ -777,11 +917,11 @@ var eventosImpresionLaer = {
                         '1,2,3-10');
                 $('#lblSelecBN').css({"display": "none"});
                 $('#cmbxTipoBN').css({"display": "none"});
-                $('#txtBNVar').slideDown(500);
-                $('#txtCantVarBN').slideDown(500);
-                $('#imgRegresarBN2').slideDown(500);
-                $('#txtAtras2').slideDown(500);
-                $('#descripParamas').slideDown(500);
+                $('#txtBNVar').show(500);
+                $('#txtCantVarBN').show(500);
+                $('#imgRegresarBN2').show(500);
+                $('#txtAtras2').show(500);
+                $('#descripParamas').show(500);
                 $('#div2').hide();
                 $('#div1').show();
             }
@@ -793,10 +933,10 @@ var eventosImpresionLaer = {
                 $('#lblSelecColor').css({"display": "none"});
                 $('#cmbxTipoColor').css({"display": "none"});
                 $('#imgRegresarColor2').css({"display": "none"});
-                $('#lblCantColor').slideDown(500);
-                $('#txtCantColor').slideDown(500);
-                $('#imgRegresarColor').slideDown(500);
-                $('#txtAtrasColor').slideDown(500)
+                $('#lblCantColor').show(500);
+                $('#txtCantColor').show(500);
+                $('#imgRegresarColor').show(500);
+                $('#txtAtrasColor').show(500)
                 $('#descripParamas').hide();
             } else if ($('#cmbxTipoColor').val() == 2) {
                 $('.txtInfoColor').html('<b>Separación de Hojas (por coma):</b><br/><b> - Ejemplo:</b> 1,2,3,4 <br/>' +
@@ -815,12 +955,12 @@ var eventosImpresionLaer = {
                         '1,2,3-10');
                 $('#lblSelecColor').css({"display": "none"});
                 $('#cmbxTipoColor').css({"display": "none"});
-                $('#txtColorVar').slideDown(500);
-                $('#txtCantVarColor').slideDown(500);
-                $('#imgRegresarColor2').slideDown(500);
-                $('#txtAtras2').slideDown(500);
-                $('#txtAtrasColor2').slideDown(500);
-                $('#descripParamas').slideDown(500);
+                $('#txtColorVar').show(500);
+                $('#txtCantVarColor').show(500);
+                $('#imgRegresarColor2').show(500);
+                $('#txtAtras2').show(500);
+                $('#txtAtrasColor2').show(500);
+                $('#descripParamas').show(500);
                 $('#div1').hide();
                 $('#div2').show();
             }
@@ -904,10 +1044,10 @@ var eventosImpresionLaer = {
                 $('#imgCargar').removeAttr("src");
                 $('#imgCargar').attr({"src": "img/icons/global/cargaArchivo.jpg"});
                 $('#imgCargar').attr({"title": "Adjunta un archivo desde tú equipo."});
-                $('#imgCargar').slideDown(500);
-                $('#txtArchivosCargados').slideDown(500);
-                $('#btnCargar').slideDown(500);
-                $('#tipoCargaSelect').slideDown(500);
+                $('#imgCargar').show(500);
+                $('#txtArchivosCargados').show(500);
+                $('#btnCargar').show(500);
+                $('#tipoCargaSelect').show(500);
             } else {
                 $('#imgCargar').hide();
                 $('#txtArchivosCargados').hide();
@@ -915,9 +1055,9 @@ var eventosImpresionLaer = {
                 $('#imgCargar').removeAttr("src");
                 $('#imgCargar').attr({"src": "img/icons/global/compartirLink.jpg"});
                 $('#imgCargar').attr({"title": "Compartenos un link de un archivo en la nube."});
-                $('#imgCargar').slideDown(500);
-                $('#txtLinkArchivos').slideDown(500);
-                $('#tipoCargaSelect').slideDown(500);
+                $('#imgCargar').show(500);
+                $('#txtLinkArchivos').show(500);
+                $('#tipoCargaSelect').show(500);
                 $('#txtLinkArchivos').focus();
             }
         });
@@ -1029,7 +1169,7 @@ var eventosImpresionLaer = {
     },
     checkSoloBNClick: function() {
         if (!valorImprePosible) {
-            $('#btnSiguiente').slideDown(500);
+            $('#btnSiguiente').show(500);
         }
         tipoColorSeleccionado = 1;
         $('#lblTotalBN').css({"margin-top": "8px"});
@@ -1050,11 +1190,11 @@ var eventosImpresionLaer = {
         $('#soloBN').attr({"checked": "checked"});
         //Mostrar el elemento infoMixto.
         $('#contentTemp').css({"display": "none"});
-        $('#tipoColor').slideDown(500);
+        $('#tipoColor').show(500);
         $('#divSoloColor').hide();
         $('#divMixto').hide();
-        $('#divSoloBN').slideDown(500);
-        $('#btnsPasos').slideDown(500);
+        $('#divSoloBN').show(500);
+        $('#btnsPasos').show(500);
         $('#infoMixto #txtCanHBN').removeAttr("disabled");
         $('#infoMixto #txtCanHBN').focus();
         $('#infoMixto #txtCanHBN').css({"background": "#fff"});
@@ -1072,7 +1212,7 @@ var eventosImpresionLaer = {
     },
     checkSoloColorClick: function() {
         if (!valorImprePosible) {
-            $('#btnSiguiente').slideDown(500);
+            $('#btnSiguiente').show(500);
         }
         $('#numTotalBN').val(0);
         $('#txtBNMixto').val('');
@@ -1090,12 +1230,12 @@ var eventosImpresionLaer = {
         $('.txtInfoColor').html('Debes seleccionar la forma en la que deseas ingresar las hojas que vas a imprimir.');
         $('#soloColor').attr({"checked": "checked"});
         $('#contentTemp').css({"display": "none"});
-        $('#tipoColor').slideDown(500);
-        $('#infoMixto').slideDown(500);
-        $('#btnsPasos').slideDown(500);
+        $('#tipoColor').show(500);
+        $('#infoMixto').show(500);
+        $('#btnsPasos').show(500);
         $('#divSoloBN').hide();
         $('#divMixto').hide();
-        $('#divSoloColor').slideDown(500);
+        $('#divSoloColor').show(500);
         $('#infoMixto #txtCantHColor').removeAttr("disabled");
         $('#infoMixto #txtCantHColor').css({"background": "#fff"});
         $('#infoMixto #txtCantHColor').focus();
@@ -1111,7 +1251,7 @@ var eventosImpresionLaer = {
     },
     checkMixtoClick: function() {
         if (!valorImprePosible) {
-            $('#btnSiguiente').slideDown(500);
+            $('#btnSiguiente').show(500);
         }
         $('#numTotalBN').val(0);
         $('#numTotalColor').val(0);
@@ -1121,7 +1261,7 @@ var eventosImpresionLaer = {
         $('#numTotalBN').show();
         $('#lblTotalColor').show();
         $('#numTotalColor').show();
-        $('#descripParamas').slideDown(500);
+        $('#descripParamas').show(500);
         $('#div1').show();
         $('#div2').show();
         $('.txtInfoMixto').html('Debes ingresar y especificar las hojas que vas a imprimir a blanco y negro(B/N) y a color, para esto implementa el uso de las comas (,) para separar páginas y para especificar rangos utiliza un guión(-).<br/><br/> <b>Separación de Hojas (por coma):</b><br/><b> - Ejemplo:</b> 1,2,3,4 <br/>' +
@@ -1140,12 +1280,12 @@ var eventosImpresionLaer = {
                 '1,2,3-10');
         $('#mixto').attr({"checked": "checked"});
         $('#contentTemp').css({"display": "none"});
-        $('#tipoColor').slideDown(500);
-        $('#infoMixto').slideDown(500);
-        $('#btnsPasos').slideDown(500);
+        $('#tipoColor').show(500);
+        $('#infoMixto').show(500);
+        $('#btnsPasos').show(500);
         $('#divSoloColor').hide();
         $('#divSoloBN').hide();
-        $('#divMixto').slideDown(500);
+        $('#divMixto').show(500);
         $('#infoMixto #txtColorMixto').removeAttr("disabled");
         $('#infoMixto #txtColorMixto').focus();
         $('#infoMixto #txtColorMixto').css({"background": "#fff"});

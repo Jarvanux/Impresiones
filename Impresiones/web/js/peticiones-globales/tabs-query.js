@@ -7,7 +7,7 @@
 var tabsquerys = {
     init: function() {
         $('.content-tab').hide();
-        $('#infor').slideDown(500);
+        $('#infor').show(500);
         tabsquerys.eventosTabs();
     },
     eventosTabs: function() {

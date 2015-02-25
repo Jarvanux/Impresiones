@@ -5,6 +5,7 @@
  */
 package co.com.rempe.impresiones.negocio.utilerias;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +17,10 @@ public class Utilerias {
 
     public static long redondearDecimal(double decimal) {
         return Math.round(decimal);
+    }
+    
+    public static String realPath(){
+        return new File("src" + File.separator + "java").getAbsolutePath();
     }
 
     public static Date convertir(String fecha) {

@@ -12,8 +12,7 @@
 
 var refrescarContenidos = {
     refrescar: function() {
-        var refresId = setInterval(refrescarContenidos.ejecutarRefresh('divMensajes'), 30000);
-        $.ajaxSetup({cache: false});
+        var refresId = setInterval(refrescarContenidos.ejecutarRefresh('divMensajes'), 30000);        
     },
     ejecutarRefresh: function(divContenido, pagina) {
       

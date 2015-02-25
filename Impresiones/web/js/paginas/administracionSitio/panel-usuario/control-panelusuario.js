@@ -14,9 +14,61 @@ var idUsuarioLogeado = 0;
 var gestionPago = 0;
 var consulta = 0;
 var comprando = false;
+
+
 var controlUsuario = {
     init: function() {
         controlUsuario.consultarUsuarioLogeado();
+    },
+    mostrarFormDireccion: function() {
+        $('span.info').hide();
+        $('#newDirection').show();
+        $('#newDirection #direccionNew').focus();        
+    },
+    esconderFormDireccion: function() {
+        $('#newDirection').hide();        
+    },
+    guardarDireccion: function() {
+        // <Editor JavaScript> Todo su código aquí.
+        if ($('#direccionNew').val().length > 0) {
+            $('#direccionNew').removeClass('textError');
+            var data = {};
+            data.direccion = $('#direccionNew').val();
+            data = {data: JSON.stringify(data)};
+
+            $.ajax({
+                'url': 'guardarDireccion',
+                'type': 'POST',
+                'data': data,
+                success: function(data) {
+                    var respuesta = JSON.parse(data);
+                    console.log(respuesta);
+                    controlUsuario.consultarDirecciones();
+                    $('#notificaciones').hide('slow');
+                    $('#notificaciones').show('slow');
+                    $('#notificaciones p').html(respuesta.mensaje);
+                    controlUsuario.esconderFormDireccion();                    
+                    $('#direccionNew').val("");
+                }
+            });
+        }else{
+            $('span.info').show();
+        }
+    },
+    consultarDirecciones: function() {
+        var cmbx = $('#cbxdireccion');
+        $.ajax({
+            'url': 'listarDirecciones', //Nombre de instancia del servlet.            
+            'type': 'POST',
+            success: function(data) {
+                cmbx.html(''); //Reiniciamos y/o formateamos el contenido del elemento.                
+                cmbx.append(new Option('Selecciona', '-1'));
+                var respuesta = JSON.parse(data); //Concatenamos el objeto recibido a un objeto de JSON.                            
+                $.each(respuesta.datos, function(indice, valor) {
+                    cmbx.append(new Option(valor.direccion, valor.idDireccion));
+                });
+            }
+        });
     },
     dimencionPantalla: function() {
         $(window).resize(function() {
@@ -147,3 +199,15 @@ var controlUsuario = {
         });
     }
 };
+
+
+
+$(document).ready(function() {
+    if ((location.href).search('panelusuario') >= 0 || (location.href).search('paneladministrador') >= 0) {
+        setInterval(consultUser, 2000);
+    }
+});
+
+function consultUser() {
+    controlUsuario.consultarUsuarioLogeado();
+}

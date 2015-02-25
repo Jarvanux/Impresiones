@@ -83,6 +83,8 @@ public class ImpresionLaser implements Serializable {
     private String linkArchivo;
     @Column(name = "valor_impresion")
     private Double valorImpresion;
+    @Column(name = "otros_costos")
+    private Double otrosCostos;
     @Column(name = "anillado")
     private Boolean anillado;
     @Column(name = "color_anillo")
@@ -189,6 +191,7 @@ public class ImpresionLaser implements Serializable {
     public Integer getHojasColor() {
         return hojasColor;
     }
+    
 
     public void setHojasColor(Integer hojasColor) {
         this.hojasColor = hojasColor;
@@ -198,6 +201,15 @@ public class ImpresionLaser implements Serializable {
         return copias;
     }
 
+    public Double getOtrosCostos() {
+        return otrosCostos;
+    }
+
+    public void setOtrosCostos(Double otrosCostos) {
+        this.otrosCostos = otrosCostos;
+    }
+
+    
     public void setCopias(Integer copias) {
         this.copias = copias;
     }

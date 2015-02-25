@@ -30,6 +30,7 @@ public class UsuariosDAO extends GenericoDAO<Usuarios> {
     public Usuarios iniciarSesion(String usuario, String correo, String clave) {
         Query q = null;
         try {
+            System.out.println("Usuario: "+usuario+" Clave: "+clave);
             q = em.createNativeQuery("select * from usuarios where (apodo = ? or email = ?) and contrasena = ?", Usuarios.class);
             q.setParameter(1, usuario);
             q.setParameter(2, correo);

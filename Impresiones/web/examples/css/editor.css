@@ -1,0 +1,60 @@
+
+.row-fluid .no-gutter {
+	margin-left: 0px;
+}
+
+footer {
+	text-align: center;
+	margin: 30px 0;
+}
+
+#editor {
+	width: 100%;
+	height: 280px; 
+	float: left; 
+	clear: left; 
+	position: relative;
+	font-family: "Source Code Pro";
+	font-size: 14px;
+    font-weight: normal;
+}
+
+.preview-pane {
+	border: 3px solid #ccc;
+}
+
+.controls {
+	float: left;
+	clear: left;
+	width: 450px;
+	padding-top: 10px;
+}
+
+#template {
+	width: 250px;
+}
+
+.tweet-buttons { 
+	float: left;
+	margin-right: 40px;
+	padding-top: 8px;
+}
+
+.source {
+	font-family: "Source Code Pro", Courier;
+	font-size: 14px;
+}
+
+.controls .alert {
+	float: left;
+}
+
+
+.btn-success{
+	width: 100px;
+	float: right;	
+	margin-top: 0px;	
+}
+label.checkbox{
+	float: left;
+}

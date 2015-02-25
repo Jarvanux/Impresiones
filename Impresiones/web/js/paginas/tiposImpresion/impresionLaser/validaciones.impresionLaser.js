@@ -3,21 +3,21 @@ var validacionesImpresionLaser = {
 //        alert('s');
         if ($('#soloBN').is(':checked')) {
             $('#mensaje').slideUp(500);
-            $('#' + ObjetoElementos.elementos[0].nombre).slideDown(500);
+            $('#' + ObjetoElementos.elementos[0].nombre).show(500);
             $('.spanPaso').html(ObjetoPasos.pasos[0].descripcion);
             contPaso += 1;
         } else if ($('#soloColor').is(':checked')) {
             $('#mensaje').slideUp(500);
-            $('#' + ObjetoElementos.elementos[0].nombre).slideDown(500);
+            $('#' + ObjetoElementos.elementos[0].nombre).show(500);
             $('.spanPaso').html(ObjetoPasos.pasos[0].descripcion);
             contPaso += 1;
         } else if ($('#mixto').is(':checked')) {
             $('#mensaje').slideUp(500);
-            $('#' + ObjetoElementos.elementos[0].nombre).slideDown(500);
+            $('#' + ObjetoElementos.elementos[0].nombre).show(500);
             $('.spanPaso').html(ObjetoPasos.pasos[0].descripcion);
             contPaso = 1;
         } else {
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
             $('#mensaje span.textMensaje').html('ERROR: No has seleccionado un tipo de color.');
         }
     },
@@ -26,7 +26,7 @@ var validacionesImpresionLaser = {
             if ($('#txtCantBN').val() > 0 || $('#txtCantVarBN').val().length > 0) {
                 $('#numCopys').val(1);
                 $('#mensaje').slideUp(500);
-                $('#' + ObjetoElementos.elementos[1].nombre).slideDown(500);
+                $('#' + ObjetoElementos.elementos[1].nombre).show(500);
                 $('.spanPaso').html(ObjetoPasos.pasos[2].descripcion);
                 if ($('#cmbxTipoBN').val() == 1) {
                     $('#numPaginasBN').val($('#txtCantBN').val());
@@ -39,14 +39,14 @@ var validacionesImpresionLaser = {
                 }
                 contPaso = 2;
             } else {
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
                 $('#mensaje span.textMensaje').html('ERROR: No has ingresado un parámetro válido para la cantidad de hojas a blanco y negro.');
                 $('#infoMixto #txtCanHBN').focus();
             }
         } else if ($('#soloColor').is(':checked')) {
             if ($('#txtCantColor').val() > 0 || $('#txtCantVarColor').val().length > 0) {
                 $('#mensaje').slideUp(500);
-                $('#' + ObjetoElementos.elementos[1].nombre).slideDown(500);
+                $('#' + ObjetoElementos.elementos[1].nombre).show(500);
                 $('.spanPaso').html(ObjetoPasos.pasos[2].descripcion);
                 if ($('#cmbxTipoColor').val() == 1) {
                     $('#numPaginasColor').val($('#txtCantColor').val());
@@ -60,31 +60,31 @@ var validacionesImpresionLaser = {
                 $('#numCopys').focus();
                 contPaso = 2;
             } else {
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
                 $('#mensaje span.textMensaje').html('ERROR: No has ingresado un parámetro válido para la cantidad de hojas a color.');
                 $('#infoMixto #txtCantHColor').focus();
             }
         } else if ($('#mixto').is(':checked')) {
             if ($('#txtBNMixto').val().length > 0 && $('#txtColorMixto').val().length > 0) {
                 $('#mensaje').slideUp(500);
-                $('#' + ObjetoElementos.elementos[1].nombre).slideDown(500);
+                $('#' + ObjetoElementos.elementos[1].nombre).show(500);
                 $('.spanPaso').html(ObjetoPasos.pasos[2].descripcion);
                 $('#numCopys').focus();
                 contPaso = 2;
             } else {
-                $('#mensaje').slideDown(500);
+                $('#mensaje').show(500);
                 $('#mensaje span.textMensaje').html('ERROR: No has ingresado parámetros válidos, recuerda que debes proporcionar datos para los dos campos.');
                 $('#infoMixto #txtColorMixto').focus();
             }
         } else {
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
             $('#mensaje span.textMensaje').html('ERROR: No has seleccionado un tipo de color.');
         }
     },
     validarNumCopias: function() {
         if ($('#numCopys').val() > 0) {
             $('#mensaje').slideUp(500);
-            $('#' + ObjetoElementos.elementos[contPaso].nombre).slideDown(500);
+            $('#' + ObjetoElementos.elementos[contPaso].nombre).show(500);
             $('.spanPaso').html(ObjetoPasos.pasos[contPaso + 1].descripcion);
             if ($('#soloBN').is(':checked')) {
                 $('#numTotal').val($('#txtCantBN').val() * $('#numCopys').val());
@@ -96,7 +96,7 @@ var validacionesImpresionLaser = {
             contPaso = 3;
             $('#btnsPasos').css({"margin-top": "10px"});
         } else {
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
             $('#mensaje span.textMensaje').html('ERROR: El número de copias de la misma impresión debe ser mayor a 0');
             $('#numCopys').focus();
         }
@@ -104,11 +104,11 @@ var validacionesImpresionLaser = {
     validarModoImpresion: function() {
         if ($('#cmbxModoImpresion').val() > 0) {
             $('#mensaje').slideUp(500);
-            $('#' + ObjetoElementos.elementos[contPaso].nombre).slideDown(500);
+            $('#' + ObjetoElementos.elementos[contPaso].nombre).show(500);
             $('.spanPaso').html(ObjetoPasos.pasos[contPaso + 1].descripcion);
             contPaso = 4;
         } else {
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un modo de impresión.');
             $('#cmbxModoImpresion').focus();
         }
@@ -116,12 +116,12 @@ var validacionesImpresionLaser = {
     validarTamanoImpresion: function() {
         if ($('#cmbxTipoTamano').val() > 0) {
             $('#mensaje').slideUp(500);
-            $('#' + ObjetoElementos.elementos[contPaso].nombre).slideDown(500);
+            $('#' + ObjetoElementos.elementos[contPaso].nombre).show(500);
             $('.spanPaso').html(ObjetoPasos.pasos[contPaso + 1].descripcion);
             contPaso = 5;
             $('#cmbxTipoPapel').focus();
         } else {
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un tamaño de impresión.');
             $('#cmbxTipoTamano').focus();
         }
@@ -130,15 +130,15 @@ var validacionesImpresionLaser = {
         valorImprePosible = true;
         if ($('#cmbxTipoPapel').val() > 0) {
             $('#mensaje').slideUp(500);
-            $('#' + ObjetoElementos.elementos[contPaso].nombre).slideDown(500);
+            $('#' + ObjetoElementos.elementos[contPaso].nombre).show(500);
             $('.spanPaso').html(ObjetoPasos.pasos[contPaso + 1].descripcion);
             contPaso = 5;
-            $('#valoresImpre').slideDown(500);
+            $('#valoresImpre').show(500);
             $('#btnSiguiente').hide();
-            $('#continuarForm').slideDown(500);
+            $('#continuarForm').show(500);
             $('#continuarForm').css({"cursor": "pointer"});
         } else {
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
             $('#mensaje span.textMensaje').html('ERROR: Debes seleccionar un tipo de papel.');
             $('#cmbxTipoPapel').focus();
         }

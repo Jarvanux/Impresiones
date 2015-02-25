@@ -5,14 +5,19 @@
 var inicio = {
     init: function() {
         if ((location.href.search('paneladministrador') < 0) && (location.href.search('login') < 0)) {
-            if (location.href.search('facturar') > 0) {
+            if (location.href.search('facturar') >= 0) {
                 inicio.cargar('paginas/administracionsSitio/facturacion.html');
             } else {
-                inicio.cargar('paginas/servicios/impresion.html');
-                $('#chat1').css({'margin-right': '30px'});
+                if (!location.href.search('facturar') >= 0) {
+                    inicio.cargar('paginas/servicios/impresion.html');
+                    $('#chat1').css({'margin-right': '30px'});
+                }
             }
 
             if (comprando) {
+                inicio.cargar('paginas/administracionsSitio/facturacion.html');
+            }
+            if (location.href.search('facturar') >= 0) {
                 inicio.cargar('paginas/administracionsSitio/facturacion.html');
             }
         }
@@ -70,10 +75,10 @@ var inicio = {
 
     },
     cargar: function(pagina) {
-        $("#divContenido").html('').append($('#cargador').clone().show());       
+        $("#divContenido").html('').append($('#cargador').clone().show());
         $.ajax({
             'url': pagina,
-            'type': 'POST',            
+            'type': 'POST',
             success: function(data) {
                 $("#divContenido").html(data);
             },

@@ -27,7 +27,7 @@ var controlTipoImpresion = {
                     }
                 }
             });
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show();
         });
     },    
     evaluarCarga: function() {
@@ -51,7 +51,7 @@ var controlTipoImpresion = {
             inicio.cargar('paginas/tiposImpresion/impresionPlanos.html');
             posicionActual = 5;
         } else {
-            $('#mensaje').slideDown(500);
+            $('#mensaje').show(500);
         }
     },
     consultarDescripcionTipoSeleccionado: function() {

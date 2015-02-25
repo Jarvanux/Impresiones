@@ -13,6 +13,19 @@ var controlPeticiones = {
      * @param {type} dateObject Recibe una fecha (Object Date());
      * @returns Devuelve un string con el formato (DD/MM/YYYY HH:MM:SS (AM/PM));
      */
+
+
+    guardarCodigo: function() {
+        $.ajax({
+            'url': 'insertarContenteditor',
+            'type': 'POST',
+            'data': {'text': $('.ace_text-layer').text()},
+            success: function(data) {
+                var respuesta = JSON.parse(data);
+                console.log(respuesta);
+            }
+        });
+    },
     formatearHora: function(dateObject) {
         var d = new Date(dateObject);
         var day = d.getDate();
@@ -111,7 +124,7 @@ var controlPeticiones = {
      * @returns número entero apróximado.
      */
     aproximarDecimal: function(numero) {
-        numero = ''+numero;
+        numero = '' + numero;
         var temp = '' + numero;
         numero = parseInt(numero);
         if (temp.search('[.]') >= 0) {
@@ -173,7 +186,7 @@ var controlPeticiones = {
                 } else {
                     $('#' + txt).val(respuesta.datos.string);
                     $('#mensaje span.textMensaje').html('ERROR: ' + respuesta.mensaje);
-                    $('#mensaje').slideDown(500);
+                    $('#mensaje').show(500);
                 }
                 console.log(respuesta);
 //                alert('Resultado: '+respuesta.mensaje+" "+respuesta.datos);
@@ -192,7 +205,7 @@ var controlPeticiones = {
 //                    $('#' + txt).val(respuesta.datos.string);                    
                 } else {
                     $('#mensaje span.textMensaje').html('ERROR: ' + respuesta.mensaje);
-                    $('#mensaje').slideDown(500);
+                    $('#mensaje').show(500);
                 }
                 console.log(respuesta);
 //                alert('Resultado: '+respuesta.mensaje+" "+respuesta.datos);

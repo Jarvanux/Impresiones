@@ -9,8 +9,7 @@ var chatInicio = {
         $('#paginasModales').hide();
         chatInicio.determinarConectados();
     },
-    determinarConectados: function() {
-        $.ajaxSetup({cache: false});
+    determinarConectados: function() {        
         $.ajax({
             'url': 'soporteconectado', //Nombre de instancia del servlet.
             'type': 'POST',

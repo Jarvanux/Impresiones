@@ -145,7 +145,7 @@ public class SubirArchivosServlet extends HttpServlet {
                 //Fin corrección nombre.
 
                 String nombreArchivoEscrito = System.currentTimeMillis() + "-" + nombreArchivo;
-                String rutaEscritura = new File("D:" + File.separator + "Servidor", nombreArchivoEscrito).toString();
+                String rutaEscritura = new File(request.getRealPath("archivos-subidos"), nombreArchivoEscrito).toString();
                 File fichero = new File(rutaEscritura);
 
                 ArchivosAdjuntos archivo = new ArchivosAdjuntos();

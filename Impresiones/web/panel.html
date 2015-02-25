@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">        
+        <link rel="stylesheet" href="css/styles_menu.css">
+        <link href="css/iconFont.css" rel="stylesheet">
+        <link href="css/panel-global.css" rel="stylesheet" />
+        <link href="css/global/global.css" rel="stylesheet" />
+        <script src="js/peticiones-globales/jquery-1.11.1.min.js" ></script>
+        <script src="js/control-panel-global.js" ></script>
+    </head>
+    <body>
+        <header>
+            <div id="content-header">
+                <img src="img/logo-min.png" />
+                <h1><span class="letraRoja">I</span>mpresiones a <span class="letraRoja">D</span>omicilio</h1><span class="com">.com</span>
+                <span id="cerrarSesion"><i class="icon-switch"></i>Cerrar Sesión</span>
+            </div>
+        </header>
+        <section>
+
+            <div id="button_menu" onclick="controlGlobal.mostrarMenu()">
+                <ul class="menu">
+                    <li class="title"><a href="#"><i class="icon-grid-view"></i></a>
+                    </li>
+                    <li class="home"><a href="#"><i class="icon-home"></i></a>                    
+                    </li>
+                    <li class="item1"><a href="#"><i class="icon-tag"></i></a>                    
+                    </li>
+                    <li class="item2"><a href="#"><i class="icon-comments-2"></i></a>
+                        <ul>
+                            <li class="subitem1"><a href="#"><i class="icon-comments"></i></a></li>
+                            <li class="subitem2"><a href="#"><i class="icon-comments-3"></i></a></li>
+                        </ul>
+                    </li>
+                    <li class="item3"><a href="#"><i class="icon-cog"></i></a>
+                        <ul>
+                            <li class="subitem1"><a href="#" class="withSubItems"><i class="icon-user"></i></a>
+                            </li>                        
+                            <li class="subitem2"><a href="#" class="withSubItems"><i class="icon-plus-2"></i></a>
+                                <ul>
+                                    <li class="subitem1"><a href="#"><i class="icon-yelp"></i>Conectado</a></li>
+                                    <li class="subitem2"><a href="#"><i class="icon-yelp"></i>Desconectado </a></li>
+                                    <li class="subitem3"><a href="#"><i class="icon-yelp"></i>Ocupado</a></li>
+                                    <li class="subitem3"><a href="#"><i class="icon-yelp"></i>Ausente</a></li>
+                                </ul>
+                            </li>                        
+                        </ul>
+                    </li>   
+                    <li class="cerrarSesion"><a href="#"><i class="icon-switch"></i></a>                    
+                    </li>
+                </ul>
+            </div>
+            <nav id="menu" style="display: none;">
+                <div id="wrapper">
+                    <ul class="menu">
+                        <li class="title"><a id="lnk-inicio" href="#" ><i class="icon-grid-view"></i> Menú <span id="btnHideMenu" onclick="controlGlobal.esconderMenu()"><i class="icon-arrow-left-2"></i></span></a>
+                        </li>
+                        <li class="home"><a id="lnk-inicio" href="#"><i class="icon-home"></i>Inicio<span>0</span></a>                    
+                        </li>
+                        <li class="item1"><a id="lnk-impresiones" href="#"><i class="icon-tag"></i> Pedidos <span>0</span></a>                    
+                        </li>
+                        <li class="item2"><a href="#"><i class="icon-comments-2"></i>Conversaciones </a>
+                            <ul>
+                                <li class="subitem1"><a id="conversChat" href="#"><i class="icon-comments"></i>Chat</a></li>
+                                <li class="subitem2"><a id="mensajesDejados" href="#"><i class="icon-comments-3"></i>Mensajes <span class="numMensajes">0</span></a></li>                        
+                            </ul>
+                        </li>
+                        <li class="item3"><a href="#"><i class="icon-cog"></i>Configuración</a>
+                            <ul>
+                                <li class="subitem1"><a id="lnk-perfil" href="#" class="withSubItems"><i class="icon-user"></i>Perfil</a>
+                                </li>                        
+                                <li class="subitem2"><a id="precios" href="#" class="withSubItems"><i class="icon-user"></i>Precios</a>
+                                </li>                        
+                                <li class="subitem3"><a href="#" class="withSubItems"><i class="icon-plus-2"></i>Cambiar estado </a>
+                                    <ul>
+                                        <li class="subitem1"> <a href="#" id="lnk-conectado" onclick="eventosUsuario.cambiarEstado(2)"><i class="icon-yelp"></i>Conectado</a></li>
+                                        <li class="subitem2"> <a href="#" id="lnk-desconectar" onclick="eventosUsuario.cambiarEstado(3)"><i class="icon-yelp"></i>Desconectado</a></li>
+                                        <li class="subitem3"> <a href="#" id="lnk-ocupado" onclick="eventosUsuario.cambiarEstado(4)"><i class="icon-yelp"></i>Ocupado</a></li>
+                                        <li class="subitem4"> <a href="#" id="lnk-ausente" onclick="eventosUsuario.cambiarEstado(5)"><i class="icon-yelp"></i>Ausente</a></li>                                                                                
+                                    </ul>
+                                </li>                        
+                            </ul>
+                        </li>   
+                        <li class="cerrarSesion"><a id="lnk-salir" href="#"><i class="icon-switch"></i> Cerrar sesión</a>                    
+                        </li>
+                    </ul>
+
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+
+                        var menu_ul = $('.menu > li > ul'),
+                                menu_a = $('.menu > li > a'),
+                                menu_aSub = $('.menu > li > ul > li a.withSubItems'),
+                                menu_ulSub = $('.menu > li > ul > li ul');
+
+                        menu_ul.hide();
+                        menu_ulSub.hide();
+
+                        menu_a.click(function(e) {
+                            e.preventDefault();
+                            if (!$(this).hasClass('active')) {
+                                menu_a.removeClass('active');
+                                menu_ul.filter(':visible').slideUp('normal');
+                                $(this).addClass('active').next().stop(true, true).slideDown('normal');
+                            } else {
+                                $(this).removeClass('active');
+                                $(this).next().stop(true, true).slideUp('normal');
+                            }
+                        });
+
+                        menu_aSub.click(function(ev) {
+                            console.log(this);
+                            if (!$(this).hasClass('active')) {
+                                //                        $(this).removeClass('active');
+                                //                        $(this).find('ul').slideDown('normal');
+                                //                        $(this).addClass('active');
+                                menu_aSub.removeClass('active');
+                                $(this).find('i.icon-plus-2').attr('class', 'icon-minus-2');
+                                //                        menu_ulSub.filter(':visible').slideUp('normal');
+                                $(this).addClass('active').next().slideDown('normal');
+                            } else {
+                                $(this).removeClass('active');
+                                $(this).find('i.icon-minus-2').attr('class', 'icon-plus-2');
+                                //                        $(this).slideUp('normal');
+                                $(this).removeClass('active');
+                                $(this).next().slideUp('normal');
+                            }
+                        });
+
+                    });
+                </script>
+            </nav>
+        </section>
+        <footer>
+
+        </footer>
+    </body>
+</html>

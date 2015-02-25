@@ -11,25 +11,43 @@
         <table border='0' >
             <tr><td>Tipo de impresión:</td><td><span id="tipo-impresion">Laser</span></td></tr>
             <tr><td>Guía de impresión:</td><td><span id="guiaImpresion">12341</span></td></tr>            
-            <tr><td>Total impresiones:</td><td><span id="colores">0</span></td></tr>            
-            <tr><td>Tipo color:</td><td><span id="totalImpresiones">0</span></td></tr>            
+            <tr><td>Tipo color:</td><td><span id="tipoColor">0</span></td></tr>            
+            <tr><td>Total impresiones:</td><td><span id="totalImpresiones">0</span></td></tr>            
             <tr><td>Fecha:</td><td><span id="fecha">0</span></td></tr>            
-            <tr><td>Archivo:</td><td><a href="#" title="Archivo subido"><span id="nameArchivo">Archivo.pdf</span></a></td></tr>
+            <tr><td>Archivo:</td><td><a id="rutaArchivo" href="#" target="_blank" title="Archivo subido"><span id="nameArchivo">Archivo.pdf</span></a></td></tr>
             <tr><td>Dirección de entrega:</td><td>
-                    <select id="cbxdireccion">
-                        <option value="-1">Selecciona</option>
-                    </select>
+                    <div>
+                        <select id="cbxdireccion" style="float: left; width: 90%;">
+                            <option value="-1">Selecciona</option>
+                        </select>
+                        <img src="img/icons/global/add2.gif" onclick="controlUsuario.mostrarFormDireccion()" style="width: 15px; float: left; margin-left: 3px; margin-top: 6px; cursor: pointer;" title="Agregar nueva dirección"/>
+                    </div>
                 </td>
             </tr>
         </table>
         <fieldset>
             <legend>Métodos de pago</legend>
-            <input type="radio" id="tarjeta" name="metodoPago" /><label for="tarjeta">Tarjeta de crédito</label>
-            <input type="radio" id="efectivo" name="metodoPago"/><label for="efectivo">Efectivo(Contra entrega - máximo $70.000)</label>
+            <!--<input type="radio" id="tarjeta" name="metodoPago" /><label for="tarjeta">Pago en linea con <a href="https://www.pse.com.co/web/pse/servicios" target="_blank"><img src="img/boton_pse.png" id="logoPSE"/></a></label>-->
+            <!--<input type="radio" id="efectivo" name="metodoPago"/><label for="efectivo">Efectivo(Contra entrega - máximo $70.000)</label>-->
+            <table>
+                <tr>
+                    <td>
+                        <input type="radio" id="efective" name="metodoPago" />
+                        <label for="efectivo">Efectivo(Contra entrega - máximo $50.000)</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: central;">
+                        <div style="margin-top: 10px; margin-right: 4px; float: left;"><input type="radio" id="target" name="metodoPago" /><label for="tarjeta" >Pago en linea con:</label></div> <a href="https://www.pse.com.co/web/pse/servicios" target="_blank"><img src="img/boton_pse.png" id="logoPSE" style="width: 50px;" /></a>
+                    </td>                
+                </tr>
+            </table>
         </fieldset>
         <input type="checkbox" id="terminos"/><label for="terminos" id="termText">Acepta los <a href="#" >Terminos</a> y <a href="#">Condiciones</a> de la compra.</label> 
         <button id="cancelarPedido" title="Cancelar el pedido.">Cancelar</button>
-        <button id="enviarPedido" title="Confirmar el pedido.">Confirmar pedido</button>                                        
+        <button id="enviarPedido" title="Confirmar el pedido.">Confirmar pedido</button>
+        <!--<a href="javascript:;" id="cancelarPedido" title="Cancelar pedido" class="bttn">Cancelar pedido</a>-->
+        <!--<a href="javascript:;" id="enviarPedido" title="Cancelar pedido" class="bttn bttn-success">Confirmar pedido</a>-->
     </div>
 </div>
 
@@ -42,8 +60,8 @@
             ¿Estás seguro de cancelar el pedido?
         </div>
         <div id="footer">
-            <input type="button" id="si-cancelar" value="Si" title="Cancelar"/>
-            <input type="button" id="no-cancelar" value="No" title="No cancelar"/>
+            <a href="javascript:;" id="si-cancelar" title="Cancelar" class="bttn bttn-success">Si</a>
+            <a href="javascript:;" id="no-cancelar" title="No cancelar" class="bttn">No</a>
         </div>
     </div>
 </div>

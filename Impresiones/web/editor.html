@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>edtor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <style>
+            @font-face {
+                font-family: Source Code Pro;
+                font-style: normal;
+                font-weight: normal;
+                src: url(fonts/SourceCodePro.otf);
+            }
+        </style>
+
+        <!-- Bootstrap -->
+        <!--<link href="./examples/bootstrap/css/bootstrap.css" rel="stylesheet">-->
+        <!--<link href="./examples/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">-->
+
+        <!-- Editor CSS -->
+        <link href="./examples/css/editor.css" rel="stylesheet">        
+
+        <!--<script src="js/source-code-pro.js"></script>-->
+    </head>
+
+    <body>        
+
+        <div id="editor" class="bypass"></div>
+
+        <div class="controls">
+            <div class="pull-right">                                                
+            </div>
+
+            <label class="checkbox">
+                <input type="checkbox" id="auto-refresh" > Auto refrescar camibos?
+            </label>
+            <a href="#" class="run-code hide btn btn-success" style="display: block;">Ejecutar código</a>
+
+            <div class="alert hide">
+                Auto refrescar desactivado
+            </div>
+
+        </div>
+
+        <div class="clerfix"></div>
+        <div class="span12 credits">  
+
+        </div>
+
+        <!--<script src="js/jquery-1.11.1.min_1.js"></script>-->
+
+        <!-- Inicio editor -->
+        <script src="js/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="./examples/js/editor.js"></script>        
+        <!-- Fin editor-->
+
+        <script>
+            $(document).ready(function() {
+                editor.setValue("//All code your here :D.");
+                editor.gotoLine(0);
+            });
+        </script>
+    </body>
+</html>

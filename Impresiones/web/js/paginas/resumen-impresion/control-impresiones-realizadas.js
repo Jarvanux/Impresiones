@@ -72,7 +72,13 @@ var controlImpresionesRealizadas = {
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-1').html(indice + 1);
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-2').html(valor.guiaImpresion);
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-3').html(controlPeticiones.formatearHora(valor.fecha));
-                        $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-4').html('<a href="' + valor.rutaArchivo + '">' + valor.nombreArchivo + '</a>');
+
+                        if (valor.rutaArchivo != "") {
+                            $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-4').html('<a target="_blank" href="' + (valor.rutaArchivo).substring((valor.rutaArchivo).search("archivos-subidos")) + '">' + valor.nombreArchivo + '</a>');
+                        } else {
+                            $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-4').html('<a target="_blank" href="' + valor.linkArchivo + '">' + "Link de descarga" + '</a>');
+                        }
+
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-5').html((valor.hojasBn + valor.hojasColor) * valor.copias);
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-6').html(valor.estado);
                     });
@@ -103,7 +109,11 @@ var controlImpresionesRealizadas = {
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-1').html(indice + 1);
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-2').html(valor.guiaImpresion);
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-3').html(controlPeticiones.formatearHora(valor.fecha));
-                        $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-4').html('<a href="' + valor.rutaArchivo + '">' + valor.nombreArchivo + '</a>');
+                        if (valor.rutaArchivo != "") {
+                            $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-4').html('<a target="_blank" href="' + (valor.rutaArchivo).substring((valor.rutaArchivo).search("archivos-subidos")) + '">' + valor.nombreArchivo + '</a>');
+                        } else {
+                            $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-4').html('<a target="_blank" href="' + valor.linkArchivo + '">' + "Link de descarga" + '</a>');
+                        }
                         $('#body table#tablaContent tr#tr_' + valor.idImpresion + ' td.colum-5').html((valor.hojasBn + valor.hojasColor) * valor.copias);
                     });
                 } else {

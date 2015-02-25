@@ -18,9 +18,9 @@ var peticionImpresion = {
                     });
                     $('#imgLoader').hide();
                     $('#smsLoader').hide();
-                    $('.subTitulo1').slideDown(500);
-                    $('#cmbTipoImpresion').slideDown(500);
-                    $('#btnTipoImpresion').slideDown(500);                                                       
+                    $('.subTitulo1').show(500);
+                    $('#cmbTipoImpresion').show(500);
+                    $('#btnTipoImpresion').show(500);                                                       
     }
 };
 

@@ -22,7 +22,7 @@ var facturarcion = {
 //                }
 //            });
             $('#contenidoConfirmacion').hide();
-            inicio.cargar('paginas/servicios/impresion.html');
+//            inicio.cargar('paginas/servicios/impresion.html');
         });
         $('#no-cancelar').click(function() {
             //Hace la cancelación respectiva...
@@ -57,14 +57,22 @@ var facturarcion = {
                     $('span#guiaImpresion').html(respuesta.datos.guiaImpresion);
                     $('span#totalImpresiones').html((respuesta.datos.hojasBn + respuesta.datos.hojasColor) * respuesta.datos.copias);
 
+
                     //Determinamos el tipo de color...
                     var tipoColor = respuesta.datos.tipoColor;
                     if (tipoColor == 0) {
-                        $('span#totalImpresiones').html('Blanco y negro(B/N)');
+                        $('span#tipoColor').html('Blanco y negro(B/N)');
                     } else if (tipoColor == 1) {
-                        $('span#totalImpresiones').html('Color');
+                        $('span#tipoColor').html('Color');
                     } else if (tipoColor == 2) {
-                        $('span#totalImpresiones').html('Mixto (Color y B/N)');
+                        $('span#tipoColor').html('Mixto (Color y B/N)');
+                    }
+
+                    if (respuesta.datos.rutaArchivo.length > 0) {                        
+                        $('#rutaArchivo').attr('href', (respuesta.datos.rutaArchivo).substring((respuesta.datos.rutaArchivo).search("archivos-subidos")));
+                    }else{
+                        $('#rutaArchivo').attr('href', respuesta.datos.linkArchivo);                        
+                        $('#rutaArchivo span').html('Link de descarga');
                     }
 
                     //Otros datos...
@@ -74,7 +82,7 @@ var facturarcion = {
                     $('#notificaciones p').html('Bienvenido! Selecciona el método de pago y confirma el pedido.');
                     $('#notificaciones').show('slow');
                 } else {
-                    inicio.cargar('paginas/servicios/impresion.html');
+//                    inicio.cargar('paginas/servicios/impresion.html');
                 }
             }
         });
@@ -87,4 +95,5 @@ var facturarcion = {
 $(document).ready(function() {
     facturarcion.init();
     facturarcion.eventos();
+    controlUsuario.consultarDirecciones();
 });
