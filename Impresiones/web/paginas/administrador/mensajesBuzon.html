@@ -83,34 +83,25 @@
 
 
 
-<div id="detallesSMS" class="back-modal" style="display: none;">
-    <div id="contentModal">
-        <div id="content" class="contet-modal">
-            <div id="titulo" class="header-modal">
-                <div id="titulo" class="titulo-modal">
-                    <h2>Mensaje</h2>                    
-                </div>
-                <div id="cerrar" class="close-modal">
-                    <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCerrar"/>
-                </div>
-            </div>                
-            <div id="cuerpo" class="body-modal">
-                <input type="hidden" id="idSMS" />
-                <label>Nombre del cliente:</label>
-                <input type="text" disabled="disabled" id="nombreCliente"/>
-                <label>Correo del cliente:</label>
-                <input type="text" disabled="disabled" id="correo" />
-                <label>Mensaje:</label>
-                <textarea id="mensajeEnviado" disabled="disabled"></textarea>
-                <div id="divFecha"><b>Fecha del mensaje</b><span id="fecha">26/12/2014 12:06:40</span></div>
-            </div>
-            <div class="footer-modal">
-                <input type="button" id="visto" class="btn-aceptar" value="Visto"  title="Marcar como leido." onclick="eventosUsuario.marcarComoLeido()"/>
-                <input type="button" id="cancelar" class="btn-cancelar" value="Volver"  title="Volver atrás" onclick="eventosUsuario.cerrarDetallesSMS()"/>
-            </div>
+<div id="detallesSMS" class="form-modal"  style="display: none;">
+    <div class="content-form">
+        <div class="header-form">
+            <span>Detalles del Mensaje</span>            
+            <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCerrar"/>            
+        </div>
+        <div class="body-form">
+            <input type="hidden" id="idSMS" />
+            <label>Nombre del cliente:</label> <input type="text" id="nombreCliente" placeholder="Nombre del cliente." disabled="disabled"/>
+            <label>Correo electrónico:</label> <input type="text" id="correo" placeholder="Correo electrónico." disabled="disabled"/>
+            <label>Correo electrónico:</label> <textarea id="mensajeEnviado" disabled="disabled"></textarea>
+            <div id="divFecha"><span id="textFec">Fecha del mensaje:</span><span id="fecha">19/02/2015 1:58:48 PM</span></div>
+        </div>
+        <div class="footer-form">
+            <a href="javascript:;" id="visto" class="bttn bttn-success" title="Marcar como leido." onclick="eventosUsuario.marcarComoLeido()">Visto</a>
+            <a href="javascript:;" id="cancelar" class="bttn" title="Volver atrás" onclick="eventosUsuario.cerrarDetallesSMS()">Volver</a>
         </div>
     </div>
-</div>    
+</div>   
 
 <script>
     $('#imgCerrar').click(function() {

@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+comprando = false;
 var inicio = {
     init: function() {
-        if ((location.href.search('paneladministrador') < 0) && (location.href.search('login') < 0)) {
+        if ((location.href.search('paneladministrador') < 0) && (location.href.search('login') < 0) && (location.href.search('paneloperador') < 0)) {
             if (location.href.search('facturar') >= 0) {
                 inicio.cargar('paginas/administracionsSitio/facturacion.html');
             } else {

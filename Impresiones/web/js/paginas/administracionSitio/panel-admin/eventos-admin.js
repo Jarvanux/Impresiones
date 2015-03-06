@@ -177,7 +177,12 @@ var eventosUsuario = {
         });
     },
     eventos: function() {
-        inicio.cargar('paginas/resumen-impresion/impresiones.html');
+
+        $('#controlUsuarios').click(function() {
+            inicio.cargar('paginas/administracionsSitio/usuarios.html');
+        });
+
+//        inicio.cargar('paginas/resumen-impresion/impresiones.html');
 
         eventosUsuario.regresarfondoLis();
         $('.menu li a#lnk-inicio').attr({'class': 'fondo-rojo'});

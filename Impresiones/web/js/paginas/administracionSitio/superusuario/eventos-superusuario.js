@@ -5,14 +5,14 @@
  */
 
 var eventosSuperUsuario = {
-    init: function() {        
-    },    
+    init: function() {
+    },
+    cerrarNewTipo: function() {
+        $('#newTipo').hide();
+        $('#confirmar').hide();      
+        $('#configPanel').hide();      
+    },
     eventos: function() {
-//        $(window).click(function (){
-//            $('#tbcostosMantenimiento input').hide();
-//            $('#tbcostosMantenimiento span').show();
-//        });
-
         $('#minimizarMenu').click(function() {
             $('#menuAvanzadoList').hide('slow');
             $('#menuAvanzado').show('slow');
@@ -30,11 +30,4 @@ var eventosSuperUsuario = {
 $(document).ready(function() {
     eventosSuperUsuario.init();
     eventosSuperUsuario.eventos();
-//    $('td#clipColor input').val(($('td#clipColor span').html()).replace('$', ''));
-//    $('td#rIColor input').val(($('td#rIColor span').html()).replace('$', ''));
-//    $('td#operColor input').val(($('td#operColor span').html()).replace('$', ''));
-//
-//    $('td#clipBn input').val(($('td#clipBn span').html()).replace('$', ''));
-//    $('td#rIBn input').val(($('td#rIBn span').html()).replace('$', ''));
-//    $('td#operBn input').val(($('td#operBn span').html()).replace('$', ''));
 });

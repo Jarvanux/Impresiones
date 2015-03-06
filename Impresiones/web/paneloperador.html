@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Impresiones a Domicilio</title>
+        <meta charset="UTF-8" />
+        <link type="text/css" rel="stylesheet" media="screen" href="css/global/panel-usuario.css" />
+        <link href="img/icons/global/favicon.jpg" rel="icon" type="image/x-icon" />        
+        <link rel="stylesheet" href="css/global/menus-despegables.css" />
+        <link rel="stylesheet" href="css/global/global-modals.css" />
+        <link rel="stylesheet" href="css/global/global.css" />
+        <link rel="stylesheet" href="css/paginas/chat/chat-new.css" />         
+        <!--<link media="screen" type="text/css" rel="stylesheet" href="css/styles_1.css" />-->
+        <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>        
+        <script src="js/peticiones-globales/peticiones-globales.js" type="text/javascript"></script>
+        <script src="js/paginas/informacionSitio/home/control-visitantes.js" type="text/javascript"></script>
+        <script src="js/paginas/administracionSitio/panel-usuario/control-panelusuario.js"></script>
+        <script src="js/paginas/administracionSitio/panel-admin/eventos-admin.js"></script>
+        <script>
+            controlUsuario.init();
+        </script>
+        <script src="js/paginas/chat/chat-eventos.js" type="text/javascript"></script>        
+        <script src="js/paginas/chat/chat-control-admin.js" type="text/javascript"></script>
+        <script src="js/paginas/chat/refrescar-chats-admin.js" type="text/javascript"></script>
+        <!--<script src="js/paginas/chat/refres-panel-admin.js"></script>-->
+    <body>
+        <header>  
+            <div id="content-header">
+                <img id="logo" src="img/icons/global/logo-new.svg" alt="Impresiones a domicilio"/>              
+                <nav>                
+                    <ul class="menu" id="menu1">
+                        <li> <a id="lnk-inicio" href="#">Inicio</a></li>                        
+                        <li> <a id="lnk-impresiones" href="#">Pedidos</a>
+                        <li> <a id="lnk-conversaciones" href="#">Conversaciones</a>
+                            <ul>
+                                <li><a id="conversChat" href="#">Chat</a></li>
+                                <li><a id="mensajesDejados" href="javascript:;">Mensajes <span class="numMensajes">5++</span></a></li>
+                            </ul>
+                        </li>
+                        <li> <a id="lnk-configuracion" href="#">Configuración</a>
+                            <ul>
+                                <li> <a id="lnk-perfil" href="#">Perfil</a></li>
+                                <li> <a href="#">Preferencias</a></li>                                                            
+                            </ul> 
+                        </li>
+                        <li> <a id="lnk-ayuda" href="#">Mi estado</a>
+                            <ul>
+                                <li> <a href="#" id="lnk-conectado" onclick="eventosUsuario.cambiarEstado(2)">Conectado</a></li>
+                                <li> <a href="#" id="lnk-desconectar" onclick="eventosUsuario.cambiarEstado(3)">Desconectado</a></li>
+                                <li> <a href="#" id="lnk-ocupado" onclick="eventosUsuario.cambiarEstado(4)">Ocupado</a></li>
+                                <li> <a href="#" id="lnk-ausente" onclick="eventosUsuario.cambiarEstado(5)">Ausente</a></li>
+                            </ul>
+                        </li>                        
+                        <li> <a id="lnk-salir" href="#" >
+                                <img src="img/icons/global/cerrar-sesion.png" id="salir" />
+                                <span>Cerrar sesión</span>
+                            </a>                            
+                        </li>
+                    </ul>
+
+                    <ul class="menu" id="menu2" style="display: none">
+                        <li> <a id="lnk-inicio" href="#">Inicio</a></li>
+                        <li> <a id="lnk-impresiones" href="#">Pedidos</a>                        
+                        <li> <a id="lnk-configuracion" href="#">Configuración</a>
+                            <ul>
+                                <li> <a id="lnk-perfil" href="#">Perfil</a></li>
+                                <li> <a href="#">Preferencias</a></li>                            
+                            </ul> 
+                        </li>                        
+                        <li><a id="lnk-menu-android" href="#"><img src="img/icons/global/menu-android.png" id="menu-android"/></a>
+                            <ul>
+                                <li> <a id="lnk-conversaciones" href="#">Conversaciones</a>
+                                    <ul>
+                                        <li><a id="conversChat" href="javascript:;"></a>Chat</li>
+                                        <li><a id="mensajesDejados2" href="javascript:;">Mensajes <span class="numMensajes">0</span></a></li>
+                                    </ul>
+                                </li>
+                                <li> <a id="lnk-ayuda" href="#">Ayuda</a>                                    
+                                </li>                                                                
+                            </ul>
+                        </li>
+                        <li> <a id="lnk-salir" href="#" >
+                                <img src="img/icons/global/cerrar-sesion.png" id="salir" />
+                                <span>Cerrar sesión</span>
+                            </a>                            
+                        </li>
+                    </ul>
+                </nav>    
+            </div>
+        </header> 
+        <div id="contenedor">            
+            <section>
+                <div id="divContenido">
+                </div>                            
+            </section>
+        </div>
+
+
+        <div id="cargador">
+            <img src="img/icons/global/preloader.gif" alt="cargando" />
+            <span>Cargando...</span>
+        </div>
+
+
+        <!--CHAT ADMIN-->
+        <!--Aquí se cargará el chat :D-->
+        <div id="visitantes" style="float: right;">
+            <div id="header">
+                <div id="estado"></div>
+                <span id="title">Tús clientes</span>
+            </div>
+            <div id="body">                                              
+            </div>
+            <div id="footer">
+            </div>
+        </div>
+        <div class="all-chats">
+            <div class="chat-panel" id="chatmodelo" style="display: none">   
+                <span id="leidos" class="false" style="display:none;">0</span>     
+                <span class="leyendoChat" style="display: none;">false</span>
+                <span class="maxPrimeraVez" style="display: none;">true</span>
+                <div class="chat-header">
+                    <div class="estado"></div>
+                    <span class="text-header">Ana vargas</span>                                        
+                    <div class="mensajes-reci" id="mensajes-recibidos">
+                        <!--                        <img src="img/chat/escribiendo-sms.gif" title=""/>-->
+                        0
+                    </div>                    
+                    <div class="chatsLeidos" style="display: none;">
+                        -1
+                    </div>
+                    <div class="btn-close" onclick="controlChat.clickClose(event)" title="Cerrar ventana"><img src="img/chat/close-chat.png"/></div>
+                    <div class="btn-min" onclick="controlChat.clickMin(event)" title="Minimizar"><div></div></div>
+                    <div class="btn-max" onclick="controlChat.clickMax(event)" title="Maximizar"><div></div></div>
+                </div>
+                <div class="chat-body">             
+                </div>            
+                <div class="chat-footer">
+                    <textarea class="text-sms" id="sms" onkeydown="controlChat.keyPress(event)" ></textarea>
+                </div>
+            </div>                
+        </div>
+
+        <div id="tiposSms" style="display:none;">
+
+            <div class="reg-visitante">
+                <div id="data-user">
+                    <span class="name">Error Error</span>
+                    <div id="estado">                        
+                    </div>
+                </div>
+                <div class="info-sms">
+                    <span class="resumen-sms">1</span><span> Mensajes</span>
+                </div>
+            </div>  
+            <div id="errorbuscandoamin">
+                <img src="img/icons/global/alert-icon.png" />
+                <span>¡Ups! Estamos desconectados,, deja un mensaje y tus datos de contacto, nuestros agentes intentarán ponerse en contacto más tarde.</span>
+                <input type="button" id="dejarSms" value="Dejar Mensaje" onclick="controlChat.showInfo()"/>
+            </div>
+            <div id="datosPersonales">
+                <div id="informacion">
+                    <img src="img/icons/global/alerta-info.png" />
+                    <span id="informacion">Para iniciar el chat debes ingresar tú nombre y un correo electrónico a continuación.</span>
+                </div>
+                <label>Nombre:</label>
+                <input type="text" id="nameVisitante" />
+                <label>Correo:</label>
+                <input type="text" id="correoVisitante" />
+                <input type="button" value="Empezar ahora" onclick="controlChat.validaDatosVisitante()"/>
+            </div>
+            <div class="contacto-escribiendo" style="display: none">                
+                <img src="img/chat/escribiendo-sms.gif" />
+            </div>
+            <div class="estado-acciones">
+                <span style="display: none;">Escribiendo...</span>
+                <img src="img/chat/enviando-sms.gif" style="display: none"/>                
+            </div>
+
+            <div class="buscando-soporte">
+                <img src="img/icons/global/loader.gif" />
+                <span class="text-shearh" >Buscando un asesor.</span>
+            </div>
+            <!--SMS EMISOR-->
+            <div class="sms-emisor" style="display: none;">
+                <div class="name-usuario" >                    
+                    <span class="usuario">Tú</span>
+                </div>
+                <div class="content-sms" >
+                    Sms emisor
+                </div>
+                <div class="fecha">  
+                    22/23/2014 02:00 pm
+                </div>
+            </div>
+            <!--FIN SMS EMISOR-->
+            <!--SMS RESEPTOR-->
+            <div class="sms-reseptor" style="display: none;">                            
+                <div class="name-usuario">
+                    <span>Alex Amaya</span>
+                </div>
+                <div class="content-sms">
+                    Sms reseptor
+                </div>
+                <div class="fecha">
+                    22/23/2014 02:00 pm
+                </div>
+            </div>        
+            <!--FIN SMS RESPTOR-->
+        </div>
+        <!--Fin carga chat.-->
+        <!--FIN CHAT ADMIN-->
+
+        <!--Aquí se cargarán las páginas externas del login y registro modalmente.-->
+        <div id="info" class="back-modal" style="display: none">
+            <div id="content" class="contet-modal" >
+                <div id="titulo" class="header-modal">
+                    <div id="titulo" class="titulo-modal" >
+                        <h2>Resumen del pedido</h2>
+                    </div>
+                    <div id="cerrar" class="close-modal" style="cursor: pointer;" >
+                        <img src="img/icons/global/close-modal.png" title="Cerrar ventana" id="imgCerrar"/>
+                    </div>
+                </div>
+                <div id="cuerpo" class="body-modal" style="overflow: auto;">
+                    <div id="content-detalles">
+                        <div id="content-body">
+                            <table cellspacing='0'>
+                                <tr>
+                                    <td class="td1">Guía de impresión:</td>
+                                    <td class="td2">124112342432</td>
+                                </tr>
+                                <tr>                                    
+                                    <td class="td1">Hojas Blaco y negro:</td>
+                                    <td class="td2">4</td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">Hojas a color:</td>
+                                    <td class="td2">5</td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">N° de copias:</td>
+                                    <td class="td2">2</td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">Total impresiones:</td>
+                                    <td class="td2">18</td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">Valor unitario color:</td>
+                                    <td class="td2">$1000</td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">Valor unitario BN:</td>
+                                    <td class="td2">$300</td>
+                                </tr>
+                                <tr>
+                                    <td class="td1">Valor total:</td>
+                                    <td class="td2">$10000</td>
+                                </tr>
+                                <tr title='Clic para ver detalles'>
+                                    <td class="td1">Anillado:</td>
+                                    <td class="td2">Si</td>
+                                </tr>
+                                <tr title='Clic para ver detalles'>
+                                    <td class="td1">Plastificado:</td>
+                                    <td class="td2">Si</td>
+                                </tr>
+                                <tr title='No hay detalles para observar'>
+                                    <td class="td1">Corte</td>
+                                    <td class="td2">No</td>
+
+                                </tr>
+                                <tr title='No hay detalles para observar'>
+                                    <td class="td1">Cosido:</td>                                             
+                                    <td class="td2">No</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="content-footer">                            
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-modal">                               
+                </div>
+            </div>
+        </div>        
+        <!--Fin carga páginas externas.-->
+        <script type="text/javascript" src="js/paginas/informacionSitio/home/home.js"></script>
+        <div id="notificaciones" style="display: none;">
+            <div id="noti-header">
+                <span>Atención!</span>
+                <img src="img/icons/global/close.png" id="cerrarAlert" onclick="controlPeticiones.cerrarAlerta()"/>
+            </div>
+            <div id="noti-body">                
+                <img src="img/icons/global/alerta-info.png" />
+                <p>
+                    Revisa el panel de mensajes, ha llegado uno nuevo.
+                </p>
+            </div>
+            <div id="noti-footer">                
+            </div>
+        </div>
+        <div id="error-data" style="display: none; margin-top: 20px;">
+            <img src="img/icons/global/error-icon.png" /><h1>Error de conexión</h1>
+            <p> Se ha producido un error al conectar con el servidor, revisa tu conexión, recarga
+                la página o solicita el servicio nuevamente para realizar nuevamente la petición,
+                si se presenta el mismo error contacta el administrador de servicio en donde 
+                se encuentra alojada la aplicaicíon.
+            </p>
+        </div>
+
+<!--        <script src="moverDivs.js"></script>
+        <script src="js/editor.js"></script>
+        <div id="editorPanel" style="display: none; top: 300px; left:0px; position:absolute;" onmousedown="comienzoMovimiento(event, this.id);" onmouseover="this.style.cursor = 'move'">            
+            <div id="cerrarEditor" onclick="editorHide()">Cerrar</div>
+            <div id="header"><h3>Editor JAVASCRIPT</h3></div>
+            <div id="contentEditor">
+                <div>
+                </div>
+            </div>            
+        </div>
+
+        <div id="abrirEditor" onclick="editorShow()" >
+            <span>Editor</span>
+        </div>-->
+
+    </body>
+</html>

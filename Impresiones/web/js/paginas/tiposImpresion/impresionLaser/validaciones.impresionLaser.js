@@ -33,7 +33,7 @@ var validacionesImpresionLaser = {
                     $('#numTotal').val($('#numPaginasBN').val() * $('#numCopys').val());
                     $('#numCopys').focus();
                 } else if ($('#cmbxTipoBN').val() == 2) {
-                    controlPeticiones.calcularPaginas('txtCantVarBN', 1);
+                    controlPeticiones.calcularPaginas($('#txtCantVarBN').val(), 1);
                     $('#numTotal').val($('#numPaginasBN').val() * $('#numCopys').val());
                     $('#numCopys').focus();
                 }
@@ -53,7 +53,7 @@ var validacionesImpresionLaser = {
                     $('#numTotal').val($('#numPaginasColor').val() * $('#numCopys').val());
                     $('#numCopys').focus();
                 } else if ($('#cmbxTipoColor').val() == 2) {
-                    controlPeticiones.calcularPaginas('txtCantVarColor', 2);
+                    controlPeticiones.calcularPaginas($('txtCantVarColor').val(), 2);
                     $('#numTotal').val($('#numPaginasColor').val() * $('#numCopys').val());
                     $('#numCopys').focus();
                 }

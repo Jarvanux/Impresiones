@@ -16,6 +16,7 @@ import co.com.rempe.impresiones.persistencia.dao.CostosMantenimientoDAO;
 import co.com.rempe.impresiones.persistencia.dao.ImpresionLaserDAO;
 import co.com.rempe.impresiones.persistencia.dao.ModoImpresionDAO;
 import co.com.rempe.impresiones.persistencia.dao.PorcentajeGananciaDAO;
+import co.com.rempe.impresiones.persistencia.dao.RelacionesPapelDAO;
 import co.com.rempe.impresiones.persistencia.dao.ServiciosAdicionalesDAO;
 import co.com.rempe.impresiones.persistencia.dao.TipoCorteDAO;
 import co.com.rempe.impresiones.persistencia.dao.TipoPapelDAO;
@@ -27,6 +28,7 @@ import co.com.rempe.impresiones.persistencia.entidades.CostosMantenimiento;
 import co.com.rempe.impresiones.persistencia.entidades.ImpresionLaser;
 import co.com.rempe.impresiones.persistencia.entidades.ModoImpresion;
 import co.com.rempe.impresiones.persistencia.entidades.PorcentajeGanacia;
+import co.com.rempe.impresiones.persistencia.entidades.RelacionesPapel;
 import co.com.rempe.impresiones.persistencia.entidades.ServiciosAdicionales;
 import co.com.rempe.impresiones.persistencia.entidades.TipoCorte;
 import co.com.rempe.impresiones.persistencia.entidades.TipoPapel;
@@ -61,7 +63,7 @@ public class ImpresionDelegado {
         EntityManager em = null;
         Respuesta respuesta = new Respuesta();
         try {
-            System.out.println("Tipo Color: " + impresionLaser.getTipoColor());
+//            System.out.println("Tipo Color: " + impresionLaser.getTipoColor());
             em = BDConexion.getEntityManager();
             em.getTransaction().begin();
             ImpresionLaserDAO dao = new ImpresionLaserDAO(em);
@@ -182,7 +184,7 @@ public class ImpresionDelegado {
 
     public Respuesta calculaNumPaginas(String cadena) {
         Respuesta respuesta = new Respuesta();
-        System.out.println(cadena);
+//        System.out.println(cadena);
         try {
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
             String resultado = CalcularPaginas.controlCalculo(cadena);
@@ -231,11 +233,14 @@ public class ImpresionDelegado {
             tipoTamano = tipoTamanoDAO.consultarTipoTamano(tamano);
             //Fin consulta tamaño.
 
+//            System.out.println("TIPO tamaño: " + tipoTamano.getTipoTamano());
             //Consultamos el papel.
             TipoPapel tipoPapel = new TipoPapel();
             TipoPapelDAO tipoPapelDAO = new TipoPapelDAO(em);
             tipoPapel = tipoPapelDAO.consultarTipoPapelPorID(papel);
             //Fin consulta papel.
+
+//            System.out.println("Tipo papel: " + tipoPapel.getPapel());
 //
             //Consultamos los costos de mantenimiento según el tipo de color seleccionado.
             CostosMantenimiento costosMantenimiento = new CostosMantenimiento();
@@ -248,19 +253,23 @@ public class ImpresionDelegado {
             double precioPliego = tipoPapel.getPrecioPliego();
             double numeroHojas = tipoTamano.getNumeroHojas();
 
+//            System.out.println("Precio pliego: " + precioPliego);
+//            System.out.println("Número hojas: " + precioPliego);
             //Si tipoColor = 0 la impresión es a B/N, si es 1 es a Color
             double valorFinal = precioPliego / numeroHojas;
 
-            System.out.println(valorFinal);
-
+//            System.out.println("Valor final: " + valorFinal);
+            //precioPliego / numero de hojas
+//            System.out.println(valorFinal);
             //Multiplicamos El costo de mantenimiento * el tipo de papel + el valor de la impresión.
             double costoMantent = costosMantenimiento.getValorCosto();
-            System.out.println(costoMantent);
+//            System.out.println(costoMantent); //precioPliego / numero de hojas * costo mantinimiento.
             //Una vez multiplicado el costo de mantenimiento * el tipo del papel, es hora de sumar.
-            costoMantent *= tipoTamano.getCostoImpresion();
-            System.out.println(costoMantent);
+            costoMantent *= tipoTamano.getCostoImpresion(); //precioPliego / numero de hojas
+
+//            System.out.println(costoMantent);
             valorFinal = (valorFinal + costoMantent);
-            System.out.println(valorFinal);
+//            System.out.println(valorFinal);
             ValorImpresion valorImpresion = new ValorImpresion();
 
             PorcentajeGanacia porcentajeGanancia = new PorcentajeGanacia();
@@ -268,6 +277,7 @@ public class ImpresionDelegado {
             porcentajeGanancia = porcentajeGananciaDAO.consultarGanancia(numHojas, tipoColor);
 
             valorFinal *= porcentajeGanancia.getPorcentaje() / 100;
+            //precioPliego / numero de hojas
             valorImpresion.setValorImpresion(Utilerias.redondearDecimal(valorFinal));
 
 //            ValorCosto * %Ganancia / 100.
@@ -303,20 +313,20 @@ public class ImpresionDelegado {
         EntityManager em = null;
         Respuesta respuesta = new Respuesta();
         try {
-            System.out.println("Tipo Color: " + data.getTipoColor());
+//            System.out.println("Tipo Color: " + data.getTipoColor());
             em = BDConexion.getEntityManager();
             em.getTransaction().begin();
             //Fijamos el usuario para saber que está comprando.
             Usuarios usuario = UsuarioDelegado.getInstancia().consultarUsuario(idUSuario);
-            System.out.println("Id Usuario Recibido: " + idUSuario);
+//            System.out.println("Id Usuario Recibido: " + idUSuario);
             if (usuario != null) {
-                System.out.println("Consultado.");
+//                System.out.println("Consultado.");
                 usuario.setComprando(true);
                 UsuariosDAO daoUser = new UsuariosDAO(em);
                 daoUser.editar(usuario);
                 ImpresionLaserDAO dao = new ImpresionLaserDAO(em);
                 Date hora = new Date();
-                System.out.println(hora);
+//                System.out.println(hora);
                 data.setFecha(hora);
                 data.setIdUsuario(idUSuario); //Le pasamos el id del usuario logeado.
                 dao.crear(data);//Y finalmente guardamos la impresión realizada
@@ -326,7 +336,7 @@ public class ImpresionDelegado {
             } else {
                 respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
                 respuesta.setMensaje("El usuario no ha sido consultado.");
-                System.err.println("No consultado.");
+//                System.err.println("No consultado.");
             }
             return respuesta;
         } catch (Exception e) {
@@ -421,10 +431,19 @@ public class ImpresionDelegado {
             TipoTamanoDAO daoTt = new TipoTamanoDAO(em);
             List<TipoTamano> listaTt = daoTt.buscarTodos();
 
+            //Listammos los porcentajes de ganancia para color.
+            PorcentajeGananciaDAO daoG = new PorcentajeGananciaDAO(em);
+            List<PorcentajeGanacia> listGC = daoG.gananciasColor(1);
+
+            //Listamos los porcentajes de ganancia para bn.
+            List<PorcentajeGanacia> listGBN = daoG.gananciasColor(0);
+
             List<Object> listaReturn = new ArrayList<Object>();
             listaReturn.add(costos);
             listaReturn.add(listaTp);
             listaReturn.add(listaTt);
+            listaReturn.add(listGC);
+            listaReturn.add(listGBN);
 
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
             respuesta.setMensaje("Precios consultados satisfactoriamente");
@@ -443,7 +462,7 @@ public class ImpresionDelegado {
             em = BDConexion.getEntityManager();
             CostosMantenimientoDAO dao = new CostosMantenimientoDAO(em);
             CostosMantenimiento costo = dao.consultarCostosMantenimientoID(dataBn.getIdCostosMantenimiento());
-            System.err.println(costo);
+//            System.err.println(costo);
             costo.setClipColor(dataBn.getClipColor());
             costo.setOperadores(dataBn.getOperadores());
             costo.setRecuInversion(dataBn.getRecuInversion());
@@ -513,6 +532,192 @@ public class ImpresionDelegado {
             em.getTransaction().rollback();
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
             respuesta.setMensaje("Se ha producido un error al actualizar el precio del papel.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta actualizarPorcentajeGanancia(PorcentajeGanacia obj) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            PorcentajeGananciaDAO dao = new PorcentajeGananciaDAO(em);
+            em.getTransaction().begin();
+            dao.editar(obj);
+//            System.err.println("OBJECT RECIVED: " + obj.getIdPorcentaje() + " " + obj.getInicio());
+            em.getTransaction().commit();
+            res.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            res.setMensaje("Porcentaje de ganancia actualizado correctamente.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("No se pudo actualizar el porcentaje de ganancia.");
+        }
+        return res;
+    }
+
+    public Respuesta eliminarTipoPapel(int id) {
+//        System.out.println("ID LLEGADO: " + id);
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            TipoPapel tp = new TipoPapel();
+            TipoPapelDAO dao = new TipoPapelDAO(em);
+            tp = dao.consultarTipoPapelPorID(id);
+            em.getTransaction().begin();
+            dao.eliminar(tp);
+            em.getTransaction().commit();
+            res.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            res.setMensaje("Se han elminiado correctamente los tipo de papel seleccionados.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("No se pudo eliminar los tipo de papel seleccionados.");
+        }
+        return res;
+    }
+
+    public Respuesta agregarTipoPapel(TipoPapel obj) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            em.getTransaction().begin();
+            TipoPapelDAO dao = new TipoPapelDAO(em);
+            dao.crear(obj);
+            em.getTransaction().commit();
+            res.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            res.setMensaje("Tipo de papel agregado correctamente!.");
+        } catch (Exception e) {
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("Se ha producido un error al agregar el tipo de papel.");
+        }
+        return res;
+    }
+
+    public Respuesta consultarValoresImpresion(int idTipoPapel, int tipoColor, int idTipoTamano, int numPag) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            List<Object> listaExport = new ArrayList<Object>();
+            //Obtenemos el tipo de papel, para saber cuanto cuesta el pliego.
+            TipoPapelDAO dao = new TipoPapelDAO(em);
+            TipoPapel tipo = dao.consultarTipoPapelPorID(idTipoPapel);
+            listaExport.add(tipo);
+            //Agregamos los primeros datos consultados.
+
+//            //Obtenemos los valores de costo de mantenimiento.
+            CostosMantenimientoDAO dao2 = new CostosMantenimientoDAO(em);
+            CostosMantenimiento cst = dao2.consultarCostosMantenimientoID((tipoColor + 1));
+//            //Una vez consultado vamos a agregarlo a la lista igualmente.            
+            listaExport.add(cst);
+
+            //Consultamos los tipo de tamaño.
+            TipoTamanoDAO dao3 = new TipoTamanoDAO(em);
+            TipoTamano tp = dao3.consultarTipoTamano(idTipoTamano);
+            listaExport.add(tp);
+
+            //Consultamos el porcentaje.
+            PorcentajeGananciaDAO dao4 = new PorcentajeGananciaDAO(em);
+            PorcentajeGanacia prc = new PorcentajeGanacia();
+            prc = dao4.consultarGanancia(numPag, tipoColor);
+            listaExport.add(prc);
+
+            res.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            res.setDatos(listaExport);
+            res.setMensaje("Valores de impresión consultados satisfactoriamente.");
+        } catch (Exception e) {
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("Error al consultar los valores de impresión");
+        }
+        return res;
+    }
+
+    public Respuesta crearRelacion(HttpServletRequest request) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            RelacionesPapel obj = null;
+            String papelesSelect = request.getParameter("papelesSeleccionados");
+            String tpImpresion = request.getParameter("tiposImpresion");
+            String mdImpresion = request.getParameter("modosImpresion");
+            String tmImpresion = request.getParameter("tamanosImpresion");
+
+            String[] selectPapers = papelesSelect.split(",");
+            String[] typesImpresion = tpImpresion.split(",");
+            String[] modesImpresion = mdImpresion.split(",");
+            String[] sizesImpresion = tmImpresion.split(",");
+            RelacionesPapelDAO dao = new RelacionesPapelDAO(em);
+            
+            em.getTransaction().begin();
+            for (int i = 0; i < selectPapers.length; i++) {
+                //Inicialmmente quitamos todas las relaciones que tiene el papel.\
+                dao.eliminarRelacionesPorId(Integer.parseInt(selectPapers[i]));
+                //Creamos las relaciones con los tipos de impresión de ese respectivo papel.
+                for (int j = 0; j < typesImpresion.length; j++) {
+                    obj = new RelacionesPapel();
+                    obj.setTipoPapel(Integer.parseInt(selectPapers[i]));
+                    obj.setTipoImpresion(Integer.parseInt(typesImpresion[i]));                    
+                    dao.crear(obj);                    
+                }
+
+                //Creamos las relaciones con los modo de impresión para el respectivo papel.
+                for (int j = 0; j < modesImpresion.length; j++) {
+                    obj = new RelacionesPapel();
+                    obj.setTipoPapel(Integer.parseInt(selectPapers[i]));
+                    obj.setModoImpresion(Integer.parseInt(modesImpresion[i]));                    
+                    dao.crear(obj);                   
+                }
+
+                //Creamos las relaciones con los tamanos de papel para el respectivo papel.
+                for (int j = 0; j < sizesImpresion.length; j++) {
+                    obj = new RelacionesPapel();
+                    obj.setTipoPapel(Integer.parseInt(selectPapers[i]));
+                    obj.setTamanoPapel(Integer.parseInt(sizesImpresion[i]));                    
+                    dao.crear(obj);                    
+                }
+            }
+            
+            em.getTransaction().commit();
+
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setMensaje("Se han guardado las configuraciones realizadas.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("No se pudo guardar las configuraciones realizadas.");
+            em.getTransaction().rollback();
+            System.err.println("ERROR: "+e);
+        }
+        return respuesta;
+    }
+
+    public Respuesta consultarRelaciones(int idPapel) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            //Creamos lista de tipo Object, que almacenará nuestra respuesta con todas las consultas que
+            //realizamos a continuación.
+            List<Object> listExport = new ArrayList<Object>();
+            RelacionesPapelDAO dao = new RelacionesPapelDAO(em);
+            List<RelacionesPapel> listTiposImpresion = dao.listTiposImpresion(idPapel);
+            List<RelacionesPapel> listModoImpresion = dao.listModosImpresion(idPapel);
+            List<RelacionesPapel> listTamanoImpresion = dao.listTamanosImpresion(idPapel);
+            
+            //Agregamos las listas a la lista de tipo Object.
+            listExport.add(listTiposImpresion);
+            listExport.add(listModoImpresion);
+            listExport.add(listTamanoImpresion);
+            
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setDatos(listExport);
+            respuesta.setMensaje("Se han consultado la configuración del papel correctamente.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al consultar las configuraciones del papel.");
         }
         return respuesta;
     }

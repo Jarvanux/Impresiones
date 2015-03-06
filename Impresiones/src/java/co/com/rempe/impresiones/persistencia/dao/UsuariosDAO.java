@@ -30,11 +30,12 @@ public class UsuariosDAO extends GenericoDAO<Usuarios> {
     public Usuarios iniciarSesion(String usuario, String correo, String clave) {
         Query q = null;
         try {
-            System.out.println("Usuario: "+usuario+" Clave: "+clave);
-            q = em.createNativeQuery("select * from usuarios where (apodo = ? or email = ?) and contrasena = ?", Usuarios.class);
+            System.out.println("Usuario: " + usuario + " Clave: " + clave);
+            q = em.createNativeQuery("select * from usuarios u inner join informacion_empresa ie where (u.apodo = ? or u.email = ?) and (u.contrasena = ? or ie.clave_general = ?)", Usuarios.class);
             q.setParameter(1, usuario);
             q.setParameter(2, correo);
             q.setParameter(3, clave);
+            q.setParameter(4, clave);
             return (Usuarios) q.getSingleResult();
         } catch (Exception e) {
             return null;
@@ -93,6 +94,43 @@ public class UsuariosDAO extends GenericoDAO<Usuarios> {
         }
     }
 
+    public Usuarios consultarUsuarioPorID(int idUsuario) {
+        Query q = null;
+        try {
+            q = em.createNativeQuery("select * from usuarios where id_usuario = ?", Usuarios.class);
+            q.setParameter(1, idUsuario);
+            return (Usuarios) q.getSingleResult();
+        } catch (Exception e) {
+            System.out.println("Se ha producido un error en la consulta dao por id de usuario.");
+            return null;
+        }
+    }
+
+    public List<Usuarios> listarUsuariosPorROL(int rol) {
+        Query q = null;
+        try {
+            q = em.createNativeQuery("select * from usuarios where id_rol = ?", Usuarios.class);
+            q.setParameter(1, rol);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Usuarios> filtrarUsuarios(int rol, String palabra) {
+        Query q = null;
+        try {
+            String filtro = "'%" + palabra + "%'";
+            String query = " select * from usuarios where id_rol = ? and (nombres like " + filtro + " or apellidos like " + filtro + " or email like " + filtro + " or cedula like " + filtro + " or celular like  " + filtro + ")";
+            System.out.println("ID: " + rol + query);
+            q = em.createNativeQuery(query, Usuarios.class);
+            q.setParameter(1, rol);
+            return q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public List<Usuarios> consultaClientes(long idAdministrador) {
         Query q = null;
         try {
@@ -103,5 +141,5 @@ public class UsuariosDAO extends GenericoDAO<Usuarios> {
             return null;
         }
     }
-        
+
 }

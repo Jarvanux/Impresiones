@@ -6,13 +6,15 @@
         <link type="text/css" rel="stylesheet" media="screen" href="css/global/login.css" />
         <link rel="stylesheet" href="css/global/menus-despegables_index.css" />
         <link href="img/icons/global/favicon.jpg" rel="icon" type="image/x-icon" />   
-        <link rel="stylesheet" href="css/paginas/chat/chat-new.css" />        
+        <link rel="stylesheet" href="css/paginas/chat/chat-new.css" />    
+        <link rel="stylesheet" href="css/css_buttons.css" />     
         <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="js/peticiones-globales/peticiones-globales.js" type="text/javascript"></script>
         <script src="js/paginas/informacionSitio/home/control-visitantes.js" type="text/javascript"></script>
         <script src="js/paginas/chat/chat-control.js" type="text/javascript"></script>
         <script src="js/paginas/chat/chat-eventos.js" type="text/javascript"></script>
         <script src="js/paginas/chat/refresh-chat.js" type="text/javascript"></script>        
+        <script src="js/md5.js" type="text/javascript"></script>        
     <body>
         <div id="contenedor">
             <header>             
@@ -169,6 +171,22 @@
                 </div>
             </div>
         </footer>
+
+        <div id="formRegistroUsuario" class="modal-register" style="display: none;">
+            <div class="register-form">
+                <div class="register-header">
+                    <span>Registro de usuario:</span>
+                    <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCloseRegis" onclick="controlIngresar.cerrarRegistrar()"/>
+                </div>
+                <div class="register-body">
+                </div>
+                <div class="register-footer">
+                    <a href="javascript:;" title="Registrar" class="bttn bttn-success" onclick="controlIngresar.registrarFormu()">Registrar</a>
+                    <a href="javascript:;" title="Registrar" class="bttn" onclick="controlIngresar.cerrarRegistrar()">Cancelar</a>
+                </div>
+            </div>
+        </div>
+
         <div id="error-data" style="display: none; margin-top: 20px;">
             <img src="img/icons/global/error-icon.png" /><h1>Error de conexión</h1>
             <p> Se ha producido un error al conectar con el servidor, revisa tu conexión, recarga

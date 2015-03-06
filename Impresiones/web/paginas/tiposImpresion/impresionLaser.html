@@ -22,7 +22,7 @@
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/eventos.impresionLaser.js" ></script>
         <script type="text/javascript" src="js/paginas/tiposImpresion/impresionLaser/control.impresionLaser.js" ></script>    
 
-        <script src="js/peticiones-globales/jquery.uploader.js" type="text/javascript"></script>      
+        <!--<script src="js/peticiones-globales/jquery.uploader.js" type="text/javascript"></script>-->      
         <script src="js/peticiones-globales/subir-archivo.js" type="text/javascript"></script>  
         <!--Fin Scripts - Consultas combobox.-->
     </head>
@@ -67,7 +67,7 @@
                         <input type="radio" name="tipoColort" id="soloColort" value="2"/>
                         <label for="soloColort"><span class="letraRoja">C</span><span class="letraVerde">olor</span></label>
                         <input type="radio" name="tipoColort" id="mixtot" value="3"/>                    
-                        <label for="mixtot"><span class="letraRoja">M</span>ix<span class="letraVerde">to</span><span class="letraVerde"></span></label>                                        
+                        <label for="mixtot"><span class="letraRoja">M</span>ix<span class="letraVerde">to</span><span class="letraVerde"></span><span style="font-size: 12px;">(Color&B/N)</span></label>                                        
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                     <input type="radio" name="tipoColor" id="soloColor" value="2"/>
                     <label for="soloColor"><span class="letraRoja">C</span><span class="letraVerde">olor</span></label>
                     <input type="radio" name="tipoColor" id="mixto" value="3"/>                    
-                    <label for="mixto"><span class="letraRoja">M</span>ix<span class="letraVerde">to</span><span class="letraVerde"></span></label>                                        
+                    <label for="mixto"><span class="letraRoja">M</span>ix<span class="letraVerde">to</span><span class="letraVerde"></span><span style="font-size: 11px;">(Color&B/N)</span></label>                                        
                 </div>
 
                 <!--DIV SOLO BN-->
@@ -237,7 +237,7 @@
 
                 <!--CARGAR ARCHIVO-->                                    
                 <form action="subirArchivosServlet" enctype="multipart/form-data" name="form" id="formUpload" method="POST"> 
-                    <input type="button" name="fichero1" id="btnFile" value="Up" style="display: none;"/>
+                    <input type="file" name="fileUP" id="fileUP" style="display: none;"/>
                 </form> 
 
                 <div id="cargaArchivo">
@@ -252,7 +252,12 @@
                         <img id="imgCargar" src="img/icons/global/cargaArchivo.jpg"/>
                         <input type="text" id="txtArchivosCargados" />              
                         <img id="btnCargar" src="img/icons/global/btnCargar.jpg" />
-                        <input type="text" id="txtLinkArchivos" />                                      
+                        <input type="text" id="txtLinkArchivos" />
+                        <div class="progressContent" style="display: none;">
+                            <div id="progressbarContent">
+                                <div id="progressbar"><span id="progressVal">0%</span></div>
+                            </div>
+                        </div>                        
                     </div>
                 </div>
                 <!--FIN CARGAR ARCHIVO-->
@@ -270,7 +275,7 @@
                     </div>                                           
                 </div>                
                 <!--FIN VALORES IMPRESIÓN-->
-                <input type="button" value="Pág Siguiente >>" title="Página siguiente." id="btnSiguiente" />                
+                <input type="button" value="Pág Siguiente >>" class="bttn bttn-success" title="Página siguiente." id="btnSiguiente" />                
                 <!--CONTINUAR CON EL FORM-->
                 <div id="continuarForm">
                     <div id="txtContinuar">

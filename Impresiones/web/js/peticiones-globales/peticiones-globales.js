@@ -5,6 +5,7 @@ var posFormulario = 0;
 var controlPeticiones = {
     cerrarAlerta: function() {
         $('#notificaciones').hide('explode');
+        $('#notificacionError').hide('explode');
     },
     /**
      * formatearHora() : function()
@@ -14,7 +15,115 @@ var controlPeticiones = {
      * @returns Devuelve un string con el formato (DD/MM/YYYY HH:MM:SS (AM/PM));
      */
 
+    parseNum: function(num) {
+        num = ""+num;
+        num = num.replace('$','');
+        var num2 = num.split(",");
+        num2[0] = num2[0].replace('.', '');
+        if (num2.length > 1) {
+            num = num2[0] + '.' + num2[1];
+        }        
+        return num;
+    },
+    calcularPaginas: function(string, tipo) {
+//        console.log('Convocado ' + tipo + " s:" + string);
+        var array = {};
+        var repited = false;
+        var numsNegativos = false;
+        var numMayor = false;
+        var guionRepetido = false;
+        var temp = string.split(",");
+        var finalText = "";
+        for (var i = 0; i < temp.length; i++) {
+            if (temp[i] != "") {
+                if (i < (temp.length - 1)) {
+                    finalText += temp[i] + ",";
+                } else {
+                    finalText += temp[i];
+                }
+            }
+        }
+        var finalTemp = finalText.split(",");
+        for (var i = 0; i < finalTemp.length; i++) {
+            if (finalTemp[i].search("-") >= 0) {
+                var tempChar = finalTemp[i].split("-");
+                if (tempChar.length > 2) {
+                    guionRepetido = true;
+                    break;
+                }
+                var num1 = tempChar[0];
+                var num2 = tempChar[1];
+                finalTemp[i] = "";
+                if (num1 == "" || num2 == "") {
+                    numsNegativos = true;
+                    break;
+                }
+                num1 = parseInt(num1);
+                num2 = parseInt(num2);
+                if (num2 < num1) {
+                    numMayor = true;
+                    break;
+                }
+                for (var j = (num1); j <= num2; j++) {
+                    if (j < num2) {
+                        finalTemp[i] += j + ",";
+                    } else {
+                        finalTemp[i] += j;
+                    }
+                }
+            }
+        }
+        finalText = finalTemp.toString();
+        var temp = finalText.split(",");
+        var numPaginas = 0;
+        for (var i = 0; i < temp.length; i++) {
+            if (array[temp[i]] != "defined") {
+                array[temp[i]] = "defined";
+                numPaginas++;
+            } else {
+                repited = true;
+            }
+        }
 
+        if (!repited) {
+            if (!numsNegativos) {
+                if (!guionRepetido) {
+                    if (!numMayor) {
+                        if (tipo == 1) {
+                            $('#txtCantVarBN').val(finalText);
+                            $('#numPaginasBN').val(numPaginas);
+                            $('#numTotalBN').val($('#numPaginasBN').val() * $('#numCopys').val());
+//                            console.log('Fijado bn');
+                            $('#btnSiguiente').prop('disabled', false);
+                        } else if (tipo == 2) {
+//                            console.log('Fijado color');
+                            $('#txtCantVarColor').val(finalText);
+                            $('#numPaginasColor').val(numPaginas);
+                            $('#numTotalColor').val($('#numPaginasColor').val() * $('#numCopys').val());
+                            $('#btnSiguiente').prop('disabled', false);
+                        }
+//                        controlPeticiones.imprimirError('Páginas: ' + numPaginas);
+                    } else {
+                        $('#btnSiguiente').prop('disabled', true);
+                        controlPeticiones.imprimirError('Rangos en donde el número inicial es mayor.')
+                    }
+                } else {
+                    $('#btnSiguiente').prop('disabled', true);
+                    controlPeticiones.imprimirError('Rangos con formatos invalidos (x-x-x).');
+                }
+            } else {
+                $('#btnSiguiente').prop('disabled', true);
+                controlPeticiones.imprimirError('No se permiten números negativos.');
+            }
+        } else {
+            $('#btnSiguiente').prop('disabled', true);
+            controlPeticiones.imprimirError('Existen páginas repetidas.');
+        }
+    },
+    imprimirError: function(sms) {
+        $('#mensaje span.textMensaje').html('ERROR: ' + sms);
+        $('#mensaje').show();
+    },
     guardarCodigo: function() {
         $.ajax({
             'url': 'insertarContenteditor',
@@ -22,7 +131,7 @@ var controlPeticiones = {
             'data': {'text': $('.ace_text-layer').text()},
             success: function(data) {
                 var respuesta = JSON.parse(data);
-                console.log(respuesta);
+//                console.log(respuesta);
             }
         });
     },
@@ -58,7 +167,7 @@ var controlPeticiones = {
             hours = hours - 12;
         }
         var date = day + "/" + month + "/" + year + " " + hours + ":" + minutes + ":" + secounds + " " + formato;
-        console.log('hora' + date);
+//        console.log('hora' + date);
 
         return date;
     },
@@ -80,8 +189,8 @@ var controlPeticiones = {
             } else {
                 temp = null;
             }
-            console.info('valor: ' + valor);
-            console.info('temp: ' + temp);
+//            console.info('valor: ' + valor);
+//            console.info('temp: ' + temp);
             var contUnidades = 0;
             var conversion = "";
             for (var i = valor.length; i >= 0; i--) {
@@ -129,6 +238,7 @@ var controlPeticiones = {
         numero = parseInt(numero);
         if (temp.search('[.]') >= 0) {
             temp = temp.substring(temp.search('[.]') + 1);
+            temp = temp.substring(0, 1);
             if (parseInt(temp) >= 5) {
                 numero = numero + 1;
             }
@@ -163,55 +273,10 @@ var controlPeticiones = {
     },
     calcularPaginasMixto: function(txt, txt2) {
         controlPeticiones.calcularPaginas(txt, 1);
-        controlPeticiones.calcularPaginas(txt2, 1);
-    },
-    calcularPaginas: function(txt, tipoImpre) {
-        $.ajax({
-            'url': 'calcularpaginas', //Nombre de instancia del servlet.
-            'type': 'POST',
-            'data': {'cadena': $('#' + txt).val()},
-            success: function(data) {
-                var respuesta = JSON.parse(data); //Concatenamos el objeto recibido a un objeto de JSON.
-                if (respuesta.codigo > 0) {
-//                    $('#' + txt).val(respuesta.datos.string);
-                    if (tipoImpre == 1) {
-                        $('#txtCantVarBN').val(respuesta.datos.string);
-                        $('#numPaginasBN').val(respuesta.datos.entero);
-                        $('#numTotalBN').val($('#numPaginasBN').val() * $('#numCopys').val());
-                    } else if (tipoImpre == 2) {
-                        $('#txtCantVarColor').val(respuesta.datos.string);
-                        $('#numPaginasColor').val(respuesta.datos.entero);
-                        $('#numTotalColor').val($('#numPaginasColor').val() * $('#numCopys').val());
-                    }
-                } else {
-                    $('#' + txt).val(respuesta.datos.string);
-                    $('#mensaje span.textMensaje').html('ERROR: ' + respuesta.mensaje);
-                    $('#mensaje').show(500);
-                }
-                console.log(respuesta);
-//                alert('Resultado: '+respuesta.mensaje+" "+respuesta.datos);
-//                console.log(respuesta);
-            }
-        });
+        controlPeticiones.calcularPaginas(txt2, 2);
     },
     PaginasRepetidasEnCampos: function(txt, txt2) {
-        $.ajax({
-            'url': 'calcularpaginas', //Nombre de instancia del servlet.
-            'type': 'POST',
-            'data': {'cadena': $('#' + txt).val() + ',' + $('#' + txt2).val()},
-            success: function(data) {
-                var respuesta = JSON.parse(data); //Concatenamos el objeto recibido a un objeto de JSON.
-                if (respuesta.codigo > 0) {
-//                    $('#' + txt).val(respuesta.datos.string);                    
-                } else {
-                    $('#mensaje span.textMensaje').html('ERROR: ' + respuesta.mensaje);
-                    $('#mensaje').show(500);
-                }
-                console.log(respuesta);
-//                alert('Resultado: '+respuesta.mensaje+" "+respuesta.datos);
-//                console.log(respuesta);
-            }
-        });
+        controlPeticiones.calcularPaginas($('#txtCantVarBN').val() + "," + $('#txtCantVarColor').val(), 3);
     },
     guardarImpresionLaser: function(idUsuario) {
         var objetoJSON = {};
@@ -271,7 +336,7 @@ var controlPeticiones = {
             'data': objetoJSON,
             success: function(data) {
                 respuesta = JSON.parse(data);
-                console.log(respuesta);
+//                console.log(respuesta);
                 switch (parseInt(respuesta.codigo)) {
                     case 1:
                         controlPeticiones.limpiar();
@@ -302,7 +367,7 @@ var controlPeticiones = {
             'data': objetoJSON,
             success: function(data) {
                 respuesta = JSON.parse(data);
-                console.log(respuesta);
+//                console.log(respuesta);
                 switch (parseInt(respuesta.codigo)) {
                     case 1:
                         $('#usuario').val($('#email').val());

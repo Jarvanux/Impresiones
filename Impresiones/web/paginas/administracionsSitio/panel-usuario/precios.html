@@ -5,7 +5,7 @@
 <div id="precios-content">
 
     <!--Contenedor de las tabs.-->
-    <div class="tab-content">                
+    <div class="tab-content" style="display: none;">                
         <div id="header-tabs"> 
         </div>        
         <div id="body-tabs">
@@ -30,6 +30,37 @@
                         <td class="bn">Costo por impresión: </td><td id="t00_cIBn" class="tdprecios" ><span id="costoIBN">$0</span></td>
                     </tr>
                     <tr><td colspan="4" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>
+                </table>
+            </div>
+
+            <div id="ganancias">
+                <table cellspacing="0" border="0" id="tableGanancias">
+                    <tr><th class="encabezados" colspan="8">Porcentajes de Ganancia Color</th></tr>
+                    <!--Porcentajes-->                    
+                    <tr class="titulos">
+                        <td>Rango</td>
+                        <td>Inicio</td>
+                        <td>Fin</td>
+                        <td>Porcentaje</td>                        
+                    </tr>
+                    <!--Para los rangos-->
+                    <tr class="valores2" id="trModelo" style="display: none;">
+                        <td id="valorModelo"><span></span><input type="text" /></td>                        
+                    </tr>
+                </table>
+                <table cellspacing="0" border="0" id="tableBNGanancias">
+                    <tr><th class="encabezados" colspan="8">Porcentajes de Ganancia B/N</th></tr>
+                    <!--Porcentajes-->                    
+                    <tr class="titulos">
+                        <td>Rango</td>
+                        <td>Inicio</td>
+                        <td>Fin</td>
+                        <td>Porcentaje</td>
+                    </tr>
+                    <!--Para los rangos-->
+                    <tr class="valores2" id="trModelo" style="display: none;">
+                        <td id="valorModelo"><span></span><input type="text" /></td>
+                    </tr>
                 </table>
             </div>
 
@@ -64,7 +95,7 @@
                         <td id="t01_precio_33x70" class="precios" ></td>
                         <td id="t01_precio_33x100" class="precios" ></td>
                     </tr>
-                    <tr><td colspan="9" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>
+                    <!--<tr><td colspan="9" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>-->
                 </table>
             </div>
             <!--FIN PRECIOS DE EMPRESA-->   
@@ -143,42 +174,107 @@
                     <tr style="display: none;"><td colspan="7" id="informacion">Ultima actualización: <span id="fecha_actualizacion">2015-01-23 15:50:05</span></td></tr>
                 </table>
             </div>
-            <!--FIN COSTOS IMPRESIÓN BN  + PAPEL-->   
+            <!--FIN COSTOS IMPRESIÓN BN  + PAPEL-->              
+            <div id="footer-tabs">
+            </div>
+        </div>        
+    </div>
 
-            <div id="ganancias">
-                <table cellspacing="0" border="0">
-                    <tr><th class="encabezados">Porcentajes de ganancia</th></tr>
-                    <!--Porcentajes-->
-                    <tr class="valores">
-                        <td></td>
-                        <td id="valorModelo"><span></span><input type="text" /></td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                    <!--Para los rangos-->
-                    <tr class="valores2">
-                        <td></td>
-                        <td id="valorModelo"><span></span><input type="text" /></td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                    </tr>
-                </table>
+    <div id="opciones" style="display: none;">
+        <div id="btns">
+            <img src="img/icons/global/add.gif" id="add" title="Agregar nuevo papel"/>
+            <img src="img/icons/global/del.gif" id="del"  title="Eliminar seleccionados"/>
+            <img src="img/icons/global/config.png" id="config"  title="Configurar seleccionados"/>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('table input[type="checkbox"]').change(function() {
+                if ($($($(this).parent()).parent()).attr('class') != "titulos") {
+                    if ($(this).is(':checked')) {
+                        $($($(this).parent()).parent()).attr('class', 'trSelect');
+                    } else {
+                        $($($(this).parent()).parent()).attr('class', 'trdata');
+                    }
+                }
+            });
+        });
+    </script>
+
+
+    <div id="newTipo" class="form-modal" style="display: none;">
+        <div class="content-form">
+            <div class="header-form">
+                <span>Nuevo tipo de papel</span>
+            </div>
+            <div class="body-form">
+                <label>Nombre del papel: <input id="namePaper" type="text" placeholder="Escriba el nombre del papel." /></label>
+                <br/>                
+                <label>Precio del pliego: <input id="preciPaper" type="text" placeholder="Escriba el precio del papel."/></label>
+            </div>
+            <div class="footer-form">
+                <a href="javascript:;" id="guardarBTN" class="bttn bttn-success">Guardar</a>
+                <a href="javascript:;" onclick="eventosSuperUsuario.cerrarNewTipo()" class="bttn">Cancelar</a>
             </div>
         </div>
-        <div id="footer-tabs">
-        </div>
-    </div>        
-</div>
-
-<div id="opciones" style="display: none;">
-    <div id="btns">
-        <img src="img/icons/global/add.gif" id="add" title="Agregar nuevo papel"/>    
-        <img src="img/icons/global/del.gif" id="del"  title="Eliminar seleccionados"/>    
     </div>
-</div>
+    <div id="confirmar" class="form-modal" style="display: none;">
+        <div class="content-form" style="width: 350px; height: 230px; margin-top: 140px;">
+            <div class="header-form">
+                <span>Confirmación</span>
+            </div>
+            <div class="body-form">
+                Los registros seleccionados se eliminarán permanentemente, ¿está seguro de realizar la operación solicitada?
+            </div>
+            <div class="footer-form">
+                <a href="javascript:;" id="siEliminar" class="bttn bttn-success">Si</a>
+                <a href="javascript:;" onclick="eventosSuperUsuario.cerrarNewTipo()" class="bttn">No</a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="configPanel" class="config-modal" style="display: none;">
+        <div class="config-content">
+            <div id="config-header">
+                <span style="float: left;">Configuración de papel</span>
+                <img src="close-modal.png" alt="Cerrar ventana" title="Cerrar ventana" onclick="eventosSuperUsuario.cerrarNewTipo()"/>
+            </div>
+            <div id="config-body">
+                <label>Papeles seleccionados:<input type="checkbox" class="selectAll"/></label>
+                <div id="slcPapelesSeleted" class="optionsforSelect">
+                    <div class="contentOptions">                        
+                        <div class="optionForSelect" style="display: none;"><input type="checkbox" /><span>Opción 1</span></div>
+                    </div>
+                </div>
+                <label>Tipos de impresión:<input type="checkbox" class="selectAll"/></label>
+                <div id="slcTpImpresion" class="optionsforSelect">
+                    <div class="contentOptions">
+                        <div class="optionForSelect" style="display: none;"><input type="checkbox" /><span>Opción 1</span></div>
+                    </div>
+                </div>
+                <label>Modo impresión:<input type="checkbox" class="selectAll"/></label>
+                <div id="slcModosImpresion" class="optionsforSelect">
+                    <div class="contentOptions">                        
+                        <div class="optionForSelect" style="display: none;"><input type="checkbox" /><span>Opción 1</span></div>
+                    </div>
+                </div>
+                <label>Tamaños de papel:<input type="checkbox" class="selectAll"/></label>
+                <div id="slcTamanos" class="optionsforSelect">
+                    <div class="contentOptions">                        
+                        <div class="optionForSelect" style="display: none;"><input type="checkbox" /><span>Opción 1</span></div>
+                    </div>
+                </div>              
+            </div>                        
+            <div id="config-footer">
+                <a href="javascript:;" onclick="configPaper.saveConfig()" id="saveConfig" class="bttn bttn-success" title="Guardar configuración">Guardar</a>
+                <a href="javascript:;" onclick="eventosSuperUsuario.cerrarNewTipo()" title="Cancelar" class="bttn">Cancelar</a>
+            </div>
+        </div>
+    </div>
+
+    <!--    <div id="precarga">
+            <img src="../../../img/icons/global/"
+        </div>-->

@@ -90,6 +90,8 @@ public class Usuarios implements Serializable {
     private Date fechaNacimiento;
     @Column(name = "conectado")
     private boolean conectado;    
+    @Column(name = "activo")
+    private boolean activo;    
     @Column(name = "comprando")
     private boolean comprando;    
     @Column(name = "sesion_cerrada_admin")
@@ -123,6 +125,14 @@ public class Usuarios implements Serializable {
         return ultimaConexion;
     }
 
+    public boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+    
     public void setUltimaConexion(Date ultimaConexion) {
         this.ultimaConexion = ultimaConexion;
     }        

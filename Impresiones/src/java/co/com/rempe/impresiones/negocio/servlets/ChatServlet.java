@@ -88,8 +88,8 @@ public class ChatServlet extends HttpServlet {
 
     private Respuesta servlet(HttpServletRequest request) {
         Respuesta respuesta = new Respuesta();
-        System.out.println("Color: " + request.getParameter("color"));
-        System.out.println("ID: " + request.getParameter("id"));
+//        System.out.println("Color: " + request.getParameter("color"));
+//        System.out.println("ID: " + request.getParameter("id"));
         respuesta.setCodigo(1);
         respuesta.setMensaje("ID: " + request.getParameter("id") + " Color: " + request.getParameter("color"));
         return respuesta;

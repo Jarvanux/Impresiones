@@ -23,10 +23,10 @@ var controlUsuario = {
     mostrarFormDireccion: function() {
         $('span.info').hide();
         $('#newDirection').show();
-        $('#newDirection #direccionNew').focus();        
+        $('#newDirection #direccionNew').focus();
     },
     esconderFormDireccion: function() {
-        $('#newDirection').hide();        
+        $('#newDirection').hide();
     },
     guardarDireccion: function() {
         // <Editor JavaScript> Todo su código aquí.
@@ -42,16 +42,16 @@ var controlUsuario = {
                 'data': data,
                 success: function(data) {
                     var respuesta = JSON.parse(data);
-                    console.log(respuesta);
+//                    console.log(respuesta);
                     controlUsuario.consultarDirecciones();
                     $('#notificaciones').hide('slow');
                     $('#notificaciones').show('slow');
                     $('#notificaciones p').html(respuesta.mensaje);
-                    controlUsuario.esconderFormDireccion();                    
+                    controlUsuario.esconderFormDireccion();
                     $('#direccionNew').val("");
                 }
             });
-        }else{
+        } else {
             $('span.info').show();
         }
     },
@@ -72,7 +72,7 @@ var controlUsuario = {
     },
     dimencionPantalla: function() {
         $(window).resize(function() {
-            console.log('Dimención de pantalla cambiada');
+//            console.log('Dimención de pantalla cambiada');
             if ($(window).width() <= 1024) {
                 $('ul#menu1').hide();
                 $('ul#menu2').show();
@@ -99,55 +99,29 @@ var controlUsuario = {
                 var lugarPagina = location.href;
                 var posSearch = lugarPagina.search("/impresiones/");
                 lugarPagina = lugarPagina.substring(posSearch);
-                console.log(respuesta);
+//                console.log(respuesta);
                 if (respuesta.codigo > 0) {
                     if (respuesta.datos != null) {
                         comprando = respuesta.datos.comprando;
                         idUsuarioLogeado = respuesta.datos.idUsuario;
-                        console.log(lugarPagina);
-
+//                        console.log(lugarPagina);
                         if (lugarPagina == '/impresiones/') {
                             if (respuesta.datos.idRol == 2) {
                                 location.href = '/impresiones/panelusuario.html';
                             } else if (respuesta.datos.idRol == 1) {
+                                location.href = '/impresiones/paneloperador.html';
+                            } else if (respuesta.datos.idRol == 3) {
                                 location.href = '/impresiones/paneladministrador.html';
                             }
                         }
                     }
                 } else {
-                    if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneladministrador.html') > -1 || lugarPagina.search('panelusuario.html') > -1) {
+                    if (lugarPagina == '/impresiones/login' || lugarPagina.search('paneladministrador') > -1 || lugarPagina.search('panelusuario') > -1 || lugarPagina.search('paneloperador') > -1) {
                         location.href = '/impresiones/login.html';
                     }
                 }
             }
         });
-
-
-//        console.log(resultado);
-//        var respuesta = JSON.parse(resultado);
-//        var lugarPagina = location.href;
-//        var posSearch = lugarPagina.search("/impresiones/");
-//        lugarPagina = lugarPagina.substring(posSearch);
-//        console.log(respuesta);
-//        if (respuesta.datos != null) {
-//            console.log("Existe un usuario logeado");
-//            alert('Existe!');
-//            console.log(lugarPagina);
-////            alert('Se ejecuto esa joa');          
-//            if (lugarPagina == '/impresiones/') {
-//                if (respuesta.datos.idRol == 2) {
-//                    location.href = '/impresiones/panelusuario.html';
-//                } else if (respuesta.datos.idRol == 1) {
-//                    location.href = '/impresiones/paneladministrador.html';
-//                }
-//            }
-//        } else {
-//            console.log("No hay nadie logueado");
-//            alert('No existe');
-//            if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneladministrador.html') > -1 || lugarPagina.search('panelusuario.html') > -1) {
-//                location.href = '/impresiones/login.html';
-//            }
-//        }
     },
     cerrarSesion: function() {
         $.ajax({
@@ -155,7 +129,7 @@ var controlUsuario = {
             type: 'POST',
             success: function(data) {
                 var respuesta = JSON.parse(data);
-                console.log(data);
+                console.log(respuesta);
                 if (respuesta.codigo > 0) {
                     location.href = '/impresiones/login.html';
                 }
@@ -168,10 +142,10 @@ var controlUsuario = {
             'type': 'POST',
             success: function(data) {
                 var respuesta = JSON.parse(data);
-                console.log(respuesta);
+//                console.log(respuesta);
                 if (respuesta.datos != null) {
                     var datosUsuarios = respuesta.datos;
-                    console.log(datosUsuarios);
+//                    console.log(datosUsuarios);
                     $('#nombres').val(datosUsuarios.nombres);
                     $('#apellidos').val(datosUsuarios.apellidos);
                     $('#email').val(datosUsuarios.email);
@@ -182,7 +156,7 @@ var controlUsuario = {
                     $('#ciudad').val(datosUsuarios.ciudad);
                     $('#zona').val(datosUsuarios.zona);
                 } else {
-                    console.log("No hay nadie logueado");
+//                    console.log("No hay nadie logueado");
                     location.href = '/impresiones/login.html';
                 }
             }
@@ -203,11 +177,28 @@ var controlUsuario = {
 
 
 $(document).ready(function() {
-    if ((location.href).search('panelusuario') >= 0 || (location.href).search('paneladministrador') >= 0) {
+    if ((location.href).search('panelusuario') >= 0 || (location.href).search('paneladministrador') >= 0 || (location.href).search('paneloperador')) {
         setInterval(consultUser, 2000);
+        setInterval(consultarDisponibilidad, 50000);
     }
 });
 
 function consultUser() {
     controlUsuario.consultarUsuarioLogeado();
+}
+function consultarDisponibilidad() { //Activo o Bloqueado.
+    $.ajax({
+        'url': 'disponibilidad',
+        'type': 'POST',
+        success: function(data) {
+            var respuesta = JSON.parse(data);
+            console.log(respuesta);
+            if (respuesta.codigo > 0) {
+                if (!respuesta.datos) {
+                    alert('Señor usuario, ud ha sido bloqueado por el administrador en estos momentos el sistema cerrará la sesión para más información comuniquese con el administrador.');
+                    controlUsuario.cerrarSesion();
+                }
+            }
+        }
+    });
 }

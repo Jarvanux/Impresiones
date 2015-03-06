@@ -75,7 +75,7 @@ var refrescaClientes = {
             idUsuarioContacto = 0;
             if (texto.length > 1) {
                 accion = 1;
-                console.log('Este s');
+//                console.log('Este s');
             } else {
                 accion = 0;
             }
@@ -85,7 +85,7 @@ var refrescaClientes = {
             'data': {'accion': accion, 'idUsuarioContacto': x, 'idUsuario': idUsuarioLogeado},
             success: function(data) {
                 respuesta = JSON.parse(data);
-                console.log(respuesta);
+//                console.log(respuesta);
                 $('div#visitantes div#body').html('');
                 if (respuesta.datos[2] == 2) {
                     $('div#visitantes div#header div#estado').css({'background': '#00FF00'});
@@ -173,7 +173,7 @@ var refrescaClientes = {
                                         for (var i = respuesta.datos[1][indice].length - 1; i >= 0; i--) {
                                             if (respuesta.datos[1][indice][i].idUsuarioOrigen != idUsuarioLogeado) {
                                                 if (respuesta.datos[1][indice][i].accion == 1) {
-                                                    console.log(respuesta.datos[1][indice][i]);
+//                                                    console.log(respuesta.datos[1][indice][i]);
                                                     divContent.find('div.chat-body div.estado-acciones span').html('Escribiendo...').show();
                                                     divContent.find('div.chat-body div.estado-acciones span').css({'margin': 'auto'});
                                                 } else {

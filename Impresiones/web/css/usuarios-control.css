@@ -1,0 +1,152 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28/02/2015, 12:04:49 AM
+    Author     : jhonjaider1000
+*/
+div#content-list{   
+    width: 1040px;
+    margin: 0 auto;
+}
+table{
+    border: 0px;
+    text-align: center;
+    font-family: sans-serif;
+    margin: 0 auto;
+    width: 100%;
+}
+table th{
+    color: #333333;
+    background: #ccc;
+    padding: 5px;
+    font-size: 14px;
+    min-width: 120px;    
+    border: 0px;
+}
+table td{
+    color: #333333;
+    padding: 3px 10px 3px 10px;
+    border: 0px;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+fieldset{
+    width: 89%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+fieldset legend{
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+fieldset label{
+    font-family: sans-serif;
+    font-size: 15px;    
+    float: left;
+    margin-left: 10px;
+}
+fieldset select{
+    float: left;
+    margin-left: 5px;
+    width: 130px;
+}
+fieldset a.bttn{
+    float: right;
+    margin-left: 5px;
+}
+div#search{
+    width: 200px;
+    float: right;
+    height: 27px;    
+    padding: 0px;
+    margin-left: 90px;   
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+div#search input{
+    border: 0px;
+    float: left;
+    border-radius: 10px;
+    height: 27px;
+}
+
+div#search div{
+    width: 20px;
+    margin-left: 2px;
+    float: left;
+    padding: 4px 0px 0px 0px;
+}
+div#search img{
+    width: 100%;    
+}
+
+
+
+
+/**
+Modal confirmación.
+**/
+
+div.confirm-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.38);
+}
+
+div.confirm-content{
+    background: #FFFFFF;
+    width: 400px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px #000;
+    margin: 0 auto;
+    margin-top: 15%;
+    padding: 5px;
+    font-family: sans-serif;
+}
+div.confirm-content div.confirm-header{
+    font-weight: bold;
+    width: auto;
+    height: 20px;
+    background: #60C060;
+    color: #FFFFFF;
+    padding: 5px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+div.confirm-content div.confirm-header span{
+    float: left;
+    margin-top: 2px;
+}
+
+div.confirm-content div.confirm-header img{
+    float: right;
+    width: 20px;
+
+}
+div.confirm-content div.confirm-body{
+    padding: 10px;
+    width: auto;
+    height: 60px;
+    text-align: center;
+}
+div.confirm-content div.confirm-footer{
+    width: auto;
+    padding: 0px 10px 0px 0px;
+    text-align: right;
+}
+
+/**
+Fin estilos confirmación.
+**/
+
+

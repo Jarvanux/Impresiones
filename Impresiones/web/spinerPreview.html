@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="js/peticiones-globales/jquery-1.11.1.min.js"></script>
+        <script src="js/peticiones-globales/spin.js"></script>
+        <style>
+            #foo {
+                position: relative;
+                margin: 0 auto;
+                background: #333;
+                color: #fff;
+                float: left;
+                width: 68px;
+                height: 68px;
+                margin: 0 20px 20px 0;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                border-radius: 10px;
+            }
+            
+            #view{
+                background: yellow;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+        </style>
+        <script>
+            $(document).ready(function() {
+                var opts = {
+                    lines: 13, // The number of lines to draw
+                    length: 20, // The length of each line
+                    width: 10, // The line thickness
+                    radius: 30, // The radius of the inner circle
+                    corners: 1, // Corner roundness (0..1)
+                    rotate: 0, // The rotation offset
+                    direction: 1, // 1: clockwise, -1: counterclockwise
+                    color: '#000', // #rgb or #rrggbb or array of colors
+                    speed: 1, // Rounds per second
+                    trail: 30, // Afterglow percentage
+                    shadow: true, // Whether to render a shadow
+                    hwaccel: true, // Whether to use hardware acceleration
+                    className: 'spinner', // The CSS class to assign to the spinner
+                    zIndex: 2e9, // The z-index (defaults to 2000000000)
+                    top: '50%', // Top position relative to parent
+                    left: '50%' // Left position relative to parent
+                };
+                var target = document.getElementById('foo');
+                var spinner = new Spinner(opts).spin(target);
+//                var spinner = new Spinner().spin();
+//                target.appendChild(spinner.el);
+            });
+        </script>
+    </head>
+    <body>        
+        <div id="view">            
+            <div id="foo" ></div>       
+        </div>
+    </body>
+</html>

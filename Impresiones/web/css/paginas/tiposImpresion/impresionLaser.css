@@ -388,15 +388,6 @@ span.lablMixColor{
     width:160px;
     margin-top: 4px;
 }
-#btnSiguiente{
-    padding: 10px 10px;
-    border: 0px;    
-    background: #379C2D;
-    color: #fff;
-    font-weight: bold;
-    margin-top: 32px;
-    margin-left: 2px;
-}
 div#totalesImpre{
     margin-left: 20px;    
     float: left;
@@ -1031,13 +1022,13 @@ span.lablMixColor{
     margin-top: 4px;
 }
 #btnSiguiente{
-    padding: 10px 13px;
-    border: 0px;    
-    background: #379C2D;
-    color: #fff;
-    font-weight: bold;
-    margin-top: 32px;
-    margin-left: 2px;
+    /* padding: 10px 13px; */
+    /* border: 0px; */    
+    /* background: #379C2D; */
+    /* color: #fff; */
+    /* font-weight: bold; */
+    margin-top: 38px;
+    margin-left: 6px;
 }
 div#totalesImpre{
     margin-left: 20px;    
@@ -2116,4 +2107,35 @@ div#registroUsuario .duo-campos input[type="text"],div#registroUsuario .duo-camp
 #totalAdicionales{    
     font-size: 13px;    
     font-weight: bold;        
+}
+
+div.progressContent{
+    border-radius: 5px;
+    width: 90%;
+    height: 29px;    
+    margin: 0 auto;  
+    padding: 1.5px;  
+    background: rgb(139, 139, 139);
+}
+
+div.progressContent #progressbarContent{    
+    width: 99.6%;
+    height: 98%;
+    margin: 0 auto;
+    background: rgb(249, 249, 249);    
+    border-radius: 5px;
+}
+
+div.progressContent #progressbarContent div#progressbar{
+    width: 100%;
+    height: 100%;
+    background: rgb(226, 253, 231);
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px green;
+    
+}
+div.progressContent #progressbarContent div#progressbar span{    
+    padding: 5px;
+    display: block;
+    font-weight: bold;    
 }

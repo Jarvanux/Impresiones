@@ -108,18 +108,18 @@ public class SubirArchivosServlet extends HttpServlet {
 // req es la HttpServletRequest que recibimos del formulario.
 // Los items obtenidos serán cada uno de los campos del formulario,
 // tanto campos normales como ficheros subidos.
-        System.out.println("Items-------");
+//        System.out.println("Items-------");
         List items = upload.parseRequest(request);
         System.out.println(items);
 
-        System.out.println("Request-----------------");
+//        System.out.println("Request-----------------");
         System.out.println(request);
 // Se recorren todos los items, que son de tipo FileItem
         for (Object item : items) {
             FileItem uploaded = (FileItem) item;
             // Hay que comprobar si es un campo de formulario. Si no lo es, se guarda el fichero
             // subido donde nos interese
-            System.out.println("Item---------------");
+//            System.out.println("Item---------------");
             System.out.println(uploaded.isFormField());
             if (!uploaded.isFormField()) {
                 // No es campo de formulario, guardamos el fichero en algún sitio
@@ -134,14 +134,14 @@ public class SubirArchivosServlet extends HttpServlet {
                 while (cadena.contains("\\")) {
                     cadena = cadena.replace("\\", "&");
                 }
-                System.out.println(cadena);
+//                System.out.println(cadena);
                 String[] ruta = cadena.split("&");
                 for (int i = 0; i < ruta.length; i++) {
                     String string = ruta[i];
                     System.out.println(string);
                 }
                 nombreArchivo = ruta[ruta.length - 1];
-                System.out.println("Ruta archivo: " + nombreArchivo);
+//                System.out.println("Ruta archivo: " + nombreArchivo);
                 //Fin corrección nombre.
 
                 String nombreArchivoEscrito = System.currentTimeMillis() + "-" + nombreArchivo;
@@ -155,7 +155,7 @@ public class SubirArchivosServlet extends HttpServlet {
                 if (nombreArchivo.endsWith(".pdf") || nombreArchivo.endsWith(".png")
                         || nombreArchivo.endsWith(".jpg") || nombreArchivo.endsWith(".bmp")
                         || nombreArchivo.endsWith(".svg")) {
-                    System.out.println("Archivo subido: " + uploaded.getName());
+//                    System.out.println("Archivo subido: " + uploaded.getName());
                     uploaded.write(fichero);
                     respuesta.setCodigo(1);
                     respuesta.setDatos(archivo);

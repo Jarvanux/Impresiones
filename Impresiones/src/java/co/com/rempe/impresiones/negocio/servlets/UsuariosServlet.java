@@ -32,7 +32,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author jhonjaider1000
  */
-@WebServlet(name = "UsuariosServlet", urlPatterns = {"/actualizaPerfil", "/opteneripusuario", "/registrarUsuarios", "/ingresar", "/cambiarEstado", "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion", "/buscarAsesores", "/visitanteTemporal", "/cambiarEstadoAdmin", "/listarDirecciones", "/guardarDireccion"})
+@WebServlet(name = "UsuariosServlet", urlPatterns = {"/actualizaPerfil",
+    "/opteneripusuario", "/registrarUsuarios", "/ingresar", "/cambiarEstado",
+    "/consultarUsuarios", "/consultarUsuarioLogeado", "/cerrarSesion",
+    "/buscarAsesores", "/visitanteTemporal", "/cambiarEstadoAdmin",
+    "/listarDirecciones", "/guardarDireccion", "/listarUsuarios", "/guardarUsuario",
+    "/bloquearUsuario", "/activarUsuario", "/disponibilidad", "/consultarUsuario",
+    "/editarUsuario","/filtrarUsuarios"
+})
 public class UsuariosServlet extends HttpServlet {
 
     private UsuarioDelegado usuarioDelegado;
@@ -117,6 +124,30 @@ public class UsuariosServlet extends HttpServlet {
                 case GUARDAR_DIRECCION:
                     respuesta = guardarDireccion(request);
                     break;
+                case LISTAR_USUARIOS:
+                    respuesta = listarUsuarios(request);
+                    break;
+                case GUARDAR_USUARIO:
+                    respuesta = guardarUsuario(request);
+                    break;
+                case BLOQUEAR_USUARIO:
+                    respuesta = bloquearUsuario(request);
+                    break;
+                case ACTIVAR_USUARIO:
+                    respuesta = activarUsuario(request);
+                    break;
+                case DISPOBIBILIDAD:
+                    respuesta = disponibilidad(request);
+                    break;
+                case CONSULTAR_USUARIO:
+                    respuesta = consultarUsuario(request);
+                    break;
+                case EDITAR_USUARIO:
+                    respuesta = editarUsuario(request);
+                    break;
+                case FILTRO_USUARIOS:
+                    respuesta = filtroUsuarios(request);
+                    break;
 
             }
         } catch (Exception e) {
@@ -140,6 +171,13 @@ public class UsuariosServlet extends HttpServlet {
         String json = request.getParameter("data");
         Usuarios usuario = gson.fromJson(json, Usuarios.class);
         return usuarioDelegado.insertarUsuario(usuario);
+    }
+
+    private Respuesta guardarUsuario(HttpServletRequest request) throws IOException {
+        Gson gson = new Gson();
+        String json = request.getParameter("data");
+        Usuarios usuario = gson.fromJson(json, Usuarios.class);
+        return usuarioDelegado.guardarUsuario(usuario);
     }
 
     private Respuesta ingresar(HttpServletRequest request) throws IOException {
@@ -282,6 +320,44 @@ public class UsuariosServlet extends HttpServlet {
             direcciones.setIdUsuario(usuario.getIdUsuario());
         }
         return usuarioDelegado.guardarDireccion(direcciones);
+    }
+
+    private Respuesta listarUsuarios(HttpServletRequest request) {
+        int rol = Integer.parseInt(request.getParameter("rol"));
+        return usuarioDelegado.listarUsuariosPorROL(rol);
+    }
+
+    private Respuesta bloquearUsuario(HttpServletRequest request) {
+        int idUsusario = Integer.parseInt(request.getParameter("id"));
+        return usuarioDelegado.bloquearUsuario(idUsusario);
+    }
+
+    private Respuesta activarUsuario(HttpServletRequest request) {
+        int idUsusario = Integer.parseInt(request.getParameter("id"));
+        return usuarioDelegado.activarUsuario(idUsusario);
+    }
+
+    private Respuesta disponibilidad(HttpServletRequest request) {
+        return usuarioDelegado.disponibilidad(request);
+    }
+
+    private Respuesta consultarUsuario(HttpServletRequest request) {
+        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+        return usuarioDelegado.consultarUsuarioForResponse(idUsuario);
+    }
+
+    private Respuesta editarUsuario(HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("data");
+        Usuarios usuario = gson.fromJson(json, Usuarios.class);
+        System.out.println("USUARIO: "+ usuario.getApellidos());
+        return usuarioDelegado.editarUsuario(usuario);
+    }
+
+    private Respuesta filtroUsuarios(HttpServletRequest request) {
+        int rol = Integer.parseInt(request.getParameter("rol"));
+        String filtro = request.getParameter("palabra");
+        return usuarioDelegado.filtroUsuarios(rol,filtro);
     }
 
 }

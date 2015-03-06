@@ -50,12 +50,14 @@ var actualizarPerfil = {
                             if (respuesta.datos.idRol == 2) {
                                 location.href = '/impresiones/panelusuario.html';
                             } else if (respuesta.datos.idRol == 1) {
+                                location.href = '/impresiones/paneloperador.html';
+                            } else if(respuesta.datos.idRol == 3){
                                 location.href = '/impresiones/paneladministrador.html';
                             }
                         }
                     }
                 } else {
-                    if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneladministrador.html') > -1 || lugarPagina.search('panelusuario.html') > -1) {
+                    if (lugarPagina == '/impresiones/login.html' || lugarPagina.search('paneloperador.html') > -1 || lugarPagina.search('panelusuario.html') > -1 || lugarPagina.search('paneladministrador')) {
                         location.href = '/impresiones/login.html';
                     }
                 }

@@ -15,7 +15,10 @@ import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
 import co.com.rempe.impresiones.negocio.utilerias.CalcularPaginas;
 import co.com.rempe.impresiones.persistencia.entidades.CostosMantenimiento;
 import co.com.rempe.impresiones.persistencia.entidades.ImpresionLaser;
+import co.com.rempe.impresiones.persistencia.entidades.PorcentajeGanacia;
+import co.com.rempe.impresiones.persistencia.entidades.RelacionesPapel;
 import co.com.rempe.impresiones.persistencia.entidades.TipoImpresion;
+import co.com.rempe.impresiones.persistencia.entidades.TipoPapel;
 import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -38,7 +41,10 @@ import javax.servlet.http.HttpServletResponse;
     "/asignarDatosImpre", "/consultarValorAnillado", "/consultarValorPlastificado",
     "/consultarValorCorte", "/guardarImpresionLaser", "/listaImpresionesLaser",
     "/filtrarImpresionLaser", "/ultimaImpresionLaser", "/consultarPrecios",
-    "/actualizarCostosMantenimiento", "/actualizarNombrePapel", "/actualizarPrecioPapel"})
+    "/actualizarCostosMantenimiento", "/actualizarNombrePapel", "/actualizarPrecioPapel",
+    "/actualizarPorcentaje", "/elminarTipoPapel", "/addTipoPapel", "/consultarValoresImpresion",
+    "/crearRelacionPapel", "/consultarConfiguraciones"
+})
 
 public class ImpresionServlet extends HttpServlet {
 
@@ -139,6 +145,24 @@ public class ImpresionServlet extends HttpServlet {
                 case ACTUALIZAR_PRECIO_PAPEL:
                     respuesta = actualizarPrecioPapel(request);
                     break;
+                case ACTUALIZAR_PORCENTAJE_GANANCIA:
+                    respuesta = actualizarPorcentajeGanancia(request);
+                    break;
+                case ELIMINAR_TIPO_PALPEL:
+                    respuesta = eliminaTipoPapel(request);
+                    break;
+                case AGREGAR_TIPO_PALPEL:
+                    respuesta = agregarTipoPapel(request);
+                    break;
+                case CONSULTAR_VALORES_IMPRESION:
+                    respuesta = consultarValoresImpresion(request);
+                    break;
+                case CREAR_RELACION_PAPEL:
+                    respuesta = crearRelacionPapel(request);
+                    break;
+                case CONSULTAR_CONFIGURACIONES:
+                    respuesta = consultarConfiguraciones(request);
+                    break;
             }
         } catch (Throwable e) {
             e.printStackTrace();
@@ -232,7 +256,7 @@ public class ImpresionServlet extends HttpServlet {
 
     private Respuesta calcularPaginas(HttpServletRequest request) throws IOException {
         String cadena = request.getParameter("cadena");
-        System.out.println(cadena);
+//        System.out.println(cadena);
         return impresionLaserDelegado.calculaNumPaginas(cadena);
     }
 
@@ -318,6 +342,44 @@ public class ImpresionServlet extends HttpServlet {
         int idPapel = Integer.parseInt(request.getParameter("idPapel"));
         double precioPapel = Double.parseDouble(request.getParameter("nuevoPrecio"));
         return impresionLaserDelegado.actualizarPrecioPapel(idPapel, precioPapel);
+    }
+
+    private Respuesta actualizarPorcentajeGanancia(HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("data");
+        System.out.println(json);
+        PorcentajeGanacia obj = gson.fromJson(json, PorcentajeGanacia.class);
+        return impresionLaserDelegado.actualizarPorcentajeGanancia(obj);
+    }
+
+    private Respuesta eliminaTipoPapel(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        return impresionLaserDelegado.eliminarTipoPapel(id);
+    }
+
+    private Respuesta agregarTipoPapel(HttpServletRequest request) {
+        Gson gson = new Gson();
+        String json = request.getParameter("data");
+        TipoPapel obj = gson.fromJson(json, TipoPapel.class);
+        System.out.println("PAPEL " + obj.getPrecioPliego());
+        return impresionLaserDelegado.agregarTipoPapel(obj);
+    }
+
+    private Respuesta consultarValoresImpresion(HttpServletRequest request) {
+        int idPapel = Integer.parseInt(request.getParameter("idPapel"));
+        int tipoColor = Integer.parseInt(request.getParameter("tipoColor"));
+        int idTipoTamano = Integer.parseInt(request.getParameter("idTipoTamano"));
+        int numPag = Integer.parseInt(request.getParameter("numPag"));
+        return impresionLaserDelegado.consultarValoresImpresion(idPapel, tipoColor, idTipoTamano, numPag);
+    }
+
+    private Respuesta crearRelacionPapel(HttpServletRequest request) {
+        return impresionLaserDelegado.crearRelacion(request);
+    }
+
+    private Respuesta consultarConfiguraciones(HttpServletRequest request) {
+        int idPapel = Integer.parseInt(request.getParameter("idPapel"));
+        return impresionLaserDelegado.consultarRelaciones(idPapel);
     }
 
 }

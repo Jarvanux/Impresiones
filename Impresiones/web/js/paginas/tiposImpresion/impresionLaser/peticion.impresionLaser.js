@@ -180,182 +180,71 @@ var peticionesImpresionLaser = {
             }
         });
     },
-    consultarValorImpre: function() {
-        var tipoColor = -1;
-        var totalPaginas = 0;
-        var totalPaginaColor = 0;
-        if ($('#soloBN').is(':checked')) {
-            tipoColor = 1;
-            totalPaginas = $('#numTotalBN').val();
-        } else if ($('#soloColor').is(':checked')) {
-            tipoColor = 2;
-            totalPaginas = $('#numTotalColor').val();
-        } else if ($('#mixto').is(':checked')) {
-            tipoColor = 3;
-        }
+    consultarValorImpresion: function(tipoColor, totalPaginas) {
+        var resultado = 0;
         $.ajax({
-            'url': 'calcularvalorimpre',
+            'url': 'consultarValoresImpresion',
             'type': 'POST',
+            'async': false,
             'data': {
-                'idTipoColor': tipoColor,
-                'idModoImpre': $('#cmbxModoImpresion').val(),
-                'idTamanoPapel': $('#cmbxTipoTamano').val(),
-                'idTipoPapel': $('#cmbxTipoPapel').val(),
-                'numeroHojas': totalPaginas
+                'idPapel': $('#cmbxTipoPapel').val(),
+                'tipoColor': tipoColor,
+                'idTipoTamano': $('#cmbxTipoTamano').val(),
+                'numPag': totalPaginas
             },
             success: function(data) {
                 var respuesta = JSON.parse(data);
                 console.log(respuesta);
-                if (respuesta.codigo > 0) {
-                    $('#valorUnitario').html('$' + respuesta.datos.valorImpresion);
-                    //Vamos a hacer uso del modo seleccionado para hallar el valor final.
-                    //Una cara normal
-                    if ($('#cmbxModoImpresion').val() == 1) {
-                        $('#valorTotal').html('$' + (respuesta.datos.valorImpresion * totalPaginas));
-                    }
-                    //Por doble cara.
-                    else if ($('#cmbxModoImpresion').val() == 2) {
-                        if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
-                            $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 2));
-                        } else {
-                            $('#mensaje').show(500);
-                            $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
-                        }
-                    }
-                    //Dos páginas en una cara
-                    else if ($('#cmbxModoImpresion').val() == 3) {
-                        if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
-                            $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 2));
-                        } else {
-                            $('#mensaje').show(500);
-                            $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
-                        }
-                    }
-                    //Dos páginas en dos caras.
-                    else if ($('#cmbxModoImpresion').val() == 4) {
-                        if ($('#numTotalBN').val() >= 4 || ($('#numTotalColor').val() >= 4)) {
-                            $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 4));
-                        } else {
-                            $('#mensaje').slideToggle(500);
-                            $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor o igual a 4.');
-                        }
-                    }
-                    //Cuatro páginas en una cara.
-                    else if ($('#cmbxModoImpresion').val() == 5) {
-                        if ($('#numTotalBN').val() >= 4 || ($('#numTotalColor').val() >= 4)) {
-                            $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 4));
-                        } else {
-                            $('#mensaje').slideToggle(500);
-                            $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor o igual a 4.');
-                        }
-                    }
-                    //Cuatro páginas en dos caras.
-                    else if ($('#cmbxModoImpresion').val() == 6) {
-                        if ($('#numTotalBN').val() >= 8 || ($('#numTotalColor').val() >= 8)) {
-                            $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 8));
-                        } else {
-                            $('#mensaje').slideToggle(500);
-                            $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor o igual a 8.');
-                        }
-                    }
-                } else {
-                    $('#mensaje').slideToggle(500);
-                    $('#mensaje span.textMensaje').html('Error al calcular el valor de la impresión, hay un problema en el sistema.');
+                resultado = respuesta.datos[0].precioPliego;
+                var valorPapel = resultado / respuesta.datos[2].numeroHojas;
+                resultado = valorPapel;
+                //Hasta este punto hemos obtenido el valor de la impresión interno por una cara.                                
+                var costo = respuesta.datos[2].costoImpresion * respuesta.datos[1].valorCosto;
+                resultado = resultado + costo;
+                //Hasta aquí obtenemos el valor interno por una cara de cualquier tipo.
+                //Ahora evaluaremos y calcularemos si es para dos caras.
+                if ($('#cmbxModoImpresion').val() == 2) {
+                    resultado = (resultado * 2) - valorPapel;
                 }
+
+                var costoParaUsuario = respuesta.datos[3].porcentaje;
+                resultado = resultado * costoParaUsuario / 100;
+                console.log('Valor final: ' + resultado);
+                resultado = controlPeticiones.aproximarDecimal(resultado);
+//                $('#valorUnitario').html('$' + resultado);
+//                resultado = resultado * totalPaginas;
+//                $('span#valorTotal').html('$' + resultado);
             }
         });
+        return resultado;
     },
-    consultarValorImpreMix2: function(condicion) {
-        var tipoColor = -1;
+    consultarValorImpre: function() {
+        var tipoColor = 0;
         var totalPaginas = 0;
-        var totalPaginaColor = 0;
-        if (condicion == 0) {
-            tipoColor = 1;
+        if ($('#soloBN').is(':checked')) {
+            tipoColor = 0;
             totalPaginas = $('#numTotalBN').val();
-        } else if (condicion == 1) {
-            tipoColor = 2;
+            var valorFinal = peticionesImpresionLaser.consultarValorImpresion(tipoColor, totalPaginas);
+            $('#valorUnitario').html('$' + (valorFinal));
+            $('span#valorTotal').html('$' + (valorFinal * totalPaginas));
+        } else if ($('#soloColor').is(':checked')) {
+            tipoColor = 1;
             totalPaginas = $('#numTotalColor').val();
-        } else if (condicion == 2) {
-            tipoColor = 3;
+            var valorFinal = peticionesImpresionLaser.consultarValorImpresion(tipoColor, totalPaginas);
+            $('#valorUnitario').html('$' + (valorFinal));
+            $('span#valorTotal').html('$' + (valorFinal * totalPaginas));
+            $('#txtBNMixto').val();
+            
         }
-        $.ajax({
-            'url': 'calcularvalorimpre',
-            'type': 'POST',
-            'data': {
-                'idTipoColor': tipoColor,
-                'idModoImpre': $('#cmbxModoImpresion').val(),
-                'idTamanoPapel': $('#cmbxTipoTamano').val(),
-                'idTipoPapel': $('#cmbxTipoPapel').val(),
-                'numeroHojas': totalPaginas
-            },
-            success: function(data) {
-                var respuesta = JSON.parse(data);
-                console.log(respuesta);
-                if (respuesta.codigo > 0) {
-//                    $('#valorUnitario').html('$' + respuesta.datos.valorImpresion);
-                    if (condicion == 0) {
-                        num1 = respuesta.datos.valorImpresion;
-                    } else if (condicion == 1) {
-                        num2 = respuesta.datos.valorImpresion;
-                        $('#valorFinalUnitario span').html('$' + num1 + ' |<span style="color: #9FFB95;">| $' + num2 + '</span>');
-                        resultado = (num1 * $('#numTotalBN').val()) + (num2 * $('#numTotalColor').val());
-                        //Vamos a hacer uso del modo seleccionado para hallar el valor final.
-                        //Una cara normal
-                        if ($('#cmbxModoImpresion').val() == 1) {
-                            $('#valorTotal').html('$' + (resultado));
-                        }
-                        //Por doble cara.
-                        else if ($('#cmbxModoImpresion').val() == 2) {
-                            if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
-                                $('#valorTotal').html('$' + ((resultado) / 2));
-                            } else {
-                                $('#mensaje').show(500);
-                                $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
-                            }
-                        }
-                        //Dos páginas en una cara
-                        else if ($('#cmbxModoImpresion').val() == 3) {
-                            if ($('#numTotalBN').val() > 1 || ($('#numTotalColor').val() > 1)) {
-                                $('#valorTotal').html('$' + ((resultado * totalPaginas) / 2));
-                            } else {
-                                $('#mensaje').show(500);
-                                $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor a uno.');
-                            }
-                        }
-                        //Dos páginas en dos caras.
-                        else if ($('#cmbxModoImpresion').val() == 4) {
-                            if ($('#numTotalBN').val() >= 4 || ($('#numTotalColor').val() >= 4)) {
-                                $('#valorTotal').html('$' + ((resultado) / 4));
-                            } else {
-                                $('#mensaje').slideToggle(500);
-                                $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor o igual a 4.');
-                            }
-                        }
-                        //Cuatro páginas en una cara.
-                        else if ($('#cmbxModoImpresion').val() == 5) {
-                            if ($('#numTotalBN').val() >= 4 || ($('#numTotalColor').val() >= 4)) {
-                                $('#valorTotal').html('$' + ((resultado) / 4));
-                            } else {
-                                $('#mensaje').slideToggle(500);
-                                $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor o igual a 4.');
-                            }
-                        }
-                        //Cuatro páginas en dos caras.
-                        else if ($('#cmbxModoImpresion').val() == 6) {
-                            if ($('#numTotalBN').val() >= 8 || ($('#numTotalColor').val() >= 8)) {
-                                $('#valorTotal').html('$' + ((respuesta.datos.valorImpresion * totalPaginas) / 8));
-                            } else {
-                                $('#mensaje').slideToggle(500);
-                                $('#mensaje span.textMensaje').html('El número de hojas debe ser mayor o igual a 8.');
-                            }
-                        }
-                    }
-                } else {
-                    $('#mensaje').slideToggle(500);
-                    $('#mensaje span.textMensaje').html('Error al calcular el valor de la impresión, hay un problema en el sistema.');
-                }
-            }
-        });
+    },
+    
+    consultarValorImpreMix2: function(condicion) {
+        var valorBN = peticionesImpresionLaser.consultarValorImpresion(0, $('#numTotalBN').val());
+        var valorColor = peticionesImpresionLaser.consultarValorImpresion(1, $('#numTotalColor').val());
+        var resultado = 0;
+        $('#valorFinalUnitario span').html('$' + valorBN + ' |<span style="color: #9FFB95;">| $' + valorColor + '</span>');
+        resultado = (valorBN * $('#numTotalBN').val()) + (valorColor * $('#numTotalColor').val());
+        $('#valorTotal').html('$' + ((resultado)));
     },
     consultarValorAnillado: function(numBloques) {
         $.ajax({

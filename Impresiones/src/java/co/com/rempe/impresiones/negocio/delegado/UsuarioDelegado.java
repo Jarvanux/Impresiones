@@ -7,12 +7,10 @@ package co.com.rempe.impresiones.negocio.delegado;
 
 import co.com.rempe.impresiones.negocio.constantes.ECodigoRespuesta;
 import co.com.rempe.impresiones.negocio.respuesta.Respuesta;
+import co.com.rempe.impresiones.negocio.utilerias.UtilOne;
 import co.com.rempe.impresiones.persistencia.dao.DireccionesDAO;
-import co.com.rempe.impresiones.persistencia.dao.UsuarioDAO;
 import co.com.rempe.impresiones.persistencia.dao.UsuariosDAO;
 import co.com.rempe.impresiones.persistencia.entidades.DireccionesUsuarios;
-import co.com.rempe.impresiones.persistencia.entidades.DireccionesUsuarios_;
-import co.com.rempe.impresiones.persistencia.entidades.Usuario;
 import co.com.rempe.impresiones.persistencia.entidades.Usuarios;
 import co.com.rempe.impresiones.persistencia.entidades.conexion.BDConexion;
 import java.util.ArrayList;
@@ -53,12 +51,37 @@ public class UsuarioDelegado {
             em.getTransaction().commit();
             respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
             respuesta.setDatos(usuario.getIdUsuario());
-            respuesta.setMensaje("Registro insertado!.");
+            respuesta.setMensaje("Registro Creado!.");
         } catch (Exception ex) {
             Logger.getLogger(ContactoDelegado.class.getName()).log(Level.SEVERE, null, ex);
             em.getTransaction().rollback();
             respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
             respuesta.setMensaje("Error al insertar registro.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta guardarUsuario(Usuarios usuario) {
+        EntityManager em = null;
+        Respuesta respuesta = new Respuesta();
+        try {
+            em = BDConexion.getEntityManager();
+            em.getTransaction().begin();
+            UsuariosDAO usuariosDAO = new UsuariosDAO(em);
+            usuario.setFechaRegistro(new Date());
+            usuario.setEstado(2);
+            usuario.setContrasena(UtilOne.md5(usuario.getCedula()));
+            usuariosDAO.crear(usuario);
+            em.getTransaction().commit();
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setDatos(usuario.getIdUsuario());
+            respuesta.setMensaje("Usuario guardado, la información de ingreso se ha enviado vía correo electrónico.");
+            System.out.println("Resultado envio clave: " + GestionCorreos.getInstancia().enviarContrasena(usuario).getMensaje());
+        } catch (Exception ex) {
+            Logger.getLogger(ContactoDelegado.class.getName()).log(Level.SEVERE, null, ex);
+            em.getTransaction().rollback();
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Error a l guardar el usuario.");
         }
         return respuesta;
     }
@@ -99,6 +122,26 @@ public class UsuarioDelegado {
             System.out.println("Se ha producido un error en la consulta del usuario por id.");
             return null;
         }
+    }
+
+    public Respuesta consultarUsuarioForResponse(long idUsuario) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            Usuarios usuarios = new Usuarios();
+            UsuariosDAO dao = new UsuariosDAO(em);
+            usuarios = dao.consultarUsuarioPorID(idUsuario);
+            int codigo = (usuarios == null) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            respuesta.setCodigo(codigo);
+            respuesta.setDatos(usuarios);
+            respuesta.setMensaje("Se ha consultado el usuario correctamente.");
+        } catch (Exception e) {
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al consultar el usuario.");
+            System.out.println("Se ha producido un error en la consulta del usuario por id.");
+        }
+        return respuesta;
     }
 
     public Respuesta buscarAsesores() {
@@ -326,5 +369,143 @@ public class UsuarioDelegado {
             respuesta.setMensaje("No se pudo guardar la dirección.");
         }
         return respuesta;
+    }
+
+    public Respuesta listarUsuariosPorROL(int rol) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            UsuariosDAO dao = new UsuariosDAO(em);
+            List<Usuarios> list = dao.listarUsuariosPorROL(rol);
+            int codigo = (list.isEmpty()) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            res.setCodigo(codigo);
+            res.setDatos(list);
+            res.setMensaje("Se han consultado los usuarios satisfactoriamente.");
+        } catch (Exception e) {
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("No se pudo consultar los usuarios.");
+        }
+        return res;
+    }
+
+    public Respuesta bloquearUsuario(int idUsuario) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            Usuarios u = consultarUsuario(idUsuario);
+            u.setActivo(false);
+            u.setConectado(false);
+            UsuariosDAO dao = new UsuariosDAO(em);
+            em.getTransaction().begin();
+            dao.editar(u);
+            em.getTransaction().commit();
+            res.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            res.setMensaje("Usuario bloqueado correctamente!.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("No se pudo bloquear el usuario.");
+        }
+        return res;
+    }
+
+    public Respuesta activarUsuario(int idUsuario) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            Usuarios u = consultarUsuario(idUsuario);
+            u.setActivo(true);
+            UsuariosDAO dao = new UsuariosDAO(em);
+            em.getTransaction().begin();
+            dao.editar(u);
+            em.getTransaction().commit();
+            res.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            res.setMensaje("Usuario activado correctamente!.");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("No se pudo activar el usuario.");
+        }
+        return res;
+    }
+
+    public Respuesta disponibilidad(HttpServletRequest request) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            UsuariosDAO dao = new UsuariosDAO(em);
+            em = BDConexion.getEntityManager();
+            HttpSession session = request.getSession();
+            Usuarios usuario = (Usuarios) session.getAttribute("usuario");
+            if (usuario != null) {
+                usuario = dao.consultarUsuarioPorID(usuario.getIdUsuario());
+                if (usuario != null) {
+                    res.setDatos(usuario.getActivo());
+                }
+            }
+            int codigo = (usuario == null) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            res.setCodigo(codigo);
+            res.setMensaje("Disponibilidad del usuario consultada.");
+        } catch (Exception e) {
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("Se ha producido un error al consultar la disponibilidad del usuario.");
+        }
+        return res;
+    }
+
+    public Respuesta editarUsuario(Usuarios usuario) {
+        Respuesta respuesta = new Respuesta();
+        EntityManager em = null;
+        System.out.println("ID USUARIO: " + usuario);
+        try {
+            em = BDConexion.getEntityManager();
+            UsuariosDAO dao = new UsuariosDAO(em);
+            Usuarios usuario2 = null;
+            if (usuario != null) {
+                usuario2 = dao.consultarUsuarioPorID(usuario.getIdUsuario());
+            }
+            if (usuario != null && usuario2 != null) {
+                usuario2.setIdRol(usuario.getIdRol());
+                usuario2.setNombres(usuario.getNombres());
+                usuario2.setApellidos(usuario.getApellidos());
+                usuario2.setCedula(usuario.getCedula());
+                usuario2.setCelular(usuario.getCelular());
+                usuario2.setTelefono(usuario.getTelefono());
+                usuario2.setCiudad(usuario.getCiudad());
+                em.getTransaction().begin();
+                dao.editar(usuario2);
+                em.getTransaction().commit();
+            }
+            respuesta.setCodigo(ECodigoRespuesta.CORRECTO.getCodigo());
+            respuesta.setMensaje("Se ha editado el usuario.");
+        } catch (Exception e) {
+            System.err.println("Error al editar el usuario: " + e.getMessage());
+//            em.getTransaction().rollback();
+            respuesta.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            respuesta.setMensaje("Se ha producido un error al editar el usuario.");
+        }
+        return respuesta;
+    }
+
+    public Respuesta filtroUsuarios(int rol,String filtro) {
+        Respuesta res = new Respuesta();
+        EntityManager em = null;
+        try {
+            em = BDConexion.getEntityManager();
+            UsuariosDAO dao = new UsuariosDAO(em);
+            List<Usuarios> list = dao.filtrarUsuarios(rol, filtro);
+            int codigo = (list.isEmpty()) ? ECodigoRespuesta.VACIO.getCodigo() : ECodigoRespuesta.CORRECTO.getCodigo();
+            res.setCodigo(codigo);
+            res.setDatos(list);
+            res.setMensaje("Se han consultado los usuarios satisfactoriamente.");
+        } catch (Exception e) {
+            res.setCodigo(ECodigoRespuesta.ERROR.getCodigo());
+            res.setMensaje("No se pudo consultar los usuarios.");
+        }
+        return res;
     }
 }

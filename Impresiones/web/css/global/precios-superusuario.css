@@ -205,7 +205,9 @@ tr.trSelect td{
     padding: 0px;
     height: 28px;
     color: #FFFFFF !important;
+    background: #554C81;
 }
+
 #opciones{
     pointer-events: none;
     position: fixed;
@@ -228,7 +230,7 @@ tr.trSelect td{
 #btns{
     background-color: #E4E4E4;
     border-radius: 10px 10px 0px 0px;
-    width: 120px;
+    width: 180px;
     display: block;
     height: 100%;
     margin: 0 auto;    
@@ -264,7 +266,7 @@ table#tbcostosImpresionMasPapelBN td.descrip{
 }
 
 table#tbcostosImpresionMasPapelBN{
-    margin-bottom: 100px !important;        
+    margin-bottom: 30px !important;        
 }
 div#costosImpresionMasPapelBN{
     width: 990px;
@@ -284,4 +286,289 @@ tr.valores td{
 }
 tr.valores td input{
     height: 16px !important;
+}
+
+img#imgCloseRegis{
+    width: 20px;
+    float: right;
+    cursor: pointer;
+}
+
+div#ganancias{   
+    margin-top: 30px !important; 
+    width: 500px;
+    height: 200px;   
+    margin: 0 auto;
+}
+.encabezados{
+    padding: 5px;
+    background: #ccc;
+    text-shadow: 0px 0px 3px #000;        
+}
+#tableGanancias{
+    margin-bottom: 30px !important;  
+}
+
+#tableGanancias td{
+    width: 100%;
+    border-right: 1px solid #ccc;
+    width: 100px;
+    text-align: center;
+}
+.title-rango{
+    background: #E4F1FF;
+    font-size: 12px;    
+    width: 130px !important;    
+}
+
+#tableBNGanancias{
+    margin-bottom: 30px !important;  
+}
+#tableBNGanancias td{
+    width: 100%;
+    border-right: 1px solid #ccc;
+    width: 100px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+div.form-modal{
+    background: rgba(0, 0, 0, 0.64);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;    
+}
+
+div.form-modal div.content-form{
+    margin: 0 auto;
+    box-shadow: 0px 0px 3px #000;
+    width: 500px;    
+    height: 320px;
+    border-radius: 5px;
+    margin-top: 90px;
+    padding: 4px;
+}
+
+div.form-modal div.content-form div.header-form{
+    width: auto;
+    height: 20px;
+    background: #60C060;
+    border-radius: 5px 5px 0px 0px;
+    color: #FFFFFF;
+    padding: 8px;
+    font-size: 18px;
+    font-weight: bold;    
+}
+
+div.form-modal div.content-form div.body-form{
+    width: auto;
+    padding: 30px;
+    color: #000;
+    text-align: center;    
+    font-weight: bold;
+}
+
+div.form-modal div.content-form div.body-form input[type="text"]{
+    height: 30px;
+    border-radius: 4px;
+    width: 70%;
+}
+
+div.form-modal div.content-form div.body-form input[type="button"]{
+
+}
+
+div.form-modal div.content-form div.footer-form{
+    width: auto;
+    height: auto;
+    text-align: right;
+    padding: 20px;
+}
+img#config{
+    float: left;
+    height: 70%;
+}
+
+
+div.config-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.16);
+}
+
+div.config-content{
+    width: 400px;
+    height: 480px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 3px #000;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 3%;
+    padding: 5px;
+}
+
+#config-header{
+    background: #60C060;
+    width: auto;
+    height: 20px;
+    padding: 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-family: sans-serif;
+    border-radius: 5px 5px 0px 0px;    
+}
+#config-header span{
+    float: left;
+    margin-top: 2px;
+}
+#config-header img{
+    float: right;
+    width: 20px;
+    cursor: pointer;    
+}
+#config-body{
+    width: auto;
+    height: 390px;
+    padding: 10px;
+    overflow: auto;        
+}
+#config-footer{
+    width: auto;
+    text-align: right;
+    padding: 0px 20px 0px 0px;
+}
+
+#elementsSelected{
+    width: 92%;
+    margin: 0 auto;
+    height: 70px;
+    box-shadow: 0px 0px 3px #000;
+    border-radius: 5px;
+    padding: 4px;
+}
+#elementsSelected div{
+    background: #F0F0F0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 1px;
+}
+
+#elementsSelected div.modelSelect{
+    width: auto;
+    height: 18px;
+    font-family: sans-serif;
+    font-size: 13px;
+    padding: 2px 0px 0px 10px;
+    background: #FFFFFF;   
+    border-bottom: 1px solid #E8E7E7;
+}
+
+#elementsSelected div.modelSelect:hover{     
+    background: #8C7979;
+    cursor: pointer;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 3px #000;
+}
+
+div.optionsforSelect{
+    width: 92%;
+    height: 120px;
+    padding: 5px;
+    box-shadow: 0px 0px 3px #000;
+    margin: 0 auto;
+    border-radius: 3px;    
+}
+div.contentOptions{
+    width: auto;
+    height: 100%;
+    background: #F0F0F0;
+    overflow: auto;
+    padding: 1px;
+}
+
+div.optionForSelect{
+    width: auto;
+    height: 18px;
+    font-family: sans-serif;
+    font-size: 13px;
+    padding: 2px 0px 0px 10px;
+    background: #FFFFFF;   
+    border-bottom: 1px solid #E8E7E7;
+}
+
+div.optionForSelect:hover{     
+    background: #8C7979;
+    cursor: pointer;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 3px #000;
+}
+
+div.optionForSelect input[type="checkbox"]{
+    margin-top: 2px;
+    float: left;    
+}
+div.optionForSelect span{
+    float: left;
+    margin-left: 5px;
+    font-size: 12px;
+    margin-top: 1px;
+}
+
+div.optionData{
+    width: auto;
+    height: 18px;
+    font-family: sans-serif;
+    font-size: 13px;
+    padding: 2px 0px 0px 10px;
+    background: #FFFFFF;   
+    border-bottom: 1px solid #E8E7E7;
+}
+
+div.optionData:hover{     
+    background: #24A16D;
+    cursor: pointer;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 3px #000;
+}
+
+div.optionData input[type="checkbox"]{
+    margin-top: 2px;
+    float: left;    
+}
+div.optionData span{
+    float: left;
+    margin-left: 5px;
+    font-size: 12px;
+    margin-top: 1px;
+}
+
+#config-body label{
+    font-size: 14px;
+    font-family: sans-serif;
+    margin-left: 10px;
+    display: block;    
+    margin-top: 15px;
+}
+
+input[type="checkbox"].selectAll{    
+    float: left;
+    margin-top: 2px;
+    margin-right: 4px;
+}
+
+label.red{
+    color: red;
 }

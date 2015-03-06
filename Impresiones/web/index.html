@@ -11,10 +11,11 @@
         <link rel="stylesheet" href="css/global/global-modals.css" />        
         <link rel="stylesheet" href="css/paginas/chat/chat-new.css" />        
         <link rel="stylesheet" href="css/css_buttons.css" />        
-        <!--<link media="screen" type="text/css" rel="stylesheet" href="css/styles_1.css" />-->
+        <link media="screen" type="text/css" rel="stylesheet" href="css/styles_1.css" />
         <script src="js/peticiones-globales/jquery-1.11.1.min.js" type="text/javascript"></script>
         <script src="js/peticiones-globales/peticiones-globales.js" type="text/javascript"></script>
         <script src="js/paginas/administracionSitio/panel-usuario/control-panelusuario.js"></script>
+        <script src="js/md5.js"></script>
         <script src="moverDivs.js"></script>
         <script src="js/editor.js"></script>
         <script>
@@ -138,7 +139,7 @@
                     <img src="img/icons/global/close-modal.png" title="Cerrar dialogo" id="imgCloseRegis" onclick="controlIngresar.cerrarRegistrar()"/>
                 </div>
                 <div class="register-body">
-                    
+
                 </div>
                 <div class="register-footer">
                     <a href="javascript:;" title="Registrar" class="bttn bttn-success" onclick="controlIngresar.registrarFormu()">Registrar</a>
@@ -146,7 +147,26 @@
                 </div>
             </div>
         </div>
-        
+
+
+        <div id="info" class="form-modal" style="display: none;">
+            <div class="content-form">
+                <div class="header-form">
+                    <span>Detalles del Mensaje</span>
+                </div>
+                <div class="body-form">
+                    <label>Nombre del cliente:</label> <input type="text" id="nombreCliente" placeholder="Nombre del cliente."/>
+                    <label>Correo electrónico:</label> <input type="text" id="correo" placeholder="Correo electrónico."/>
+                    <label>Correo electrónico:</label> <textarea></textarea>
+                    <div id="divFecha"><span id="textFec">Fecha del mensaje:</span><span id="fecha">19/02/2015 1:58:48 PM</span></div>
+                </div>
+                <div class="footer-form">                    
+                    <a href="javascript:;" class="btn btn-success">Visto</a>
+                    <a href="javascript:;" class="btn">Volver</a>
+                </div>
+            </div>
+        </div>
+
         <!--Aquí se cargarán las páginas externas del login y registro modalmente.-->
         <div id="info" class="back-modal" style="display: none;">
             <div id="contentModal">
@@ -210,16 +230,16 @@
         </div>
 
 
-<!--        <div id="editorPanel" style="display: none; top: 300px; left:0px; position:absolute;" onmousedown="comienzoMovimiento(event, this.id);" onmouseover="this.style.cursor = 'move'">            
+        <div id="editorPanel" style="display: none; top: 300px; left:0px; position:absolute;" onmousedown="comienzoMovimiento(event, this.id);" onmouseover="this.style.cursor = 'move'">            
             <div id="cerrarEditor" onclick="editorHide()">Cerrar</div>
-                <div id="header"><h3>Editor JAVASCRIPT</h3></div>
+            <div id="header"><h3>Editor JAVASCRIPT</h3></div>
             <div id="contentEditor">
                 <div>
                 </div>
             </div>            
         </div>
-        
+
         <div id="abrirEditor" onclick="editorShow()" >
             <span>Editor</span>
-        </div>-->
+        </div>
 </html>

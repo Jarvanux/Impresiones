@@ -1,0 +1,93 @@
+<div id="externos">
+    <link href="css/usuarios-control.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="js/paginas/administracionSitio/superusuario/control-users.js"></script>
+</div>
+<div id="content">
+    <fieldset>
+        <legend>Opciones</legend>
+        <div id="search">            
+            <input type="text" id="filtro" placeholder="Buscar..."/>
+            <div>
+                <img src="img/icons/global/search.png" />
+            </div>
+        </div>
+        <label for="roles">Listar por rol:</label>
+        <select id="roles">
+            <option>Seleccione</option>
+        </select>
+        <a href="javascript:;" id="newUserBtn" title="Crear nuevo usuario" class="bttn bttn-small bttn-primary">Crear nuevo usuario</a>
+    </fieldset>
+
+    <div id="content-list">
+        <table id="table-list" border="1" cellspacing="0">
+            <tr id="trHeader">
+                <th id="thModel" style="display: none; padding: 5px; min-width: 100px;">
+                    Colum 1
+                </th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Correo</th>
+                <th>Cedula</th>
+                <th>Celular</th>                
+                <th>Estado</th>
+                <th>Opciones</th>
+            </tr>
+            <tr id="trModel" style="display: none;" >
+                <td id="tdModel" style="display: none;">
+                    Null
+                </td>
+                <td id="estado">
+                    <div style="float:left; background:#00FF00; width: 14px; height: 14px; border-radius: 30px;">
+                    </div>
+                    <span style="float: left; margin-left: 4px; font-family: sans-serif; font-size: 12px;">Conectado.</span>
+                </td>
+                <td id="options" style="display: none;">
+                    <img src="img/icons/global/view-icon.png" id="view" style="float: left; width: 20px; cursor: pointer;" title="Ver información"/>
+                    <img src="img/icons/global/edit.png" id="edit" style="margin-left: 4px; float: left; width: 20px; cursor: pointer;" title="Ediar"/>
+                    <img src="img/icons/global/error-icon.png" id="bloq" style="margin-left: 4px; float: left; width: 20px; cursor: pointer;" title="Bloquear"/>
+                    <img src="img/icons/global/add2.gif" id="active" style="margin-left: 4px; float: left; width: 20px; cursor: pointer;" title="Activar"/>
+                </td>
+            </tr>            
+        </table>
+    </div>
+
+    <div id="registroContent">
+    </div>
+</div>
+
+
+<div id="confirmacion" class="confirm-modal" style="display: none;">
+    <input type="hidden" id="idUsuario" />
+    <div class="confirm-content">
+        <div class="confirm-header">
+            <span style="float: left;">Confirmación</span>
+            <img src="img/icons/global/close-modal.png" onclick="controlUsers.bloquearCancelado()" style="cursor: pointer;"/>
+        </div>
+        <div class="confirm-body">
+            <span>El usuario no volverá a ingresar y se cerrerá en 5 minutos su seción si se encuentra conectado ¿Deseas continuar esta operación?</span>
+            <span style="display: none;">Es imposible completar esta operación, solo el administrador principal puede bloquear tú sesión.</span>
+            <span style="display: none;">Señor administrador su sesión ha sido creada nativamente por el sistema, por lo tanto no tiene permisos para completar la operación solicitada.</span>
+        </div>
+        <div class="confirm-footer">
+            <input type="button" class="bttn bttn-success" onclick="controlUsers.bloquearConfirmado()" value="Si">
+            <input type="button" class="bttn" onclick="controlUsers.bloquearCancelado()" value="No">
+        </div>
+    </div>
+</div>     
+
+<div id="confirmarActive" class="confirm-modal" style="display: none;">
+    <input type="hidden" id="idUsuario" />
+    <div class="confirm-content">
+        <div class="confirm-header">
+            <span style="float: left;">Confirmación</span>
+            <img src="img/icons/global/close-modal.png" onclick="controlUsers.bloquearCancelado()" style="cursor: pointer;"/>
+        </div>
+        <div class="confirm-body">
+            El usuario se le permitirá futuramente acceder al sistema, ¿está de acuerdo?.
+        </div>
+        <div class="confirm-footer">
+            <a href="javascript:;" class="bttn bttn-success" onclick="controlUsers.activarConfirmado()">Si</a>
+            <a href="javascript:;" class="bttn" onclick="controlUsers.bloquearCancelado()">No</a>
+        </div>
+    </div>
+</div>     

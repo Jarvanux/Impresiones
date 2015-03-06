@@ -1,0 +1,57 @@
+<div id="archivosExternos">
+    <link href="css/addUsers.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/paginas/administracionSitio/registrar/addUserControl.js"></script>
+</div>
+
+<div id="newUser" class="form-modal">
+    <div class="content-form">
+        <div class="header-form">
+            <span style="float: left;">Registro de usuario</span>
+            <img src="img/icons/global/close-modal.png" id="closeModal" style="width: 20px; float: right; cursor: pointer;"/>
+        </div>
+        <div class="body-form">
+            <input type="hidden" id="idUsuarioField"/>
+            <label>Rol:</label> <select id="rol"><option>Seleccione</option></select>
+            <div class="duoCampos">
+                <div class="camp1">
+                    <label>Nombres:</label> <input type="text" id="nombre" placeholder="Nombre del usuario."/>
+                </div>
+                <div class="camp2">
+                    <label>Apellidos:</label> <input type="text" id="apellido" placeholder="Apellidos del usuario."/>
+                </div>
+            </div>
+            <label>Correo electrónico:</label> <input type="text" id="email" placeholder="Correo electrónico."/>   
+            <br/>
+            <label>N° Cédula o NIT:</label> <input type="text" id="documento" placeholder="Número de cédula o NIT."/>
+            <div class="duoCampos">
+                <label>Celular:</label> <input type="text" id="celular" placeholder="Celular"/>
+                <label>Teléfono:</label> <input type="text" id="telefono" placeholder="Teléfono"/>
+            </div>
+            <div class="duoCampos">
+                <div class="camp1">
+                    <label>Ciudad:</label> 
+                    <select id="ciudad">
+                        <option value="-1">Seleccione</option>
+                        <option value="1">Ciudad 1</option>
+                        <option value="2">Ciudad 2</option>
+                        <option value="3">Ciudad 3</option>
+                    </select>
+                </div>
+                <div class="camp2">
+                    <label>Zona:</label>
+                    <select id="zona">
+                        <option value="-1">Seleccione</option>
+                        <option value="1">Zona 1</option>
+                        <option value="2">Zona 2</option>
+                        <option value="3">Zona 3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="footer-form">                    
+            <a href="javascript:;" class="bttn bttn-success" id="btnRegistrarU" onclick="controlAddUSer.registrar()">Registrar</a>
+            <a href="javascript:;" class="bttn bttn-success" id="btnEditarU" style="display: none;" onclick="controlAddUSer.editar()">Guardar cambios</a>
+            <a href="javascript:;" class="bttn" onclick="controlAddUSer.closeModal()">Cancelar</a>
+        </div>
+    </div>
+</div>

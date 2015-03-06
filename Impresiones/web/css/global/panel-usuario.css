@@ -446,3 +446,6 @@ table#tablaContent td{
     float: left;
     margin-left: 10px;
 }
+#divContenido{
+    height: 620px !important;
+}

@@ -7,7 +7,7 @@ consultadoAnillado = 0;
 consultadoPlastificado = 0;
 consultadoCorte = 0;
 consultadoCosido = 0;
-
+checkSelected = -1;
 
 var eventosImpresionLaer = {
     calcularAdicionales: function() {
@@ -28,10 +28,7 @@ var eventosImpresionLaer = {
                     var tAdicionales = parseInt($('#totalAdicionales input').val());
                     tAdicionales += consultadoAnillado;
                     $('#totalAdicionales input').val(tAdicionales);
-                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
-//                    var valorTotal = parseInt($('#valorTotal').html().replace('$', ''));
-//                    var valorFinal = valorTotal + parseInt($('#totalAdicionales input').val());
-//                    $('#valorTotal2').html(valorFinal);
+                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal("" + $('#totalAdicionales input').val())));
                 }
             });
         } else {
@@ -53,7 +50,7 @@ var eventosImpresionLaer = {
                     var tAdicionales = parseInt($('#totalAdicionales input').val());
                     tAdicionales += consultadoPlastificado;
                     $('#totalAdicionales input').val(tAdicionales);
-                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
+                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal("" + $('#totalAdicionales input').val())));
 //                    var valorTotal = parseInt($('#valorTotal').html().replace('$', ''));
 //                    var valorFinal = valorTotal + parseInt($('#totalAdicionales input').val());
 //                    $('#valorTotal2').html(valorFinal);
@@ -79,7 +76,7 @@ var eventosImpresionLaer = {
                     var tAdicionales = parseInt($('#totalAdicionales input').val());
                     tAdicionales += consultadoCorte;
                     $('#totalAdicionales input').val(tAdicionales);
-                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
+                    $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal("" + $('#totalAdicionales input').val())));
 //                    var valorTotal = parseInt($('#valorTotal').html().replace('$', ''));
 //                    var valorFinal = valorTotal + parseInt($('#totalAdicionales input').val());
 //                    $('#valorTotal2').html(valorFinal);
@@ -90,9 +87,9 @@ var eventosImpresionLaer = {
         }
 //Fin calculo corte.
 //Terminamos austes de precios y cálculos e imprimimos en pantalla.
-        var tAdicionales = consultadoAnillado + consultadoPlastificado + consultadoCorte;        
+        var tAdicionales = consultadoAnillado + consultadoPlastificado + consultadoCorte;
         $('#totalAdicionales input').val(tAdicionales);
-        $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal(""+$('#totalAdicionales input').val())));
+        $('#totalAdicionales span').html(controlPeticiones.formatearValor(controlPeticiones.aproximarDecimal("" + $('#totalAdicionales input').val())));
     },
     calcularPrecioImpresion: function() {
         //Evaluamos que todo el formulario esté completo para brindarle la 
@@ -229,7 +226,7 @@ var eventosImpresionLaer = {
         if (datosValidos == 5) {
 //            totalPaginas,tipoColor,txtUnit
             peticionesImpresionLaser.consultarValorImpreMix2(0);
-            peticionesImpresionLaser.consultarValorImpreMix2(1);
+//            peticionesImpresionLaser.consultarValorImpreMix2(1);
 
 //            peticionesImpresionLaser.consultarValorImpreMix($('#numTotalBN').val(), 0, 'valorBN');
 //            peticionesImpresionLaser.consultarValorImpreMix($('#numTotalColor').val(), 1, 'valorColor');                                   
@@ -710,25 +707,59 @@ var eventosImpresionLaer = {
 
         $('#txtCantVarBN').change(function() {
             $('#mensaje').slideUp(500);
-            controlPeticiones.calcularPaginas('txtCantVarBN', 1);
+            controlPeticiones.calcularPaginas($('#txtCantVarBN').val(), 1);
             eventosImpresionLaer.calcularPrecioImpresion();
         });
         $('#txtCantVarColor').change(function() {
             $('#mensaje').slideUp(500);
-            controlPeticiones.calcularPaginas('txtCantVarColor', 2);
+            controlPeticiones.calcularPaginas($('#txtCantVarColor').val(), 2);
             eventosImpresionLaer.calcularPrecioImpresion();
+        });
+
+        $('#cmbxModoImpresion').change(function() {
+//            var modo = $('#cmbxModoImpresion').val();
+//            if(modo == 2){ //Dos caras.
+//                if(!($('#numTotalBN').val() > 1 || $('#numTotalBN').val() > 1)){
+//                    controlPeticiones.imprimirError("Para el modo seleccionado el número total de páginas debe ser mayor.");
+//                    $('#cmbxModoImpresion').val(($('#cmbxModoImpresion').val())-1);
+//                }                
+//            }
+//            else if(modo == 3){ //Dos páginas en una cara.
+//                if(!($('#numTotalBN').val() > 2 || $('#numTotalBN').val() > 2)){
+//                    controlPeticiones.imprimirError("Para el modo seleccionado el número total de páginas debe ser mayor.");
+//                    $('#cmbxModoImpresion').val(($('#cmbxModoImpresion').val())-1);
+//                }                
+//            }
+//            else if(modo == 4){ //Dos páginas en cada cara.
+//                if(!($('#numTotalBN').val() > 2 || $('#numTotalBN').val() > 2)){
+//                    controlPeticiones.imprimirError("Para el modo seleccionado el número total de páginas debe ser mayor.");
+//                    $('#cmbxModoImpresion').val(($('#cmbxModoImpresion').val())-1);
+//                }                
+//            }
+//            else if(modo == 5){ //Cuatro páginas en una cara.
+//                if(!($('#numTotalBN').val() > 4 || $('#numTotalBN').val() > 4)){
+//                    controlPeticiones.imprimirError("Para el modo seleccionado el número total de páginas debe ser mayor.");
+//                    $('#cmbxModoImpresion').val(($('#cmbxModoImpresion').val())-1);
+//                }                
+//            }
+//            else if(modo == 6){ //Cuatro páginas en cada cara.
+//                if(!($('#numTotalBN').val() > 4 || $('#numTotalBN').val() > 4)){
+//                    controlPeticiones.imprimirError("Para el modo seleccionado el número total de páginas debe ser mayor.");
+//                    $('#cmbxModoImpresion').val(($('#cmbxModoImpresion').val())-1);
+//                }                
+//            }
         });
 
         $('#txtBNMixto').change(function() {
             $('#mensaje').slideUp(500);
-            controlPeticiones.calcularPaginas('txtBNMixto', 1);
-            controlPeticiones.PaginasRepetidasEnCampos('txtBNMixto', 'txtColorMixto');
+            controlPeticiones.calcularPaginas($('#txtBNMixto').val(), 1);
+            controlPeticiones.PaginasRepetidasEnCampos($('#txtBNMixto').val(), $('#txtColorMixto').val());
             eventosImpresionLaer.calcularPrecioImpresion();
         });
         $('#txtColorMixto').change(function() {
             $('#mensaje').slideUp(500);
-            controlPeticiones.calcularPaginas('txtColorMixto', 2);
-            controlPeticiones.PaginasRepetidasEnCampos('txtBNMixto', 'txtColorMixto');
+            controlPeticiones.calcularPaginas($('#txtColorMixto').val(), 2);
+            controlPeticiones.PaginasRepetidasEnCampos($('#txtBNMixto'), $('#txtColorMixto'));
             eventosImpresionLaer.calcularPrecioImpresion();
         });
 
@@ -1171,6 +1202,17 @@ var eventosImpresionLaer = {
         if (!valorImprePosible) {
             $('#btnSiguiente').show(500);
         }
+        if (checkSelected >= 0) {
+            if (checkSelected == 1) {
+                $('#txtCantBN').val($('#txtCantColor').val());
+            } else if (checkSelected == 2) {
+                $('#cmbxTipoBN').val(2);
+                $('#cmbxTipoBN').trigger('change');
+                $('#txtCantVarBN').val($('#txtBNMixto').val());
+            }
+        } else {
+            checkSelected = 0;
+        }
         tipoColorSeleccionado = 1;
         $('#lblTotalBN').css({"margin-top": "8px"});
         $('#numTotalColor').val(0);
@@ -1214,9 +1256,22 @@ var eventosImpresionLaer = {
         if (!valorImprePosible) {
             $('#btnSiguiente').show(500);
         }
-        $('#numTotalBN').val(0);
-        $('#txtBNMixto').val('');
-        $('#txtColorMixto').val('');
+
+        if (checkSelected >= 0) {
+            if (checkSelected == 0) {
+                $('#txtCantColor').val($('#txtCantBN').val());
+            } else if (checkSelected == 2) {
+                $('#cmbxTipoColor').val(2);
+                $('#cmbxTipoColor').trigger('change');
+                $('#txtCantVarColor').val($('#txtColorMixto').val());
+            }
+        } else {
+            checkSelected = 1;
+        }
+
+//        $('#numTotalBN').val(0);
+//        $('#txtBNMixto').val('');
+//        $('#txtColorMixto').val('');
         tipoColorSeleccionado = 2;
         $('#lblTotalColor').css({"margin-top": "8px"});
         $('#lblTotalBN').hide();
@@ -1253,8 +1308,21 @@ var eventosImpresionLaer = {
         if (!valorImprePosible) {
             $('#btnSiguiente').show(500);
         }
-        $('#numTotalBN').val(0);
-        $('#numTotalColor').val(0);
+
+        if (checkSelected >= 0) {
+            if (checkSelected == 2) {
+                $('#txtCantBN').val($('#txtCantColor').val());
+            } else if (checkSelected == 2) {
+                $('#cmbxTipoBN').val(2);
+                $('#cmbxTipoBN').trigger('change');
+                $('#txtCantVarBN').val($('#txtBNMixto').val());
+            }
+        }else{
+            checkSelected = 2;
+        }
+
+//        $('#numTotalBN').val(0);
+//        $('#numTotalColor').val(0);
         tipoColorSeleccionado = 3;
         $('#lblTotalBN').css({"margin-top": "0px"});
         $('#lblTotalBN').show();

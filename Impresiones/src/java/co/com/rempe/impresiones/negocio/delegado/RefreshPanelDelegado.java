@@ -35,7 +35,7 @@ public class RefreshPanelDelegado {
     }    
 
     public Respuesta refrescarPanel(int idUsuario,long idUsuarioContacto,int accion) {
-        System.out.println("Acción recibida adslfjlafa: "+accion);
+//        System.out.println("Acción recibida adslfjlafa: "+accion);
         Respuesta respuesta = new Respuesta();
         EntityManager em = null;
         try {
@@ -66,13 +66,13 @@ public class RefreshPanelDelegado {
             //Modificamos nuestra acción actual, escribiendo generalmente...
             Chat chat = new Chat();
             chat = dao.consultarUltimoChatUOrigen(idUsuario, idUsuarioContacto, 0);         
-            System.err.println("ID USUARIO COS¡: "+idUsuario);
-            System.err.println("ID USUARIO DOS: "+idUsuarioContacto);
+//            System.err.println("ID USUARIO COS¡: "+idUsuario);
+//            System.err.println("ID USUARIO DOS: "+idUsuarioContacto);
             if(chat != null){
                 chat.setAccion(accion);
                 ChatDelegado.getInstancia().editarUnRegistro(chat);
             }else{
-                System.err.println("CHAT NULL");
+//                System.err.println("CHAT NULL");
             }
             //De esta manera conocemos nuestro estado actual.
             Usuarios user = new Usuarios();                       
